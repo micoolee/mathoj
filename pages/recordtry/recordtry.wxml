@@ -1,0 +1,17 @@
+<view>
+  <button bindtap='start' type='primary'>录音开始</button>
+</view>
+<view>
+  <button bindtap='stop' type='primary'>录音结束</button>
+</view>
+<view wx:if="{{showyuansheng}}">
+<button bindtap='ting'>ting yuansheng</button>
+<button bindtap='submit'>submit</button>
+</view>
+
+
+<view wx:if="{{showaudio}}">
+  <button bindtap='play' type='primary'>ting return</button>
+</view>
+
+
