@@ -81,6 +81,12 @@ Page({
   },
 
   
+cancelask:function(){
+  this.setData({
+    hide:false
+  })
+},
+
 
 
 
@@ -89,6 +95,21 @@ Page({
       hide: false,
       userid:app.globalData.openid
     }),
+
+wx.uploadFile({
+      url: app.globalData.baseurl + '/ask/',
+  filePath:this.data.img,
+  name: 'img',
+  formData:this.data,
+  success:function(){
+    wx.showModal({
+      title: 'tijiao chengogng',
+      content: 'queding',
+    })
+  }
+})
+
+
     wx.request({
       url: app.globalData.baseurl+'/ask/',
       method:'post',
@@ -101,7 +122,6 @@ Page({
           title: 'tijiao chengogng',
           content: 'queding',
         })
-
       }
     })
   },

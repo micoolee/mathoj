@@ -1,17 +1,35 @@
-<view>
-  <button bindtap='start' type='primary'>录音开始</button>
+<view wx:if="{{recordstate}}">
+  <button bindtap='start' type='primary'  data-id='{{recordstate}}'>录音开始</button>
 </view>
-<view>
-  <button bindtap='stop' type='primary'>录音结束</button>
+<view wx:else>
+  <button bindtap='start' type='primary'  data-id='{{recordstate}}'>录音jieshu</button>
 </view>
+
 <view wx:if="{{showyuansheng}}">
-<button bindtap='ting'>ting yuansheng</button>
+<button bindtap='ting' data-id='{{tingstate}}'>ting yuansheng</button>
 <button bindtap='submit'>submit</button>
 </view>
 
-
 <view wx:if="{{showaudio}}">
-  <button bindtap='play' type='primary'>ting return</button>
+  <button bindtap='play' type='primary' data-id='{{playstate}}'>play return</button>
 </view>
+
+
+
+
+
+<view hidden='true'>
+
+    <view class="progresswrap">
+    <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar"/>
+    </view>
+    <view class="btns">
+    <view bindtap='play'><image src="/images/start.jpg" style='width:20px;height:20px'></image></view>
+    <view bindtap='pause'><image src="/images/pause.jpg" style='width:20px;height:20px'></image></view>
+    </view>
+
+
+</view>
+
 
 

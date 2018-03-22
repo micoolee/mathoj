@@ -1,5 +1,8 @@
 {
   "pages": [
+                "pages/recordtry/recordtry",
+            "pages/index/index",
+
     "pages/tosolve/tosolve",
     "pages/logs/logs",
     "pages/settings/settings",
@@ -8,9 +11,9 @@
     "pages/settings/feedback/feedback",
     "pages/settings/help/help",
     "pages/settings/myques/myques",
-    "pages/question/question",
-        "pages/index/index",
-        "pages/recordtry/recordtry"
+    "pages/question/question"
+
+
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",

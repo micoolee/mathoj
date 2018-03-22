@@ -1,3 +1,6 @@
+
+
+
 <view class='askap'>
     <button bindtap='showquestool' class='aaq'>tiwen</button>
 <view animation="{{animationData}}" class="drawer_box" wx:if="{{hide}}"> 
@@ -7,11 +10,9 @@
   <view class="drawer_content"> 
     <view class="top grid"> 
       <label class="title col-0">detail</label> 
-      <input class="input_base input_h30 col-1" name="desc" value="desc" bindinput='descinput'></input> 
+      <textarea class="input_base input_h30 col-1" auto-height name="desc" value="desc" bindinput='descinput'></textarea> 
     </view> 
     <view class="top grid"> 
-      <!-- <label class="title col-0">picture</label> 
-      <input class="input_base input_h30 col-1" name="img" value="img" bindinput='imginput'></input>  -->
       <view wx:if="{{problempicsrc!='null'}}"><image src='{{problempicsrc}}'></image></view>
       <button bindtap='uploadimg'>img</button>
     </view> 
@@ -29,6 +30,7 @@
     </view> 
   </view> 
   <view class="btn_ok" bindtap="ask" data-statu="close">确定</view> 
+    <view class="btn_cancel" bindtap="cancelask" data-statu="close">quxiao</view> 
 </view>
 </view>
 
