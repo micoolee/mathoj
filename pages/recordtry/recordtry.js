@@ -1,23 +1,22 @@
 // pages/oldMusic/index.js
 const app = getApp()
-
 const recorderManager = wx.getRecorderManager()
 const innerAudioContext = wx.createInnerAudioContext()
 innerAudioContext.autoplay = false
-innerAudioContext.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46'
+// innerAudioContext.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46'
 innerAudioContext.onPlay(() => {
   console.log('开始播放')
 })
 innerAudioContext.onStop(() => {
   console.log('stop play')
 })
+innerAudioContext.onPause(() => {
+  console.log('pause play')
+})
 innerAudioContext.onError((res) => {
   console.log(res.errMsg)
   console.log(res.errCode)
 })
-
-
-
 
 recorderManager.onStart(() => {
   console.log('recorder start')
@@ -29,21 +28,25 @@ recorderManager.onPause(() => {
   console.log('recorder pause')
 })
 recorderManager.onStop((res) => {
+
   app.globalData.audiopath = res.tempFilePath
-  console.log('recorder stop', res)
+
+  app.globalData.duration = res.duration
+
+
   const { tempFilePath } = res
 })
 recorderManager.onFrameRecorded((res) => {
   const { frameBuffer } = res
-  console.log('frameBuffer.byteLength', frameBuffer.byteLength)
+
 })
 
 const options = {
-  duration: 10000,
+  duration: 60000,
   sampleRate: 44100,
   numberOfChannels: 1,
   encodeBitRate: 192000,
-  format: 'aac',
+  format: 'wav',
   frameSize: 50
 }
 
@@ -52,38 +55,32 @@ Page({
     showaudio:false,
     showyuansheng:false,
     playstate:false,
-    tingstate:false,
+    tingstate:true,
     recordstate:true,
-
     curTimeVal:0,
-    duration:100
+    duration:100,
+    audioSrc:''
 
   },
-
-  // start: function () {
-  //   recorderManager.start(options)
-  // },
-  // stop:function(){
-  //   recorderManager.stop()
-  //   this.setData({
-  //     showyuansheng:true,
-  //   })
-  // },
 
 
 start:function(event){
   if (event.currentTarget.dataset.id) {
+    recorderManager.start()
+    
     this.setData({
-     recordstate: false
+      recordstate: false
     })
-    recorderManager.start(options)
-  
   } else {
+    innerAudioContext.src = app.globalData.audiopath;
+    recorderManager.stop()
     this.setData({
       recordstate: true,
-      showyuansheng: true
+      showyuansheng: true,
+      audioSrc: app.globalData.audiopath
     })
-    recorderManager.stop()
+  
+
   }
 },
 
@@ -105,7 +102,7 @@ submit:function(){
 },
 
 ting:function(event){
-  console.log(app.globalData.audiopath)
+
   if (event.currentTarget.dataset.id) {
     this.setData({
       tingstate: false
@@ -122,7 +119,7 @@ ting:function(event){
 },
 
 play:function(event){
-  console.log(event.currentTarget.dataset.id)
+
   if (event.currentTarget.dataset.id){
 
     innerAudioContext.stop()
@@ -146,9 +143,127 @@ play:function(event){
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
 
-  },
+
+
+
+
+
+
+
+
+
+
+
+
+onLoad:function(){
+
+},
+
+
+
+
+  play1:   function (e) {
+
+    var that = this;
+    console.log(app.globalData.audiopath)
+    innerAudioContext.src = app.globalData.audiopath;
+    console.log(innerAudioContext.src)
+    innerAudioContext.play(options);
+
+    innerAudioContext.onPlay((res) =>that.updateTime(that)) //没有这个事件触发，无法执行updatatime
+
+    this.setData({
+      tingstate: false
+    })
+},
+
+
+
+
+
+pause1: function() {
+
+  innerAudioContext.pause();
+  this.setData({
+    tingstate: true
+  })
+},
+
+
+
+
+
+updateTime: function(that) {
+  console.log("duratio的值：", innerAudioContext.duration)
+  innerAudioContext.onTimeUpdate((res) => {
+    //更新时把当前的值给slide组件里的value值。slide的滑块就能实现同步更新
+    
+
+    that.setData({
+      duration: innerAudioContext.duration.toFixed(2) *100,
+      curTimeVal: innerAudioContext.currentTime.toFixed(2) *100,
+    })
+  })
+
+  //播放到最后一秒
+  if (innerAudioContext.duration.toFixed(2) - innerAudioContext.currentTime.toFixed(2)
+    <= 0) {
+    that.setStopState(that)
+  }
+
+
+  innerAudioContext.onEnded(() => {
+    that.setStopState(that)
+  })
+
+
+},
+
+//拖动滑块
+
+
+
+slideBar: function(e) {
+  let that = this;
+
+  var curval = e.detail.value; //滑块拖动的当前值
+
+  innerAudioContext.seek(curval); //让滑块跳转至指定位置
+
+  innerAudioContext.onSeeked((res) => {
+
+    this.updateTime(that) //注意这里要继续出发updataTime事件，
+
+  })
+
+
+},
+
+
+
+setStopState: function(that) {
+
+
+  that.setData({
+
+    curTimeVal: 0,
+    tingstate: true
+
+  })
+
+  innerAudioContext.stop()
+
+},
+
+
+
+
+
+
+
+
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -201,35 +316,3 @@ play:function(event){
 
 
 })
-
-
-
-// function play(audio){
-//   innerAudioContext.autoplay = true
-//   console.log(app.globalData.audiopath)
-//   innerAudioContext.src =audio
-//   // innerAudioContext.onPlay(() => {
-//   //   console.log('开始播放')
-//   // })
-//   innerAudioContext.onStop(() => {
-//     console.log('stop')
-//   })
-//   innerAudioContext.onError((res) => {
-//     console.log(res.errMsg)
-//     console.log(res.errCode)
-//   })
-// }
-
-
-// function stop(audio) {
-//   // innerAudioContext.autoplay = true
-//   // console.log(app.globalData.audiopath)
-//   innerAudioContext.src = audio
-//   innerAudioContext.onStop(() => {
-//     console.log('stop')
-//   })
-//   innerAudioContext.onError((res) => {
-//     console.log(res.errMsg)
-//     console.log(res.errCode)
-//   })
-// }

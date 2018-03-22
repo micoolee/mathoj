@@ -1,35 +1,41 @@
 <view wx:if="{{recordstate}}">
-  <button bindtap='start' type='primary'  data-id='{{recordstate}}'>录音开始</button>
+  <button bindtap='start' type='primary'  data-id='{{recordstate}}'>点我录音</button>
 </view>
 <view wx:else>
-  <button bindtap='start' type='primary'  data-id='{{recordstate}}'>录音jieshu</button>
+  <button bindtap='start' type='primary'  data-id='{{recordstate}}'>点我结束</button>
 </view>
 
 <view wx:if="{{showyuansheng}}">
-<button bindtap='ting' data-id='{{tingstate}}'>ting yuansheng</button>
-<button bindtap='submit'>submit</button>
-</view>
-
-<view wx:if="{{showaudio}}">
-  <button bindtap='play' type='primary' data-id='{{playstate}}'>play return</button>
-</view>
 
 
 
-
-
-<view hidden='true'>
 
     <view class="progresswrap">
     <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar"/>
     </view>
     <view class="btns">
-    <view bindtap='play'><image src="/images/start.jpg" style='width:20px;height:20px'></image></view>
-    <view bindtap='pause'><image src="/images/pause.jpg" style='width:20px;height:20px'></image></view>
+    <view bindtap='play1' wx:if="{{tingstate}}"><image src="/images/start.jpg" style='width:40px;height:40px'></image></view>
+    <view bindtap='pause1' wx:else><image src="/images/pause.jpg" style='width:40px;height:40px'></image></view>
     </view>
 
 
+
+ <button bindtap='ting' data-id='{{tingstate}}'>点我听原声</button> 
+<button bindtap='submit'>上传</button>
 </view>
+
+<view wx:if="{{showaudio}}">
+  <button bindtap='play' type='primary' data-id='{{playstate}}'>点我听合声</button>
+</view>
+
+
+
+
+
+
+
+
+
 
 
 
