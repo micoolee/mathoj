@@ -196,6 +196,7 @@ pause1: function() {
 
 updateTime: function(that) {
   console.log("duratio的值：", innerAudioContext.duration)
+  console.log('curtime',innerAudioContext.currentTime)
   innerAudioContext.onTimeUpdate((res) => {
     //更新时把当前的值给slide组件里的value值。slide的滑块就能实现同步更新
     
@@ -207,10 +208,10 @@ updateTime: function(that) {
   })
 
   //播放到最后一秒
-  if (innerAudioContext.duration.toFixed(2) - innerAudioContext.currentTime.toFixed(2)
-    <= 0) {
-    that.setStopState(that)
-  }
+  // if (innerAudioContext.duration.toFixed(2) - innerAudioContext.currentTime.toFixed(2)
+  //   <= 0) {
+  //   that.setStopState(that)
+  // }
 
 
   innerAudioContext.onEnded(() => {
