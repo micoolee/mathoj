@@ -1,4 +1,5 @@
 /* pages/oldMusic/index.wxss */
 view{
   padding: 15px;
+
 }

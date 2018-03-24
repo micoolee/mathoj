@@ -6,10 +6,7 @@
                 <text class="tag">阅读</text>
             </view>
             <view class="que-title">
-                选择 Kindle 而不是纸质书的原因是什么？
-            </view>
-            <view class="que-content">
-                WEB前端*不靠谱天气预报员*想做代码小仙女
+                {{desc}}
             </view>
             <view class="que-follow">
                 <view class="left">
@@ -27,15 +24,63 @@
                 </view>
             </view>
         </view>
-        <view class="que-operate flex-wrp">
+<view >
+    <view class='feed-item'> 
+      jiaoshihuida:
+    </view>
+    <view wx:for="{{answer}}">
+        <view class='feed-item'>
+          <text style='font-size:15px'>
+                  {{index+1}}:{{item.fields.text}}
+          </text>
+
+          <view wx:if="{{item.fields.record}}"   >
+            <audio  src="{{item.fields.record}}"  ></audio>
+            <view class='record-controller'>
+                <button type="primary" data-recordsrc='{{item.fields.record}}' bindtap="audioPlay">播放</button>
+                <button type="primary" bindtap="audioPause">暂停</button>
+                <button type="primary" bindtap="audioStart">回到开头</button>
+            </view>
+          </view>
+            <view wx:if="{{item.fields.image}}"><image class='imagestyle' src='{{item.fields.image}}'></image></view>
+        </view>
+    </view>
+
+</view>
+
+        <view class="que-operate flex-wrp" hidden='{{hidehuida}}'>
             <view class="invite flex-item">
                 <image src="../../images/invite.png"></image>
                 <text>邀请回答</text>
             </view>
-            <view class="write flex-item">
+            <view class="write flex-item" bindtap='showanswerbox'>
                 <image src="../../images/write.png"></image>
                 <text>写回答</text>
             </view>
+        </view>
+                <!-- teacher answer block -->
+        <view name='teacheranswer'  hidden='{{answerbox}}' class='answer-box' >
+          <view style='height:100px'>
+            <textarea placeholder='qing shu ru' bindinput='textsolu' auto-height auto-focus></textarea>
+          </view>
+           <button bindtap='takephoto' type='primary'>点我paizhao</button>
+            <view wx:if="{{recordstate}}">
+              <button bindtap='start' type='primary'  data-id='{{recordstate}}'>点我录音</button>
+            </view>
+            <view wx:else>
+              <button bindtap='start' type='primary'  data-id='{{recordstate}}'>点我结束</button>
+            </view>
+            <view wx:if="{{showyuansheng}}">
+                <view class="progresswrap">
+                <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar"/>
+            </view>
+            <view class="btns" style='margin-right:45%'>
+                <view bindtap='play1' wx:if="{{tingstate}}"><image src="/images/start.jpg" style='width:40px;height:40px'></image></view>
+                <view bindtap='pause1' wx:else><image src="/images/pause.jpg" style='width:40px;height:40px'></image></view>
+            </view>
+            
+            </view>
+            <button bindtap='submitanswer'>上传</button>
         </view>
     </view>
     <view class="answer-feed">
@@ -72,7 +117,7 @@
 </view>
 
 
-
+<!-- 
 <view>
   <button bindtap='start' type='primary'>录音开始</button>
 </view>
@@ -88,4 +133,4 @@
 <view wx:if="{{showaudio}}">
   <button bindtap='play' type='primary'>ting return</button>
 </view>
-
+ -->

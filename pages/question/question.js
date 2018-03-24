@@ -1,9 +1,25 @@
 //answer.js
 var util = require('../../utils/util.js')
-
 var app = getApp()
-const recorderManager = wx.getRecorderManager()
+//inner audio
 const innerAudioContext = wx.createInnerAudioContext()
+innerAudioContext.autoplay = false
+innerAudioContext.onPlay(() => {
+  console.log('开始播放')
+})
+innerAudioContext.onStop(() => {
+  console.log('stop play')
+})
+innerAudioContext.onPause(() => {
+  console.log('pause play')
+})
+innerAudioContext.onError((res) => {
+  console.log(res.errMsg)
+  console.log(res.errCode)
+})
+
+//record manager
+const recorderManager = wx.getRecorderManager()
 recorderManager.onStart(() => {
   console.log('recorder start')
 })
@@ -15,33 +31,45 @@ recorderManager.onPause(() => {
 })
 recorderManager.onStop((res) => {
   app.globalData.audiopath = res.tempFilePath
-  console.log('recorder stop', res)
+  app.globalData.duration = res.duration
   const { tempFilePath } = res
 })
 recorderManager.onFrameRecorded((res) => {
   const { frameBuffer } = res
-  console.log('frameBuffer.byteLength', frameBuffer.byteLength)
 })
-
 const options = {
-  duration: 10000,
+  duration: 60000,
   sampleRate: 44100,
   numberOfChannels: 1,
   encodeBitRate: 192000,
-  format: 'aac',
-  frameSize: 50
+  format: 'wav',
+  frameSize: 50,
+  answerbox:false
 }
-
 
 
 
 Page({
   data: {
-    motto: '知乎--微信小程序版',
+    motto: '小程序版',
     userInfo: {},
     problemid:'unknown',
+
     showaudio: false,
     showyuansheng: false,
+    playstate: false,
+    tingstate: true,
+    recordstate: true,
+    curTimeVal: 0,
+    duration: 100,
+    audioSrc: '',
+    answerbox:true,
+
+    hidehuida:false,
+    textsolu:'',
+    answerpicsrc:'',
+    desc:'',
+    answer:null
   },
   //事件处理函数
   bindItemTap: function() {
@@ -50,22 +78,58 @@ Page({
     })
   },
 
+  onReady:function(){
 
-  start: function () {
-    recorderManager.start(options)
   },
-  stop: function () {
-    recorderManager.stop()
+
+
+  audioPlay: function (event) {
+    console.log(event)
+    innerAudioContext.src = event.currentTarget.dataset.recordsrc
+    console.log(innerAudioContext.src)
+    innerAudioContext.play()
+  },
+  audioPause: function () {
+    innerAudioContext.pause()
+  },
+
+  audioStart: function () {
+    innerAudioContext.seek(0)
+  },
+
+
+
+  // show teacher write area
+  showanswerbox:function(){
     this.setData({
-      showyuansheng: true,
+      answerbox:false
     })
   },
+
+  //start to record and stop
+  start: function (event) {
+    if (event.currentTarget.dataset.id) {
+      recorderManager.start()
+      this.setData({
+        recordstate: false
+      })
+    } else {
+      innerAudioContext.src = app.globalData.audiopath;
+      recorderManager.stop()
+      this.setData({
+        recordstate: true,
+        showyuansheng: true,
+        audioSrc: app.globalData.audiopath
+      })
+    }
+  },
+
 
 
   submit: function () {
     var that = this;
     wx.uploadFile({
-      url: app.globalData.baseurl + '/test/',
+      url: app.globalData.baseurl + '/upload/',
       filePath: app.globalData.audiopath,
       name: 'record',
       success: function (res) {
@@ -76,58 +140,176 @@ Page({
       }
     })
   },
-
-  ting: function () {
-    play(app.globalData.audiopath)
+  //change text sulutions
+  textsolu:function(e){
+    this.setData({
+      textsolu:e.detail.value
+    })
   },
 
-  play: function () {
-    play(app.globalData.returnaudiopath)
+
+
+
+
+
+
+  play: function (event) {
+
+    if (event.currentTarget.dataset.id) {
+
+      innerAudioContext.stop()
+      this.setData({
+        playstate: false
+      })
+    } else {
+
+      innerAudioContext.autoplay = true
+      innerAudioContext.src = app.globalData.returnaudiopath
+      innerAudioContext.play()
+
+      this.setData({
+        playstate: true
+      })
+    }
+
   },
 
+  play1: function (e) {
+    var that = this;
+    console.log(app.globalData.audiopath)
+    innerAudioContext.src = app.globalData.audiopath;
+    console.log(innerAudioContext.src)
+    innerAudioContext.play(options);
+    innerAudioContext.onPlay((res) => that.updateTime(that)) //没有这个事件触发，无法执行updatatime
+    this.setData({
+      tingstate: false
+    })
+  },
+  pause1: function () {
+    innerAudioContext.pause();
+    this.setData({
+      tingstate: true
+    })
+  },
+  updateTime: function (that) {
+    console.log("duratio的值：", innerAudioContext.duration)
+    console.log('curtime', innerAudioContext.currentTime)
+    innerAudioContext.onTimeUpdate((res) => {
+      //更新时把当前的值给slide组件里的value值。slide的滑块就能实现同步更新
+      that.setData({
+        duration: innerAudioContext.duration.toFixed(2) * 100,
+        curTimeVal: innerAudioContext.currentTime.toFixed(2) * 100,
+      })
+    })
 
+    innerAudioContext.onEnded(() => {
+      that.setStopState(that)
+    })
+  },
+  //拖动滑块
+  slideBar: function (e) {
+    let that = this;
+    var curval = e.detail.value; //滑块拖动的当前值
+    innerAudioContext.seek(curval); //让滑块跳转至指定位置
+    innerAudioContext.onSeeked((res) => {
+      this.updateTime(that) //注意这里要继续出发updataTime事件，
+    })
+  },
 
+  setStopState: function (that) {
+    that.setData({
+      curTimeVal: 0,
+      tingstate: true
+    })
+  innerAudioContext.stop()
+  },
+
+  takephoto: function () {
+    var that = this;
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success(res) {
+        const src = res.tempFilePaths[0]
+        console.log(src)
+        that.setData({
+          answerpicsrc: src,
+        })
+      }
+    })
+  },
+
+uploadimg:function(that){
+  wx.uploadFile({
+    url: app.globalData.baseurl + '/submitanswer/',
+    filePath: that.data.answerpicsrc,
+    formData: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'true' },
+    name: 'image',
+    success: function (res) {
+      console.log('upload image success')
+      console.log(res)
+    }
+  })
+},
+
+uploadrecord:function(that){
+  wx.uploadFile({
+    formData: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'false' },
+    url: app.globalData.baseurl + '/submitanswer/',
+    filePath: app.globalData.audiopath,
+    name: 'record',
+    success: function (res) {
+      console.log('upload record success')
+    },
+  })
+},
+  submitanswer: function () {
+    var that = this;
+    if (app.globalData.audiopath){
+      that.uploadrecord(that)
+    }
+    if(that.data.answerpicsrc){
+      that.uploadimg(that)
+    }
+  },
 
 
 
   onLoad: function (option) {
+    var that = this
+    this.setData({
+      problemid:option.problemid
+    })
+    var that = this
     wx.request({
-      url: app.globalData.baseurl+'/questiondetail/',
-      method:'post',
-      data: {'problemid':option.problemid,'userid':app.globalData.openid},
+      url: app.globalData.baseurl + '/questiondetail/',
+      method: 'post',
+      data: { 'problemid': that.data.problemid, 'userid': app.globalData.openid },
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      success:function(res){
-        console.log(res)
+      success: function (res) {
+        var problem = JSON.parse(res.data.problem)
+        var answer = JSON.parse(res.data.answer)
+        var hidehuida = JSON.parse(res.data.answerbox)
+        console.log(hidehuida)
+        that.setData({
+          desc: problem[0].fields.description,
+          answer:answer,
+          hidehuida : hidehuida
+        })
+      },
+      fail:function(){
+        console.log('fail load detail')
       }
-    })
-    console.log(option.problemid) 
-    console.log('onLoad')
-    var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
-      //更新数据
-      that.setData({
-        userInfo:userInfo
-      })
     })
   },
   tapName: function(event){
     console.log(event)
+  },
+
+  onShow:function(){
+
   }
 })
-
-
-function play(audio) {
-  innerAudioContext.autoplay = true
-  console.log(app.globalData.audiopath)
-  innerAudioContext.src = audio
-  innerAudioContext.onPlay(() => {
-    console.log('开始播放')
-  })
-  innerAudioContext.onError((res) => {
-    console.log(res.errMsg)
-    console.log(res.errCode)
-  })
-}

@@ -24,9 +24,9 @@ Page({
       hide:true
     })
   },
-
+// click a question
   bindQueTap: function (event) {
-    var problemid = event.target.dataset.id
+    var problemid = event.currentTarget.dataset.id
     wx.navigateTo({
       url: `../question/question?problemid=${problemid}`
     })
@@ -74,6 +74,7 @@ Page({
         })
 
 
+
       }
     })
 
@@ -96,34 +97,19 @@ cancelask:function(){
       userid:app.globalData.openid
     }),
 
-wx.uploadFile({
-      url: app.globalData.baseurl + '/ask/',
-  filePath:this.data.img,
-  name: 'img',
-  formData:this.data,
-  success:function(){
-    wx.showModal({
-      title: 'tijiao chengogng',
-      content: 'queding',
-    })
-  }
-})
-
-
-    wx.request({
-      url: app.globalData.baseurl+'/ask/',
-      method:'post',
-      data:this.data,
-      header:{
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      success:function(res){
+    wx.uploadFile({
+          url: app.globalData.baseurl + '/ask/',
+      filePath:this.data.img,
+      name: 'problempic',
+      formData:this.data,
+      success:function(){
         wx.showModal({
           title: 'tijiao chengogng',
           content: 'queding',
         })
       }
     })
+
   },
 
 
@@ -154,15 +140,15 @@ wx.uploadFile({
         var that = this
 
 
-        wx.request({
-          url: app.globalData.baseurl + '/',
-          success: function (res) {
-            console.log(res)
-            that.setData({
-              problemlist: res.data
-            })
-          }
-        })
+        // wx.request({
+        //   url: app.globalData.baseurl + '/',
+        //   success: function (res) {
+        //     console.log(res)
+        //     that.setData({
+        //       problemlist: res.data
+        //     })
+        //   }
+        // })
 
 
       }
@@ -179,15 +165,15 @@ wx.uploadFile({
           var that = this
 
 
-          wx.request({
-            url: app.globalData.baseurl+'/',
-            success:function(res){
-              console.log(res)
-              that.setData({
-                problemlist:res.data
-              })
-            }
-          })
+          // wx.request({
+          //   url: app.globalData.baseurl+'/',
+          //   success:function(res){
+          //     console.log(res)
+          //     that.setData({
+          //       problemlist:res.data
+          //     })
+          //   }
+          // })
 
 
         }
@@ -254,7 +240,27 @@ wx.uploadFile({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    var that = this
+    　　console.log('--------下拉刷新-------')
+    　　wx.showNavigationBarLoading() //在标题栏中显示加载
+
+    　　wx.request({
+        url: app.globalData.baseurl + '/',
+
+      success: function (res) {
+        that.setData({
+          problemlist: res.data
+        })
+      },
+      fail: function () {
+        // fail
+      },
+      complete: function () {
+        // complete
+        wx.hideNavigationBarLoading() //完成停止加载
+        wx.stopPullDownRefresh() //停止下拉刷新
+      }
+    })                
   },
 
   /**
