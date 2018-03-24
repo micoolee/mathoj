@@ -6,6 +6,7 @@ App({
     // baseurl:'http://mikelee.vip.guyubao.com',
     openid: 'null',
     audiopath: null,
+    audiopathbak:null,
     returnaudiopath:'',
     duration:100
   },

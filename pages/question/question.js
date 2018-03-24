@@ -1,6 +1,7 @@
 //answer.js
 var util = require('../../utils/util.js')
 var app = getApp()
+
 //inner audio
 const innerAudioContext = wx.createInnerAudioContext()
 innerAudioContext.autoplay = false
@@ -30,6 +31,7 @@ recorderManager.onPause(() => {
   console.log('recorder pause')
 })
 recorderManager.onStop((res) => {
+
   app.globalData.audiopath = res.tempFilePath
   app.globalData.duration = res.duration
   const { tempFilePath } = res
@@ -49,7 +51,7 @@ const options = {
 
 
 
-Page({
+var page = Page({
   data: {
     motto: '小程序版',
     userInfo: {},
@@ -65,6 +67,7 @@ Page({
     audioSrc: '',
     answerbox:true,
 
+    audiopath:'',
     hidehuida:false,
     textsolu:'',
     answerpicsrc:'',
@@ -116,10 +119,13 @@ Page({
     } else {
       innerAudioContext.src = app.globalData.audiopath;
       recorderManager.stop()
+
+      
+
       this.setData({
         recordstate: true,
         showyuansheng: true,
-        audioSrc: app.globalData.audiopath
+        audioSrc: app.globalData.audiopath,
       })
     }
   },
@@ -240,6 +246,23 @@ Page({
     })
   },
 
+  uploadtext: function (that) {
+    wx.request({
+      url: app.globalData.baseurl + '/submitanswer/',
+      method:'post',
+      data: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'text' },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      success: function (res) {
+          wx.showToast({
+            title: 'ti jiao cheng gong',
+          })
+      }
+    })
+  },
+
+
 uploadimg:function(that){
   wx.uploadFile({
     url: app.globalData.baseurl + '/submitanswer/',
@@ -247,8 +270,9 @@ uploadimg:function(that){
     formData: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'true' },
     name: 'image',
     success: function (res) {
-      console.log('upload image success')
-      console.log(res)
+      wx.showToast({
+        title: 'ti jiao cheng gong',
+      })
     }
   })
 },
@@ -260,8 +284,9 @@ uploadrecord:function(that){
     filePath: app.globalData.audiopath,
     name: 'record',
     success: function (res) {
-      console.log('upload record success')
-    },
+      wx.showToast({
+        title: 'ti jiao cheng gong',
+      })    },
   })
 },
   submitanswer: function () {
@@ -272,6 +297,16 @@ uploadrecord:function(that){
     if(that.data.answerpicsrc){
       that.uploadimg(that)
     }
+    if (! that.data.answerpicsrc & ! app.globalData.audiopath & that.data.textsolu != ''){
+      that.uploadtext(that)
+    }
+    if (!that.data.answerpicsrc & !app.globalData.audiopath & that.data.textsolu == ''){
+      wx.showModal({
+        title: 'input your answer at least one item',
+        content: '',
+      })
+    }
+    app.globalData.audiopath = null
   },
 
 
@@ -281,7 +316,7 @@ uploadrecord:function(that){
     this.setData({
       problemid:option.problemid
     })
-    var that = this
+
     wx.request({
       url: app.globalData.baseurl + '/questiondetail/',
       method: 'post',
@@ -293,7 +328,6 @@ uploadrecord:function(that){
         var problem = JSON.parse(res.data.problem)
         var answer = JSON.parse(res.data.answer)
         var hidehuida = JSON.parse(res.data.answerbox)
-        console.log(hidehuida)
         that.setData({
           desc: problem[0].fields.description,
           answer:answer,
@@ -309,7 +343,13 @@ uploadrecord:function(that){
     console.log(event)
   },
 
+  onReady:function(){
+    
+  },
   onShow:function(){
+
+  },
+  onHide:function(){
 
   }
 })
