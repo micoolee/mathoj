@@ -3,12 +3,15 @@ App({
   globalData: {
     userInfo: null,
     baseurl: 'http://www.liyuanye.club',
-    // baseurl:'http://mikelee.vip.guyubao.com',
     openid: 'null',
     audiopath: null,
     audiopathbak:null,
     returnaudiopath:'',
-    duration:100
+    duration:100,
+    avatar:null,
+    nickname:null,
+    screenwidth:0,
+    screenheight:0,
   },
 
   onLaunch: function () {
@@ -17,6 +20,9 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
     var that = this
+    that.globalData.screenwidth = wx.getSystemInfoSync().windowWidth  
+    that.globalData.screenheight = wx.getSystemInfoSync().windowHeight
+    
     // 登录
     wx.login({
       success: res => {
@@ -27,7 +33,6 @@ App({
           url: this.globalData.baseurl + '/getopenid/',
           method: 'GET',
           success: function (res) {
-
             that.globalData.openid = res.data
           },
           fail: function (e) {
@@ -36,26 +41,11 @@ App({
         })
       }
     })
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
 
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
-      }
-    })
+
+
+
+
   }
 
 })

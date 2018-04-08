@@ -1,0 +1,5 @@
+/* pages/ask/ask.wxss */
+.section{
+  display: flex;
+  padding: 10px;
+}

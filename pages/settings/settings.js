@@ -12,17 +12,6 @@ Page({
   },
   onLoad: function (options) {
 
-    // 生命周期函数--监听页面加载   
-    console.log('onLoad')
-  
-    //调用应用实例的方法获取全局数据
-    // app.getUserInfo(function (userInfo) {
-    //   //更新数据
-    //   that.setData({
-    //     userInfo: userInfo
-   
-
-
   },
   onShareAppMessage: function () {
     // 用户点击右上角分享
@@ -38,26 +27,45 @@ Page({
       success: function (res) {
         // success
       },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
     })
   },
+
+
+
+  showMySubs: function () {
+    wx.navigateTo({
+      url: './mysubs/mysubs',
+      success: function (res) {
+        // success
+      },
+    })
+  },
+
+
+  showMyBrow: function () {
+    wx.showModal({
+      title: 'todo',
+      content: '',
+    })
+  },
+
+  showMyComm: function () {
+    wx.showModal({
+      title: 'todo',
+      content: '',
+    })
+  },
+
+
+
+
+
   showClause: function () {
     wx.navigateTo({
       url: './clause/clause',
       success: function (res) {
-        // success
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
       }
+
     })
   },
   showHelp: function () {
@@ -66,12 +74,6 @@ Page({
       success: function (res) {
         // success
       },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
     })
   },
   showFeedback: function () {
@@ -80,12 +82,6 @@ Page({
       success: function(res){
         // success
       },
-      fail: function() {
-        // fail
-      },
-      complete: function() {
-        // complete
-      }
     })
   },
 

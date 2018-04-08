@@ -5,11 +5,19 @@
   </view>
   <view class="list-container">
   <view class="list-item" bindtap="showMyQues">
-    <text class="list-name">我的ques</text>
+    <text class="list-name">我的提问</text>
     <image class="list-icon" src="/images/chevron.png"></image>
   </view>
-  <view class="list-item" bindtap="showClause">
-    <text class="list-name">使用条款</text>
+    <view class="list-item" bindtap="showMySubs">
+    <text class="list-name">我的关注</text>
+    <image class="list-icon" src="/images/chevron.png"></image>
+  </view>
+    <view class="list-item" bindtap="showMyBrow">
+    <text class="list-name">我的浏览</text>
+    <image class="list-icon" src="/images/chevron.png"></image>
+  </view>
+      <view class="list-item" bindtap="showMyComm">
+    <text class="list-name">我的评论</text>
     <image class="list-icon" src="/images/chevron.png"></image>
   </view>
   <view class="list-item" bindtap="showHelp">

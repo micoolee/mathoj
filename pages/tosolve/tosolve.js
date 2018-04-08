@@ -10,18 +10,11 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     problempicsrc:'null',
-    // userid: app.globalData.openid,
-    hide:false,
     animationData:null,
-    desc:'nodesc',
-    img:'noimg',
-    grade:'nograde',
-    easy:'noeasy',
-    reward:'noreward'
   },
   showquestool:function(){
-    this.setData({
-      hide:true
+    wx.navigateTo({
+      url: '../ask/ask',
     })
   },
 // click a question
@@ -33,94 +26,98 @@ Page({
   },
 
 
-  descinput: function (e) {
-    this.setData({
-      desc: e.detail.value
-    })
-  },
-  // imginput: function (e) {
+
+
+
+  // easyinput: function (e) {
   //   this.setData({
-  //     img: e.detail.value
+  //     easy: e.detail.value
   //   })
   // },
-  gradeinput: function (e) {
-    this.setData({
-      grade: e.detail.value
-    })
-  },
-  easyinput: function (e) {
-    this.setData({
-      easy: e.detail.value
-    })
-  },
-  rewardinput: function (e) {
-    this.setData({
-      reward: e.detail.value
-    })
-  },
-
-  uploadimg :function(){
-    var that = this;
-    wx.chooseImage({
-      count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success(res) {
-        const src = res.tempFilePaths[0]
-        console.log(src)
-        that.setData({
-          problempicsrc:src,
-                img: src
-        })
-
-
-
-      }
-    })
-
-
-  },
-
-  
-cancelask:function(){
-  this.setData({
-    hide:false
-  })
-},
-
-
-
-
-  ask:function(){
-    this.setData({
-      hide: false,
-      userid:app.globalData.openid
-    }),
-
-    wx.uploadFile({
-          url: app.globalData.baseurl + '/ask/',
-      filePath:this.data.img,
-      name: 'problempic',
-      formData:this.data,
-      success:function(){
-        wx.showModal({
-          title: 'tijiao chengogng',
-          content: 'queding',
-        })
-      }
-    })
-
-  },
-
-
-
-
-
-
-
-
 
   onLoad: function () {
+
+    var that = this
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: res => {
+
+              app.globalData.userInfo = res.userInfo
+              app.globalData.avatar = res.userInfo.avatarUrl
+              app.globalData.nickname = res.userInfo.nickName
+                console.log('11111')
+                console.log(app.globalData.avatar)
+                loading(that)
+
+              
+              if (app.userInfoReadyCallback) {
+                app.userInfoReadyCallback(res)
+              }
+            }, complete: function (res) {
+
+            }
+          })
+        }
+        else {
+          wx.getUserInfo({
+            success: function (res) {
+
+              app.globalData.avatar = res.userInfo.avatarUrl
+              app.globalData.nickname = res.userInfo.nickName
+              loading(that)
+              console.log('22222')              
+              that.onShow()
+
+            },
+            fail: function () {
+              wx.showModal({
+                cancelText: '拒绝授权',
+                confirmText: '确定授权',
+                title: '提示',
+                content: '如果您继续点击拒绝授权,将无法体验。',
+                success: function (res) {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: (res) => {
+                        res.authSetting["scope.userInfo"] = true
+                        if (res.authSetting["scope.userInfo"]) {
+                          wx.getUserInfo({
+                            success: function (res) {
+         
+                              app.globalData.avatar = res.userInfo.avatarUrl
+                              app.globalData.nickname = res.userInfo.nickName
+                              loading(that)
+                              console.log('33333')
+                              that.onShow()
+                            }
+                          })
+                        }
+                      }, fail: function (res) {
+
+                      }
+                    })
+                  } else {
+                    wx.redirectTo({
+                      url: '../index/index'
+                    })
+                  }
+                }
+              })
+            }
+
+          })
+
+        }
+
+      }
+    })
+
+
+
+
+
     if (app.globalData.userInfo) {
       console.log('111')
       this.setData({
@@ -138,19 +135,6 @@ cancelask:function(){
           hasUserInfo: true
         })
         var that = this
-
-
-        // wx.request({
-        //   url: app.globalData.baseurl + '/',
-        //   success: function (res) {
-        //     console.log(res)
-        //     that.setData({
-        //       problemlist: res.data
-        //     })
-        //   }
-        // })
-
-
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
@@ -165,16 +149,7 @@ cancelask:function(){
           var that = this
 
 
-          // wx.request({
-          //   url: app.globalData.baseurl+'/',
-          //   success:function(res){
-          //     console.log(res)
-          //     that.setData({
-          //       problemlist:res.data
-          //     })
-          //   }
-          // })
-
+    
 
         }
       })
@@ -196,7 +171,6 @@ cancelask:function(){
 
 
 
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -208,9 +182,8 @@ cancelask:function(){
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+
     var that = this
-
-
     wx.request({
       url: app.globalData.baseurl + '/',
       success: function (res) {
@@ -226,7 +199,7 @@ cancelask:function(){
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
@@ -275,19 +248,56 @@ cancelask:function(){
    */
   onShareAppMessage: function () {
   
-  }
-
-  // data:{
-  //   hide:false,
-  //   desc: '',
-  //   img: '',
-  //   grade: '',
-  //   easy: '',
-  //   reward: '',
-  //   userInfo: '',
-  //   hasUserInfo: true,
-  //   userid:'',
+  },
 
 
-  // }
 })
+
+
+
+
+
+
+
+
+
+
+
+function loading(that) {
+  if (app.globalData.openid != 'null') {
+    wx.showToast({
+      title: '加载完成~',
+    })
+    console.log(app.globalData.openid)
+    uploadavatar()
+
+    that.onShow()
+  } else {
+    setTimeout(function () {
+      wx.showLoading({
+        title: '加载中',
+      })
+      loading(that)
+    }, 100)
+  }
+}
+
+
+
+function uploadavatar() {
+  wx.request({
+    url: app.globalData.baseurl + '/uploadavatar/',
+    method: 'post',
+    data: { 'userid': app.globalData.openid, 'username': app.globalData.nickname, 'avatar': app.globalData.avatar },
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    success: function () {
+      console.log('succ')
+    }
+
+
+  })
+
+
+}

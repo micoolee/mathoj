@@ -56,7 +56,6 @@ var page = Page({
     motto: '小程序版',
     userInfo: {},
     problemid:'unknown',
-
     showaudio: false,
     showyuansheng: false,
     playstate: false,
@@ -66,13 +65,50 @@ var page = Page({
     duration: 100,
     audioSrc: '',
     answerbox:true,
-
     audiopath:'',
     hidehuida:false,
     textsolu:'',
     answerpicsrc:'',
     desc:'',
-    answer:null
+    answer:null,
+    commentcontent:null,
+    subscribe_door:true
+  },
+  subscribe:function(e){
+    var that = this
+    console.log(e.target.dataset.id)
+    if (e.target.dataset.id==true){
+      wx.request({
+        url: app.globalData.baseurl + '/subscribe/',
+        data:{'questionid':this.data.problemid,'userid':app.globalData.openid},
+        success:function(){
+          console.log('subscribe success')
+          that.setData({
+            subscribe_door: false
+          })
+        }
+      })
+
+
+
+    }else{
+      wx.request({
+        url: app.globalData.baseurl + '/desubscribe/',
+        data: { 'questionid': this.data.problemid, 'userid': app.globalData.openid },
+        success: function () {
+          console.log('desubscribe success')
+          that.setData({
+            subscribe_door: true
+          })
+        }
+      })
+
+      this.setData({
+        subscribe_door: true
+      })
+
+    }
+    
   },
   //事件处理函数
   bindItemTap: function() {
@@ -84,6 +120,41 @@ var page = Page({
   onReady:function(){
 
   },
+
+
+writecomment:function(e){
+this.setData({
+  commentcontent: e.detail.value
+})
+},
+
+
+  comment: function (event) {
+    if(this.data.commentcontent == null){
+      wx.showModal({
+        title: 'tishi',
+        content: 'please input something',
+      })
+    }
+    else{
+      wx.request({
+        url: app.globalData.baseurl + '/comment/',
+        method: 'post',
+        data: { 'userid': app.globalData.openid, 'text': this.data.commentcontent, 'problemid': this.data.problemid },
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        success: function () {
+          wx.showToast({
+            title: 'comment successfully',
+          })
+        }
+      })
+
+    }
+
+  },
+
 
 
   audioPlay: function (event) {
@@ -152,12 +223,6 @@ var page = Page({
       textsolu:e.detail.value
     })
   },
-
-
-
-
-
-
 
   play: function (event) {
 
@@ -325,13 +390,25 @@ uploadrecord:function(that){
         "Content-Type": "application/x-www-form-urlencoded"
       },
       success: function (res) {
+        var subscribe_door = JSON.parse(res.data.subscribe_door)
+        if (subscribe_door[0].i==1){
+          that.setData({
+            subscribe_door:false
+          })
+        }else{
+          that.setData({
+            subscribe_door: true
+          })
+        }
         var problem = JSON.parse(res.data.problem)
         var answer = JSON.parse(res.data.answer)
         var hidehuida = JSON.parse(res.data.answerbox)
+        var comments = JSON.parse(res.data.comment)
         that.setData({
           desc: problem[0].fields.description,
           answer:answer,
-          hidehuida : hidehuida
+          hidehuida : hidehuida,
+          comments:comments,
         })
       },
       fail:function(){

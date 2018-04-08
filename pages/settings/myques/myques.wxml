@@ -9,17 +9,17 @@
             <view class="feed-source">
                 <a class="">
                     <view class="avatar">
-                        <image src="{{item.img}}"></image>
+                        <image src="{{item.avatar}}"></image>
                     </view>
-                    <text>tiwenren:{{item.fields.asker}}{{item.feed_source_txt}}</text>
+                    <text>{{item.asker}}{{item.feed_source_txt}}</text>
                 </a>
                 <image class="item-more" mode="aspectFit" src="../../images/more.png"></image>
             </view>
             <view class="feed-content">
-                <view class="question" qid="{{question_id}}" bindtap="bindQueTap">
+                <view class="question" qid="{{question_id}}" data-id='{{item.pk}}' bindtap="bindQueTap">
                     <a class="question-link">
-                        <text>{{item.fields.description}}</text>
-                        <view wx:if="{{item.fields.problempic != 'not upload'}}"><image src='{{item.fields.problempic}}'></image></view>
+                        <text>{{item.description}}</text>
+                        <view wx:if="{{item.problempic != 'noimages'}}"><image src='{{item.problempic}}'></image></view>
                           
                     </a>
                 </view>

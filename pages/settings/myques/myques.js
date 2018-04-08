@@ -9,6 +9,19 @@ Page({
     problemlist:null
   },
 
+
+
+
+
+  bindQueTap: function (event) {
+    var problemid = event.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `../../question/question?problemid=${problemid}`
+    })
+  },
+
+
+
   /**
    * 生命周期函数--监听页面加载
    */

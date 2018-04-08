@@ -1,136 +1,212 @@
 <!--question.wxml-->
 <view class="container">
-    <view class="question-wrp">
-        <view class="question-item">
-            <view class="que-tag">
-                <text class="tag">阅读</text>
-            </view>
-            <view class="que-title">
-                {{desc}}
-            </view>
-            <view class="que-follow">
-                <view class="left">
-                    <view class="watch">
-                        <image src="../../images/eye.png"></image>
-                        <text>3316</text>
-                    </view>
-                    <view class="comment">
-                        <image src="../../images/comment2.png"></image>
-                        <text>27</text>
-                    </view>
-                </view>
-                <view class="right">
-                    关注{{problemid}}
-                </view>
-            </view>
+  <view class="question-wrp">
+    <view class="question-item">
+      <view class="que-tag">
+        <text class="tag">阅读</text>
+      </view>
+      <view class="que-title">
+        {{desc}}
+      </view>
+      <view class="que-follow">
+        <view class="left">
+          <view class="watch">
+            <image src="../../images/eye.png"></image>
+            <text>3316</text>
+          </view>
+          <view class="comment">
+            <image src="../../images/comment2.png"></image>
+            <text>27</text>
+          </view>
         </view>
-<view >
-    <view class='feed-item'> 
-      jiaoshihuida:
+        <view class="right" bindtap='subscribe' data-id='{{subscribe_door}}'>
+          <view wx:if="{{subscribe_door}}" data-id='{{subscribe_door}}'>
+                    关注
+          </view>
+          <view wx:else data-id='{{subscribe_door}}'>
+                    取消关注
+          </view>
+
+        </view>
+      </view>
     </view>
-    <view wx:for="{{answer}}">
+    <view>
+      <view class='feed-item' style='font-size:20px'>
+        教师回答：
+      </view>
+      <view wx:for="{{answer}}">
         <view class='feed-item'>
           <text style='font-size:15px'>
                   {{index+1}}:{{item.fields.text}}
           </text>
 
-          <view wx:if="{{item.fields.record}}"   >
-            <audio  src="{{item.fields.record}}"  ></audio>
+          <view wx:if="{{item.fields.record}}">
+            <audio src="{{item.fields.record}}"></audio>
             <view class='record-controller'>
-                <button type="primary" data-recordsrc='{{item.fields.record}}' bindtap="audioPlay">播放</button>
-                <button type="primary" bindtap="audioPause">暂停</button>
-                <button type="primary" bindtap="audioStart">回到开头</button>
+              <button type="primary" data-recordsrc='{{item.fields.record}}' bindtap="audioPlay">播放</button>
+              <button type="primary" bindtap="audioPause">暂停</button>
+              <button type="primary" bindtap="audioStart">回到开头</button>
             </view>
           </view>
-            <view wx:if="{{item.fields.image}}"><image class='imagestyle' src='{{item.fields.image}}'></image></view>
-        </view>
-    </view>
-
-</view>
-
-        <view class="que-operate flex-wrp" hidden='{{hidehuida}}'>
-            <view class="invite flex-item">
-                <image src="../../images/invite.png"></image>
-                <text>邀请回答</text>
-            </view>
-            <view class="write flex-item" bindtap='showanswerbox'>
-                <image src="../../images/write.png"></image>
-                <text>写回答</text>
-            </view>
-        </view>
-                <!-- teacher answer block -->
-        <view name='teacheranswer'  hidden='{{answerbox}}' class='answer-box' >
-          <view style='height:100px'>
-            <textarea placeholder='qing shu ru' bindinput='textsolu' auto-height auto-focus></textarea>
+          <view wx:if="{{item.fields.image}}" class='imagestyle'>
+            <image  src='{{item.fields.image}}'></image>
           </view>
-           <button bindtap='takephoto' type='primary'>点我paizhao</button>
-            <view wx:if="{{recordstate}}">
-              <button bindtap='start' type='primary'  data-id='{{recordstate}}'>点我录音</button>
-            </view>
-            <view wx:else>
-              <button bindtap='start' type='primary'  data-id='{{recordstate}}'>点我结束</button>
-            </view>
-            <view wx:if="{{showyuansheng}}">
-                <view class="progresswrap">
-                <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar"/>
-            </view>
-            <view class="btns" style='margin-right:45%'>
-                <view bindtap='play1' wx:if="{{tingstate}}"><image src="/images/start.jpg" style='width:40px;height:40px'></image></view>
-                <view bindtap='pause1' wx:else><image src="/images/pause.jpg" style='width:40px;height:40px'></image></view>
-            </view>
-            
-            </view>
-            <button bindtap='submitanswer'>上传</button>
         </view>
-    </view>
-    <view class="answer-feed">
-        <view  bindtap="bindItemTap" class="feed-item">
-            <view class="feed-source">
-                <a class="" bindTap="">
-                    <view class="avatar">
-                        <image src="../../images/icon1.jpeg"></image>
-                    </view>
-                    <text>Rebecca</text>
-                </a>
-            </view>
-            <view class="feed-content">
-                <view class="answer-body">
-                    <view>
-                        <text class="answer-txt">难道不明白纸质书更贵啊！！！ 若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。 另外，用kindle看小说的... </text>
-                    </view>
-                    <view class="answer-actions">
-                        <view class="like dot">
-                            <a>3.9K 赞同 </a>
-                        </view>
-                        <view class="comments dot">
-                            <a>254 评论 </a>
-                        </view>
-                        <view class="time">
-                            <a>2 个月前</a>
-                        </view>
+      </view>
 
-                    </view>
-                </view>
-            </view>
-        </view>
     </view>
+
+    <view class="que-operate flex-wrp" hidden='{{hidehuida}}'>
+      <view class="invite flex-item">
+        <image src="../../images/invite.png"></image>
+        <text>邀请回答</text>
+      </view>
+      <view class="write flex-item" bindtap='showanswerbox'>
+        <image src="../../images/write.png"></image>
+        <text>写回答</text>
+      </view>
+    </view>
+    <!-- teacher answer block -->
+    <view name='teacheranswer' hidden='{{answerbox}}' class='answer-box'>
+      <view style='height:100px'>
+        <textarea placeholder='qing shu ru' bindinput='textsolu' auto-height auto-focus></textarea>
+      </view>
+      <button bindtap='takephoto' type='primary'>点我拍照</button>
+      <view wx:if="{{recordstate}}">
+        <button bindtap='start' type='primary' data-id='{{recordstate}}'>点我录音</button>
+      </view>
+      <view wx:else>
+        <button bindtap='start' type='primary' data-id='{{recordstate}}'>点我结束</button>
+      </view>
+      <view wx:if="{{showyuansheng}}">
+        <view class="progresswrap">
+          <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
+        </view>
+        <view class="btns" style='margin-right:45%'>
+          <view bindtap='play1' wx:if="{{tingstate}}">
+            <image src="/images/start.jpg" style='width:40px;height:40px'></image>
+          </view>
+          <view bindtap='pause1' wx:else>
+            <image src="/images/pause.jpg" style='width:40px;height:40px'></image>
+          </view>
+        </view>
+
+      </view>
+      <button bindtap='submitanswer'>上传</button>
+    </view>
+  </view>
+
+
+
+
+  <!-- <view class="answer-feed">
+    <view bindtap="bindItemTap" class="feed-item">
+      <view class="feed-source">
+        <a class="" bindTap="">
+          <view class="avatar">
+            <image src="../../images/icon1.jpeg"></image>
+          </view>
+          <text>Rebecca</text>
+        </a>
+      </view>
+      <view class="feed-content">
+        <view class="answer-body">
+          <view>
+            <text class="answer-txt">难道不明白纸质书更贵啊！！！ 若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。 另外，用kindle看小说的... </text>
+          </view>
+          <view class="answer-actions">
+            <view class="like dot">
+              <a>3.9K 赞同 </a>
+            </view>
+            <view class="comments dot">
+              <a>254 评论 </a>
+            </view>
+            <view class="time">
+              <a>2 个月前</a>
+            </view>
+
+          </view>
+        </view>
+      </view>
+    </view>
+  </view> -->
 </view>
+
+<!-- 
+  <view class="commentbox">
+
+    <input bindinput='writecomment'></input>
+    <icon class="session-search-icon" type="search" size="16" bindtap='comment'></icon>
+  </view> -->
+
 
 
 <!-- 
-<view>
-  <button bindtap='start' type='primary'>录音开始</button>
-</view>
-<view>
-  <button bindtap='stop' type='primary'>录音结束</button>
-</view>
-<view wx:if="{{showyuansheng}}">
-<button bindtap='ting'>ting yuansheng</button>
-<button bindtap='submit'>submit</button>
+<scroll-view scroll-y="true" class="contain_detail_cnt" style="height:{{winHeight - 40}}px;">
+    
+
+	<view class="box-title">
+		<text class="title">{{data.title}}</text>
+	</view>
+
+
+	<view class="content" scroll-y="true">
+		<block wx:for="{{databody}}">
+			<image class="scrollLoading" src="{{item[0]}}" mode="aspectFill" wx:if="{{item.length === 3}}"/>
+			<view class="contView" wx:else>{{item}}</view>
+		</block>
+	</view> -->
+	<!-- 评论 -->
+	<view class="content-comments">
+		<text class="comments-title">最新评论</text>
+		<view class="comments-box" wx:if="{{comments.length > 0}}">
+			<view class="comments-list" wx:for="{{comments}}" wx:for-item="item" wx:for-index="i">
+				<view class="comments-avatar"><image class="comments-avatar-img" src="{{item.avatar}}"/></view>
+				<view class="comments-main">
+					<view class="comments-author">
+						<view class="comments-zan">{{item.likes}}</view>
+						<text>{{item.username}}</text>
+					</view>
+					<view class="comments-content">{{item.text}}</view>
+					<view class="comments-data">{{item.times}}</view>
+				</view>
+			</view>
+		</view>
+		<!-- 没有评论 -->
+		<view class="not-comments" wx:else> 暂时还没有评论喔! </view>
+	</view>
+
+
+<!-- </scroll-view> -->
+
+<!-- 评论 点赞 分享  -->
+<view class="extra">
+	<view class="extra-share">
+		<image src="../../images/share.png" class="extra-share-img" bindtap="showShare"/>
+		<image src="../../images/comments.png" class="extra-share-img" bindtap='comment'/>
+		<image src="../../images/zan.png" class="extra-share-img"/>
+	</view>
+	<input class="extra-input" type="text" maxlength="255" placeholder="你有什么看法?"  bindinput ='writecomment' placeholder-class="extra-placeholder" />
 </view>
 
 
-<view wx:if="{{showaudio}}">
-  <button bindtap='play' type='primary'>ting return</button>
-</view>
- -->
+<!-- 分享层 -->
+<!-- <view class="extra-share-box" >
+
+	<view class="share-box-show" animation="{{shareBottom}}">
+		<view class="share-box-img-box">
+			<image class="share-box-img" bindtap="modalTap" data-share="分享给微信朋友" src="../../static/weixin.png"/>
+			<image class="share-box-img" bindtap="modalTap" data-share="分享到微信朋友圈" src="../../static/pengyou.png"/>
+			<image class="share-box-img" bindtap="modalTap" data-share="分享到QQ朋友" src="../../static/qq.png"/>
+			<image class="share-box-img" bindtap="modalTap" data-share="分享到微博" src="../../static/weibo.png"/>
+		</view>
+		<view class="share-box-close" bindtap="shareClose">关闭</view>
+	</view>
+	
+	<view class="share-box-opacity" animation="{{shareOpacity}}" bindtap="shareClose"></view>
+</view> -->
+
+ <!-- 点击分享弹出层 
+<modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
+  <view> {{modalValue}} </view>
+</modal> -->
