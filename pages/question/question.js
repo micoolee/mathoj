@@ -72,20 +72,145 @@ var page = Page({
     desc:'',
     answer:null,
     commentcontent:null,
-    subscribe_door:true
+    subscribe_door:true,
+
+
+    modalHidden:true,
+    shareShow: 'none',
+    shareOpacity: {},
+    shareBottom: {},
+    modalValue:null
   },
+  /**
+   * 关闭分享
+   */
+  shareClose: function () {
+    // 创建动画
+    var animation = wx.createAnimation({
+      duration: 0,
+      timingFunction: "ease"
+    })
+    this.animation = animation;
+
+    var that = this;
+
+    setTimeout(function () {
+      that.animation.bottom(-210).step();
+      that.setData({
+        shareBottom: animation.export()
+      });
+    }.bind(this), 500);
+
+    setTimeout(function () {
+      that.animation.opacity(0).step();
+      that.setData({
+        shareOpacity: animation.export()
+      });
+    }.bind(this), 500);
+
+    setTimeout(function () {
+      that.setData({
+        shareShow: "none",
+      });
+    }.bind(this), 1500);
+  },
+
+  modalChange: function (e) {
+    var that = this;
+    that.setData({
+      modalHidden: true
+    })
+  },
+  showShare: function (e) {
+
+    // 创建动画
+    var animation = wx.createAnimation({
+      duration: 100,
+      timingFunction: "ease",
+    })
+    this.animation = animation;
+    console.log(animation)
+
+    var that = this;
+    that.setData({
+      shareShow: "block",
+    });
+
+    setTimeout(function () {
+      that.animation.bottom(0).step();
+      that.setData({
+        shareBottom: animation.export()
+      });
+    }.bind(this), 400);
+
+    // 遮罩层
+    setTimeout(function () {
+      that.animation.opacity(0.3).step();
+      that.setData({
+        shareOpacity: animation.export()
+      });
+    }.bind(this), 400);
+
+  },
+
+
+  onShareAppMessage:function(res){
+console.log(res)
+    return {
+      title: '自定义转发标题',
+      path: '/pages/index/index',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  },
+
+
+  /**
+   * 点击分享图标弹出层
+   */
+  modalTap: function (res) {
+    var that = this;
+    // if (res.from === 'button') {
+    //   // 来自页面内转发按钮
+    //   console.log(res.target)
+    // }
+    console.log(res)
+    return {
+      title: '自定义转发标题',
+      path: 'pages/tosolve/tosolve',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  },
+
+
+
+
+
+
+
+
   subscribe:function(e){
     var that = this
     console.log(e.target.dataset.id)
     if (e.target.dataset.id==true){
       wx.request({
         url: app.globalData.baseurl + '/subscribe/',
-        data:{'questionid':this.data.problemid,'userid':app.globalData.openid},
+        data:{'problemid':this.data.problemid,'userid':app.globalData.openid},
         success:function(){
           console.log('subscribe success')
           that.setData({
             subscribe_door: false
           })
+          that.onShow()
         }
       })
 
@@ -94,12 +219,13 @@ var page = Page({
     }else{
       wx.request({
         url: app.globalData.baseurl + '/desubscribe/',
-        data: { 'questionid': this.data.problemid, 'userid': app.globalData.openid },
+        data: { 'problemid': this.data.problemid, 'userid': app.globalData.openid },
         success: function () {
           console.log('desubscribe success')
           that.setData({
             subscribe_door: true
           })
+          that.onShow()
         }
       })
 
@@ -377,11 +503,13 @@ uploadrecord:function(that){
 
 
   onLoad: function (option) {
-    var that = this
+
     this.setData({
       problemid:option.problemid
     })
 
+
+    var that = this
     wx.request({
       url: app.globalData.baseurl + '/questiondetail/',
       method: 'post',
@@ -391,30 +519,35 @@ uploadrecord:function(that){
       },
       success: function (res) {
         var subscribe_door = JSON.parse(res.data.subscribe_door)
-        if (subscribe_door[0].i==1){
+        console.log(subscribe_door[0].i)
+        if (subscribe_door[0].i == 1) {
           that.setData({
-            subscribe_door:false
+            subscribe_door: false
           })
-        }else{
+        } else {
           that.setData({
             subscribe_door: true
           })
         }
+        // that.onShow()
         var problem = JSON.parse(res.data.problem)
         var answer = JSON.parse(res.data.answer)
         var hidehuida = JSON.parse(res.data.answerbox)
         var comments = JSON.parse(res.data.comment)
         that.setData({
           desc: problem[0].fields.description,
-          answer:answer,
-          hidehuida : hidehuida,
-          comments:comments,
+          answer: answer,
+          hidehuida: hidehuida,
+          comments: comments,
         })
       },
-      fail:function(){
+      fail: function () {
         console.log('fail load detail')
       }
     })
+
+
+
   },
   tapName: function(event){
     console.log(event)

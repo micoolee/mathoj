@@ -3,13 +3,14 @@
     "pages/tosolve/tosolve",
     "pages/settings/settings",
     "pages/solved/solved",
-
     "pages/settings/feedback/feedback",
     "pages/settings/help/help",
     "pages/settings/myques/myques",
     "pages/question/question",
     "pages/ask/ask",
-    "pages/settings/mysubs/mysubs"
+    "pages/settings/mysubs/mysubs",
+    "pages/settings/myhist/myhist",
+    "pages/storydetail/storydetail"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",
@@ -38,7 +39,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "yuanti",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   }

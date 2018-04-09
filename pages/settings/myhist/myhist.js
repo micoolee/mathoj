@@ -9,21 +9,24 @@ Page({
     problemlist: null
   },
 
-  bindQueTap: function (event) {
-    var problemid = event.currentTarget.dataset.id
-    wx.navigateTo({
-      url: `../../question/question?problemid=${problemid}`
-    })
-  },
+  // bindQueTap: function (event) {
+  //   var problemid = event.currentTarget.dataset.id
+  //   wx.navigateTo({
+  //     url: `../../question/question?problemid=${problemid}`
+  //   })
+  // },
+
+
 
   bindTouchStart: function (e) {
     this.startTime = e.timeStamp;
   },
-  bindTouchEnd: function (e) {
+bindTouchEnd: function (e) {
     this.endTime = e.timeStamp;
   },
   bindQueTap: function (e) {
     if (this.endTime - this.startTime < 350) {
+      console.log("点击")
       var problemid = e.currentTarget.dataset.id
       wx.navigateTo({
         url: `../../question/question?problemid=${problemid}`
@@ -31,17 +34,17 @@ Page({
     }
   },
   bindLongTap: function (e) {
-    var that = this
     var problemid = e.currentTarget.dataset.id
+    var that = this
     wx.showModal({
       title: '提示',
       content: '是否删除',
       success: function (res) {
         if (res.confirm) {
           wx.request({
-            url: app.globalData.baseurl + '/desubscribe/',
+            url: app.globalData.baseurl+'/deletehist/',
             data: { 'problemid': problemid, 'userid': app.globalData.openid },
-            success: function () {
+            success:function(){
               wx.showToast({
                 title: 'delete success',
               })
@@ -49,15 +52,15 @@ Page({
             }
           })
 
+
+
         }
-      }
-    })
+        }
+        })
 
+
+    console.log("长按");
   },
-
-
-
-
 
 
 
@@ -70,7 +73,7 @@ Page({
     if (app.globalData.userInfo) {
       console.log(app.globalData.openid)
       wx.request({
-        url: app.globalData.baseurl + '/mysubs/',
+        url: app.globalData.baseurl + '/myhist/',
         method: 'post',
         header: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -98,7 +101,7 @@ Page({
 
 
         wx.request({
-          url: app.globalData.baseurl + '/mysubs/',
+          url: app.globalData.baseurl + '/myhist/',
           method: 'post',
           data: { 'userid': app.globalData.openid },
           success: function (res) {
@@ -125,7 +128,7 @@ Page({
 
 
           wx.request({
-            url: app.globalData.baseurl + '/mysubs/',
+            url: app.globalData.baseurl + '/myhist/',
             method: 'post',
             data: { 'userid': app.globalData.openid },
             success: function (res) {

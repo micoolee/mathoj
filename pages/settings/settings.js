@@ -11,7 +11,9 @@ Page({
     animationData: null,
   },
   onLoad: function (options) {
-
+    this.setData({
+      userInfo: { 'avatar': app.globalData.avatar, 'nickname': app.globalData.nickname}
+    })
   },
   onShareAppMessage: function () {
     // 用户点击右上角分享
@@ -30,7 +32,14 @@ Page({
     })
   },
 
-
+  showMyBrow: function () {
+    wx.navigateTo({
+      url: './myhist/myhist',
+      success: function (res) {
+        // success
+      },
+    })
+  },
 
   showMySubs: function () {
     wx.navigateTo({
@@ -42,12 +51,6 @@ Page({
   },
 
 
-  showMyBrow: function () {
-    wx.showModal({
-      title: 'todo',
-      content: '',
-    })
-  },
 
   showMyComm: function () {
     wx.showModal({

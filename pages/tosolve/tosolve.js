@@ -11,6 +11,9 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     problempicsrc:'null',
     animationData:null,
+
+
+    topStories:[{image:"../../images/pause.jpg"},{image:'../../images/home.png'}]
   },
   showquestool:function(){
     wx.navigateTo({
@@ -47,8 +50,6 @@ Page({
               app.globalData.userInfo = res.userInfo
               app.globalData.avatar = res.userInfo.avatarUrl
               app.globalData.nickname = res.userInfo.nickName
-                console.log('11111')
-                console.log(app.globalData.avatar)
                 loading(that)
 
               
@@ -66,8 +67,7 @@ Page({
 
               app.globalData.avatar = res.userInfo.avatarUrl
               app.globalData.nickname = res.userInfo.nickName
-              loading(that)
-              console.log('22222')              
+              loading(that)           
               that.onShow()
 
             },
@@ -89,7 +89,6 @@ Page({
                               app.globalData.avatar = res.userInfo.avatarUrl
                               app.globalData.nickname = res.userInfo.nickName
                               loading(that)
-                              console.log('33333')
                               that.onShow()
                             }
                           })
@@ -119,7 +118,6 @@ Page({
 
 
     if (app.globalData.userInfo) {
-      console.log('111')
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
@@ -129,7 +127,6 @@ Page({
       // 所以此处加入 callback 以防止这种情况
 
       app.userInfoReadyCallback = res => {
-        console.log('222')
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
@@ -140,7 +137,6 @@ Page({
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
-          console.log('333')
           app.globalData.userInfo = res.userInfo
           this.setData({
             userInfo: res.userInfo,
@@ -156,7 +152,6 @@ Page({
     }
   },
   getUserInfo: function (e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -186,10 +181,13 @@ Page({
     var that = this
     wx.request({
       url: app.globalData.baseurl + '/',
+      
       success: function (res) {
-        console.log(res)
+        var problemlist = JSON.parse(res.data.json_data)
+        var topstories = JSON.parse(res.data.topstory)
         that.setData({
-          problemlist: res.data
+          problemlist: problemlist,
+          topStories:topstories
         })
       }
     })
@@ -209,20 +207,91 @@ Page({
   
   },
 
+  refresh: function () {
+    wx.showToast({
+      title: '刷新中',
+      icon: 'loading',
+      duration: 3000
+    });
+
+    // load data
+    // var feed = util.getData2();
+    // console.log("loaddata");
+    // var feed_data = feed.data;
+    // this.setData({
+    //   feed: feed_data,
+    //   feed_length: feed_data.length
+    // });
+    setTimeout(function () {
+      wx.showToast({
+        title: '刷新成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }, 3000)
+
+  },
+
+
+  //使用本地 fake 数据实现继续加载效果
+  nextLoad: function () {
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading',
+      duration: 4000
+    })
+    // load data
+    // var next = util.getNext();
+    // console.log("continueload");
+    // var next_data = next.data;
+    // this.setData({
+    //   feed: this.data.feed.concat(next_data),
+    //   feed_length: this.data.feed_length + next_data.length
+    // });
+    setTimeout(function () {
+      wx.showToast({
+        title: '加载成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }, 3000)
+  },
+
+
+
+
+  upper: function () {
+    wx.showNavigationBarLoading()
+    this.refresh();
+    console.log("upper");
+    setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 2000);
+  },
+  lower: function (e) {
+    wx.showNavigationBarLoading();
+    var that = this;
+    setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
+    console.log("lower")
+  },
+
+
+
+
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+
     var that = this
-    　　console.log('--------下拉刷新-------')
-    　　wx.showNavigationBarLoading() //在标题栏中显示加载
+　　console.log('--------下拉刷新-------')
+　　wx.showNavigationBarLoading() //在标题栏中显示加载
 
     　　wx.request({
         url: app.globalData.baseurl + '/',
 
       success: function (res) {
+        var problemlist = JSON.parse(res.data.json_data)
         that.setData({
-          problemlist: res.data
+          problemlist: problemlist
         })
       },
       fail: function () {
@@ -231,9 +300,10 @@ Page({
       complete: function () {
         // complete
         wx.hideNavigationBarLoading() //完成停止加载
-        wx.stopPullDownRefresh() //停止下拉刷新
+
       }
-    })                
+    })
+      wx.stopPullDownRefresh() //停止下拉刷新                
   },
 
   /**
@@ -268,7 +338,6 @@ function loading(that) {
     wx.showToast({
       title: '加载完成~',
     })
-    console.log(app.globalData.openid)
     uploadavatar()
 
     that.onShow()
@@ -293,7 +362,7 @@ function uploadavatar() {
       "Content-Type": "application/x-www-form-urlencoded"
     },
     success: function () {
-      console.log('succ')
+
     }
 
 

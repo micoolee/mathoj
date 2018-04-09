@@ -1,36 +1,42 @@
+
+
 <view class="drawer_content">
-   <label class="title col-0">问题描述:</label>
-  <view class="top grid" style='display:flex;justify-content:center;border-style:solid;border-width:1px;width:{{screenwidth}};height:{{0.3*screenheight}}'>
- 
-    <textarea name="desc" maxlength="50" placeholder="填写内容(12-500字)" bindinput="descinput" />
+  <label class="title col-0">问题描述:</label>
+  <view class="top grid" style='display:flex;justify-content:center;border-style:solid;border-width:1px;width:600rpx;height:{{0.3*screenheight}};margin:auto'>
+
+    <textarea name="desc" maxlength="500" placeholder="填写内容(500字以内)" bindinput="descinput" />
   </view>
   <view class="section">
     <view wx:if="{{askpicdoor}}">
       <image src='{{problempicsrc}}'></image>
     </view>
-    <button bindtap='uploadimg' >上传照片</button>
+
   </view>
+  <button bindtap='uploadimg' style='display:flex;justify-content:center;width:40%;'>上传照片</button>
 
 
-  <view class="section">
+  <view class="section" style='margin:auto'>
     <picker bindchange="bindPickerChange" name="gradeindex" value="{{gradeindex}}" range="{{gradearray}}">
       <view class="picker">
         年级:{{gradearray[gradeindex]}}
       </view>
     </picker>
+    
   </view>
+<view class='section'>
+    <radio-group class="radio-group" bindchange="radioChange">难易:
+      <label class="radio" wx:for="{{easyitems}}" wx:key="unique">
+        <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+      </label>
+    </radio-group>
+</view>
 
 
-  <radio-group class="section radio-group" bindchange="radioChange">难易:
-    <label class="radio" wx:for="{{easyitems}}">
-      <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
-    </label>
-  </radio-group>
 
 
   <view class="section">
-    <label class="title col-0">奖励:</label>
-    <input class="input_base input_h30 col-1" name="reward" value='0' bindinput='rewardinput'></input>
+     <label class="title col-0"> 奖励:</label>
+    <input name="reward" value='0' bindinput='rewardinput'></input>
   </view>
 
 

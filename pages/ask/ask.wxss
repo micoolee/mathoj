@@ -2,4 +2,12 @@
 .section{
   display: flex;
   padding: 10px;
+  justify-content: center
 }
+
+
+
+/* .whole {
+margin:0;
+margin-right:auto;
+} */
