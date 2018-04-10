@@ -1,8 +1,9 @@
 
-<scroll-view scroll-y="true" class="container" 
+<view  class="container" >
 
-lower-threshold="20" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
 
+
+<scroll-view  >
   <view class="search flex-wrp">
     <view class="search-left flex-item">
       <image src="../../images/search1.png"></image>
@@ -11,13 +12,12 @@ lower-threshold="20" bindscrolltolower="lower" scroll-into-view="{{toView}}" scr
 
 
     <view class="search-right flex-item" bindtap="showquestool">
-      <image src="../../images/lighting.png"></image>
+      <image src="../../images/write.png"></image>
     </view>
     <view class="search-center flex-item" bindtap="showquestool">
       提问
     </view>
   </view>
-
 
 
   <swiper class="swiper-boxs" indicator-dots autoplay duration="300">
@@ -27,8 +27,7 @@ lower-threshold="20" bindscrolltolower="lower" scroll-into-view="{{toView}}" scr
       </navigator>
     </swiper-item>
   </swiper>
-
-
+</scroll-view>
 
   <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
     <view class="feed-item">
@@ -44,10 +43,10 @@ lower-threshold="20" bindscrolltolower="lower" scroll-into-view="{{toView}}" scr
       <view class="feed-content">
         <view class="question" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap">
           <a class="question-link">
-            <text>{{item.description}}</text>
-            <view wx:if="{{item.problempic != 'noimages'}}" style='display:flex;justify-content:center'>
+            <text class='line-3'>{{item.description}}</text>
+            <!-- <view wx:if="{{item.problempic != 'noimages'}}" style='display:flex;justify-content:center'>
               <image src='{{item.problempic}}'></image>
-            </view>
+            </view> -->
 
           </a>
         </view>
@@ -56,18 +55,24 @@ lower-threshold="20" bindscrolltolower="lower" scroll-into-view="{{toView}}" scr
             <text class="answer-txt" aid="{{answer_id}}">{{item.fields.solver}}</text>
           </view>
           <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
-            <!-- <view class="like dot">
-                <a>{{item.good_num}} 赞同 </a>
-              </view> -->
+
             <view class="comments dot">
-              <a>{{item.comment_num}} 评论 </a>
+              <view wx:if="{{item.comment_num != null}}">
+                          {{item.comment_num}}评论
+              </view>
+              <view wx:else>0 评论</view>
             </view>
+
             <view class="follow-it">
-              <a>关注问题</a>
+              <view wx:if="{{item.subscribe_num != null}}">
+                          {{item.subscribe_num}}关注
+              </view>
+              <view wx:else>0 关注</view>
             </view>
+            
           </view>
         </view>
       </view>
     </view>
   </block>
-</scroll-view>
+</view>

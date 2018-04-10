@@ -46,7 +46,7 @@ const options = {
   encodeBitRate: 192000,
   format: 'wav',
   frameSize: 50,
-  answerbox:false
+  answerbox: false
 }
 
 
@@ -55,7 +55,7 @@ var page = Page({
   data: {
     motto: '小程序版',
     userInfo: {},
-    problemid:'unknown',
+    problemid: 'unknown',
     showaudio: false,
     showyuansheng: false,
     playstate: false,
@@ -64,26 +64,56 @@ var page = Page({
     curTimeVal: 0,
     duration: 100,
     audioSrc: '',
-    answerbox:true,
-    audiopath:'',
-    hidehuida:false,
-    textsolu:'',
-    answerpicsrc:'',
-    desc:'',
-    answer:null,
-    commentcontent:null,
-    subscribe_door:true,
+    answerbox: true,
+    audiopath: '',
+    hidehuida: false,
+    textsolu: '',
+    answerpicsrc: '',
+    desc: '',
+    answer: null,
+    commentcontent: null,
+    subscribe_door: true,
 
-
-    modalHidden:true,
+    problempic: 'noimages',
+    modalHidden: true,
     shareShow: 'none',
     shareOpacity: {},
     shareBottom: {},
-    modalValue:null
+    modalValue: null,
+    showpic: true,
   },
   /**
    * 关闭分享
    */
+dianzan:function(e){
+  var commentid = e.target.dataset.id
+  var problemid = e.target.dataset.problemid
+  var that = this
+  wx.request({
+    url: app.globalData.baseurl+'/dianzan/',
+    data:{'userid':app.globalData.openid,'commentid':commentid,'problemid':problemid},
+    success:function(res){
+      if(res.data.code == '200'){
+        var comments = JSON.parse(res.data.comment)
+        that.setData({
+          comments: comments
+        })
+      }else{
+        console.log('you dianzan guo le')
+      }
+
+    }
+  })
+},
+
+  handlepic: function () {
+    console.log(this.data.showpic)
+    this.setData({
+      showpic: !this.data.showpic
+    })
+  },
+
+
   shareClose: function () {
     // 创建动画
     var animation = wx.createAnimation({
@@ -154,69 +184,52 @@ var page = Page({
   },
 
 
-  onShareAppMessage:function(res){
-console.log(res)
+  onShareAppMessage: function (res) {
+    console.log(res)
     return {
       title: '自定义转发标题',
       path: '/pages/index/index',
       success: function (res) {
-        // 转发成功
+
       },
       fail: function (res) {
-        // 转发失败
+
       }
     }
   },
 
-
-  /**
-   * 点击分享图标弹出层
-   */
   modalTap: function (res) {
     var that = this;
-    // if (res.from === 'button') {
-    //   // 来自页面内转发按钮
-    //   console.log(res.target)
-    // }
+
     console.log(res)
     return {
       title: '自定义转发标题',
       path: 'pages/tosolve/tosolve',
       success: function (res) {
-        // 转发成功
+
       },
       fail: function (res) {
-        // 转发失败
       }
     }
   },
 
 
-
-
-
-
-
-
-  subscribe:function(e){
+  subscribe: function (e) {
     var that = this
     console.log(e.target.dataset.id)
-    if (e.target.dataset.id==true){
+    if (e.target.dataset.id == true) {
       wx.request({
         url: app.globalData.baseurl + '/subscribe/',
-        data:{'problemid':this.data.problemid,'userid':app.globalData.openid},
-        success:function(){
+        data: { 'problemid': this.data.problemid, 'userid': app.globalData.openid },
+        success: function () {
           console.log('subscribe success')
           that.setData({
             subscribe_door: false
           })
-          that.onShow()
+          // that.onShow()
         }
       })
-
-
-
-    }else{
+    } else {
       wx.request({
         url: app.globalData.baseurl + '/desubscribe/',
         data: { 'problemid': this.data.problemid, 'userid': app.globalData.openid },
@@ -225,44 +238,44 @@ console.log(res)
           that.setData({
             subscribe_door: true
           })
-          that.onShow()
+          // that.onShow()
         }
       })
-
       this.setData({
         subscribe_door: true
       })
 
     }
-    
+
   },
-  //事件处理函数
-  bindItemTap: function() {
+
+  bindItemTap: function () {
     wx.navigateTo({
       url: '../answer/answer'
     })
   },
 
-  onReady:function(){
+  onReady: function () {
 
   },
 
 
-writecomment:function(e){
-this.setData({
-  commentcontent: e.detail.value
-})
-},
+  writecomment: function (e) {
+    this.setData({
+      commentcontent: e.detail.value
+    })
+  },
 
 
   comment: function (event) {
-    if(this.data.commentcontent == null){
+    var that = this
+    if (this.data.commentcontent == null) {
       wx.showModal({
         title: 'tishi',
         content: 'please input something',
       })
     }
-    else{
+    else {
       wx.request({
         url: app.globalData.baseurl + '/comment/',
         method: 'post',
@@ -270,15 +283,17 @@ this.setData({
         header: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
-        success: function () {
+        success: function (res) {
           wx.showToast({
             title: 'comment successfully',
           })
+          var comments = JSON.parse(res.data.comment)
+          that.setData({
+            comments: comments,
+          })
         }
       })
-
     }
-
   },
 
 
@@ -297,16 +312,13 @@ this.setData({
     innerAudioContext.seek(0)
   },
 
-
-
-  // show teacher write area
-  showanswerbox:function(){
+  showanswerbox: function () {
     this.setData({
-      answerbox:false
+      answerbox: false
     })
   },
 
-  //start to record and stop
+
   start: function (event) {
     if (event.currentTarget.dataset.id) {
       recorderManager.start()
@@ -316,9 +328,6 @@ this.setData({
     } else {
       innerAudioContext.src = app.globalData.audiopath;
       recorderManager.stop()
-
-      
-
       this.setData({
         recordstate: true,
         showyuansheng: true,
@@ -326,8 +335,6 @@ this.setData({
       })
     }
   },
-
-
 
   submit: function () {
     var that = this;
@@ -344,16 +351,15 @@ this.setData({
     })
   },
   //change text sulutions
-  textsolu:function(e){
+  textsolu: function (e) {
     this.setData({
-      textsolu:e.detail.value
+      textsolu: e.detail.value
     })
   },
 
   play: function (event) {
 
     if (event.currentTarget.dataset.id) {
-
       innerAudioContext.stop()
       this.setData({
         playstate: false
@@ -363,7 +369,6 @@ this.setData({
       innerAudioContext.autoplay = true
       innerAudioContext.src = app.globalData.returnaudiopath
       innerAudioContext.play()
-
       this.setData({
         playstate: true
       })
@@ -418,7 +423,7 @@ this.setData({
       curTimeVal: 0,
       tingstate: true
     })
-  innerAudioContext.stop()
+    innerAudioContext.stop()
   },
 
   takephoto: function () {
@@ -440,72 +445,71 @@ this.setData({
   uploadtext: function (that) {
     wx.request({
       url: app.globalData.baseurl + '/submitanswer/',
-      method:'post',
+      method: 'post',
       data: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'text' },
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       success: function (res) {
-          wx.showToast({
-            title: 'ti jiao cheng gong',
-          })
+        wx.showToast({
+          title: '提交成功',
+        })
       }
     })
   },
 
 
-uploadimg:function(that){
-  wx.uploadFile({
-    url: app.globalData.baseurl + '/submitanswer/',
-    filePath: that.data.answerpicsrc,
-    formData: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'true' },
-    name: 'image',
-    success: function (res) {
-      wx.showToast({
-        title: 'ti jiao cheng gong',
-      })
-    }
-  })
-},
+  uploadimg: function (that) {
+    wx.uploadFile({
+      url: app.globalData.baseurl + '/submitanswer/',
+      filePath: that.data.answerpicsrc,
+      formData: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'true' },
+      name: 'image',
+      success: function (res) {
+        wx.showToast({
+          title: '提交成功',
+        })
+      }
+    })
+  },
 
-uploadrecord:function(that){
-  wx.uploadFile({
-    formData: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'false' },
-    url: app.globalData.baseurl + '/submitanswer/',
-    filePath: app.globalData.audiopath,
-    name: 'record',
-    success: function (res) {
-      wx.showToast({
-        title: 'ti jiao cheng gong',
-      })    },
-  })
-},
+  uploadrecord: function (that) {
+    wx.uploadFile({
+      formData: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'false' },
+      url: app.globalData.baseurl + '/submitanswer/',
+      filePath: app.globalData.audiopath,
+      name: 'record',
+      success: function (res) {
+        wx.showToast({
+          title: '提交成功',
+        })
+      },
+    })
+  },
   submitanswer: function () {
     var that = this;
-    if (app.globalData.audiopath){
+    if (app.globalData.audiopath) {
       that.uploadrecord(that)
     }
-    if(that.data.answerpicsrc){
+    if (that.data.answerpicsrc) {
       that.uploadimg(that)
     }
-    if (! that.data.answerpicsrc & ! app.globalData.audiopath & that.data.textsolu != ''){
+    if (!that.data.answerpicsrc & !app.globalData.audiopath & that.data.textsolu != '') {
       that.uploadtext(that)
     }
-    if (!that.data.answerpicsrc & !app.globalData.audiopath & that.data.textsolu == ''){
+    if (!that.data.answerpicsrc & !app.globalData.audiopath & that.data.textsolu == '') {
       wx.showModal({
-        title: 'input your answer at least one item',
+        title: '至少输入一项',
         content: '',
       })
     }
     app.globalData.audiopath = null
   },
 
-
-
   onLoad: function (option) {
 
     this.setData({
-      problemid:option.problemid
+      problemid: option.problemid
     })
 
 
@@ -519,7 +523,6 @@ uploadrecord:function(that){
       },
       success: function (res) {
         var subscribe_door = JSON.parse(res.data.subscribe_door)
-        console.log(subscribe_door[0].i)
         if (subscribe_door[0].i == 1) {
           that.setData({
             subscribe_door: false
@@ -536,6 +539,7 @@ uploadrecord:function(that){
         var comments = JSON.parse(res.data.comment)
         that.setData({
           desc: problem[0].fields.description,
+          problempic: problem[0].fields.problempic,
           answer: answer,
           hidehuida: hidehuida,
           comments: comments,
@@ -549,17 +553,17 @@ uploadrecord:function(that){
 
 
   },
-  tapName: function(event){
+  tapName: function (event) {
     console.log(event)
   },
 
-  onReady:function(){
-    
-  },
-  onShow:function(){
+  onReady: function () {
 
   },
-  onHide:function(){
+  onShow: function () {
+
+  },
+  onHide: function () {
 
   }
 })

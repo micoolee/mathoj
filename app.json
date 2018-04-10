@@ -10,7 +10,8 @@
     "pages/ask/ask",
     "pages/settings/mysubs/mysubs",
     "pages/settings/myhist/myhist",
-    "pages/storydetail/storydetail"
+    "pages/storydetail/storydetail",
+    "pages/settings/mycomm/mycomm"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",

@@ -5,6 +5,14 @@
   justify-content: center;
 }
 
+.line-3{
+  display:-webkit-box;
+-webkit-line-clamp:3;
+-webkit-box-orient:vertical;
+word-break:break-all;
+overflow: hidden;
+}
+
 .btn {
   width: 80%;
   padding: 20rpx 0;

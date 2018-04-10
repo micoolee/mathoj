@@ -5,9 +5,26 @@
       <view class="que-tag">
         <text class="tag">阅读</text>
       </view>
-      <view class="que-title">
+      <view class="que-title breakline">
         {{desc}}
       </view>
+
+      <view wx:if="{{problempic != 'noimages'}}" style='display:flex;justify-content:center'>
+        <view wx:if='{{showpic}}' style='display:flex;flex-direction:column;'>
+          <view>
+            shouqi
+            <image class='updown' src='../../images/up.png' bindtap='handlepic'></image>
+          </view>
+        </view>
+        <view wx:else>
+          zhankai
+          <image class='updown' src='../../images/down.png' bindtap='handlepic'></image>
+        </view>
+
+        <image src='{{problempic}}' hidden='{{! showpic}}'></image>
+
+      </view>
+
       <view class="que-follow">
         <view class="left">
           <view class="watch">
@@ -21,10 +38,10 @@
         </view>
         <view class="right" bindtap='subscribe' data-id='{{subscribe_door}}'>
           <view wx:if="{{subscribe_door}}" data-id='{{subscribe_door}}'>
-                    关注
+            关注
           </view>
           <view wx:else data-id='{{subscribe_door}}'>
-                    取消关注
+            取消关注
           </view>
 
         </view>
@@ -34,7 +51,7 @@
       <view class='feed-item' style='font-size:20px'>
         教师回答：
       </view>
-      <view wx:for="{{answer}}" >
+      <view wx:for="{{answer}}">
         <view class='feed-item'>
           <text style='font-size:15px'>
                   {{index+1}}:{{item.fields.text}}
@@ -49,25 +66,14 @@
             </view>
           </view>
           <view wx:if="{{item.fields.image}}" class='imagestyle'>
-            <image  src='{{item.fields.image}}'></image>
+            <image src='{{item.fields.image}}'></image>
           </view>
         </view>
       </view>
 
     </view>
 
-    <!-- <view class="que-operate flex-wrp" hidden='{{hidehuida}}'>
-      <view class="invite flex-item">
-        <image src="../../images/invite.png"></image>
-        <text>邀请回答</text>
-      </view>
-      <view class="write flex-item" bindtap='showanswerbox'>
-        <image src="../../images/write.png"></image>
-        <text>写回答</text>
-      </view>
-    </view> -->
-
-    <view class="que-operate flex-wrp" >
+    <view class="que-operate flex-wrp">
 
       <view class="write flex-item" bindtap='showanswerbox' wx:if='{{hidehuida}}'>
         <image src="../../images/write.png"></image>
@@ -112,57 +118,62 @@
   </view>
 </view>
 
-	<view class="content-comments">
-		<text class="comments-title">最新评论</text>
-		<view class="comments-box" wx:if="{{comments.length > 0}}">
-			<view class="comments-list" wx:for="{{comments}}" wx:for-item="item" wx:for-index="i">
-				<view class="comments-avatar"><image class="comments-avatar-img" src="{{item.avatar}}"/></view>
-				<view class="comments-main">
-					<view class="comments-author">
-						<view class="comments-zan">{{item.likes}}</view>
-						<text>{{item.username}}</text>
-					</view>
-					<view class="comments-content">{{item.text}}</view>
-					<view class="comments-data">{{item.times}}</view>
-				</view>
-			</view>
-		</view>
-		<!-- 没有评论 -->
-		<view class="not-comments" wx:else> 暂时还没有评论喔! </view>
-	</view>
+<view class="content-comments">
+
+  <view class="comments-box" wx:if="{{comments.length > 0}}">
+    <text class="comments-title">最新评论</text>
+    <view class="comments-list" wx:for="{{comments}}" wx:for-item="item" wx:for-index="i">
+      <view class="comments-avatar">
+        <image class="comments-avatar-img" src="{{item.avatar}}" />
+      </view>
+      <view class="comments-main">
+        <view class="comments-author">
+          <view class="comments-zan">{{item.zan}}
+            <image src="../../images/zan.png" class="extra-share-img" bindtap='dianzan' data-id='{{item.commentid}}' data-problemid='{{problemid}}'/>
+          </view>
+          <text>{{item.username}}</text>
+        </view>
+        <view class="comments-content breakline-small">{{item.text}}</view>
+        <view class="comments-data">{{item.times}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 没有评论 -->
+  <view class="not-comments" wx:else> 暂时还没有评论喔! </view>
+</view>
 
 
 <!-- </scroll-view> -->
 
 <!-- 评论 点赞 分享  -->
 <view class="extra">
-	<view class="extra-share">
-	
-		<image src="../../images/comments.png" class="extra-share-img" bindtap='comment'/>
-		 <!-- <image src="../../images/zan.png" class="extra-share-img"/> -->
-    	<image src="../../images/share.png" class="extra-share-img" bindtap="showShare"/> 
-	</view>
-	<input class="extra-input" type="text" maxlength="255" placeholder="你有什么看法?"  bindinput ='writecomment' placeholder-class="extra-placeholder"  />
+  <view class="extra-share">
+
+    <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' />
+    <!-- <image src="../../images/zan.png" class="extra-share-img"/> -->
+    <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />
+  </view>
+  <input class="extra-input" type="text" maxlength="255" placeholder="你有什么看法?" bindinput='writecomment' placeholder-class="extra-placeholder" />
 </view>
 
 
 <!-- 分享层 -->
- <view class="extra-share-box" style="display:{{shareShow}}">
+<view class="extra-share-box" style="display:{{shareShow}}">
 
-	<view class="share-box-show" animation="{{shareBottom}}">
-		<view class="share-box-img-box">
-			<image class="share-box-img" bindtap="modalTap" data-share="分享给微信朋友" src="../../images/weixin.png"/>
-			<image class="share-box-img" bindtap="modalTap" data-share="分享到微信朋友圈" src="../../images/pengyou.png"/>
-			<image class="share-box-img" bindtap="modalTap" data-share="分享到QQ朋友" src="../../images/qq.png"/>
-			<image class="share-box-img" bindtap="modalTap" data-share="分享到微博" src="../../images/weibo.png"/>
-		</view>
-		<view class="share-box-close" bindtap="shareClose">关闭</view>
-	</view>
-	
-	<view class="share-box-opacity" animation="{{shareOpacity}}" bindtap="shareClose"></view>
-</view> 
+  <view class="share-box-show" animation="{{shareBottom}}">
+    <view class="share-box-img-box">
+      <image class="share-box-img" bindtap="modalTap" data-share="分享给微信朋友" src="../../images/weixin.png" />
+      <image class="share-box-img" bindtap="modalTap" data-share="分享到微信朋友圈" src="../../images/pengyou.png" />
+      <image class="share-box-img" bindtap="modalTap" data-share="分享到QQ朋友" src="../../images/qq.png" />
+      <image class="share-box-img" bindtap="modalTap" data-share="分享到微博" src="../../images/weibo.png" />
+    </view>
+    <view class="share-box-close" bindtap="shareClose">关闭</view>
+  </view>
+
+  <view class="share-box-opacity" animation="{{shareOpacity}}" bindtap="shareClose"></view>
+</view>
 <!-- 
   点击分享弹出层  -->
- <!-- <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
+<!-- <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
   <view> {{modalValue}} </view>
 </modal>   -->

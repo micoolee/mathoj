@@ -23,15 +23,19 @@
                         <text class="answer-txt" aid="{{answer_id}}">{{item.solver}}</text>
                     </view>
                     <view class="answer-actions" bindtap="bindItemTap">
-                        <view class="like dot">
-                            <a>{{item.good_num}} 赞同 </a>
+                      <view class="comments dot">
+                        <view wx:if="{{item.comment_num != null}}">
+                                    {{item.comment_num}}评论
                         </view>
-                        <view class="comments dot">
-                            <a>{{item.comment_num}} 评论 </a>
+                        <view wx:else>0 评论</view>
+                      </view>
+
+                      <view class="follow-it">
+                        <view wx:if="{{item.subscribe_num != null}}">
+                                    {{item.subscribe_num}}关注
                         </view>
-                        <view class="follow-it">
-                            <a>关注问题</a>
-                        </view>
+                        <view wx:else>0 关注</view>
+                      </view>
                     </view>
                 </view>
             </view>

@@ -181,7 +181,6 @@ Page({
     var that = this
     wx.request({
       url: app.globalData.baseurl + '/',
-      
       success: function (res) {
         var problemlist = JSON.parse(res.data.json_data)
         var topstories = JSON.parse(res.data.topstory)
@@ -260,18 +259,18 @@ Page({
 
 
 
-  upper: function () {
-    wx.showNavigationBarLoading()
-    this.refresh();
-    console.log("upper");
-    setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 2000);
-  },
-  lower: function (e) {
-    wx.showNavigationBarLoading();
-    var that = this;
-    setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
-    console.log("lower")
-  },
+  // upper: function () {
+  //   wx.showNavigationBarLoading()
+  //   this.refresh();
+  //   console.log("upper");
+  //   setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 2000);
+  // },
+  // lower: function (e) {
+  //   wx.showNavigationBarLoading();
+  //   var that = this;
+  //   setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
+  //   console.log("lower")
+  // },
 
 
 
@@ -310,7 +309,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+  console.log('reach bottom')
   },
 
   /**
@@ -319,18 +318,7 @@ Page({
   onShareAppMessage: function () {
   
   },
-
-
 })
-
-
-
-
-
-
-
-
-
 
 
 function loading(that) {
