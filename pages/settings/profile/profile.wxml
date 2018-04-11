@@ -1,0 +1,20 @@
+<view >
+   <view bindtap="bindViewTap" class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickname}}</text>
+  </view> 
+
+<view data-userid='{{userInfo.userid}}'>guanzhu{{userInfo.userid}}</view>
+<view data-userid='{{userInfo.userid}}' bindtap='sendsixin'>sixin</view>
+  
+  <view class="list-container">
+
+  <!-- <view class="list-item" bindtap="showMyProf">
+    <text class="list-name">我的ziliao</text>
+    <image class="list-icon" src="/images/chevron.png"></image>
+  </view> -->
+
+
+  </view>
+</view>
+

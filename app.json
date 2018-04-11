@@ -11,7 +11,9 @@
     "pages/settings/mysubs/mysubs",
     "pages/settings/myhist/myhist",
     "pages/storydetail/storydetail",
-    "pages/settings/mycomm/mycomm"
+    "pages/settings/mycomm/mycomm",
+    "pages/settings/profile/profile",
+    "pages/try/try"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",

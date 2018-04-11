@@ -7,6 +7,12 @@
 
   
   <view class="list-container">
+
+  <!-- <view class="list-item" bindtap="showMyProf">
+    <text class="list-name">我的ziliao</text>
+    <image class="list-icon" src="/images/chevron.png"></image>
+  </view> -->
+
   <view class="list-item" bindtap="showMyQues">
     <text class="list-name">我的提问</text>
     <image class="list-icon" src="/images/chevron.png"></image>

@@ -1,0 +1,3 @@
+<!--pages/try/try.wxml-->
+<text>pages/try/try.wxml</text>
+<view bindtap='send'>aa</view>

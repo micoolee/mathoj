@@ -23,11 +23,18 @@ Page({
       path: '' // 分享路径
     }
   },
+
+  showMyProf:function(){
+    wx.navigateTo({
+      url: '../profile/profile',
+    })
+  },
+
   showMyQues: function () {
     wx.navigateTo({
       url: './myques/myques',
       success: function (res) {
-        // success
+
       },
     })
   },
@@ -36,7 +43,7 @@ Page({
     wx.navigateTo({
       url: './myhist/myhist',
       success: function (res) {
-        // success
+
       },
     })
   },
@@ -45,7 +52,7 @@ Page({
     wx.navigateTo({
       url: './mysubs/mysubs',
       success: function (res) {
-        // success
+
       },
     })
   },

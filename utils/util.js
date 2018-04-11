@@ -191,6 +191,29 @@ function get10solvedprob(that) {
 }
 
 
+function checksolvedlasted(that){
+
+  if (that.data.lastedid != null) {
+    wx.request({
+      url: app.globalData.baseurl + '/checksolvedlasted/',
+      data: { 'lastedid': that.data.lastedid },
+      success: function (res) {
+        if (res.data.code == 200) {
+          console.log(res.data.msg)
+          that.setData({
+            havenewbtn: true
+          })
+        }
+
+      }
+    })
+  }
+
+
+
+}
+
+
 module.exports = {
   formatTime: formatTime,
     getRequestUrl: "http://localhost:59637",//获得接口地址
@@ -201,5 +224,6 @@ module.exports = {
   checklasted: checklasted,
   getlastedsolvedprob: getlastedsolvedprob,
   solvedpulldown: solvedpulldown,
-  get10solvedprob: get10solvedprob
+  get10solvedprob: get10solvedprob,
+  checksolvedlasted: checksolvedlasted
 }

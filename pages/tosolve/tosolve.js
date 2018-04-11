@@ -177,7 +177,14 @@ Page({
     })
   },
 
-
+showmore:function(e){
+  var userid = e.currentTarget.dataset.userid
+  var avatar = e.currentTarget.dataset.avatar
+  var username = e.currentTarget.dataset.username
+  wx.navigateTo({
+    url: `../settings/profile/profile?userid=${userid}&avatar=${avatar}&username=${username}`,
+  })
+},
 
 
 
@@ -263,28 +270,6 @@ Page({
     }, 3000)
   },
 
-
-
-
-  // upper: function () {
-  //   wx.showNavigationBarLoading()
-  //   this.refresh();
-  //   console.log("upper");
-  //   setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 2000);
-  // },
-  // lower: function (e) {
-  //   wx.showNavigationBarLoading();
-  //   var that = this;
-  //   setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
-  //   console.log("lower")
-  // },
-
-
-
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
   onPullDownRefresh: function () {
     var that = this
     console.log('--------下拉刷新-------')
