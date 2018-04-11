@@ -1,5 +1,7 @@
 // pages/tosolve/tosolve.js
 const app = getApp()
+var util = require('../../utils/util.js')
+
 Page({
 
   /**
@@ -9,18 +11,21 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    problempicsrc:'null',
-    animationData:null,
+    problempicsrc: 'null',
+    animationData: null,
 
-
-    topStories:[{image:"../../images/pause.jpg"},{image:'../../images/home.png'}]
+    door: true,
+    formerid: null,
+    lastedid:null,
+    topStories: [{ image: "../../images/pause.jpg" }, { image: '../../images/home.png' }],
+    havenewbtn:false
   },
-  showquestool:function(){
+  showquestool: function () {
     wx.navigateTo({
       url: '../ask/ask',
     })
   },
-// click a question
+  // click a question
   bindQueTap: function (event) {
     var problemid = event.currentTarget.dataset.id
     wx.navigateTo({
@@ -50,9 +55,9 @@ Page({
               app.globalData.userInfo = res.userInfo
               app.globalData.avatar = res.userInfo.avatarUrl
               app.globalData.nickname = res.userInfo.nickName
-                loading(that)
+              loading(that)
 
-              
+
               if (app.userInfoReadyCallback) {
                 app.userInfoReadyCallback(res)
               }
@@ -67,7 +72,7 @@ Page({
 
               app.globalData.avatar = res.userInfo.avatarUrl
               app.globalData.nickname = res.userInfo.nickName
-              loading(that)           
+              loading(that)
               that.onShow()
 
             },
@@ -85,7 +90,7 @@ Page({
                         if (res.authSetting["scope.userInfo"]) {
                           wx.getUserInfo({
                             success: function (res) {
-         
+
                               app.globalData.avatar = res.userInfo.avatarUrl
                               app.globalData.nickname = res.userInfo.nickName
                               loading(that)
@@ -142,14 +147,27 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
-          var that = this
 
 
-    
+
+
 
         }
       })
     }
+
+    util.getlastedprob(that)
+
+
+
+
+    // if (that.data.door) {
+    //   that.setData({door :false,formerid:'first'})
+
+    //   util.get10prob(that)
+    // }
+
+
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
@@ -170,26 +188,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
     var that = this
-    wx.request({
-      url: app.globalData.baseurl + '/',
-      success: function (res) {
-        var problemlist = JSON.parse(res.data.json_data)
-        var topstories = JSON.parse(res.data.topstory)
-        that.setData({
-          problemlist: problemlist,
-          topStories:topstories
-        })
-      }
-    })
+    util.checklasted(that)
   },
 
   /**
@@ -203,7 +210,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   refresh: function () {
@@ -279,44 +286,27 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
     var that = this
-　　console.log('--------下拉刷新-------')
-　　wx.showNavigationBarLoading() //在标题栏中显示加载
-
-    　　wx.request({
-        url: app.globalData.baseurl + '/',
-
-      success: function (res) {
-        var problemlist = JSON.parse(res.data.json_data)
-        that.setData({
-          problemlist: problemlist
-        })
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-        wx.hideNavigationBarLoading() //完成停止加载
-
-      }
-    })
-      wx.stopPullDownRefresh() //停止下拉刷新                
+    console.log('--------下拉刷新-------')
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    util.pulldown(that)
+    wx.stopPullDownRefresh() //停止下拉刷新                
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  console.log('reach bottom')
+    console.log('reach bottom')
+    var that = this
+    util.get10prob(that)
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   },
 })
 
@@ -349,11 +339,6 @@ function uploadavatar() {
     header: {
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    success: function () {
-
-    }
-
-
   })
 
 

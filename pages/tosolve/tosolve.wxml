@@ -28,7 +28,7 @@
     </swiper-item>
   </swiper>
 </scroll-view>
-
+<view wx:if='{{havenewbtn}}'><text>have new</text></view>
   <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
     <view class="feed-item">
       <view class="feed-source">
@@ -44,9 +44,6 @@
         <view class="question" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap">
           <a class="question-link">
             <text class='line-3'>{{item.description}}</text>
-            <!-- <view wx:if="{{item.problempic != 'noimages'}}" style='display:flex;justify-content:center'>
-              <image src='{{item.problempic}}'></image>
-            </view> -->
 
           </a>
         </view>
