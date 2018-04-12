@@ -1,5 +1,6 @@
 {
   "pages": [
+        "pages/try/try",
     "pages/tosolve/tosolve",
     "pages/settings/settings",
     "pages/solved/solved",
@@ -12,8 +13,8 @@
     "pages/settings/myhist/myhist",
     "pages/storydetail/storydetail",
     "pages/settings/mycomm/mycomm",
-    "pages/settings/profile/profile",
-    "pages/try/try"
+    "pages/settings/profile/profile"
+
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",

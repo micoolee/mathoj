@@ -1,3 +1,7 @@
 <!--pages/try/try.wxml-->
 <text>pages/try/try.wxml</text>
-<view bindtap='send'>aa</view>
+<button bindtap='connect'>connect</button>
+<button bindtap='send'>send</button>
+
+
+<button bindtap='close'>close</button>
