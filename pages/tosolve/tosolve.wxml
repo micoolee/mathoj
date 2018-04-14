@@ -34,7 +34,7 @@
       <view class="feed-source">
         <a class="">
           <view class="avatar">
-            <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}'></image>
+            <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
           </view>
           <text>{{item.username}}</text>
         </a>

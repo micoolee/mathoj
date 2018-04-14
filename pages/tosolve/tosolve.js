@@ -4,9 +4,6 @@ var util = require('../../utils/util.js')
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     userInfo: {},
     hasUserInfo: false,
@@ -25,7 +22,7 @@ Page({
       url: '../ask/ask',
     })
   },
-  // click a question
+
   bindQueTap: function (event) {
     var problemid = event.currentTarget.dataset.id
     wx.navigateTo({
@@ -33,15 +30,6 @@ Page({
     })
   },
 
-
-
-
-
-  // easyinput: function (e) {
-  //   this.setData({
-  //     easy: e.detail.value
-  //   })
-  // },
 
   onLoad: function () {
 
@@ -147,26 +135,12 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
-
-
-
-
-
         }
       })
     }
-
+    console.log('getting wss')
     util.getlastedprob(that)
-
-
-
-
-    // if (that.data.door) {
-    //   that.setData({door :false,formerid:'first'})
-
-    //   util.get10prob(that)
-    // }
-
+    
 
   },
   getUserInfo: function (e) {
@@ -181,9 +155,20 @@ showmore:function(e){
   var userid = e.currentTarget.dataset.userid
   var avatar = e.currentTarget.dataset.avatar
   var username = e.currentTarget.dataset.username
-  wx.navigateTo({
-    url: `../settings/profile/profile?userid=${userid}&avatar=${avatar}&username=${username}`,
-  })
+  var openid = e.currentTarget.dataset.openid
+
+
+  if (openid == app.globalData.openid) {
+    wx.switchTab({
+      url: '../settings/settings',
+    })
+  }else{
+    wx.navigateTo({
+      url: `../settings/profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+    })
+  }
+
+
 },
 
 
@@ -191,12 +176,6 @@ showmore:function(e){
 
 
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
 
   /**
    * 生命周期函数--监听页面显示
@@ -206,69 +185,7 @@ showmore:function(e){
     util.checklasted(that)
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  refresh: function () {
-    wx.showToast({
-      title: '刷新中',
-      icon: 'loading',
-      duration: 3000
-    });
-
-    // load data
-    // var feed = util.getData2();
-    // console.log("loaddata");
-    // var feed_data = feed.data;
-    // this.setData({
-    //   feed: feed_data,
-    //   feed_length: feed_data.length
-    // });
-    setTimeout(function () {
-      wx.showToast({
-        title: '刷新成功',
-        icon: 'success',
-        duration: 2000
-      })
-    }, 3000)
-
-  },
-
-
-  //使用本地 fake 数据实现继续加载效果
-  nextLoad: function () {
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading',
-      duration: 4000
-    })
-    // load data
-    // var next = util.getNext();
-    // console.log("continueload");
-    // var next_data = next.data;
-    // this.setData({
-    //   feed: this.data.feed.concat(next_data),
-    //   feed_length: this.data.feed_length + next_data.length
-    // });
-    setTimeout(function () {
-      wx.showToast({
-        title: '加载成功',
-        icon: 'success',
-        duration: 2000
-      })
-    }, 3000)
-  },
 
   onPullDownRefresh: function () {
     var that = this
@@ -287,12 +204,6 @@ showmore:function(e){
     util.get10prob(that)
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
 })
 
 
@@ -302,6 +213,7 @@ function loading(that) {
       title: '加载完成~',
     })
     uploadavatar()
+    util.pulldownmessage()
 
     that.onShow()
   } else {

@@ -13,23 +13,6 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
-
-
-function Regular(str, reg) {
-  if (reg.test(str))
-    return true;
-  return false;
-}
-
-//是否为中文
-function IsChinese(str) {
-  var reg = /^[\u0391-\uFFE5]+$/;
-  return Regular(str, reg);
-}
 
 function getlastedprob(that){
   wx.request({
@@ -136,6 +119,46 @@ function pulldown(that){
 }
 
 
+function pulldownmessage(that) {
+  wx.request({
+    url: app.globalData.baseurl + '/getmessages/',
+    data: { 'userid': app.globalData.openid, 'statuscode': '1' },
+    success: function (res) {
+      var messagelist = res.data.json_data
+      app.globalData.messagelist = messagelist
+//       that.setData({
+// messagelist:messagelist
+//       })
+    },
+    complete: function () {
+      wx.hideNavigationBarLoading() //完成停止加载
+    }
+  })
+}
+
+
+
+function pulldownchatroom(that) {
+  wx.request({
+    url: app.globalData.baseurl + '/getmessages/',
+    data: { 'userid': app.globalData.openid, 'statuscode': '2','peeruserid':that.data.receiverid},
+    success: function (res) {
+      var messagelist = res.data.json_data
+      that.setData({
+        messagelist: messagelist
+      })
+    },
+    complete: function () {
+      wx.hideNavigationBarLoading() //完成停止加载
+    }
+  })
+}
+
+
+
+
+
+
 function get10prob(that){
   console.log(that)
   var that = that
@@ -192,7 +215,6 @@ function get10solvedprob(that) {
 
 
 function checksolvedlasted(that){
-
   if (that.data.lastedid != null) {
     wx.request({
       url: app.globalData.baseurl + '/checksolvedlasted/',
@@ -209,21 +231,23 @@ function checksolvedlasted(that){
     })
   }
 
-
-
 }
 
 
+
+
 module.exports = {
-  formatTime: formatTime,
+
     getRequestUrl: "http://localhost:59637",//获得接口地址
-  IsChinese: IsChinese,
-  get10prob: get10prob,
+
   getlastedprob: getlastedprob,
   pulldown: pulldown,
   checklasted: checklasted,
   getlastedsolvedprob: getlastedsolvedprob,
   solvedpulldown: solvedpulldown,
   get10solvedprob: get10solvedprob,
-  checksolvedlasted: checksolvedlasted
+  checksolvedlasted: checksolvedlasted,
+
+  pulldownmessage: pulldownmessage,
+  pulldownchatroom: pulldownchatroom
 }

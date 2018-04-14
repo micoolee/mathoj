@@ -1,5 +1,4 @@
 /**answer.wxss**/
-
 .breakline{
   display:-webkit-box;
 -webkit-box-orient:vertical;
@@ -165,14 +164,6 @@ page{ background: #FFF; font-family: 'Helvetica Neue',Helvetica,Arial,Sans-serif
 .comments-data{ height: 18px; margin-top: 5px; line-height: 18px; font-size: 12px; color: #999; }
 
 .not-comments{ text-align: center; padding: 30px 20px; font-size: 14px; color: #999; }
-
-/* 浮动 */
-.extra{ height: 40px; background: #FFF; border-top: 1px solid #F2F2F2; position: fixed; bottom: 0px; left: 0; right: 0px; width: 100%; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1); }
-.extra-input{ width: 50%; height: 20px; margin: 10px; font-size: 13px; font-weight: 300; line-height: 20px; padding: 0 6px; border-left: 2px solid #48C23D; color: #444; }
-.extra-placeholder{ font-size: 13px; font-weight: 300; color: #999; }
-/* 点赞 评论 分享 */
-.extra-share{ position: absolute; right: 5px; width: 50%; }
-.extra-share-img{ width: 20px; height: 20px; float: right; padding: 10px 15px; }
 
 /* 分享box */
 .extra-share-box{ display: none; width: 100%; position: fixed; bottom: 0; left: 0; right: 0; top: 0; height: 100%; }

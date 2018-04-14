@@ -6,34 +6,49 @@ Page({
    * 页面的初始数据
    */
   data: {
-  userInfo:{}
+  userInfo:{},
+  ziji:false,
+  profileropenid:null
   },
 
 sendsixin:function(e){
-  var receiverid = e.currentTarget.dataset.userid
-  var senderid = app.globalData.openid 
-  wx.request({
-    url: app.globalData.baseurl+'/sendsixin/',
-    data:{'receiver':receiverid,'senderid':senderid},
-    success:function(){
-      console.log('send success')
-    }
-  })
+  // var receiverid = e.currentTarget.dataset.userid
+  // var senderid = app.globalData.openid 
+  // wx.request({
+  //   url: app.globalData.baseurl+'/sendsixin/',
+  //   data:{'receiverid':receiverid,'senderid':senderid,'message':'hello world'},
+  //   success:function(){
+  //     wx.showToast({
+  //       title: 'send successfully',
+  //     })
+  //   }
+  // })
+wx.navigateTo({
+  url: `../../message/chatroom/chatroom?receiverid=${e.currentTarget.dataset.userid}`,
+})
+
+
 },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     this.setData({
-      userInfo: { 'avatar': options.avatar, 'nickname': options.username, 'userid': options.userid }
+      userInfo: { 'avatar': options.avatar, 'nickname': options.username, 'userid': options.userid,'profileropenid':options.openid}
     })
+
+
+
+
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
@@ -41,6 +56,7 @@ sendsixin:function(e){
    */
   onShow: function () {
   
+
   },
 
   /**

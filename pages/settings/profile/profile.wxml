@@ -3,9 +3,12 @@
     <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickname}}</text>
   </view> 
+<view hidden='{{ziji}}'>
 
-<view data-userid='{{userInfo.userid}}'>guanzhu{{userInfo.userid}}</view>
-<view data-userid='{{userInfo.userid}}' bindtap='sendsixin'>sixin</view>
+<button data-userid='{{userInfo.userid}}'>guanzhu{{userInfo.userid}}</button>
+<button data-userid='{{userInfo.userid}}' bindtap='sendsixin'>sixin</button>
+</view>
+
   
   <view class="list-container">
 

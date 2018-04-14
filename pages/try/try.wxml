@@ -1,6 +1,6 @@
 <!--pages/try/try.wxml-->
 <text>pages/try/try.wxml</text>
-<button bindtap='connect'>connect</button>
+<input bindinput='inputfunc' ></input>
 <button bindtap='send'>send</button>
 
 

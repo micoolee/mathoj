@@ -6,49 +6,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+  msg:null
   },
-  connect:function(){
-console.log('aaa')
-  },
+
+inputfunc:function(e){
+this.setData({
+  msg: e.detail.value
+})
+},
+
+
 send:function(){
+var that = this
 
-
-
-  var socketOpen = false
-  var socketMsgQueue = ['a','b']
-  wx.connectSocket({
-    url: 'ws://www.liyuanye.club/testwss/'
+  wx.sendSocketMessage({
+    data: that.data.msg,
   })
-
-  wx.onSocketOpen(function (res) {
-    socketOpen = true
-    for (var i = 0; i < socketMsgQueue.length; i++) {
-      sendSocketMessage(socketMsgQueue[i])
-    }
-    socketMsgQueue = []
-  })
-
-
-  wx.onSocketMessage(function (res) {
-    console.log('收到服务器内容：' + res.data)
-  })
-
-
-  function sendSocketMessage(msg) {
-    if (socketOpen) {
-      wx.sendSocketMessage({
-        data: msg,
-        success:function(res){
-          console.log('wh')
-          console.log(res)
-        }
-      })
-    } else {
-      socketMsgQueue.push(msg)
-    }
-  }
-
 
 },
   /**
@@ -58,11 +31,9 @@ send:function(){
 
 close:function(){
 
-
   wx.closeSocket({
 
   })
-
   wx.onSocketClose(function (res) {
     console.log('WebSocket 已关闭！')
   })
@@ -73,10 +44,33 @@ close:function(){
 },
 
 
+  connect:function(){
+    var that = this
+    wx.connectSocket({
+      url: 'ws://www.liyuanye.club/testwss/'
+    })
 
+    wx.onSocketOpen(function (res) {
+      console.log('websocket opened')
+    })
+
+    wx.onSocketMessage(function (res) {
+      console.log('收到服务器内容：' + res.data)
+    })
+
+    wx.onSocketClose(function (res) {
+      console.log('WebSocket 已关闭！')
+      that.connect()
+    })
+  },
 
   onLoad: function (options) {
   
+    this.connect()
+
+
+
+
   },
 
   /**

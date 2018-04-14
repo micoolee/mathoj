@@ -1,6 +1,5 @@
 {
   "pages": [
-        "pages/try/try",
     "pages/tosolve/tosolve",
     "pages/settings/settings",
     "pages/solved/solved",
@@ -13,8 +12,10 @@
     "pages/settings/myhist/myhist",
     "pages/storydetail/storydetail",
     "pages/settings/mycomm/mycomm",
-    "pages/settings/profile/profile"
-
+    "pages/settings/profile/profile",
+    "pages/try/try",
+    "pages/message/message",
+    "pages/message/chatroom/chatroom"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",
@@ -31,6 +32,12 @@
         "text": "已解决",
         "iconPath": "images/search.png",
         "selectedIconPath": "images/search-selected.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "message",
+        "iconPath": "images/chat.png",
+        "selectedIconPath": "images/chat-selected.png"
       },
       {
         "pagePath": "pages/settings/settings",
