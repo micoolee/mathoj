@@ -17,6 +17,7 @@
     "pages/message/message",
     "pages/message/chatroom/chatroom"
   ],
+
   "tabBar": {
     "backgroundColor": "#F7F7FA",
     "borderStyle": "white",

@@ -35,14 +35,22 @@ connect:function(){
     wx.onSocketMessage(function (res) {
       console.log('chonglianhou收到服务器内容：' + res.data)
       var singlemessage = JSON.parse(res.data)
-      console.log(that.globalData.messagelist)
-      console.log(singlemessage)
-      var all = that.globalData.messagelist
-      var one = singlemessage
-      for (var i in all) { if (all[i].sessionid == one[0].sessionid) { all[i].value.push(one[0].value[0]) } }
-      that.globalData.messagelist = all
+      if (singlemessage.statuscode=='200'){
+        console.log('heart back')
+      }else{
+        console.log(that.globalData.messagelist)
+        console.log(singlemessage)
 
-      getCurrentPages()[1].onShow()
+        var all = that.globalData.messagelist
+        var one = singlemessage
+        for (var i in all) { if (all[i].sessionid == one[0].sessionid) { all[i].value.push(one[0].value[0]) } }
+        that.globalData.messagelist = all
+
+        wx.showTabBarRedDot({
+          index: 2,
+        })
+      }
+
 
     })
 
@@ -53,7 +61,7 @@ connect:function(){
   wx.onSocketClose(function (res) {
     that.globalData.closetime++
     console.log('WebSocket 已关闭！')
-    setTimeout(that.connect,0) 
+    setTimeout(that.connect,that.globalData.closetime*1000) 
 
   })
 },

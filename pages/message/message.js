@@ -1,24 +1,16 @@
 const app = getApp()
 var util = require('../../utils/util.js')
 
+
+
+
+
 Page({
   data: {
     focus: false,
     inputValue: '',
     messagelist: app.globalData.messagelist
   },
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   onLoad: function () {

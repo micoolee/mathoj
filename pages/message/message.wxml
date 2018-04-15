@@ -18,7 +18,7 @@
         <text class="chatmate">Alex</text>
         <text class="lasttime">12个月前</text>
       </view>
-      <text class="chat-txt" data-sessionid='{{item.sessionid}}'>{{item.value[0].message}}</text>
+      <text class="chat-txt" data-sessionid='{{item.sessionid}}'>{{item.value[item.value.length-1].message}}</text>
     </view>
   </view>
 
