@@ -1,0 +1,27 @@
+
+<view class="container chat" wx:for = "{{messagelist}}">
+
+  <view class="chat-item flex-wrp" bindtap='enterconversation' data-sessionindex='{{index}}' data-receiverid='{{item.value[0].receiver_id}}'>
+    <view class="avatar flex-item">
+
+     <view wx:if="{{item.value[0].ziji=='1'}}">
+          <image src="{{item.value[0].receiveravatar}}"></image>
+    </view>
+    <view wx:else>
+    <image src="{{item.value[0].senderavatar}}"></image>
+    </view> 
+
+
+    </view>
+    <view class="chat-content flex-item">
+      <view class="chat-source">
+        <text class="chatmate">Alex</text>
+        <text class="lasttime">12个月前</text>
+      </view>
+      <text class="chat-txt" data-sessionid='{{item.sessionid}}'>{{item.value[item.value.length-1].message}}</text>
+    </view>
+  </view>
+
+</view>
+
+

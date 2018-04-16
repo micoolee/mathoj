@@ -10,12 +10,12 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     problempicsrc: 'null',
     animationData: null,
-
     door: true,
     formerid: null,
     lastedid:null,
     topStories: [{ image: "../../images/pause.jpg" }, { image: '../../images/home.png' }],
-    havenewbtn:false
+    havenewbtn:false,
+    searchcontent:null
   },
   showquestool: function () {
     wx.navigateTo({
@@ -29,6 +29,23 @@ Page({
       url: `../question/question?problemid=${problemid}`
     })
   },
+
+// writesearch:function(e){
+//   this.setData({
+//     searchcontent:e.detail.value
+//   })
+// },
+
+search:function(e){
+  wx.request({
+    url: app.globalData.baseurl+'/search/',
+    data:{'content':e.detail.value},
+    success:function(res){
+      console.log(res)
+    }
+  })
+},
+
 
 
   onLoad: function () {
@@ -87,7 +104,6 @@ Page({
                           })
                         }
                       }, fail: function (res) {
-
                       }
                     })
                   } else {
@@ -98,17 +114,10 @@ Page({
                 }
               })
             }
-
           })
-
         }
-
       }
     })
-
-
-
-
 
     if (app.globalData.userInfo) {
       this.setData({
@@ -140,8 +149,6 @@ Page({
     }
     console.log('getting wss')
     util.getlastedprob(that)
-    
-
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
@@ -156,7 +163,6 @@ showmore:function(e){
   var avatar = e.currentTarget.dataset.avatar
   var username = e.currentTarget.dataset.username
   var openid = e.currentTarget.dataset.openid
-
 
   if (openid == app.globalData.openid) {
     wx.switchTab({
@@ -214,6 +220,7 @@ function loading(that) {
     })
     uploadavatar()
     util.pulldownmessage()
+    app.getlastedinform()
 
     that.onShow()
   } else {

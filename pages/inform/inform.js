@@ -1,4 +1,4 @@
-// pages/settings/profile/profile.js
+// pages/inform/inform.js
 const app = getApp()
 Page({
 
@@ -6,47 +6,47 @@ Page({
    * 页面的初始数据
    */
   data: {
-  userInfo:{},
-  ziji:false,
-  profileropenid:null
+  informlist:[]
   },
 
-sendsixin:function(e){
-
-wx.navigateTo({
-  url: `../../inform/message/chatroom/chatroom?receiverid=${e.currentTarget.dataset.userid}`,
-})
-
-
-},
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    this.setData({
-      userInfo: { 'avatar': options.avatar, 'nickname': options.username, 'userid': options.userid,'profileropenid':options.openid}
-    })
-
-
-
-
-
+  
   },
 
+
+showsixin:function(){
+  wx.navigateTo({
+    url: '../inform/message/message',
+  })
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var that = this
+    app.globalData.informthat = that
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  print:function(){
+    console.log('print')
+  },
 
+
+  onShow: function () {
+
+  
+    this.setData({
+      informlist:app.globalData.informlist
+    })
+    wx.hideTabBarRedDot({
+      index: 2,
+    })
   },
 
   /**

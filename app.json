@@ -14,10 +14,10 @@
     "pages/settings/mycomm/mycomm",
     "pages/settings/profile/profile",
     "pages/try/try",
-    "pages/message/message",
-    "pages/message/chatroom/chatroom"
+    "pages/inform/message/message",
+    "pages/inform/message/chatroom/chatroom",
+    "pages/inform/inform"
   ],
-
   "tabBar": {
     "backgroundColor": "#F7F7FA",
     "borderStyle": "white",
@@ -35,8 +35,8 @@
         "selectedIconPath": "images/search-selected.png"
       },
       {
-        "pagePath": "pages/message/message",
-        "text": "message",
+        "pagePath": "pages/inform/inform",
+        "text": "inform",
         "iconPath": "images/chat.png",
         "selectedIconPath": "images/chat-selected.png"
       },

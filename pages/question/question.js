@@ -1,6 +1,7 @@
 //answer.js
 var util = require('../../utils/util.js')
 var app = getApp()
+var getDateDiff = util.getDateDiff
 
 //inner audio
 const innerAudioContext = wx.createInnerAudioContext()
@@ -88,10 +89,11 @@ var page = Page({
 dianzan:function(e){
   var commentid = e.target.dataset.id
   var problemid = e.target.dataset.problemid
+  var commenter = e.target.dataset.commenter
   var that = this
   wx.request({
     url: app.globalData.baseurl+'/dianzan/',
-    data:{'userid':app.globalData.openid,'commentid':commentid,'problemid':problemid},
+    data:{'userid':app.globalData.openid,'commentid':commentid,'problemid':problemid,'commenter':commenter},
     success:function(res){
       if(res.data.code == '200'){
         var comments = JSON.parse(res.data.comment)
@@ -537,6 +539,10 @@ dianzan:function(e){
         var answer = JSON.parse(res.data.answer)
         var hidehuida = JSON.parse(res.data.answerbox)
         var comments = JSON.parse(res.data.comment)
+
+        var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+        comments = JSON.parse(tmp)
+
         that.setData({
           desc: problem[0].fields.description,
           problempic: problem[0].fields.problempic,
