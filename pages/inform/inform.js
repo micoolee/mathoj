@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-  informlist:[]
+  informlist:[],
+  sixindoor:false
   },
 
   /**
@@ -15,9 +16,15 @@ Page({
   onLoad: function (options) {
   
   },
+  onPullDownRefresh:function(){
+    app.getlastedinform()
+  },
 
 
 showsixin:function(){
+  this.setData({
+    sixindoor:false
+  })
   wx.navigateTo({
     url: '../inform/message/message',
   })
@@ -30,9 +37,6 @@ showsixin:function(){
     app.globalData.informthat = that
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
   print:function(){
     console.log('print')
   },
@@ -40,7 +44,7 @@ showsixin:function(){
 
   onShow: function () {
 
-  
+    app.globalData.reddot = false
     this.setData({
       informlist:app.globalData.informlist
     })
@@ -49,38 +53,5 @@ showsixin:function(){
     })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

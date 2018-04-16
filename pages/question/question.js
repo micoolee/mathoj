@@ -97,6 +97,16 @@ dianzan:function(e){
     success:function(res){
       if(res.data.code == '200'){
         var comments = JSON.parse(res.data.comment)
+
+
+        var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+        comments = JSON.parse(tmp)
+
+
+
+
+
+
         that.setData({
           comments: comments
         })
@@ -290,6 +300,11 @@ dianzan:function(e){
             title: 'comment successfully',
           })
           var comments = JSON.parse(res.data.comment)
+          
+          var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+          comments = JSON.parse(tmp)
+
+
           that.setData({
             comments: comments,
           })

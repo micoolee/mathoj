@@ -223,10 +223,11 @@ function pulldownmessage(that) {
     data: { 'userid': app.globalData.openid, 'statuscode': '1' },
     success: function (res) {
       var messagelist = res.data.json_data
+      var tmp = JSON.stringify(messagelist).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+      messagelist = JSON.parse(tmp)
+
       app.globalData.messagelist = messagelist
-      //       that.setData({
-      // messagelist:messagelist
-      //       })
+
     },
     complete: function () {
       wx.hideNavigationBarLoading() //完成停止加载

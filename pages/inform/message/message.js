@@ -9,7 +9,8 @@ Page({
   data: {
     focus: false,
     inputValue: '',
-    messagelist: app.globalData.messagelist
+    messagelist: app.globalData.messagelist,
+    messagethat:null
   },
 
 
@@ -39,13 +40,14 @@ Page({
 
   onPullDownRefresh: function () {
     var that = this
-    wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.showNavigationBarLoading()
     util.pulldownmessage(that)
-    wx.stopPullDownRefresh() //停止下拉刷新                
+    wx.stopPullDownRefresh() 
   },
 
   onShow:function(){
-
+    app.globalData.reddot=false
+    app.globalData.messagethat = this
     this.setData({
       messagelist: app.globalData.messagelist
     })

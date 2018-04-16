@@ -12,10 +12,10 @@ Page({
     animationData: null,
     door: true,
     formerid: null,
-    lastedid:null,
+    lastedid: null,
     topStories: [{ image: "../../images/pause.jpg" }, { image: '../../images/home.png' }],
-    havenewbtn:false,
-    searchcontent:null
+    havenewbtn: false,
+    searchcontent: null
   },
   showquestool: function () {
     wx.navigateTo({
@@ -30,21 +30,21 @@ Page({
     })
   },
 
-// writesearch:function(e){
-//   this.setData({
-//     searchcontent:e.detail.value
-//   })
-// },
+  // writesearch:function(e){
+  //   this.setData({
+  //     searchcontent:e.detail.value
+  //   })
+  // },
 
-search:function(e){
-  wx.request({
-    url: app.globalData.baseurl+'/search/',
-    data:{'content':e.detail.value},
-    success:function(res){
-      console.log(res)
-    }
-  })
-},
+  search: function (e) {
+    wx.request({
+      url: app.globalData.baseurl + '/search/',
+      data: { 'content': e.detail.value },
+      success: function (res) {
+        console.log(res)
+      }
+    })
+  },
 
 
 
@@ -158,24 +158,24 @@ search:function(e){
     })
   },
 
-showmore:function(e){
-  var userid = e.currentTarget.dataset.userid
-  var avatar = e.currentTarget.dataset.avatar
-  var username = e.currentTarget.dataset.username
-  var openid = e.currentTarget.dataset.openid
+  showmore: function (e) {
+    var userid = e.currentTarget.dataset.userid
+    var avatar = e.currentTarget.dataset.avatar
+    var username = e.currentTarget.dataset.username
+    var openid = e.currentTarget.dataset.openid
 
-  if (openid == app.globalData.openid) {
-    wx.switchTab({
-      url: '../settings/settings',
-    })
-  }else{
-    wx.navigateTo({
-      url: `../settings/profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
-    })
-  }
+    if (openid == app.globalData.openid) {
+      wx.switchTab({
+        url: '../settings/settings',
+      })
+    } else {
+      wx.navigateTo({
+        url: `../settings/profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+      })
+    }
 
 
-},
+  },
 
 
 
@@ -187,9 +187,16 @@ showmore:function(e){
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    if (app.globalData.reddot) {
+      wx.showTabBarRedDot({
+        index: 2,
+      })
+    }
     var that = this
     util.checklasted(that)
+
   },
+
 
 
 

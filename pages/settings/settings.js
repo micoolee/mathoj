@@ -23,6 +23,13 @@ Page({
       path: '' // 分享路径
     }
   },
+  onShow:function(){
+    if (app.globalData.reddot) {
+      wx.showTabBarRedDot({
+        index: 2,
+      })
+    }
+  },
 
   showMyProf:function(){
     wx.navigateTo({

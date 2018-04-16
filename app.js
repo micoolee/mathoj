@@ -19,7 +19,9 @@ App({
     receiverid: null,
     closetime: 0,
     informthat: null,
-    informlist: []
+    informlist: [],
+    messagethat:null,
+    reddot:false
   },
 
   getlastedinform: function () {
@@ -44,6 +46,7 @@ App({
   },
 
   connect: function () {
+
     var that = this
     wx.connectSocket({
       url: that.globalData.wssurl
@@ -57,9 +60,11 @@ App({
       wx.onSocketMessage(function (res) {
         console.log('chonglianhou收到服务器内容：' + res.data)
         var tmp = JSON.parse(res.data)
-        var singlemessage = JSON.parse(tmp.json_data)
+        // var singlemessage = JSON.parse(tmp.json_data)
+        // var singlemessage = tmp.json_data
 
-
+        var util = require('utils/util.js')
+        var getDateDiff = util.getDateDiff
 
         var statuscode = tmp.statuscode
         if (statuscode == '200') {
@@ -67,19 +72,44 @@ App({
         } else {
           if (statuscode == 'sixin') {
             var all = that.globalData.messagelist
+            var singlemessage = tmp.json_data
             var one = singlemessage
-            for (var i in all) { if (all[i].sessionid == one[0].sessionid) { all[i].value.push(one[0].value[0]) } }
+
+            var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+            var tmpmessagelist = JSON.parse(tmp)
+            one = tmpmessagelist
+
+
+            for (var i in all) { if (all[i].sessionid == one[0].sessionid) { all[i].value.unshift(one[0].value[0]) } }
             that.globalData.messagelist = all
-            that.globalData.informthat.print()
+            that.globalData.informthat.setData({
+              sixindoor:true,
+  
+            })
+            if (that.globalData.messagethat){
+              messagelist: all
+            }
+
 
           } else if (statuscode == 'inform') {
             var all = that.globalData.informlist
+            var singlemessage = JSON.parse(tmp.json_data)
             var one = singlemessage
-            all.push(one[0])
-            that.globalData.informlist = all
-            console.log(singlemessage)
-          }
 
+            var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+            var tmpinformlist = JSON.parse(tmp)
+            one = tmpinformlist
+
+            all.unshift(one[0])
+            that.globalData.informlist = all
+            if(that.globalData.informthat){
+              that.globalData.informthat.setData({
+                informlist: all
+              })
+            }
+
+          }
+          that.globalData.reddot = true
           wx.vibrateLong({
             success: function () {
               console.log('vibrate')
@@ -89,19 +119,12 @@ App({
             index: 2,
           })
         }
-
-
       })
-
     })
-
-
-
     wx.onSocketClose(function (res) {
       that.globalData.closetime++
       console.log('WebSocket 已关闭！')
       setTimeout(that.connect, 0)
-
     })
   },
 

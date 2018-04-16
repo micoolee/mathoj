@@ -1,15 +1,17 @@
 <view class='container'>
-    <view class="feed-item" bindtap='showsixin' style='font-size:20px;'>私信</view>
+
+    <view wx:if="{{sixindoor}}" class="feed-item" bindtap='showsixin' style='font-size:20px;'>youxin私信</view>
+    <view wx:else class="feed-item" bindtap='showsixin' style='font-size:20px;'>私信</view>
 
 <view style='font-size:15px'>通知列表:</view>
-  <block wx:for="{{informlist}}" wx:key="{{item.informid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+  <scroll-view wx:for="{{informlist}}" wx:key="{{item.informid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
     <view class="feed-item">
       <view class="feed-source">
         <a class="">
           <view class="avatar">
             <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
           </view>
-          <text>{{item.informtype}}   {{item.submittime}}</text>
+          <text>{{item.informtype}} |    {{item.submittime}}</text>
         </a>
         <!-- <image class="item-more" mode="aspectFit" src="../../images/more.png"></image> -->
       </view>
@@ -22,5 +24,5 @@
 
       </view>
     </view>
-  </block>
+  </scroll-view>
 </view>
