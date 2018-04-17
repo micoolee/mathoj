@@ -5,10 +5,6 @@
       <image src="{{item.senderavatar}}"></image>
     </view>
     <view class="chat-content flex-item">
-      <!-- <view class="chat-source">
-        <text class="chatmate">Alex</text>
-        <text class="lasttime">1 个月前</text>
-      </view> -->
       <text class="chat-txt" data-sessionid='{{messagelist.sessionid}}'>{{item.message}}</text>
     </view>
   </view>

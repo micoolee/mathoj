@@ -43,7 +43,11 @@ showsixin:function(){
 
 
   onShow: function () {
-
+    if(app.globalData.sixindoor){
+      this.setData({
+        sixindoor:true
+      })
+    }
     app.globalData.reddot = false
     this.setData({
       informlist:app.globalData.informlist

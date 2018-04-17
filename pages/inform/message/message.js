@@ -31,7 +31,7 @@ Page({
     app.globalData.conversationdetaillist = this.data.messagelist[sessionindex]
     app.globalData.receiverid = receiverid
     wx.navigateTo({
-      url: `../message/chatroom/chatroom?messagelist=${msg}&receiverid= ${receiverid}`,
+      url: `../message/chatroom/chatroom?messagelist=${msg}&receiverid= ${receiverid}&sessionindex=${sessionindex}`,
     })
 
   },

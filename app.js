@@ -20,15 +20,18 @@ App({
     closetime: 0,
     informthat: null,
     informlist: [],
-    messagethat:null,
-    reddot:false
+    messagethat: null,
+    reddot: false,
+    sixindoor: false,
+    nothissession: true,
+    chatroomthat: null
   },
 
   getlastedinform: function () {
     var that = this
     var util = require('utils/util.js')
     var getDateDiff = util.getDateDiff
-    
+
     wx.request({
       url: this.globalData.baseurl + '/getlastedinform/',
       data: { 'userid': this.globalData.openid },
@@ -38,9 +41,6 @@ App({
         var tmp = JSON.stringify(informlist).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
         informlist = JSON.parse(tmp)
         that.globalData.informlist = informlist
-
-
-
       }
     })
   },
@@ -49,7 +49,8 @@ App({
 
     var that = this
     wx.connectSocket({
-      url: that.globalData.wssurl
+      url: that.globalData.wssurl,
+
     })
 
     wx.onSocketOpen(function (res) {
@@ -80,14 +81,34 @@ App({
             one = tmpmessagelist
 
 
-            for (var i in all) { if (all[i].sessionid == one[0].sessionid) { all[i].value.unshift(one[0].value[0]) } }
+            for (var i in all) { if (all[i].sessionid == one[0].sessionid) { all[i].value.unshift(one[0].value[0]); that.globalData.nothissession = false } }
+            if (all.length == 0 | that.globalData.nothissession) {
+              all.unshift(one[0])
+            }
+
+
+
             that.globalData.messagelist = all
-            that.globalData.informthat.setData({
-              sixindoor:true,
-  
-            })
-            if (that.globalData.messagethat){
-              messagelist: all
+            if (that.globalData.informthat) {
+              that.globalData.informthat.setData({
+                sixindoor: true,
+
+              })
+            } else {
+              that.globalData.sixindoor = true
+            }
+
+            if (that.globalData.messagethat) {
+              that.globalData.messagethat.setData({
+                messagelist: all
+              })
+            }
+
+
+            if(that.globalData.chatroomthat){
+              that.globalData.chatroomthat.setData({
+                messagelist: all[that.globalData.conversationindex]
+              })
             }
 
 
@@ -102,7 +123,7 @@ App({
 
             all.unshift(one[0])
             that.globalData.informlist = all
-            if(that.globalData.informthat){
+            if (that.globalData.informthat) {
               that.globalData.informthat.setData({
                 informlist: all
               })
@@ -122,9 +143,12 @@ App({
       })
     })
     wx.onSocketClose(function (res) {
-      that.globalData.closetime++
+      // that.globalData.closetime++
       console.log('WebSocket 已关闭！')
-      setTimeout(that.connect, 0)
+      setTimeout(that.connect, that.globalData.closetime * 1000)
+
+
+
     })
   },
 
@@ -140,12 +164,13 @@ App({
           method: 'GET',
           success: function (res) {
             that.globalData.openid = res.data
+            that.connect()
           },
         })
       }
     })
 
-    that.connect()
+    // that.connect()
     var a = wx.getSystemInfoSync()
     that.globalData.screenwidth = a.windowWidth
     that.globalData.screenheight = a.windowHeight

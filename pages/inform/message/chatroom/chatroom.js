@@ -7,7 +7,8 @@ Page({
    */
   data: {
   text:null,
-  receiverid:null
+  receiverid:null,
+  sessionindex:null
   },
 
   inputtext:function(e){
@@ -54,9 +55,12 @@ onPullDownRefresh: function () {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     this.setData({
-      receiverid:options.receiverid
+      receiverid:options.receiverid,
+      sessionindex:options.sessionindex
     })
+    app.globalData.chatroomthat = that
     if(options.messagelist){
       // var messagelist = JSON.parse(options.messagelist)
 
@@ -66,5 +70,9 @@ onPullDownRefresh: function () {
       })
     }
   },
+
+  onShow:function(){
+    app.globalData.conversationindex=this.data.sessionindex
+  }
 
 })

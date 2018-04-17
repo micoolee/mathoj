@@ -280,6 +280,7 @@ dianzan:function(e){
 
 
   comment: function (event) {
+    var event = event
     var that = this
     if (this.data.commentcontent == null) {
       wx.showModal({
@@ -296,6 +297,7 @@ dianzan:function(e){
           "Content-Type": "application/x-www-form-urlencoded"
         },
         success: function (res) {
+          // event.detail.value=''
           wx.showToast({
             title: 'comment successfully',
           })
@@ -582,6 +584,7 @@ dianzan:function(e){
 
   },
   onShow: function () {
+    wx.hideKeyboard()
 
   },
   onHide: function () {

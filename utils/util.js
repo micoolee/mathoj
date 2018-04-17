@@ -72,7 +72,7 @@ function getDateDiff(dateStr) {
       return d_seconds + '秒前';
     }
   } else if (d_days >= 3 && d_days < 30) {
-    return M + '-' + D + '&nbsp;' + H + ':' + m;
+    return M + '-' + D + ' ' + H + ':' + m;
   } else if (d_days >= 30) {
     return Y + '-' + M + '-' + D + '&nbsp;' + H + ':' + m;
   }

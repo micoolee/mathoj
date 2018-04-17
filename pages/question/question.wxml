@@ -146,18 +146,23 @@
 <!-- </scroll-view> -->
 
 <!-- 评论 点赞 分享  -->
-<view class="extra">
+ <view class="extra">
   <view class="extra-share">
 
     <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' />
-    <!-- <image src="../../images/zan.png" class="extra-share-img"/> -->
+
     <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />
   </view>
   <input class="extra-input" type="text" maxlength="255" placeholder="你有什么看法?" bindinput='writecomment' placeholder-class="extra-placeholder" />
-</view>
+</view> 
+
+
 
 
 <!-- 分享层 -->
+
+
+<!-- 
 <view class="extra-share-box" style="display:{{shareShow}}">
 
   <view class="share-box-show" animation="{{shareBottom}}">
@@ -171,7 +176,9 @@
   </view>
 
   <view class="share-box-opacity" animation="{{shareOpacity}}" bindtap="shareClose"></view>
-</view>
+</view> -->
+
+
 <!-- 
   点击分享弹出层  -->
 <!-- <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">

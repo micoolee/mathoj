@@ -65,6 +65,14 @@
               <view wx:else>0 关注</view>
             </view>
 
+
+             <view class="comments dot">
+              <view wx:if="{{item.browse_num != null}}">
+                {{item.browse_num}}liulan
+              </view>
+              <view wx:else>0 liulan</view>
+            </view>
+
           </view>
         </view>
       </view>
