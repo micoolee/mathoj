@@ -1,9 +1,6 @@
-// pages/tosolve/tosolve.js
 const app = getApp()
 var util = require('../../utils/util.js')
-
 Page({
-
   data: {
     userInfo: {},
     hasUserInfo: false,
@@ -15,7 +12,8 @@ Page({
     lastedid: null,
     topStories: [{ image: "../../images/pause.jpg" }, { image: '../../images/home.png' }],
     havenewbtn: false,
-    searchcontent: null
+    searchcontent: null,
+    inputvalue:null
   },
   showquestool: function () {
     wx.navigateTo({
@@ -23,46 +21,54 @@ Page({
     })
   },
 
+totop:function(){
+  wx.pageScrollTo({
+    scrollTop: 0,
+    duration: 300
+  })
+},
+
+
   bindQueTap: function (event) {
     var problemid = event.currentTarget.dataset.id
     wx.navigateTo({
       url: `../question/question?problemid=${problemid}`
     })
   },
-
-  // writesearch:function(e){
-  //   this.setData({
-  //     searchcontent:e.detail.value
-  //   })
-  // },
-
   search: function (e) {
-    wx.request({
-      url: app.globalData.baseurl + '/search/',
-      data: { 'content': e.detail.value },
-      success: function (res) {
-        console.log(res)
-      }
-    })
+    var that = this
+    if (e.detail.value==''){
+      wx.showModal({
+        title: 'input sothing',
+        content: 'input something',
+      })
+    }else{
+      wx.request({
+        url: app.globalData.baseurl + '/mysearch/',
+        data: { 'q': e.detail.value },
+        success: function (res) {
+          that.setData({
+            inputvalue: ''
+          })
+          app.globalData.searchlist = res.data
+          wx.navigateTo({
+            url: `../searchres/searchres`,
+          })
+        }
+      })
+    }
   },
-
-
-
   onLoad: function () {
-
     var that = this
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
             success: res => {
-
               app.globalData.userInfo = res.userInfo
               app.globalData.avatar = res.userInfo.avatarUrl
               app.globalData.nickname = res.userInfo.nickName
               loading(that)
-
-
               if (app.userInfoReadyCallback) {
                 app.userInfoReadyCallback(res)
               }
@@ -74,12 +80,10 @@ Page({
         else {
           wx.getUserInfo({
             success: function (res) {
-
               app.globalData.avatar = res.userInfo.avatarUrl
               app.globalData.nickname = res.userInfo.nickName
               loading(that)
               that.onShow()
-
             },
             fail: function () {
               wx.showModal({
@@ -95,7 +99,6 @@ Page({
                         if (res.authSetting["scope.userInfo"]) {
                           wx.getUserInfo({
                             success: function (res) {
-
                               app.globalData.avatar = res.userInfo.avatarUrl
                               app.globalData.nickname = res.userInfo.nickName
                               loading(that)

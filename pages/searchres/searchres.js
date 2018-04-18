@@ -1,4 +1,4 @@
-// pages/settings/mycomm/mycomm.js
+// pages/searchres/searchres.js
 const app = getApp()
 Page({
 
@@ -6,38 +6,28 @@ Page({
    * 页面的初始数据
    */
   data: {
-  commentlist:[]
+  searchlist:[]
   },
+
+
+  bindQueTap: function (e) {
+    var problemid = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `../question/question?problemid=${problemid}`
+    })
+
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    wx.request({
-      url: app.globalData.baseurl + '/mycomm/',
-      method: 'post',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      data: { 'userid': app.globalData.openid },
-      success: function (res) {
-        console.log(res)
-        that.setData({
-          commentlist: res.data
-        })
-      }
+    var searchlist = app.globalData.searchlist
+    console.log(searchlist)
+    this.setData({
+      searchlist:searchlist
     })
-  },
-
-
-
-  bindQueTap: function (e) {
-      var problemid = e.currentTarget.dataset.id
-      wx.navigateTo({
-        url: `../../question/question?problemid=${problemid}`
-      })
-
   },
 
   /**

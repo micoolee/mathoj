@@ -16,7 +16,8 @@
     "pages/try/try",
     "pages/inform/message/message",
     "pages/inform/message/chatroom/chatroom",
-    "pages/inform/inform"
+    "pages/inform/inform",
+    "pages/searchres/searchres"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",

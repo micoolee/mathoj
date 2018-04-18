@@ -1,2 +1,26 @@
-<!--pages/settings/mycomm/mycomm.wxml-->
-<text>pages/settings/mycomm/mycomm.wxml</text>
+<scroll-view class="container" >
+
+
+  <block wx:for="{{commentlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+    <view class="feed-item">
+
+      <view class="feed-content" data-id='{{item.problemid}}' bindtap="bindQueTap" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' >
+        <view class="question" qid="{{question_id}}" >
+          <a class="question-link">
+            <text>{{item.text}}</text>
+          </a>
+        </view>
+        <view class="answer-body">
+          <view class="answer-actions" >
+            <view class="like dot">
+              <a>{{item.zan}} 赞同 </a>
+            </view>
+            <!-- <view class="comments dot">
+              <a>{{item.comment_num}} 评论 </a>
+            </view> -->
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</scroll-view>

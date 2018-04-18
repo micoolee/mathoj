@@ -8,7 +8,8 @@ Page({
   data: {
   text:null,
   receiverid:null,
-  sessionindex:null
+  sessionindex:null,
+  messagelist:[]
   },
 
   inputtext:function(e){
@@ -27,10 +28,12 @@ sendmsg:function(e){
     wx.request({
       url: app.globalData.baseurl + '/sendsixin/',
       data: { 'receiverid': receiverid, 'senderid': senderid, 'message': this.data.text },
-      success: function () {
-        wx.showToast({
-          title: 'send successfully',
-        })
+      success: function (res) {
+        if(res.data!='200'){
+          wx.showToast({
+            title: 'send fail',
+          })
+        }
       }
     })
   }else{

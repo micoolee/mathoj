@@ -21,10 +21,21 @@ Page({
   },
 
 
+  showzandetail:function(e){
+    var problemid = e.currentTarget.dataset.problemid
+    wx.navigateTo({
+      url: `../question/question?problemid=${problemid}`
+    })
+
+  },
+
+
+
 showsixin:function(){
   this.setData({
     sixindoor:false
   })
+  app.globalData.sixindoor = false
   wx.navigateTo({
     url: '../inform/message/message',
   })
@@ -43,6 +54,7 @@ showsixin:function(){
 
 
   onShow: function () {
+    console.log(app.globalData.sixindoor)
     if(app.globalData.sixindoor){
       this.setData({
         sixindoor:true

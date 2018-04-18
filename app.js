@@ -24,7 +24,8 @@ App({
     reddot: false,
     sixindoor: false,
     nothissession: true,
-    chatroomthat: null
+    chatroomthat: null,
+    searchlist:[]
   },
 
   getlastedinform: function () {
@@ -79,6 +80,15 @@ App({
             var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
             var tmpmessagelist = JSON.parse(tmp)
             one = tmpmessagelist
+            
+
+            // var outmsg = one.outmsg
+            // if (outmsg== '1'){
+
+            // }
+
+
+
 
 
             for (var i in all) { if (all[i].sessionid == one[0].sessionid) { all[i].value.unshift(one[0].value[0]); that.globalData.nothissession = false } }
@@ -131,10 +141,7 @@ App({
 
           }
           that.globalData.reddot = true
-          wx.vibrateLong({
-            success: function () {
-              console.log('vibrate')
-            }
+          wx.vibrateShort({
           })
           wx.showTabBarRedDot({
             index: 2,

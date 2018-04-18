@@ -14,8 +14,18 @@
     </view>
     <view class="chat-content flex-item">
       <view class="chat-source">
-        <text class="chatmate">Alex</text>
-        <text class="lasttime">12个月前</text>
+        <view wx:if="{{item.value[0].ziji=='1'}}">
+
+          <text class="chatmate">{{item.value[0].receivername}}</text>
+        </view>
+        <view wx:else>
+          <text class="chatmate">{{item.value[0].sendername}}</text>
+        </view>
+
+
+
+
+        <text class="lasttime">{{item.value[0].submittime}}</text>
       </view>
       <text class="chat-txt" data-sessionid='{{item.sessionid}}'>{{item.value[0].message}}</text>
     </view>

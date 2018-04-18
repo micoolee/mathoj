@@ -3,7 +3,7 @@
     <view class="search flex-wrp">
       <view class="search-left flex-item">
         <image src="../../images/search1.png"></image>
-        <input placeholder="搜索" placeholder-class="search-placeholder" bindinput='writesearch' bindconfirm='search'/>
+        <input placeholder="搜索" placeholder-class="search-placeholder" bindinput='writesearch' bindconfirm='search' value='{{inputvalue}}'/>
       </view>
 
 
@@ -51,26 +51,26 @@
           </view>
           <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
 
-            <view class="comments dot">
+            <view class="comments ">
               <view wx:if="{{item.comment_num != null}}">
-                {{item.comment_num}}评论
+                {{item.comment_num}} 评论
               </view>
               <view wx:else>0 评论</view>
             </view>
 
             <view class="follow-it">
               <view wx:if="{{item.subscribe_num != null}}">
-                {{item.subscribe_num}}关注
+                {{item.subscribe_num}} 关注
               </view>
               <view wx:else>0 关注</view>
             </view>
 
 
-             <view class="comments dot">
+             <view class="comments ">
               <view wx:if="{{item.browse_num != null}}">
-                {{item.browse_num}}liulan
+                {{item.browse_num}} 浏览
               </view>
-              <view wx:else>0 liulan</view>
+              <view wx:else>0 浏览</view>
             </view>
 
           </view>
@@ -78,4 +78,5 @@
       </view>
     </view>
   </block>
+  <image src='../../images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
 </view>

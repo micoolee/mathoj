@@ -67,9 +67,11 @@ Page({
 
 
   showMyComm: function () {
-    wx.showModal({
-      title: 'todo',
-      content: '',
+    wx.navigateTo({
+      url: './mycomm/mycomm',
+      success: function (res) {
+
+      },
     })
   },
 
