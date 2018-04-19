@@ -80,20 +80,50 @@ function getDateDiff(dateStr) {
 
 
 
+function get_or_create_avatar(userid){
+  var res = wx.getStorageInfoSync()
+  if(res.keys.indexOf(userid)>-1){
+   var avatarimgcache = wx.getStorageSync(userid)
+   console.log('111111')
+   return avatarimgcache
+  }else{
+
+    wx.downloadFile({
+      url: app.globalData.baseurl + '/static/avatar/' + userid + '.jpg',
+      success: function (res) {
+        var avatarimg = res.tempFilePath
+        console.log(res)
+
+        wx.setStorageSync(userid, avatarimg)
+        var avatarimgcache = wx.getStorageSync(userid)
+        console.log('2222222222')
+        return avatarimgcache
+      }
+    })
+    return false
+
+
+  }
+
+}
+
+
+
 
 var getDateDiff = getDateDiff
-
+var get_or_create_avatar = get_or_create_avatar
 
 function getlastedprob(that) {
 
-  // var getDateDiff = this.getDateDiff
 
+console.log('wtf')
   wx.request({
     url: app.globalData.baseurl + '/',
     success: function (res) {
       var problemlist = JSON.parse(res.data.json_data)
-      // regrex to replace asktime
-      var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('asktime":"' + tmpstr) })
+
+      var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4,$5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4+$5 }; return ('asktime":"' + tmpstr + $2 + cacheavatar) })
+      // var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('asktime":"' + tmpstr) })
       problemlist = JSON.parse(tmp)
 
       var topstories = JSON.parse(res.data.topstory)
@@ -223,7 +253,10 @@ function pulldownmessage(that) {
     data: { 'userid': app.globalData.openid, 'statuscode': '1' },
     success: function (res) {
       var messagelist = res.data.json_data
-      var tmp = JSON.stringify(messagelist).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+
+      var tmp = JSON.stringify(messagelist).replace(/submittime":"([\d- :]*)(.*?senderavatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
+      // var tmp = JSON.stringify(messagelist).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+
       messagelist = JSON.parse(tmp)
 
       app.globalData.messagelist = messagelist
@@ -358,5 +391,6 @@ module.exports = {
 
   pulldownmessage: pulldownmessage,
   pulldownchatroom: pulldownchatroom,
-  getDateDiff: getDateDiff
+  getDateDiff: getDateDiff,
+  get_or_create_avatar: get_or_create_avatar
 }

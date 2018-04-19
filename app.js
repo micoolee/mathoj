@@ -25,7 +25,7 @@ App({
     sixindoor: false,
     nothissession: true,
     chatroomthat: null,
-    searchlist:[]
+    searchlist: []
   },
 
   getlastedinform: function () {
@@ -51,7 +51,7 @@ App({
     var that = this
     wx.connectSocket({
       url: that.globalData.wssurl,
-      fail:function(){
+      fail: function () {
         console.log('connect failed')
       }
     })
@@ -64,11 +64,10 @@ App({
       wx.onSocketMessage(function (res) {
         console.log('chonglianhou收到服务器内容：' + res.data)
         var tmp = JSON.parse(res.data)
-        // var singlemessage = JSON.parse(tmp.json_data)
-        // var singlemessage = tmp.json_data
 
         var util = require('utils/util.js')
         var getDateDiff = util.getDateDiff
+        var get_or_create_avatar = util.get_or_create_avatar
 
         var statuscode = tmp.statuscode
         if (statuscode == '200') {
@@ -79,7 +78,16 @@ App({
             var singlemessage = tmp.json_data
             var one = singlemessage
 
-            var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+
+
+
+            var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)(.*?senderavatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4,$5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 +$5}; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
+
+
+
+            // var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+
+
             var tmpmessagelist = JSON.parse(tmp)
             one = tmpmessagelist
 
@@ -107,7 +115,7 @@ App({
             }
 
 
-            if(that.globalData.chatroomthat){
+            if (that.globalData.chatroomthat) {
               that.globalData.chatroomthat.setData({
                 messagelist: all[that.globalData.conversationindex]
               })
@@ -119,7 +127,12 @@ App({
             var singlemessage = JSON.parse(tmp.json_data)
             var one = singlemessage
 
+
             var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+
+
+
+
             var tmpinformlist = JSON.parse(tmp)
             one = tmpinformlist
 
@@ -169,7 +182,6 @@ App({
       }
     })
 
-    // that.connect()
     var a = wx.getSystemInfoSync()
     that.globalData.screenwidth = a.windowWidth
     that.globalData.screenheight = a.windowHeight

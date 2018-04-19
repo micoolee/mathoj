@@ -60,9 +60,20 @@
           <view wx:if="{{item.fields.record}}">
             <audio src="{{item.fields.record}}"></audio>
             <view class='record-controller'>
+
+
+
               <button type="primary" data-recordsrc='{{item.fields.record}}' bindtap="audioPlay">播放</button>
               <button type="primary" bindtap="audioPause">暂停</button>
               <button type="primary" bindtap="audioStart">回到开头</button>
+
+
+
+
+
+
+
+
             </view>
           </view>
           <view wx:if="{{item.fields.image}}" class='imagestyle'>

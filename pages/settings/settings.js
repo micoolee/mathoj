@@ -1,5 +1,5 @@
 var app = getApp()
-
+var util = require('../../utils/util.js')
 Page({
   data: {
     userInfo: {},
@@ -11,8 +11,10 @@ Page({
     animationData: null,
   },
   onLoad: function (options) {
+    var avatarcache = util.get_or_create_avatar(app.globalData.openid)
+    console.log(avatarcache)
     this.setData({
-      userInfo: { 'avatar': app.globalData.avatar, 'nickname': app.globalData.nickname}
+      userInfo: { 'avatar': avatarcache, 'nickname': app.globalData.nickname}
     })
   },
   onShareAppMessage: function () {

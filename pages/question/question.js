@@ -2,6 +2,7 @@
 var util = require('../../utils/util.js')
 var app = getApp()
 var getDateDiff = util.getDateDiff
+var get_or_create_avatar = util.get_or_create_avatar
 
 //inner audio
 const innerAudioContext = wx.createInnerAudioContext()
@@ -32,7 +33,7 @@ recorderManager.onPause(() => {
   console.log('recorder pause')
 })
 recorderManager.onStop((res) => {
-
+  innerAudioContext.src = res.tempFilePath
   app.globalData.audiopath = res.tempFilePath
   app.globalData.duration = res.duration
   const { tempFilePath } = res
@@ -82,6 +83,7 @@ var page = Page({
     shareBottom: {},
     modalValue: null,
     showpic: true,
+    comments:['notnull']
   },
   /**
    * 关闭分享
@@ -98,8 +100,8 @@ dianzan:function(e){
       if(res.data.code == '200'){
         var comments = JSON.parse(res.data.comment)
 
-
-        var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+        var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
+        // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
         comments = JSON.parse(tmp)
 
 
@@ -302,8 +304,9 @@ dianzan:function(e){
             title: 'comment successfully',
           })
           var comments = JSON.parse(res.data.comment)
-          
-          var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+
+          var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
+          // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
           comments = JSON.parse(tmp)
 
 
@@ -318,7 +321,7 @@ dianzan:function(e){
 
 
   audioPlay: function (event) {
-    console.log(event)
+
     innerAudioContext.src = event.currentTarget.dataset.recordsrc
     console.log(innerAudioContext.src)
     innerAudioContext.play()
@@ -330,6 +333,10 @@ dianzan:function(e){
   audioStart: function () {
     innerAudioContext.seek(0)
   },
+
+
+
+  
 
   showanswerbox: function () {
     this.setData({
@@ -345,7 +352,7 @@ dianzan:function(e){
         recordstate: false
       })
     } else {
-      innerAudioContext.src = app.globalData.audiopath;
+      // innerAudioContext.src = app.globalData.audiopath;
       recorderManager.stop()
       this.setData({
         recordstate: true,
@@ -376,31 +383,32 @@ dianzan:function(e){
     })
   },
 
-  play: function (event) {
+  // play: function (event) {
 
-    if (event.currentTarget.dataset.id) {
-      innerAudioContext.stop()
-      this.setData({
-        playstate: false
-      })
-    } else {
+  //   if (event.currentTarget.dataset.id) {
+  //     innerAudioContext.stop()
+  //     this.setData({
+  //       playstate: false
+  //     })
+  //   } else {
 
-      innerAudioContext.autoplay = true
-      innerAudioContext.src = app.globalData.returnaudiopath
-      innerAudioContext.play()
-      this.setData({
-        playstate: true
-      })
-    }
+  //     innerAudioContext.autoplay = true
+  //     innerAudioContext.src = app.globalData.returnaudiopath
+  //     innerAudioContext.play()
+  //     this.setData({
+  //       playstate: true
+  //     })
+  //   }
 
-  },
+  // },
 
   play1: function (e) {
     var that = this;
     console.log(app.globalData.audiopath)
     innerAudioContext.src = app.globalData.audiopath;
     console.log(innerAudioContext.src)
-    innerAudioContext.play(options);
+    // innerAudioContext.play(options);
+    innerAudioContext.play();
     innerAudioContext.onPlay((res) => that.updateTime(that)) //没有这个事件触发，无法执行updatatime
     this.setData({
       tingstate: false
@@ -413,10 +421,12 @@ dianzan:function(e){
     })
   },
   updateTime: function (that) {
-    console.log("duratio的值：", innerAudioContext.duration)
-    console.log('curtime', innerAudioContext.currentTime)
+
     innerAudioContext.onTimeUpdate((res) => {
       //更新时把当前的值给slide组件里的value值。slide的滑块就能实现同步更新
+
+      console.log("duratio的值：", innerAudioContext.duration)
+      console.log('curtime', innerAudioContext.currentTime)
       that.setData({
         duration: innerAudioContext.duration.toFixed(2) * 100,
         curTimeVal: innerAudioContext.currentTime.toFixed(2) * 100,
@@ -430,7 +440,15 @@ dianzan:function(e){
   //拖动滑块
   slideBar: function (e) {
     let that = this;
-    var curval = e.detail.value; //滑块拖动的当前值
+    var curval = e.detail.value/100; //滑块拖动的当前值
+    console.log('hhhh')
+    console.log(e.detail.value)
+    console.log(innerAudioContext.currentTime)
+    console.log(curval)
+    console.log('dddd')
+
+
+
     innerAudioContext.seek(curval); //让滑块跳转至指定位置
     innerAudioContext.onSeeked((res) => {
       this.updateTime(that) //注意这里要继续出发updataTime事件，
@@ -442,6 +460,8 @@ dianzan:function(e){
       curTimeVal: 0,
       tingstate: true
     })
+    console.log('this is curtimeval')
+    console.log(that.data.curTimeVal)
     innerAudioContext.stop()
   },
 
@@ -561,7 +581,10 @@ dianzan:function(e){
         var hidehuida = JSON.parse(res.data.answerbox)
         var comments = JSON.parse(res.data.comment)
 
-        var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+
+        var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
+        // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+
         comments = JSON.parse(tmp)
 
         that.setData({

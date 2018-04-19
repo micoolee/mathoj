@@ -8,7 +8,6 @@
       <text class="chat-txt line-reback" data-sessionid='{{messagelist.sessionid}}'>{{item.message}}</text>
     </view>
   </view>
-
 </view>
 
 
@@ -17,5 +16,5 @@
   <view class="extra-share">
     <button bindtap='sendmsg' data-userid='{{receiverid}}' style='width:40%;margin-right:0;'>send</button>
   </view>
-  <input class="extra-input" type="text" maxlength="255"  bindinput='inputtext' placeholder-class="extra-placeholder" />
+  <input class="extra-input" type="text" value='{{chatmsg}}' maxlength="255"  bindinput='inputtext' placeholder-class="extra-placeholder" />
 </view>

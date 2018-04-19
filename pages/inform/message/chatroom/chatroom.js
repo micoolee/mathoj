@@ -33,6 +33,10 @@ sendmsg:function(e){
           wx.showToast({
             title: 'send fail',
           })
+        }else{
+          that.setData({
+            chatmsg:''
+          })
         }
       }
     })
