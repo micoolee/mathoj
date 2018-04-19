@@ -134,6 +134,7 @@ radio {
   display: inline-block;
   height: 65rpx;
   font-size: 26rpx;
+  width:80%
 }
 
 .search-placeholder {

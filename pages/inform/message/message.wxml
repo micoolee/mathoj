@@ -22,12 +22,9 @@
           <text class="chatmate">{{item.value[0].sendername}}</text>
         </view>
 
-
-
-
         <text class="lasttime">{{item.value[0].submittime}}</text>
       </view>
-      <text class="chat-txt" data-sessionid='{{item.sessionid}}'>{{item.value[0].message}}</text>
+      <text class="chat-txt line-reback" data-sessionid='{{item.sessionid}}'>{{item.value[0].message}}</text>
     </view>
   </view>
 

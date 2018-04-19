@@ -5,7 +5,7 @@
       <image src="{{item.senderavatar}}"></image>
     </view>
     <view class="chat-content flex-item">
-      <text class="chat-txt" data-sessionid='{{messagelist.sessionid}}'>{{item.message}}</text>
+      <text class="chat-txt line-reback" data-sessionid='{{messagelist.sessionid}}'>{{item.message}}</text>
     </view>
   </view>
 

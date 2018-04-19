@@ -5,7 +5,7 @@
     <view class="feed-item">
 
       <view class="feed-content">
-        <view class="question" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap'>
+        <view class="question line-reback" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap'>
           <a class="question-link">
             <text>{{item.description}}</text>
           </a>

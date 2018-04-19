@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-  searchlist:[]
+  searchlist:[],
+  searchlistnull:true
   },
 
 
@@ -25,8 +26,10 @@ Page({
   onLoad: function (options) {
     var searchlist = app.globalData.searchlist
     console.log(searchlist)
+
     this.setData({
-      searchlist:searchlist
+      searchlist:searchlist,
+      searchlistnull:searchlist.length
     })
   },
 

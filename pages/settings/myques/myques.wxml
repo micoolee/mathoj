@@ -16,7 +16,7 @@
                 <image class="item-more" mode="aspectFit" src="../../images/more.png"></image>
             </view>
             <view class="feed-content">
-                <view class="question" qid="{{question_id}}" data-id='{{item.pk}}' bindtap="bindQueTap">
+                <view class="question line-reback" qid="{{question_id}}" data-id='{{item.pk}}' bindtap="bindQueTap">
                     <a class="question-link">
                         <text>{{item.description}}</text>
                         <view wx:if="{{item.problempic != 'noimages'}}"><image src='{{item.problempic}}'></image></view>

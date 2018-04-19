@@ -5,17 +5,13 @@
   </view> 
 <view hidden='{{ziji}}'>
 
-<button data-userid='{{userInfo.userid}}'>guanzhu{{userInfo.userid}}</button>
-<button data-userid='{{userInfo.userid}}' bindtap='sendsixin'>sixin</button>
+<button data-userid='{{userInfo.userid}}'>关注ta</button>
+<button data-userid='{{userInfo.userid}}' bindtap='sendsixin'>发私信</button>
 </view>
 
   
   <view class="list-container">
 
-  <!-- <view class="list-item" bindtap="showMyProf">
-    <text class="list-name">我的ziliao</text>
-    <image class="list-icon" src="/images/chevron.png"></image>
-  </view> -->
 
 
   </view>

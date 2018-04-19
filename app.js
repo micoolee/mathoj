@@ -51,7 +51,9 @@ App({
     var that = this
     wx.connectSocket({
       url: that.globalData.wssurl,
-
+      fail:function(){
+        console.log('connect failed')
+      }
     })
 
     wx.onSocketOpen(function (res) {
@@ -80,16 +82,6 @@ App({
             var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
             var tmpmessagelist = JSON.parse(tmp)
             one = tmpmessagelist
-            
-
-            // var outmsg = one.outmsg
-            // if (outmsg== '1'){
-
-            // }
-
-
-
-
 
             for (var i in all) { if (all[i].sessionid == one[0].sessionid) { all[i].value.unshift(one[0].value[0]); that.globalData.nothissession = false } }
             if (all.length == 0 | that.globalData.nothissession) {

@@ -15,7 +15,7 @@ Page({
       { name: 'difficult', value: '困难' },
       { name: 'easy', value: '简单', checked: 'true' },
     ],
-    desc: 'nodesc',
+    desc: '',
     img: 'noimage',
     askpicdoor:false,
     avatar:app.globalData.avatar,
@@ -76,65 +76,73 @@ Page({
   },
 
   ask: function () {
-    this.setData({
-      hide: false,
-      userid: app.globalData.openid
-    })
-    if (this.data.img != 'noimage') {
-      wx.uploadFile({
-        url: app.globalData.baseurl + '/ask/',
-        filePath: this.data.img,
-        name: 'problempic',
-        formData: this.data,
-        success: function () {
-          wx.showModal({
-            title: 'tijiao chengogng',
-            content: 'queding',
-            success:function(res){
-              if (res.confirm) {
-                wx.navigateBack({
-                  
-                })
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }  
-            }
-          })
-
-        }
+    if (this.data.desc==''){
+      wx.showModal({
+        title: 'input somthing',
+        content: 'input somthing',
       })
+    }else{
 
+      this.setData({
+        hide: false,
+        userid: app.globalData.openid
+      })
+      if (this.data.img != 'noimage') {
+        wx.uploadFile({
+          url: app.globalData.baseurl + '/ask/',
+          filePath: this.data.img,
+          name: 'problempic',
+          formData: this.data,
+          success: function () {
+            wx.showModal({
+              title: 'tijiao chengogng',
+              content: 'queding',
+              success: function (res) {
+                if (res.confirm) {
+                  wx.navigateBack({
 
-    }
-    else {
-      wx.request({
-        url: app.globalData.baseurl + '/ask/',
-        method: 'post',
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        data: this.data,
-        success: function () {
-          wx.showModal({
-            title: 'tijiao chengogng',
-            content: 'queding',
-            success: function (res) {
-              if (res.confirm) {
-                wx.navigateBack({
-
-                })
-              } else if (res.cancel) {
-                console.log('用户点击取消')
+                  })
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
               }
-            }
-          })
+            })
 
-        },
+          }
+        })
 
 
-      })
+      }
+      else {
+        wx.request({
+          url: app.globalData.baseurl + '/ask/',
+          method: 'post',
+          header: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          data: this.data,
+          success: function () {
+            wx.showModal({
+              title: 'tijiao chengogng',
+              content: 'queding',
+              success: function (res) {
+                if (res.confirm) {
+                  wx.navigateBack({
+                  })
+                } else if (res.cancel) {
+                }
+              }
+            })
+
+          },
+
+
+        })
+
+      }
 
     }
+
 
 
   },

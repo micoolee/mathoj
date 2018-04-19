@@ -507,22 +507,26 @@ dianzan:function(e){
   },
   submitanswer: function () {
     var that = this;
-    if (app.globalData.audiopath) {
-      that.uploadrecord(that)
-    }
-    if (that.data.answerpicsrc) {
-      that.uploadimg(that)
-    }
-    if (!that.data.answerpicsrc & !app.globalData.audiopath & that.data.textsolu != '') {
-      that.uploadtext(that)
-    }
-    if (!that.data.answerpicsrc & !app.globalData.audiopath & that.data.textsolu == '') {
+    if (that.data.textsolu == ''){
       wx.showModal({
-        title: '至少输入一项',
-        content: '',
+        title: 'input desc',
+        content: 'input desc',
       })
+    }else{
+
+      if (app.globalData.audiopath) {
+        that.uploadrecord(that)
+      }
+      if (that.data.answerpicsrc) {
+        that.uploadimg(that)
+      }
+      if (!that.data.answerpicsrc & !app.globalData.audiopath) {
+        that.uploadtext(that)
+      }
+      app.globalData.audiopath = null
     }
-    app.globalData.audiopath = null
+
+
   },
 
   onLoad: function (option) {
