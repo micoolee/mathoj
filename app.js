@@ -80,13 +80,13 @@ App({
 
 
 
-
-            var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)(.*?senderavatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4,$5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 +$5}; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
-
+            var tmp = JSON.stringify(one).replace(/receiveravatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?senderavatar":")(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) { var tmpstr = getDateDiff($9); var cachedoor = get_or_create_avatar($6); var receivercachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor; } else { var cacheavatar = $5 + $6 + $7; }; if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3}; return ('receiveravatar":"' + receiveravatar + $4 + cacheavatar + $8 + tmpstr ) })
 
 
-            // var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
 
+
+            console.log(tmp)
+            // var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)(.*?receiveravatar":")(.*?avatar\/)([\w]*)(.jpg)(.*?senderavatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); var receivercachedoor = get_or_create_avatar($8); if (cachedoor) { var cacheavatar = cachedoor; } else { var cacheavatar = $3 + $4 + $5; }; if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $7 + $8 + $9 }; return ('submittime":"' + tmpstr + $2 + cacheavatar + $6 + receiveravatar) })
 
             var tmpmessagelist = JSON.parse(tmp)
             one = tmpmessagelist

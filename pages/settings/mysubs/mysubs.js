@@ -9,12 +9,14 @@ Page({
     problemlist: null
   },
 
-  bindQueTap: function (event) {
-    var problemid = event.currentTarget.dataset.id
-    wx.navigateTo({
-      url: `../../question/question?problemid=${problemid}`
-    })
-  },
+  // bindQueTap: function (event) {
+  //   var problemid = event.currentTarget.dataset.id
+  //   wx.navigateTo({
+  //     url: `../../question/question?problemid=${problemid}`
+  //   })
+  // },
+
+
 
   bindTouchStart: function (e) {
     this.startTime = e.timeStamp;
@@ -22,14 +24,7 @@ Page({
   bindTouchEnd: function (e) {
     this.endTime = e.timeStamp;
   },
-  bindQueTap: function (e) {
-    if (this.endTime - this.startTime < 350) {
-      var problemid = e.currentTarget.dataset.id
-      wx.navigateTo({
-        url: `../../question/question?problemid=${problemid}`
-      })
-    }
-  },
+
   bindLongTap: function (e) {
     var that = this
     var problemid = e.currentTarget.dataset.id
@@ -55,6 +50,17 @@ Page({
 
   },
 
+
+
+
+  bindQueTap: function (e) {
+    if (this.endTime - this.startTime < 350) {
+      var problemid = e.currentTarget.dataset.id
+      wx.navigateTo({
+        url: `../../question/question?problemid=${problemid}`
+      })
+    }
+  },
 
 
 

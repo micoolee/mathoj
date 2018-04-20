@@ -61,18 +61,20 @@
             <audio src="{{item.fields.record}}"></audio>
             <view class='record-controller'>
 
-
-
-              <button type="primary" data-recordsrc='{{item.fields.record}}' bindtap="audioPlay">播放</button>
-              <button type="primary" bindtap="audioPause">暂停</button>
-              <button type="primary" bindtap="audioStart">回到开头</button>
-
-
-
-
-
-
-
+        <view class='flex-wrp'>
+                <view class="progresswrap">
+          <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
+        </view>
+        <view class="btns" >
+          <view bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.fields.record}}'>
+            <image src="/images/start.jpg" style='width:40px;height:40px'></image>
+          </view>
+          <view bindtap='pause1' wx:else>
+            <image src="/images/pause.jpg" style='width:40px;height:40px'></image>
+          </view>
+        </view>
+        
+        </view>
 
             </view>
           </view>
@@ -98,7 +100,6 @@
 
 
 
-    <!-- teacher answer block -->
     <view name='teacheranswer' hidden='{{answerbox}}' class='answer-box'>
       <view style='height:100px'>
         <textarea placeholder='qing shu ru' bindinput='textsolu' auto-height auto-focus></textarea>
@@ -122,8 +123,10 @@
             <image src="/images/pause.jpg" style='width:40px;height:40px'></image>
           </view>
         </view>
-
       </view>
+
+
+
       <button bindtap='submitanswer'>上传</button>
     </view>
   </view>

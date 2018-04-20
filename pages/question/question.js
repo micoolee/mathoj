@@ -83,42 +83,42 @@ var page = Page({
     shareBottom: {},
     modalValue: null,
     showpic: true,
-    comments:['notnull']
+    comments: ['notnull']
   },
   /**
    * 关闭分享
    */
-dianzan:function(e){
-  var commentid = e.target.dataset.id
-  var problemid = e.target.dataset.problemid
-  var commenter = e.target.dataset.commenter
-  var that = this
-  wx.request({
-    url: app.globalData.baseurl+'/dianzan/',
-    data:{'userid':app.globalData.openid,'commentid':commentid,'problemid':problemid,'commenter':commenter},
-    success:function(res){
-      if(res.data.code == '200'){
-        var comments = JSON.parse(res.data.comment)
+  dianzan: function (e) {
+    var commentid = e.target.dataset.id
+    var problemid = e.target.dataset.problemid
+    var commenter = e.target.dataset.commenter
+    var that = this
+    wx.request({
+      url: app.globalData.baseurl + '/dianzan/',
+      data: { 'userid': app.globalData.openid, 'commentid': commentid, 'problemid': problemid, 'commenter': commenter },
+      success: function (res) {
+        if (res.data.code == '200') {
+          var comments = JSON.parse(res.data.comment)
+          var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
+          // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
 
-        var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
-        // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
-        comments = JSON.parse(tmp)
-
-
+          comments = JSON.parse(tmp)
 
 
 
 
-        that.setData({
-          comments: comments
-        })
-      }else{
-        console.log('you dianzan guo le')
+
+
+          that.setData({
+            comments: comments
+          })
+        } else {
+          console.log('you dianzan guo le')
+        }
+
       }
-
-    }
-  })
-},
+    })
+  },
 
   handlepic: function () {
     console.log(this.data.showpic)
@@ -304,9 +304,9 @@ dianzan:function(e){
             title: 'comment successfully',
           })
           var comments = JSON.parse(res.data.comment)
+          var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
+          // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
 
-          var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
-          // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
           comments = JSON.parse(tmp)
 
 
@@ -336,7 +336,7 @@ dianzan:function(e){
 
 
 
-  
+
 
   showanswerbox: function () {
     this.setData({
@@ -402,6 +402,19 @@ dianzan:function(e){
 
   // },
 
+  play: function (e) {
+    var that = this;
+
+    innerAudioContext.src = e.currentTarget.dataset.recordsrc
+    innerAudioContext.play();
+    innerAudioContext.onPlay((res) => that.updateTime(that)) //没有这个事件触发，无法执行updatatime
+    that.setData({
+      tingstate: false
+    })
+  },
+
+
+
   play1: function (e) {
     var that = this;
     console.log(app.globalData.audiopath)
@@ -440,7 +453,7 @@ dianzan:function(e){
   //拖动滑块
   slideBar: function (e) {
     let that = this;
-    var curval = e.detail.value/100; //滑块拖动的当前值
+    var curval = e.detail.value / 100; //滑块拖动的当前值
     console.log('hhhh')
     console.log(e.detail.value)
     console.log(innerAudioContext.currentTime)
@@ -527,13 +540,15 @@ dianzan:function(e){
   },
   submitanswer: function () {
     var that = this;
-    if (that.data.textsolu == ''){
+    if (that.data.textsolu == '') {
       wx.showModal({
         title: 'input desc',
         content: 'input desc',
       })
-    }else{
-
+    } else {
+      this.setData({
+        answerbox: true
+      })
       if (app.globalData.audiopath) {
         that.uploadrecord(that)
       }
@@ -581,9 +596,9 @@ dianzan:function(e){
         var hidehuida = JSON.parse(res.data.answerbox)
         var comments = JSON.parse(res.data.comment)
 
+        var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
+        // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
 
-        var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
-        // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
 
         comments = JSON.parse(tmp)
 
