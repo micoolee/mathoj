@@ -25,7 +25,8 @@ App({
     sixindoor: false,
     nothissession: true,
     chatroomthat: null,
-    searchlist: []
+    searchlist: [],
+    globalproblemlist:[]
   },
 
   getlastedinform: function () {

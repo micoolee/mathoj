@@ -13,20 +13,142 @@ Page({
     topStories: [{ image: "../../images/pause.jpg" }, { image: '../../images/home.png' }],
     havenewbtn: false,
     searchcontent: null,
-    inputvalue:null
+    inputvalue: null,
+    problemlist: [],
+
+
+    tabTxt: [
+      {
+        'text': 'grade',
+        'originalText': 'buxian',
+        'active': false,
+        'child': [
+          { 'id': 1, 'text': '一年级' },
+          { 'id': 2, 'text': '二年级' },
+          { 'id': 3, 'text': '三年级' },
+          { 'id': 4, 'text': '四年级' }
+
+        ],
+        'type': 0
+      },
+      {
+        'text': 'easy',
+        'originalText': 'buxian',
+        'active': false,
+        'child': [
+          { 'id': 1, 'text': 'easy' },
+          { 'id': 2, 'text': 'difficult' }
+        ], 'type': 0
+      }
+    ],
+    searchParam: []
+
+
+
+
   },
+
+
+
+
+
+  filterTab: function (e) {
+    var that = this;
+    var data = JSON.parse(JSON.stringify(that.data.tabTxt));
+    var index = e.currentTarget.dataset.index;
+    var newTabTxt = data.map(function (e) {
+      e.active = false;
+      return e;
+    });
+    newTabTxt[index].active = !that.data.tabTxt[index].active;
+    this.setData({
+      tabTxt: data
+    })
+
+  },
+
+
+
+  filterTabChild: function (e) {
+
+    //我需要切换选中项 修改展示文字 并收回抽屉  
+    var that = this;
+    var index = e.currentTarget.dataset.index;
+    var data = JSON.parse(JSON.stringify(that.data.tabTxt));
+    if (typeof (e.target.dataset.id) == 'undefined' || e.target.dataset.id == '') {
+      data[index].active = !that.data.tabTxt[index].active;
+    }
+    else {
+      data[index].type = e.target.dataset.id;
+      data[index].active = !that.data.tabTxt[index].active;
+      if (e.target.dataset.id == '0') {
+        data[index].text = that.data.tabTxt[index].originalText;
+        //不限删除条件
+        delete that.data.searchParam[index];
+      }
+      else {
+        data[index].text = e.target.dataset.txt;
+        //更改删除条件
+        that.data.searchParam[index] = data[index].text;
+      }
+
+
+    }
+
+    that.setData({
+      tabTxt: data
+    })
+    console.log(that.data.searchParam);
+    var searchparam = that.data.searchParam
+    var tmplist = app.globalData.globalproblemlist
+    var tmpproblemlist = []
+    console.log(tmpproblemlist)
+    that.filteritem(searchparam, tmpproblemlist, tmplist)
+
+    this.setData({
+      problemlist: tmpproblemlist
+    })
+
+
+
+  },
+
+
+  filteritem: function (searchparam, tmpproblemlist, tmplist) {
+console.log(searchparam)
+    if (typeof (searchparam[0]) != 'undefined' && searchparam[0] != '' && typeof (searchparam[1]) != 'undefined' && searchparam[1] != '') {
+      for (var i in tmplist) { if (tmplist[i].grade == searchparam[0] && tmplist[i].easyclass == searchparam[1]) { tmpproblemlist.push(tmplist[i]) }; }
+
+    }
+    else {
+      if (typeof (searchparam[0]) != 'undefined' && searchparam[0] != '') {
+        for (var i in tmplist) { if (tmplist[i].grade == searchparam[0]) { tmpproblemlist.push(tmplist[i]) } }
+      } else if (typeof (searchparam[1]) != 'undefined' && searchparam[1] != ''){
+        for (var i in tmplist) { if (tmplist[i].easyclass == searchparam[1]) { tmpproblemlist.push(tmplist[i]) } }
+      }
+
+      else{
+        for (var i in tmplist) { tmpproblemlist.push(tmplist[i]) }
+    }
+    }
+  },
+
+
+
+
+
   showquestool: function () {
     wx.navigateTo({
       url: '../ask/ask',
     })
   },
 
-totop:function(){
-  wx.pageScrollTo({
-    scrollTop: 0,
-    duration: 300
-  })
-},
+  totop: function () {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 300
+    })
+  },
 
 
   bindQueTap: function (event) {
@@ -37,12 +159,12 @@ totop:function(){
   },
   search: function (e) {
     var that = this
-    if (e.detail.value==''){
+    if (e.detail.value == '') {
       wx.showModal({
         title: 'input sothing',
         content: 'input something',
       })
-    }else{
+    } else {
       wx.request({
         url: app.globalData.baseurl + '/mysearch/',
         data: { 'q': e.detail.value },

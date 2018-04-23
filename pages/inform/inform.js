@@ -68,6 +68,12 @@ showsixin:function(){
       index: 2,
     })
   },
+  onHide:function(){
+    app.globalData.reddot = false
+    wx.hideTabBarRedDot({
+      index: 2,
+    })
+  }
 
 
 })

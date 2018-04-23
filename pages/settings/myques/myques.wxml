@@ -8,9 +8,9 @@
         <view class="feed-item">
             <view class="feed-source">
                 <a class="">
-                    <view class="avatar">
+                    <!-- <view class="avatar">
                         <image src="{{item.avatar}}"></image>
-                    </view>
+                    </view> -->
                     <text>{{item.asker}}{{item.feed_source_txt}}</text>
                 </a>
                 <image class="item-more" mode="aspectFit" src="../../images/more.png"></image>
