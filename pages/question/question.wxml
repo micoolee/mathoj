@@ -4,6 +4,12 @@
     <view class="question-item">
       <view class="que-tag">
         <text class="tag">阅读</text>
+
+
+
+
+
+
       </view>
       <view class="que-title breakline">
         {{desc}}
@@ -168,11 +174,17 @@
 <view class="extra">
   <view class="extra-share">
 
-    <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' />
+     <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' /> 
+ 
+     <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />  
 
-    <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />
+<!-- <button  class="extra-share-img" bindtap='comment'>comment</button> -->
+    <!-- <button  open-type='share' bindtap='clickshare' data-problemid='{{problemid}}'>share</button> -->
+
+
+
   </view>
-  <input class="extra-input" type="text" maxlength="255" placeholder="你有什么看法?" bindinput='writecomment' placeholder-class="extra-placeholder" />
+  <input class="extra-input" style='width:60%;' type="text" maxlength="255" placeholder="你有什么看法?" bindinput='writecomment' placeholder-class="extra-placeholder" />
 </view>
 
 
@@ -181,25 +193,17 @@
 <!-- 分享层 -->
 
 
-<!-- 
+ 
 <view class="extra-share-box" style="display:{{shareShow}}">
-
   <view class="share-box-show" animation="{{shareBottom}}">
     <view class="share-box-img-box">
-      <image class="share-box-img" bindtap="modalTap" data-share="分享给微信朋友" src="../../images/weixin.png" />
-      <image class="share-box-img" bindtap="modalTap" data-share="分享到微信朋友圈" src="../../images/pengyou.png" />
-      <image class="share-box-img" bindtap="modalTap" data-share="分享到QQ朋友" src="../../images/qq.png" />
-      <image class="share-box-img" bindtap="modalTap" data-share="分享到微博" src="../../images/weibo.png" />
+                 <button class="weui-btn" type="primary" open-type='share' bindtap='clickshare' data-problemid='{{problemid}}'>share</button>
     </view>
     <view class="share-box-close" bindtap="shareClose">关闭</view>
   </view>
-
   <view class="share-box-opacity" animation="{{shareOpacity}}" bindtap="shareClose"></view>
-</view> -->
+</view> 
 
-
-<!-- 
-  点击分享弹出层  -->
-<!-- <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
+<modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
   <view> {{modalValue}} </view>
-</modal>   -->
+</modal>   

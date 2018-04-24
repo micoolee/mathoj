@@ -1,20 +1,38 @@
 // pages/settings/myques/myques.js
 const app = getApp()
+
+var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    problemlist: null
+    problemlist: null,
+    subscriberlist:null,
+    tabs: ["timu", "yonghu"],
+    activeIndex: 0,
+    sliderOffset: 0,
+    sliderLeft: 0
   },
 
-  // bindQueTap: function (event) {
-  //   var problemid = event.currentTarget.dataset.id
-  //   wx.navigateTo({
-  //     url: `../../question/question?problemid=${problemid}`
-  //   })
-  // },
+
+  tabClick: function (e) {
+    this.setData({
+      sliderOffset: e.currentTarget.offsetLeft,
+      activeIndex: e.currentTarget.id
+    });
+  },
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -73,8 +91,7 @@ Page({
   onLoad: function (options) {
 
     var that = this
-    if (app.globalData.userInfo) {
-      console.log(app.globalData.openid)
+
       wx.request({
         url: app.globalData.baseurl + '/mysubs/',
         method: 'post',
@@ -83,9 +100,13 @@ Page({
         },
         data: { 'userid': app.globalData.openid },
         success: function (res) {
+          var problemlist = JSON.parse(res.data.json_data)
+          var subscriberlist = JSON.parse(res.data.subscriberlist)
           console.log(res)
           that.setData({
-            problemlist: res.data
+            problemlist: problemlist,
+            subscriberlist :subscriberlist
+
           })
         }
       })
@@ -93,59 +114,36 @@ Page({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse) {
-      app.userInfoReadyCallback = res => {
-        console.log('222')
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-        var that = this
+    
 
 
-        wx.request({
-          url: app.globalData.baseurl + '/mysubs/',
-          method: 'post',
-          data: { 'userid': app.globalData.openid },
-          success: function (res) {
-            console.log(res)
-            that.setData({
-              problemlist: res.data
-            })
-          }
-        })
+  
+    
 
 
+
+
+
+
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+        });
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          console.log('333')
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-          var that = this
+    });
 
 
-          wx.request({
-            url: app.globalData.baseurl + '/mysubs/',
-            method: 'post',
-            data: { 'userid': app.globalData.openid },
-            success: function (res) {
-              console.log(res)
-              that.setData({
-                problemlist: res.data
-              })
-            }
-          })
 
 
-        }
-      })
-    }
+
+
+
+
+
+
+
 
 
 

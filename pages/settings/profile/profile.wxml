@@ -5,7 +5,7 @@
   </view> 
 <view hidden='{{ziji}}'>
 
-<button data-userid='{{userInfo.userid}}'>关注ta</button>
+<button data-userid='{{userInfo.userid}}' bindtap='subscribe'>关注ta</button>
 <button data-userid='{{userInfo.userid}}' bindtap='sendsixin'>发私信</button>
 </view>
 

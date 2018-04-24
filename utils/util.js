@@ -133,6 +133,14 @@ console.log('wtf')
       problemlist = JSON.parse(tmp)
       app.globalData.globalproblemlist = problemlist
 
+
+      var arr = new Array(app.globalData.globalproblemlist.length + 1);
+      arr = arr.join('0,').split(',');
+      arr.length = arr.length - 1;
+      that.setData({
+        shareindexlist: arr
+      })
+
       var topstories = JSON.parse(res.data.topstory)
       that.setData({
         lastedid: problemlist[0].problemid,
@@ -346,6 +354,16 @@ function get10prob(that) {
           title: 'no more',
         })
       } else {
+        app.globalData.globalproblemlist = app.globalData.globalproblemlist.concat(problemlist)
+
+        var arr = new Array(app.globalData.globalproblemlist.length + 1);
+        arr = arr.join('0,').split(',');
+        arr.length = arr.length - 1;
+        that.setData({
+          shareindexlist: arr
+        })
+
+
         problemlist = that.data.problemlist.concat(problemlist)
         that.setData({
           problemlist: problemlist,

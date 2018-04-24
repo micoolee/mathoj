@@ -46,21 +46,9 @@
 <!--正文  体现一下遮罩效果的-->
 <view class="cxj-content">
 
-  <!-- <view class="cxj-content-li">演员</view>
-
-</view> -->
 
 
-
-
-
-
-
-
-
-
-
-  <view wx:if='{{havenewbtn}}'>
+  <view wx:if='{{havenewbtn}}' class='weui-cells weui-cells_after-title' style='text-align:center;'>
     <text>have new</text>
   </view>
   <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
@@ -70,9 +58,15 @@
           <view class="avatar">
             <image src="{{item.avatar}}"></image>
           </view>
-          <text>{{item.username}} {{item.asktime}}    </text>
+          <text>{{item.username}}     </text>
         </a>
-        <image class="item-more" mode="aspectFit" src="../../images/more.png"></image>
+        <!-- <image class="item-more" mode="aspectFit" src="../../images/more.png" bindtap='showshare' data-shareindex='{{idx}}'></image> -->
+        <text style='margin-right:auto'>{{item.asktime}}</text>
+
+<view wx:if="{{shareindexlist[idx]=='1'}}" ><button open-type='share' bindtap='clickshare' data-problemid='{{item.problemid}}'>share</button></view>
+
+
+
       </view>
       <view class="feed-content">
         <view class="question" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap">
@@ -116,5 +110,10 @@
   </block>
   <image src='../../images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
 </view>
+
+
+          <view class="weui-loadmore weui-loadmore_line">
+              <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+          </view>
 
 </view>

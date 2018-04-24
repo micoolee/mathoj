@@ -76,10 +76,16 @@ onPullDownRefresh: function () {
         receiverid: app.globalData.receiverid
       })
     }
+    wx.pageScrollTo({
+      scrollTop: 300
+    })
   },
 
   onShow:function(){
     app.globalData.conversationindex=this.data.sessionindex
+    wx.pageScrollTo({
+      scrollTop: 300
+    })
   }
 
 })

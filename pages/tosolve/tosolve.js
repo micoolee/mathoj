@@ -15,6 +15,8 @@ Page({
     searchcontent: null,
     inputvalue: null,
     problemlist: [],
+    showsharedoor:false,
+    shareindexlist:[],
 
 
     tabTxt: [
@@ -42,11 +44,43 @@ Page({
       }
     ],
     searchParam: []
-
-
-
-
   },
+
+
+
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+      var problemid = res.target.dataset.problemid
+      return {
+        title: '[有人@我]小学奥数，考考你~',
+
+        path: '/pages/question/question?problemid='+problemid,
+
+        imageUrl: 'https://ceshi.guirenpu.com/images/banner.png',
+
+        success: function (res) {
+
+          console.log("转发成功" + res);
+
+        }
+      }
+
+    }
+    return {
+      title: '[有人@我]小学奥数，考考你~',
+      // path: '/pages/tosolve/tosolve',
+      path:'/pages/tosolve/tosolve',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  },
+
 
 
 
@@ -102,7 +136,6 @@ Page({
     var searchparam = that.data.searchParam
     var tmplist = app.globalData.globalproblemlist
     var tmpproblemlist = []
-    console.log(tmpproblemlist)
     that.filteritem(searchparam, tmpproblemlist, tmplist)
 
     this.setData({
@@ -283,6 +316,25 @@ console.log(searchparam)
     })
   },
 
+
+showshare:function(e){
+  var index = e.target.dataset.shareindex
+  var tmpshareindexlist = this.data.shareindexlist
+  tmpshareindexlist[index]='1'
+  this.setData({
+    shareindexlist:tmpshareindexlist
+  })
+},
+
+
+clickshare:function(e){
+ this.setData({
+   showsharedoor:false
+ })
+},
+
+
+
   showmore: function (e) {
     var userid = e.currentTarget.dataset.userid
     var avatar = e.currentTarget.dataset.avatar
@@ -319,6 +371,7 @@ console.log(searchparam)
     }
     var that = this
     util.checklasted(that)
+
 
   },
 

@@ -83,7 +83,8 @@ var page = Page({
     shareBottom: {},
     modalValue: null,
     showpic: true,
-    comments: ['notnull']
+    comments: ['notnull'],
+
   },
   /**
    * 关闭分享
@@ -119,6 +120,47 @@ var page = Page({
       }
     })
   },
+
+
+
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+      var problemid = res.target.dataset.problemid
+      return {
+        title: '[有人@我]小学奥数，考考你~',
+
+        path: '/pages/question/question?problemid=' + problemid,
+
+        imageUrl: 'https://ceshi.guirenpu.com/images/banner.png',
+
+        success: function (res) {
+
+          console.log("转发成功" + res);
+
+        }
+      }
+
+    }
+    return {
+      title: '[有人@我]小学奥数，考考你~',
+      // path: '/pages/tosolve/tosolve',
+      path: '/pages/tosolve/tosolve',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  },
+
+
+
+
+
+
 
   handlepic: function () {
     console.log(this.data.showpic)
@@ -198,20 +240,6 @@ var page = Page({
   },
 
 
-  onShareAppMessage: function (res) {
-    console.log(res)
-    return {
-      title: '自定义转发标题',
-      path: '/pages/index/index',
-      success: function (res) {
-
-      },
-      fail: function (res) {
-
-      }
-    }
-  },
-
   modalTap: function (res) {
     var that = this;
 
@@ -269,9 +297,7 @@ var page = Page({
     })
   },
 
-  onReady: function () {
 
-  },
 
 
   writecomment: function (e) {
@@ -305,7 +331,7 @@ var page = Page({
           })
           var comments = JSON.parse(res.data.comment)
           var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-          // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
+
 
           comments = JSON.parse(tmp)
 

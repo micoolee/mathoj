@@ -28,12 +28,19 @@ wx.navigateTo({
       userInfo: { 'avatar': options.avatar, 'nickname': options.username, 'userid': options.userid,'profileropenid':options.openid}
     })
 
-
-
-
-
   },
 
+subscribe:function(e){
+wx.request({
+  url: app.globalData.baseurl+'/subscribeuser/',
+  data:{'userid':e.currentTarget.dataset.userid,'subscriberid':app.globalData.openid},
+  success:function(res){
+    wx.showToast({
+      title: 'guan zhu chenggong',
+    })
+  }
+})
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

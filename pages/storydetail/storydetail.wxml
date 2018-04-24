@@ -1,2 +1,6 @@
 <!--pages/storydetail/storydetail.wxml-->
-<text>to do</text>
+<view class='page'>
+
+
+</view>
+<view class='page__desc'>{{content}}</view>
