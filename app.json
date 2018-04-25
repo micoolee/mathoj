@@ -17,7 +17,8 @@
     "pages/inform/message/message",
     "pages/inform/message/chatroom/chatroom",
     "pages/inform/inform",
-    "pages/searchres/searchres"
+    "pages/searchres/searchres",
+    "pages/invite/invite"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",

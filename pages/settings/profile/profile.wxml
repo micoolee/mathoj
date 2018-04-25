@@ -5,7 +5,21 @@
   </view> 
 <view hidden='{{ziji}}'>
 
-<button data-userid='{{userInfo.userid}}' bindtap='subscribe'>关注ta</button>
+<!-- <button data-userid='{{userInfo.userid}}' bindtap='subscribe'>关注ta</button> -->
+
+        <view  bindtap='subscribe' data-userid='{{userInfo.userid}}'  data-id='{{subscribe_door}}'>
+          <view wx:if="{{subscribe_door}}" data-id='{{subscribe_door}}'>
+           <button >关注ta</button>
+          </view>
+
+          <view wx:else data-id='{{subscribe_door}}'>
+            <button >取消关注</button>
+          </view>
+
+        </view>
+
+
+
 <button data-userid='{{userInfo.userid}}' bindtap='sendsixin'>发私信</button>
 </view>
 

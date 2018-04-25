@@ -240,6 +240,14 @@ var page = Page({
   },
 
 
+  showinvitebox:function(e){
+    var problemid = e.currentTarget.dataset.problemid
+    wx.navigateTo({
+      url: `../invite/invite?problemid=${problemid}`,
+    })
+  },
+
+
   modalTap: function (res) {
     var that = this;
 

@@ -8,7 +8,8 @@ Page({
   data: {
   userInfo:{},
   ziji:false,
-  profileropenid:null
+  profileropenid:null,
+  subscribe_door: true,
   },
 
 sendsixin:function(e){
@@ -23,14 +24,32 @@ wx.navigateTo({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this
     this.setData({
       userInfo: { 'avatar': options.avatar, 'nickname': options.username, 'userid': options.userid,'profileropenid':options.openid}
+    })
+    wx.request({
+      url: app.globalData.baseurl+'/subscribeuserdetail/',
+      data: { 'userid': app.globalData.openid,'besubscriber':options.userid},
+      success:function(res){
+        var subscribe_door = JSON.parse(res.data.subscribe_door)
+        if (subscribe_door[0].i == 1) {
+          that.setData({
+            subscribe_door: false
+          })
+        } else {
+          that.setData({
+            subscribe_door: true
+          })
+        }
+      }
     })
 
   },
 
 subscribe:function(e){
+  var that = this
+  if (e.currentTarget.dataset.id == true) {
 wx.request({
   url: app.globalData.baseurl+'/subscribeuser/',
   data:{'userid':e.currentTarget.dataset.userid,'subscriberid':app.globalData.openid},
@@ -40,6 +59,26 @@ wx.request({
     })
   }
 })
+this.setData({
+  subscribe_door: false
+})
+  }else{
+    wx.request({
+      url: app.globalData.baseurl + '/desubscribeuser/',
+      data: { 'userid': e.currentTarget.dataset.userid, 'subscriberid': app.globalData.openid },
+      success: function () {
+        console.log('desubscribe success')
+        that.setData({
+          subscribe_door: true
+        })
+        // that.onShow()
+      }
+    })
+    this.setData({
+      subscribe_door: true
+    })
+  }
+
 },
   /**
    * 生命周期函数--监听页面初次渲染完成

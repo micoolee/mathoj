@@ -98,7 +98,7 @@
         <image src="../../images/write.png"></image>
         <text>写回答</text>
       </view>
-      <view class="invite flex-item">
+      <view class="invite flex-item" bindtap = 'showinvitebox' data-problemid='{{problemid}}'>
         <image src="../../images/invite.png"></image>
         <text>邀请回答</text>
       </view>

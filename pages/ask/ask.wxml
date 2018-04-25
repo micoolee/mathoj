@@ -29,11 +29,17 @@
                                     <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                                     </view>
-                                </block>
-                                <view class="weui-uploader__file">
+
+
+                                <!-- <view class="weui-uploader__file">
                                     <image class="weui-uploader__img" src="../../images/pic_160.png" mode="aspectFill" />
-                                </view>
-                                <view class="weui-uploader__file">
+                                </view> -->
+
+                                </block>
+                                <!-- <view class="weui-uploader__file">
+                                    <image class="weui-uploader__img" src="../../images/pic_160.png" mode="aspectFill" />
+                                </view> -->
+                                <!-- <view class="weui-uploader__file">
                                     <image class="weui-uploader__img" src="../../images/pic_160.png" mode="aspectFill" />
                                 </view>
                                 <view class="weui-uploader__file">
@@ -48,7 +54,7 @@
                                 <view class="weui-uploader__file weui-uploader__file_status">
                                     <image class="weui-uploader__img" src="../../images/pic_160.png" mode="aspectFill" />
                                     <view class="weui-uploader__file-content">50%</view>
-                                </view>
+                                </view> -->
                             </view>
                             <view class="weui-uploader__input-box">
                                 <view class="weui-uploader__input" bindtap="uploadimg"></view>
@@ -69,10 +75,11 @@
 
 
 
-  <view class="weui-cells ">
+  <view class="weui-cells page__bd page__bd_spacing">
+
     <picker bindchange="bindPickerChange" name="gradeindex" value="{{gradeindex}}" range="{{gradearray}}">
-      <view class="weui-uploader__title">
-        年级:{{gradearray[gradeindex]}}
+      <view class="weui-uploader__title" style='text-align:center;padding:10px'>
+年级:{{gradearray[gradeindex]}}
       </view>
     </picker>
   </view>
@@ -93,9 +100,18 @@
     <input name="reward" value='0' bindinput='rewardinput'></input>
   </view> -->
 
-<view style='display:flex'>
-  <button class="btn_ok" bindtap="ask" data-statu="close">确定</button>
+<!-- <view style='display:flex'>
+  <button  class="btn_ok" bindtap="ask" data-statu="close">确定</button>
   <button class="btn_cancel" bindtap="cancelask" data-statu="close">取消</button>
+</view> -->
+
+        <view class="button-sp-area ">
+  <button  class="weui-btn mini-btn" type="primary" size="mini" bindtap="ask" data-statu="close">确定</button>
+  <button class="weui-btn mini-btn" type="default" size="mini" bindtap="cancelask" data-statu="close">取消</button>
+
 </view>
+
+
+
 
 </view>
