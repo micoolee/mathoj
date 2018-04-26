@@ -1,32 +1,25 @@
 <!--question.wxml-->
 <view class="container">
-  <!-- fuck
-  <view wx:if="{{backfirst}}" bindtap="backfirst" style='font-size:20px;text-align:center'>回首页</view> -->
   <view class="question-wrp">
     <view class="question-item">
       <view class="que-tag">
         <text class="tag">{{grade}}</text>
-
-
-
-
-
 
       </view>
       <view class="que-title breakline">
         {{desc}}
       </view>
 
-      <view wx:if="{{problempic != 'noimages'}}" style='justify-content:center'>
+      <view wx:if="{{problempic != 'noimages'}}" style='justify-content:center' class='page__text' bindtap='handlepic'>
         <view wx:if='{{showpic}}' style='display:flex;flex-direction:column;'>
           <view>
-            shouqi
-            <image class='updown' src='../../images/up.png' bindtap='handlepic'></image>
+            收起图片
+            <!-- <image class='updown' src='../../images/up.png' bindtap='handlepic'></image> -->
           </view>
         </view>
         <view wx:else>
-          zhankai
-          <image class='updown' src='../../images/down.png' bindtap='handlepic'></image>
+          展开图片
+          <!-- <image class='updown' src='../../images/down.png' ></image> -->
         </view>
 
         <image src='{{problempic}}' hidden='{{! showpic}}' bindtap='viewimage' data-image='{{problempic}}'></image>
@@ -56,27 +49,38 @@
       </view>
     </view>
     <view>
-      <view class='feed-item' style='font-size:20px'>
-        教师回答：
+      <view class='page__teacheranswer'>
+        指点迷津：
       </view>
       <view wx:for="{{answer}}" wx:key="{{item.solutionid}}">
         <view class='feed-item'>
+          <a bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.teacherid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'>
+            <image class='comments-avatar-img' src='{{item.avatar}}' />
+            <text>{{item.username}}</text>
+          </a>
           <text style='font-size:15px'>
-                  {{index+1}}:{{item.fields.text}}
-          </text>
+                  {{item.text}}
+            </text>
 
-          <view wx:if="{{item.fields.record}}">
-            <audio src="{{item.fields.record}}"></audio>
+          <view wx:if="{{item.record}}">
+            <audio src="{{item.record}}"></audio>
             <view class='record-controller'>
 
               <view class='flex-wrp'>
                 <view class="btns">
-                  <view bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.fields.record}}'>
-                    <image src="/images/start.jpg" style='width:40px;height:40px'></image>
+                  <!-- <view bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.record}}'>
+                    <image src="/images/start.jpg" style='width:30px;height:30px'></image>
                   </view>
                   <view bindtap='pause1' wx:else>
                     <image src="/images/pause.jpg" style='width:30px;height:30px'></image>
-                  </view>
+                  </view> -->
+
+
+                    <image bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.record}}' src="/images/start.jpg" style='width:30px;height:30px'></image>
+
+                    <image bindtap='pause1' wx:else src="/images/pause.jpg" style='width:30px;height:30px'></image>
+
+
                 </view>
 
                 <view class="progresswrap">
@@ -88,8 +92,8 @@
 
             </view>
           </view>
-          <view wx:if="{{item.fields.image}}" class='imagestyle'>
-            <image src='{{item.fields.image}}' bindtap='viewimage' data-image='{{item.fields.image}}'></image>
+          <view wx:if="{{item.image}}" class='page__teacheranswerimage'>
+            <image src='{{item.image}}' bindtap='viewimage' data-image='{{item.fields.image}}' mode='widthfix'></image>
           </view>
         </view>
       </view>
@@ -111,31 +115,38 @@
 
 
     <view name='teacheranswer' hidden='{{answerbox}}' class='answer-box'>
-      <view style='height:100px'>
-        <textarea placeholder='qing shu ru' bindinput='textsolu' auto-height auto-focus></textarea>
+      <view class="weui-cell__bd">
+        <textarea class="weui-textarea" name="desc" placeholder="请回答" value='{{placeholder}}' maxlength="500" style="height: 5.3em" bindinput="textsolu" />
+        <view class="weui-textarea-counter">{{inputnum}}/500</view>
       </view>
-      <button bindtap='takephoto' type='primary'>点我拍照</button>
+
+      <view style='display:flex;justify-content:center'>
+        <view class="weui-uploader__files" id="uploaderFiles">
+          <block wx:for="{{files}}" wx:key="*this">
+            <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+              <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+            </view>
+          </block>
+        </view>
+        <view class="weui-uploader__input-box">
+          <view class="weui-uploader__input" bindtap="takephoto"></view>
+        </view>
+      </view>
+
+      <view wx:if="{{showyuansheng}}">
+        <view class="progresswrap">
+          <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
+                    <image bindtap='play1' wx:if="{{tingstate}}" src="/images/start.jpg" class='recordstopimg'></image>
+          <image bindtap='pause1' wx:else src="/images/pause.jpg" class='recordstopimg'></image>
+        </view>
+      </view>
+
       <view wx:if="{{recordstate}}">
         <button bindtap='start' type='primary' data-id='{{recordstate}}'>点我录音</button>
       </view>
       <view wx:else>
         <button bindtap='start' type='primary' data-id='{{recordstate}}'>点我结束</button>
       </view>
-      <view wx:if="{{showyuansheng}}">
-        <view class="progresswrap">
-          <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
-        </view>
-        <view class="btns" style='margin-right:45%'>
-          <view bindtap='play1' wx:if="{{tingstate}}">
-            <image src="/images/start.jpg" style='width:40px;height:40px'></image>
-          </view>
-          <view bindtap='pause1' wx:else>
-            <image src="/images/pause.jpg" style='width:40px;height:40px'></image>
-          </view>
-        </view>
-      </view>
-
-
 
       <button bindtap='submitanswer'>上传</button>
     </view>
@@ -157,7 +168,7 @@
             <view class="comments-zan">{{item.zan}}
               <image src="../../images/zan.png" class="extra-share-img" bindtap='dianzan' data-id='{{item.commentid}}' data-problemid='{{problemid}}' data-commenter='{{item.commenter}}' />
             </view>
-            <text>{{item.username}}         {{item.submittime}}</text>
+            <text>{{item.username}}</text><text> {{item.submittime}}</text>
           </view>
           <view class="comments-content breakline-small">{{item.text}}</view>
           <view class="comments-data">{{item.times}}</view>

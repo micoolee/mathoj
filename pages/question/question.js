@@ -82,10 +82,12 @@ var page = Page({
     shareOpacity: {},
     shareBottom: {},
     modalValue: null,
-    showpic: true,
+    showpic: false,
     comments: ['notnull'],
     // backfirst: false,
-    grade:null
+    grade:null,
+    inputnum:0,
+    files: ["../../images/pic_160.png"],
 
   },
   /**
@@ -432,8 +434,10 @@ var page = Page({
   },
   //change text sulutions
   textsolu: function (e) {
+    var inputnum = e.detail.value.length
     this.setData({
-      textsolu: e.detail.value
+      textsolu: e.detail.value,
+      inputnum:inputnum
     })
   },
 
@@ -542,6 +546,7 @@ var page = Page({
         const src = res.tempFilePaths[0]
         console.log(src)
         that.setData({
+          files: [src],
           answerpicsrc: src,
         })
       }
@@ -618,6 +623,32 @@ var page = Page({
 
   },
 
+
+
+  showmore: function (e) {
+    var userid = e.currentTarget.dataset.userid
+    var avatar = e.currentTarget.dataset.avatar
+    var username = e.currentTarget.dataset.username
+    var openid = e.currentTarget.dataset.openid
+
+    if (openid == app.globalData.openid) {
+      wx.switchTab({
+        url: '../settings/settings',
+      })
+    } else {
+      wx.navigateTo({
+        url: `../settings/profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+      })
+    }
+
+
+  },
+
+
+
+
+
+
   onLoad: function (option) {
 
     console.log(option)
@@ -658,7 +689,8 @@ var page = Page({
           var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
           // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
 
-
+          var answertmp = JSON.stringify(answer).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
+          answer = JSON.parse(answertmp)
           comments = JSON.parse(tmp)
 
           that.setData({

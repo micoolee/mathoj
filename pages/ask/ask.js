@@ -24,6 +24,7 @@ Page({
     avatar:app.globalData.avatar,
     screenwidth:app.globalData.screenwidth,
     screenheight: app.globalData.screenheight,
+    imagelength:0
   },
 
 
@@ -72,6 +73,7 @@ Page({
         console.log(src)
         that.setData({
           files: [src],
+          imagelength:1,
           problempicsrc: src,
           askpicdoor:true,
           img: src

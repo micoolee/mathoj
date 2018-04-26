@@ -149,7 +149,7 @@
 .extra-share{ position: absolute; right: 5px; width: 50%; }
 .extra-share-img{ width: 20px; height: 20px; float: right; padding: 10px 15px; }
 
-
+.comments-avatar-img{ width: 40px; height: 40px; border-radius: 50%; border: 1px solid #F2F2F2; }
 
 .page{
       background-color: #F8F8F8;
@@ -187,4 +187,25 @@
     color: #888888;
     text-align: left;
     font-size: 14px;
+}
+
+.page__text{
+      margin-top: 5px;
+    color: #888888;
+    text-align: left;
+    font-size: 24rpx;
+}
+.page__teacheranswer{
+  background: #ffffff;
+  margin-top:.3em;
+  margin-bottom: .3em;
+  font-size: 34rpx;
+  text-align: center;
+}
+.page__teacheranswerimage{
+
+      padding: 5px;
+      display: flex;
+    justify-content: center;
+  
 }

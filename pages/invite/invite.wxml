@@ -4,8 +4,9 @@
       <view class="feed-content">
         <view class="question line-reback" qid="{{question_id}}" data-username='{{item.username}}' data-userid='{{item.besubscriber}}' data-avatar='{{item.avatar}}' bindtap="showmore">
           <a class="question-link">
+          <image src='{{item.avatar}}' class='comments-avatar-img'></image>
             <text>{{item.username}}</text>
-              <view class='weui-cell__ft' bindtap='invite' data-besubscriber='{{item.besubscriber}}'>invite</view>
+              <text class='weui-cell__ft' bindtap='invite' data-besubscriber='{{item.besubscriber}}'>invite</text>
           </a>
                           
         </view>

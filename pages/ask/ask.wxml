@@ -14,14 +14,14 @@
 
 
 
-  <view class="page__bd">
+  <view>
     <view class="weui-cells">
       <view class="weui-cell">
         <view class="weui-cell__bd">
           <view class="weui-uploader">
             <view class="weui-uploader__hd">
               <view class="weui-uploader__title">图片上传</view>
-              <view class="weui-uploader__info">{{files.length-1}}/1</view>
+              <view class="weui-uploader__info">{{imagelength}}/1</view>
             </view>
             <view class="weui-uploader__bd">
               <view class="weui-uploader__files" id="uploaderFiles">
@@ -29,12 +29,6 @@
                   <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                     <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                   </view>
-
-
-                  <!-- <view class="weui-uploader__file">
-                                    <image class="weui-uploader__img" src="../../images/pic_160.png" mode="aspectFill" />
-                                </view> -->
-
                 </block>
                 <!-- <view class="weui-uploader__file">
                                     <image class="weui-uploader__img" src="../../images/pic_160.png" mode="aspectFill" />
@@ -75,10 +69,10 @@
 
 
 
-  <view class="weui-cells page__bd page__bd_spacing">
+  <view class="weui-cells  page__bd_spacing">
 
     <picker bindchange="bindPickerChange" name="gradeindex" value="{{gradeindex}}" range="{{gradearray}}">
-      <view class="weui-uploader__title" style='text-align:center;padding:10px'>
+      <view class="weui-uploader__title" style='text-align:center;padding:5px'>
         年级:{{gradearray[gradeindex]}}
       </view>
     </picker>

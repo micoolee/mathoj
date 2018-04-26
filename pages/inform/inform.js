@@ -8,7 +8,7 @@ Page({
   data: {
     informlist: [],
     sixindoor: false,
-    icons: { '0': '../../images/system.png', '1': '../../images/key.png', '2': '../../images/key.png', '3': '../../images/zan.png', '4': '../../images/invite.png','5':'../../images/subscribe.png' }
+    icons: { '0': '../../images/system.png', '1': '../../images/key.png', '2': '../../images/key.png', '3': '../../images/zan.png', '4': '../../images/invite1.png','5':'../../images/subscribe.png' }
   },
 
 

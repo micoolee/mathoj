@@ -83,7 +83,7 @@ function get_or_create_avatar(userid){
   var res = wx.getStorageInfoSync()
   if(res.keys.indexOf(userid)>-1){
    var avatarimgcache = wx.getStorageSync(userid)
-   console.log('111111')
+
    return avatarimgcache
   }else{
     if (havedown.indexOf(userid)>-1){
@@ -350,6 +350,9 @@ function get10prob(that) {
       problemlist = JSON.parse(tmp)
 
       if (problemlist.length == 0) {
+        that.setData({
+          bottom:true
+        })
         wx.showToast({
           title: 'no more',
         })

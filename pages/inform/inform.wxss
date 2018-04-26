@@ -1,1 +1,39 @@
 /* pages/inform/inform.wxss */
+
+.tongzhiliebiao {
+  font-size: 15px;
+  width: 100%;
+  background: #fff;
+}
+
+.segment {
+  display: block;
+  position: relative;
+  margin-top: 0.37647059em;
+  background-color: #fff;
+  line-height: 2.01176471;
+  font-size: 17px;
+}
+
+.avatar {
+  width: 20px;
+  height: 20px;
+  padding: 10px 5px 5px 10px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  float: right;
+  padding: 10px 10px 5px;
+}
+
+.question {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.textstyle {
+  font-size: 24rpx;
+  margin-bottom: 5px;
+}
