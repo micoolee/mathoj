@@ -15,7 +15,7 @@
         {{desc}}
       </view>
 
-      <view wx:if="{{problempic != 'noimages'}}" style='display:flex;justify-content:center'>
+      <view wx:if="{{problempic != 'noimages'}}" style='justify-content:center'>
         <view wx:if='{{showpic}}' style='display:flex;flex-direction:column;'>
           <view>
             shouqi
@@ -27,7 +27,7 @@
           <image class='updown' src='../../images/down.png' bindtap='handlepic'></image>
         </view>
 
-        <image src='{{problempic}}' hidden='{{! showpic}}'></image>
+        <image src='{{problempic}}' hidden='{{! showpic}}' bindtap='viewimage' data-image='{{problempic}}'></image>
 
       </view>
 
@@ -68,37 +68,39 @@
             <view class='record-controller'>
 
               <view class='flex-wrp'>
-                <view class="progresswrap">
-                  <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
-                </view>
                 <view class="btns">
                   <view bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.fields.record}}'>
                     <image src="/images/start.jpg" style='width:40px;height:40px'></image>
                   </view>
                   <view bindtap='pause1' wx:else>
-                    <image src="/images/pause.jpg" style='width:40px;height:40px'></image>
+                    <image src="/images/pause.jpg" style='width:30px;height:30px'></image>
                   </view>
                 </view>
+
+                <view class="progresswrap">
+                  <slider class="drag page__bd_spacing" style='width:500rpx' step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
+                </view>
+
 
               </view>
 
             </view>
           </view>
           <view wx:if="{{item.fields.image}}" class='imagestyle'>
-            <image src='{{item.fields.image}}'></image>
+            <image src='{{item.fields.image}}' bindtap='viewimage' data-image='{{item.fields.image}}'></image>
           </view>
         </view>
       </view>
 
     </view>
 
-    <view class="que-operate flex-wrp">
+    <view wx:if="{{answerdoor != 'yes'}}" class="que-operate flex-wrp">
 
       <view class="write flex-item" bindtap='showanswerbox' wx:if='{{hidehuida}}'>
         <image src="../../images/write.png"></image>
         <text>写回答</text>
       </view>
-      <view class="invite flex-item" bindtap = 'showinvitebox' data-problemid='{{problemid}}'>
+      <view class="invite flex-item" bindtap='showinvitebox' data-problemid='{{problemid}}'>
         <image src="../../images/invite.png"></image>
         <text>邀请回答</text>
       </view>
@@ -174,11 +176,11 @@
 <view class="extra">
   <view class="extra-share">
 
-     <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' /> 
- 
-     <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />  
+    <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' />
 
-<!-- <button  class="extra-share-img" bindtap='comment'>comment</button> -->
+    <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />
+
+    <!-- <button  class="extra-share-img" bindtap='comment'>comment</button> -->
     <!-- <button  open-type='share' bindtap='clickshare' data-problemid='{{problemid}}'>share</button> -->
 
 
@@ -193,17 +195,17 @@
 <!-- 分享层 -->
 
 
- 
+
 <view class="extra-share-box" style="display:{{shareShow}}">
   <view class="share-box-show" animation="{{shareBottom}}">
     <view class="share-box-img-box">
-                 <button class="weui-btn" type="primary" open-type='share' bindtap='clickshare' data-problemid='{{problemid}}'>share</button>
+      <button class="weui-btn" type="primary" open-type='share' bindtap='clickshare' data-problemid='{{problemid}}'>share</button>
     </view>
     <view class="share-box-close" bindtap="shareClose">关闭</view>
   </view>
   <view class="share-box-opacity" animation="{{shareOpacity}}" bindtap="shareClose"></view>
-</view> 
+</view>
 
 <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
   <view> {{modalValue}} </view>
-</modal>   
+</modal>

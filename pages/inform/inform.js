@@ -6,69 +6,110 @@ Page({
    * 页面的初始数据
    */
   data: {
-  informlist:[],
-  sixindoor:false
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
-  },
-  onPullDownRefresh:function(){
-    app.getlastedinform()
+    informlist: [],
+    sixindoor: false,
+    icons: { '3': '../../images/zan.png', '0': '../../images/system.png', '1': '../../images/key.png', '2': '../../images/key.png', '4': '../../images/subscribe.png' }
   },
 
 
-  showzandetail:function(e){
-    var problemid = e.currentTarget.dataset.problemid
-    wx.navigateTo({
-      url: `../question/question?problemid=${problemid}`
+
+  bindTouchStart: function (e) {
+    this.startTime = e.timeStamp;
+  },
+  bindTouchEnd: function (e) {
+    this.endTime = e.timeStamp;
+  },
+
+  bindLongTap: function (e) {
+    var that = this
+    var informid = e.currentTarget.dataset.informid
+    wx.showModal({
+      title: '提示',
+      content: '是否删除',
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url: app.globalData.baseurl + '/deleteinform/',
+            data: { 'informid': informid},
+            success: function () {
+              wx.showToast({
+                title: 'delete success',
+              })
+              app.getlastedinform(that)
+            }
+          })
+
+        }
+      }
     })
 
   },
 
 
+  onLoad: function (options) {
 
-showsixin:function(){
-  this.setData({
-    sixindoor:false
-  })
-  app.globalData.sixindoor = false
-  wx.navigateTo({
-    url: '../inform/message/message',
-  })
-},
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
+  },
+
+  onPullDownRefresh: function () {
+    app.getlastedinform()
+  },
+
+  showzandetail: function (e) {
+    if (this.endTime - this.startTime < 350) {
+      if(e.currentTarget.dataset.informtype != '5'){
+        var problemid = e.currentTarget.dataset.problemid
+        wx.navigateTo({
+          url: `../question/question?problemid=${problemid}`
+        })
+      }else{
+        var sourcerid = e.currentTarget.dataset.sourcerid
+        var avatar = e.currentTarget.dataset.avatar
+        var username = e.currentTarget.dataset.username
+        var openid = e.currentTarget.dataset.openid
+        wx.navigateTo({
+          url: `../settings/profile/profile?userid=${sourcerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+        })
+
+      }
+
+    }
+  },
+
+  showsixin: function () {
+    this.setData({
+      sixindoor: false
+    })
+    app.globalData.sixindoor = false
+    wx.navigateTo({
+      url: '../inform/message/message',
+    })
+  },
+
   onReady: function () {
     var that = this
     app.globalData.informthat = that
   },
 
-  print:function(){
-    console.log('print')
-  },
+
 
 
   onShow: function () {
     console.log(app.globalData.sixindoor)
-    if(app.globalData.sixindoor){
+    if (app.globalData.sixindoor) {
       this.setData({
-        sixindoor:true
+        sixindoor: true
       })
     }
     app.globalData.reddot = false
     this.setData({
-      informlist:app.globalData.informlist
+      informlist: app.globalData.informlist
     })
     wx.hideTabBarRedDot({
       index: 2,
     })
   },
-  onHide:function(){
+  
+  onHide: function () {
     app.globalData.reddot = false
     wx.hideTabBarRedDot({
       index: 2,

@@ -21,8 +21,8 @@ Page({
 
     tabTxt: [
       {
-        'text': 'grade',
-        'originalText': 'buxian',
+        'text': '年级',
+        'originalText': '不限',
         'active': false,
         'child': [
           { 'id': 1, 'text': '一年级' },
@@ -34,12 +34,12 @@ Page({
         'type': 0
       },
       {
-        'text': 'easy',
-        'originalText': 'buxian',
+        'text': '难易',
+        'originalText': '不限',
         'active': false,
         'child': [
-          { 'id': 1, 'text': 'easy' },
-          { 'id': 2, 'text': 'difficult' }
+          { 'id': 1, 'text': '简单' },
+          { 'id': 2, 'text': '困难' }
         ], 'type': 0
       }
     ],

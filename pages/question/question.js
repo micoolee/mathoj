@@ -75,7 +75,7 @@ var page = Page({
     answer: null,
     commentcontent: null,
     subscribe_door: true,
-
+    answerdoor:'',
     problempic: 'noimages',
     modalHidden: true,
     shareShow: 'none',
@@ -89,6 +89,14 @@ var page = Page({
   /**
    * 关闭分享
    */
+
+  viewimage:function(e){
+    var image = e.currentTarget.dataset.image
+    wx.previewImage({
+      current: '', // 当前显示图片的http链接
+      urls: [image] // 需要预览的图片http链接列表
+    })
+  },
   dianzan: function (e) {
     var commentid = e.target.dataset.id
     var problemid = e.target.dataset.problemid
@@ -615,6 +623,10 @@ var page = Page({
       },
       success: function (res) {
         var subscribe_door = JSON.parse(res.data.subscribe_door)
+        var answerdoor = res.data.solved
+        that.setData({
+          answerdoor:answerdoor
+        })
         if (subscribe_door[0].i == 1) {
           that.setData({
             subscribe_door: false

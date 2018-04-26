@@ -26,13 +26,15 @@ App({
     nothissession: true,
     chatroomthat: null,
     searchlist: [],
-    globalproblemlist:[]
+    globalproblemlist:[],
+    placeholder:''
   },
 
-  getlastedinform: function () {
+  getlastedinform: function (informthat = null) {
     var that = this
     var util = require('utils/util.js')
     var getDateDiff = util.getDateDiff
+    var get_or_create_avatar = util.get_or_create_avatar
 
     wx.request({
       url: this.globalData.baseurl + '/getlastedinform/',
@@ -40,9 +42,16 @@ App({
       success: function (res) {
         var informlist = JSON.parse(res.data.json_data)
 
-        var tmp = JSON.stringify(informlist).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+        var tmp = JSON.stringify(informlist).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($4); var receivercachedoor = get_or_create_avatar($2);  if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar+ $4 + tmpstr) })
+      
         informlist = JSON.parse(tmp)
+        console.log(informlist)
         that.globalData.informlist = informlist
+        if(informthat){
+          informthat.setData({
+            informlist:informlist
+          })
+        }
       }
     })
   },

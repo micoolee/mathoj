@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    inputnum:0,
     files: ["../../images/pic_160.png"],
     gradearray: ['未选择', '一年级', '二年级', '三年级', '四年级'],
     grade: '未选择',
@@ -17,6 +18,7 @@ Page({
       { name: 'easy', value: '简单', checked: 'true' },
     ],
     desc: '',
+    placeholder:'',
     img: 'noimage',
     askpicdoor:false,
     avatar:app.globalData.avatar,
@@ -31,9 +33,15 @@ Page({
     })
   },
 
+
+
   descinput: function (e) {
+    var num = e.detail.value.length
+    app.globalData.placeholder= e.detail.value
     this.setData({
-      desc: e.detail.value
+      desc: e.detail.value,
+      inputnum:num,
+      
     })
   },
   radioChange: function (e) {
@@ -135,6 +143,7 @@ Page({
               content: 'queding',
               success: function (res) {
                 if (res.confirm) {
+                  app.globalData.placeholder = ''
                   wx.navigateBack({
                   })
                 } else if (res.cancel) {
@@ -155,19 +164,6 @@ Page({
 
   },
 
-  // chooseImage: function (e) {
-  //   var that = this;
-  //   wx.chooseImage({
-  //     sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-  //     sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-  //     success: function (res) {
-  //       // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-  //       that.setData({
-  //         files: that.data.files.concat(res.tempFilePaths)
-  //       });
-  //     }
-  //   })
-  // },
   previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
@@ -176,10 +172,16 @@ Page({
   },
 
   cancelask: function () {
+    app.globalData.placeholder = ''
     wx.navigateBack({
       
     })
   },
+ onShow:function(){
+   this.setData({
+     placeholder: app.globalData.placeholder
+   })
+ }
 
 
 })

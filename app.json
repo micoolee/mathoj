@@ -38,7 +38,7 @@
       },
       {
         "pagePath": "pages/inform/inform",
-        "text": "inform",
+        "text": "通知",
         "iconPath": "images/chat.png",
         "selectedIconPath": "images/chat-selected.png"
       },
@@ -53,7 +53,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "yuanti",
+    "navigationBarTitleText": "师者",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   }

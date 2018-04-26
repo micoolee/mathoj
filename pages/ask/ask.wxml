@@ -1,45 +1,45 @@
 <view class="page ">
 
 
-        <view class="weui-cells__title">问题描述:</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <textarea class="weui-textarea" name="desc" placeholder="请输入文本" maxlength="500" style="height: 5.3em" bindinput="descinput"/>
-                    <view class="weui-textarea-counter">0/200</view>
-                </view>
+  <view class="weui-cells__title">问题描述:</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea class="weui-textarea" name="desc" placeholder="请输入文本" value='{{placeholder}}' maxlength="500" style="height: 5.3em" bindinput="descinput" />
+        <view class="weui-textarea-counter">{{inputnum}}/500</view>
+      </view>
+    </view>
+  </view>
+
+
+
+
+  <view class="page__bd">
+    <view class="weui-cells">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__hd">
+              <view class="weui-uploader__title">图片上传</view>
+              <view class="weui-uploader__info">{{files.length-1}}/1</view>
             </view>
-        </view>
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                  </view>
 
 
-
-
-    <view class="page__bd">
-        <view class="weui-cells">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <view class="weui-uploader">
-                        <view class="weui-uploader__hd">
-                            <view class="weui-uploader__title">图片上传</view>
-                            <view class="weui-uploader__info">{{files.length}}/2</view>
-                        </view>
-                        <view class="weui-uploader__bd">
-                            <view class="weui-uploader__files" id="uploaderFiles">
-                                <block wx:for="{{files}}" wx:key="*this">
-                                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-                                    </view>
-
-
-                                <!-- <view class="weui-uploader__file">
+                  <!-- <view class="weui-uploader__file">
                                     <image class="weui-uploader__img" src="../../images/pic_160.png" mode="aspectFill" />
                                 </view> -->
 
-                                </block>
-                                <!-- <view class="weui-uploader__file">
+                </block>
+                <!-- <view class="weui-uploader__file">
                                     <image class="weui-uploader__img" src="../../images/pic_160.png" mode="aspectFill" />
                                 </view> -->
-                                <!-- <view class="weui-uploader__file">
+                <!-- <view class="weui-uploader__file">
                                     <image class="weui-uploader__img" src="../../images/pic_160.png" mode="aspectFill" />
                                 </view>
                                 <view class="weui-uploader__file">
@@ -55,16 +55,16 @@
                                     <image class="weui-uploader__img" src="../../images/pic_160.png" mode="aspectFill" />
                                     <view class="weui-uploader__file-content">50%</view>
                                 </view> -->
-                            </view>
-                            <view class="weui-uploader__input-box">
-                                <view class="weui-uploader__input" bindtap="uploadimg"></view>
-                            </view>
-                        </view>
-                    </view>
-                </view>
+              </view>
+              <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="uploadimg"></view>
+              </view>
             </view>
+          </view>
         </view>
+      </view>
     </view>
+  </view>
 
 
 
@@ -79,7 +79,7 @@
 
     <picker bindchange="bindPickerChange" name="gradeindex" value="{{gradeindex}}" range="{{gradearray}}">
       <view class="weui-uploader__title" style='text-align:center;padding:10px'>
-年级:{{gradearray[gradeindex]}}
+        年级:{{gradearray[gradeindex]}}
       </view>
     </picker>
   </view>
@@ -100,18 +100,15 @@
     <input name="reward" value='0' bindinput='rewardinput'></input>
   </view> -->
 
-<!-- <view style='display:flex'>
+  <!-- <view style='display:flex'>
   <button  class="btn_ok" bindtap="ask" data-statu="close">确定</button>
   <button class="btn_cancel" bindtap="cancelask" data-statu="close">取消</button>
 </view> -->
 
-        <view class="button-sp-area ">
-  <button  class="weui-btn mini-btn" type="primary" size="mini" bindtap="ask" data-statu="close">确定</button>
-  <button class="weui-btn mini-btn" type="default" size="mini" bindtap="cancelask" data-statu="close">取消</button>
 
-</view>
-
-
-
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="ask" data-statu="close">确定</button>
+    <button class="weui-btn" type="default" bindtap="cancelask" data-statu="close">取消</button>
+  </view>
 
 </view>

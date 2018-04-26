@@ -1,15 +1,16 @@
-          <scroll-view scroll-y="true" class="container">
-            <block wx:for="{{subscriberlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
-              <view class="feed-item">
-                <view class="feed-content">
-                  <view class="question line-reback" qid="{{question_id}}" data-username='{{item.username}}' data-userid='{{item.besubscriber}}' data-avatar='{{item.avatar}}' bindtap="showmore">
-                    <a class="question-link">
-                      <text>{{item.username}}</text>
-                    </a>
-                                    <button bindtap='invite' data-besubscriber='{{item.besubscriber}}'>invite</button>
-                  </view>
+<scroll-view scroll-y="true" class="container">
+  <block wx:for="{{subscriberlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+    <view class="feed-item">
+      <view class="feed-content">
+        <view class="question line-reback" qid="{{question_id}}" data-username='{{item.username}}' data-userid='{{item.besubscriber}}' data-avatar='{{item.avatar}}' bindtap="showmore">
+          <a class="question-link">
+            <text>{{item.username}}</text>
+              <view class='weui-cell__ft' bindtap='invite' data-besubscriber='{{item.besubscriber}}'>invite</view>
+          </a>
+                          
+        </view>
 
-                </view>
-              </view>
-            </block>
-          </scroll-view>
+      </view>
+    </view>
+  </block>
+</scroll-view>

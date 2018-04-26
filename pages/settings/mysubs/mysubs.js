@@ -10,7 +10,7 @@ Page({
   data: {
     problemlist: null,
     subscriberlist:null,
-    tabs: ["timu", "yonghu"],
+    tabs: ["题目", "用户"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0
