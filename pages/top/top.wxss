@@ -1,0 +1,23 @@
+/* pages/top/top.wxss */
+.avatar {
+  width: 20px;
+  height: 20px;
+  padding: 10px 5px 5px 10px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  float: right;
+  padding: 10px 10px 5px;
+}
+
+.question {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.textstyle {
+  font-size: 24rpx;
+  margin-bottom: 5px;
+}

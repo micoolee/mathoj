@@ -1,32 +1,19 @@
-// pages/storydetail/storydetail.js
-const app =getApp()
+// pages/top/top.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    content:null
+  ranklist:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    console.log(options)
-    var storyid = options.id
-    
-    wx.request({
-      url: app.globalData.baseurl+'/getstory/',
-      data:{'storyid':storyid},
-      success:function(res){
-        console.log(res)
-        that.setData({
-          content:res.data
-        })
-      }
-    })
+  
   },
 
   /**
@@ -40,7 +27,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    var that = this
+    wx.request({
+      url: app.globalData.baseurl+'/getrank/',
+      success:function(res){
+        that.setData({
+          ranklist:res.data.ranklist
+        })
+      }
+    })
   },
 
   /**

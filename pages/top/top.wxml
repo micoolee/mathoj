@@ -1,10 +1,4 @@
-<view class='container'>
-
-  <view wx:if="{{sixindoor}}" class="feed-item" bindtap='showsixin' style='font-size:20px;text-align:center'>有私信</view>
-  <view wx:else class="feed-item" bindtap='showsixin' style='font-size:20px;text-align:center'>私信</view>
-
-  <view class='weui-cells_after-title tongzhiliebiao'>通知列表:</view>
-  <scroll-view wx:for="{{informlist}}" wx:key="{{item.informid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+  <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}" >
 
 
     <view class="segment" bindtap='showzandetail' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.informid}}' data-problemid='{{item.problem_id}}' data-informtype='{{item.informtype}}' data-sourcerid='{{item.sourcer_id}}'
@@ -13,15 +7,13 @@
 
             <image class="avatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
 
-          <text class='textstyle'>{{item.informtype}} |    {{item.submittime}}</text>
           <image class='icon' src="{{icons[item.informtype]}}"></image>
 
         <view class="question" qid="{{question_id}}">
-            <text class='line-3'>{{item.username}}{{item.message}}</text>
+            <text class='line-3'>{{item.username}}</text>
         </view>
     </view>
 
 
 
   </scroll-view>
-</view>
