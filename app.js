@@ -170,7 +170,6 @@ App({
       })
     })
     wx.onSocketClose(function (res) {
-      // that.globalData.closetime++
       console.log('WebSocket 已关闭！')
       setTimeout(that.connect, that.globalData.closetime * 1000)
 
@@ -191,7 +190,7 @@ App({
           method: 'GET',
           success: function (res) {
             that.globalData.openid = res.data
-            that.connect()
+            // that.connect()
           },
         })
       }

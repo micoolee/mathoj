@@ -3,7 +3,7 @@
     <view class="search flex-wrp">
       <view class="search-left flex-item">
         <image src="../../images/search1.png"></image>
-        <input placeholder="搜索" placeholder-class="search-placeholder" bindinput='writesearch' bindconfirm='search' value='{{inputvalue}}'/>
+        <input placeholder="搜索" placeholder-class="search-placeholder" bindinput='writesearch' bindconfirm='search' value='{{inputvalue}}' />
       </view>
 
 
@@ -16,6 +16,12 @@
     </view>
 
 
+  </scroll-view>
+
+
+
+  <view class="page">
+
     <swiper class="swiper-boxs" indicator-dots autoplay duration="300">
       <swiper-item wx:for="{{topStories}}" wx:key="{{index}}">
         <navigator url="../storydetail/storydetail?id={{topStories[index].storyid}}">
@@ -23,97 +29,211 @@
         </navigator>
       </swiper-item>
     </swiper>
-  </scroll-view>
 
 
 
-
-
-<!--筛选栏-->
-<view class="cxj-menu">
-  <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="" data-index="{{index}}" bindtap="filterTab">
-    <text>{{item.text}}</text>
-    <image src="/images/arrow.png" class="cxj-icon"></image>
-  </view>
-</view>
-<!--条件选项栏-->
-<view class="cxj-tab-layout" hidden="{{!item.active}}" wx:for="{{tabTxt}}"  wx:for-item="item" data-index="{{index}}" bindtap="filterTabChild">
-    <view class="{{item.type==0?'active':''}}" data-id="0" data-index="0" bindtap="filter">不限</view>
-    <view class="{{item.type==item_child.id?'active':''}}" wx:for="{{item.child}}" wx:for-item="item_child" wx:key="" data-id="{{item_child.id}}" data-index="0" data-txt="{{item_child.text}}" bindtap="filter">{{item_child.text}}</view>
-</view>
-
-
-<!--正文  体现一下遮罩效果的-->
-<view class="cxj-content">
-
-
-
-  <view wx:if='{{havenewbtn}}' class='weui-cells weui-cells_after-title' style='text-align:center;'>
-    <text>have new</text>
-  </view>
-  <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
-    <view class="feed-item">
-      <view class="feed-source">
-        <a  bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'>
-          <view class="avatar">
-            <image src="{{item.avatar}}"></image>
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
           </view>
-          <text>{{item.username}}     </text>
-        </a>
-        <!-- <image class="item-more" mode="aspectFit" src="../../images/more.png" bindtap='showshare' data-shareindex='{{idx}}'></image> -->
-        <text style='margin-right:auto'>{{item.asktime}}</text>
-
-<view wx:if="{{shareindexlist[idx]=='1'}}" ><button open-type='share' bindtap='clickshare' data-problemid='{{item.problemid}}'>share</button></view>
-
-
-
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
       </view>
-      <view class="feed-content">
-        <view class="question" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap">
-          <a class="question-link">
-            <text class='line-3'>{{item.description}}</text>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
 
-          </a>
-        </view>
-        <view class="answer-body">
-          <view bindtap="bindItemTap">
-            <text class="answer-txt" aid="{{answer_id}}">{{item.fields.solver}}</text>
+
+
+
+
+
+
+
+          <!--筛选栏-->
+          <view class="cxj-menu">
+            <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="" data-index="{{index}}" bindtap="filterTab">
+              <text>{{item.text}}</text>
+              <image src="/images/arrow.png" class="cxj-icon"></image>
+            </view>
           </view>
-          <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
-
-            <view class="comments ">
-              <view wx:if="{{item.comment_num != null}}">
-                {{item.comment_num}} 评论
-              </view>
-              <view wx:else>0 评论</view>
+          <!--条件选项栏-->
+          <view class="cxj-tab-layout" hidden="{{!item.active}}" wx:for="{{tabTxt}}" wx:for-item="item" data-index="{{index}}" bindtap="filterTabChild">
+            <view class="{{item.type==0?'active':''}}" data-id="0" data-index="0" bindtap="filter">不限</view>
+            <view class="{{item.type==item_child.id?'active':''}}" wx:for="{{item.child}}" wx:for-item="item_child" wx:key="" data-id="{{item_child.id}}" data-index="0" data-txt="{{item_child.text}}" bindtap="filter">{{item_child.text}}
             </view>
+          </view>
 
-            <view class="follow-it">
-              <view wx:if="{{item.subscribe_num != null}}">
-                {{item.subscribe_num}} 关注
-              </view>
-              <view wx:else>0 关注</view>
+
+          <!--正文  体现一下遮罩效果的-->
+          <view class="cxj-content">
+            <view wx:if='{{havenewbtn}}' class='weui-cells weui-cells_after-title' style='text-align:center;'>
+              <text>have new</text>
             </view>
+            <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+              <view class="feed-item">
+                <view class="feed-source">
+                  <a bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'>
+                    <view class="avatar">
+                      <image src="{{item.avatar}}"></image>
+                    </view>
+                    <text>{{item.username}}     </text>
+                  </a>
+                  <!-- <image class="item-more" mode="aspectFit" src="../../images/more.png" bindtap='showshare' data-shareindex='{{idx}}'></image> -->
+                  <text style='margin-right:auto'>{{item.asktime}}</text>
+
+                  <view wx:if="{{shareindexlist[idx]=='1'}}">
+                    <button open-type='share' bindtap='clickshare' data-problemid='{{item.problemid}}'>share</button>
+                  </view>
+
+                </view>
+                <view class="feed-content">
+                  <view class="question" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                    <a class="question-link">
+                      <text class='line-3'>{{item.description}}</text>
+
+                    </a>
+                  </view>
+                  <view class="answer-body">
+                    <view bindtap="bindItemTap">
+                      <text class="answer-txt" aid="{{answer_id}}">{{item.fields.solver}}</text>
+                    </view>
+                    <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
+
+                      <view class="comments ">
+                        <view wx:if="{{item.comment_num != null}}">
+                          {{item.comment_num}} 评论
+                        </view>
+                        <view wx:else>0 评论</view>
+                      </view>
+
+                      <view class="follow-it">
+                        <view wx:if="{{item.subscribe_num != null}}">
+                          {{item.subscribe_num}} 关注
+                        </view>
+                        <view wx:else>0 关注</view>
+                      </view>
 
 
-             <view class="comments ">
-              <view wx:if="{{item.browse_num != null}}">
-                {{item.browse_num}} 浏览
+                      <view class="comments ">
+                        <view wx:if="{{item.browse_num != null}}">
+                          {{item.browse_num}} 浏览
+                        </view>
+                        <view wx:else>0 浏览</view>
+                      </view>
+
+                    </view>
+                  </view>
+                </view>
               </view>
-              <view wx:else>0 浏览</view>
-            </view>
+            </block>
 
           </view>
-        </view>
-      </view>
-    </view>
-  </block>
-  <image src='../../images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
-</view>
 
 
           <view class="weui-loadmore weui-loadmore_line" wx:if="{{bottom}}">
-              <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
           </view>
+
+
+        </view>
+
+
+
+
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+
+          <!--筛选栏-->
+          <view class="cxj-menu">
+            <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="" data-index="{{index}}" bindtap="filterTab">
+              <text>{{item.text}}</text>
+              <image src="/images/arrow.png" class="cxj-icon"></image>
+            </view>
+          </view>
+          <!--条件选项栏-->
+          <view class="cxj-tab-layout" hidden="{{!item.active}}" wx:for="{{tabTxt}}" wx:for-item="item" data-index="{{index}}" bindtap="filterTabChild">
+            <view class="{{item.type==0?'active':''}}" data-id="0" data-index="0" bindtap="filter">不限</view>
+            <view class="{{item.type==item_child.id?'active':''}}" wx:for="{{item.child}}" wx:for-item="item_child" wx:key="" data-id="{{item_child.id}}" data-index="0" data-txt="{{item_child.text}}" bindtap="filter">{{item_child.text}}</view>
+          </view>
+
+
+
+          <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+            <view class="feed-item">
+              <view class="feed-source">
+                <a class="">
+                  <view class="avatar">
+                    <image src="{{item.avatar}}"></image>
+                  </view>
+                  <text>{{item.username}}{{item.feed_source_txt}}</text>
+                </a>
+              </view>
+              <view class="feed-content">
+                <view class="question" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                  <a class="question-link">
+                    <text class='line-3'>{{item.description}}</text>
+                  </a>
+                </view>
+                <view class="answer-body">
+                  <view bindtap="bindItemTap">
+                    <text class="answer-txt" aid="{{answer_id}}">{{item.solver}}</text>
+                  </view>
+                  <view class="answer-actions" bindtap="bindItemTap">
+                    <view class="comments dot">
+                      <view wx:if="{{item.comment_num != null}}">
+                        {{item.comment_num}}评论
+                      </view>
+                      <view wx:else>0 评论</view>
+                    </view>
+
+                    <view class="follow-it">
+                      <view wx:if="{{item.subscribe_num != null}}">
+                        {{item.subscribe_num}}关注
+                      </view>
+                      <view wx:else>0 关注</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </block>
+
+
+
+
+
+
+
+
+
+
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+
+
+
+
+
+
+
+
+
+  <image src='../../images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
+
+
+
+
+
+
+
+
+
+
 
 </view>

@@ -13,8 +13,6 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
-
-
 function getDateTimeStamp(dateStr) {
   return Date.parse(dateStr.replace(/-/gi, "/"));
 }
@@ -179,36 +177,16 @@ function getlastedsolvedprob(that) {
       console.log(res)
       if (res.data.length > 0) {
 
+        var solvedproblemlist = res.data
 
 
+        var tmp = JSON.stringify(solvedproblemlist).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?solvedtime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
 
-
-
-        var problemlist = res.data
-        // var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('asktime":"' + tmpstr + $2 + cacheavatar) })
-
-        var tmp = JSON.stringify(problemlist).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?solvedtime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-
-
-
-
-
-
-
-
-        problemlist = JSON.parse(tmp)
-
-
-console.log('this is problemlist')
-console.log(problemlist)
-
+        solvedproblemlist = JSON.parse(tmp)
 
         that.setData({
-          // problemlist: res.data,
-
-          // formerid: res.data[res.data['length'] - 1].problemid
-          problemlist:problemlist,
-          formerid:problemlist[problemlist.length-1].problemid
+          solvedproblemlist:solvedproblemlist,
+          formerid:solvedproblemlist[solvedproblemlist.length-1].problemid
         })
       } else {
         wx.showToast({

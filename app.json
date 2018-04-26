@@ -27,7 +27,7 @@
     "list": [
       {
         "pagePath": "pages/tosolve/tosolve",
-        "text": "待解决",
+        "text": "datiqu",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-selected.png"
       },
@@ -37,12 +37,19 @@
         "iconPath": "images/search.png",
         "selectedIconPath": "images/search-selected.png"
       },
+
       {
         "pagePath": "pages/inform/inform",
         "text": "通知",
         "iconPath": "images/chat.png",
         "selectedIconPath": "images/chat-selected.png"
       },
+                  {
+                    "pagePath": "pages/top/top",
+                    "text": "rank",
+                    "iconPath": "images/search.png",
+                    "selectedIconPath": "images/search-selected.png"
+                  },
       {
         "pagePath": "pages/settings/settings",
         "text": "我的",

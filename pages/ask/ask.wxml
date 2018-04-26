@@ -78,6 +78,17 @@
     </picker>
   </view>
 
+
+
+    <view class="weui-cells  page__bd_spacing">
+
+    <picker bindchange="bindPickerChangereward" name="rewardindex" value="{{rewardindex}}" range="{{rewardarray}}">
+      <view class="weui-uploader__title" style='text-align:center;padding:5px'>
+        jiangli:{{rewardarray[gradeindex]}}
+      </view>
+    </picker>
+  </view>
+
   <!-- <view class='section'>
     <radio-group class="radio-group" bindchange="radioChange">难易:
       <label class="radio" wx:for="{{easyitems}}" wx:key="unique">

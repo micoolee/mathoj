@@ -1,9 +1,11 @@
 const app = getApp()
 var util = require('../../utils/util.js')
+var getDateDiff = util.getDateDiff
+var get_or_create_avatar = util.get_or_create_avatar
 Page({
   data: {
     userInfo: {},
-    bottom:false,
+    bottom: false,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     problempicsrc: 'null',
@@ -16,9 +18,14 @@ Page({
     searchcontent: null,
     inputvalue: null,
     problemlist: [],
-    showsharedoor:false,
-    shareindexlist:[],
+    showsharedoor: false,
+    shareindexlist: [],
 
+
+    tabs: ["待解决", "已解决"],
+    activeIndex: 0,
+    sliderOffset: 0,
+    sliderLeft: 0,
 
     tabTxt: [
       {
@@ -42,9 +49,35 @@ Page({
           { 'id': 1, 'text': '简单' },
           { 'id': 2, 'text': '困难' }
         ], 'type': 0
+      },
+      {
+        'text': 'reward',
+        'originalText': '不限',
+        'active': false,
+        'child': [
+          { 'id': 1, 'text': '2' },
+          { 'id': 2, 'text': '3' }
+        ], 'type': 0
       }
     ],
-    searchParam: []
+    searchParam: [],
+    solvedproblemlist: []
+  },
+
+
+
+
+  tabClick: function (e) {
+    var that = this
+    if (e.currentTarget.id == '1') {
+      if (that.data.solvedproblemlist.length == 0) {
+        util.getlastedsolvedprob(that)
+      }
+    }
+    this.setData({
+      sliderOffset: e.currentTarget.offsetLeft,
+      activeIndex: e.currentTarget.id
+    });
   },
 
 
@@ -57,7 +90,7 @@ Page({
       return {
         title: '[有人@我]小学奥数，考考你~',
 
-        path: '/pages/question/question?problemid='+problemid,
+        path: '/pages/question/question?problemid=' + problemid,
 
         imageUrl: 'https://ceshi.guirenpu.com/images/banner.png',
 
@@ -72,7 +105,7 @@ Page({
     return {
       title: '[有人@我]小学奥数，考考你~',
       // path: '/pages/tosolve/tosolve',
-      path:'/pages/tosolve/tosolve',
+      path: '/pages/tosolve/tosolve',
       success: function (res) {
         // 转发成功
       },
@@ -133,15 +166,40 @@ Page({
     that.setData({
       tabTxt: data
     })
-    console.log(that.data.searchParam);
     var searchparam = that.data.searchParam
-    var tmplist = app.globalData.globalproblemlist
-    var tmpproblemlist = []
-    that.filteritem(searchparam, tmpproblemlist, tmplist)
+    console.log(searchparam)
+    wx.request({
+      url: app.globalData.baseurl+'/getfilterprob/',
+      data:{'filter':JSON.stringify(searchparam),'solved':that.data.activeIndex},
+      success:function(res){
+        var filterproblist = JSON.parse(res.data.json_data)
+        var tmp = JSON.stringify(filterproblist).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
+        filterproblist = JSON.parse(tmp)
+        var a= that.data.activeIndex
+        if(a == '0'){
+          that.setData({
+            problemlist: filterproblist
+          })
+        }else{
+          that.setData({
+            solvedproblemlist: filterproblist
+          })
+        }
 
-    this.setData({
-      problemlist: tmpproblemlist
+      }
     })
+
+
+
+
+    ///////zhi jie cong problemlist filt
+    // var tmplist = app.globalData.globalproblemlist
+    // var tmpproblemlist = []
+    // that.filteritem(searchparam, tmpproblemlist, tmplist)
+
+    // this.setData({
+    //   problemlist: tmpproblemlist
+    // })
 
 
 
@@ -149,7 +207,7 @@ Page({
 
 
   filteritem: function (searchparam, tmpproblemlist, tmplist) {
-console.log(searchparam)
+    console.log(searchparam)
     if (typeof (searchparam[0]) != 'undefined' && searchparam[0] != '' && typeof (searchparam[1]) != 'undefined' && searchparam[1] != '') {
       for (var i in tmplist) { if (tmplist[i].grade == searchparam[0] && tmplist[i].easyclass == searchparam[1]) { tmpproblemlist.push(tmplist[i]) }; }
 
@@ -157,13 +215,13 @@ console.log(searchparam)
     else {
       if (typeof (searchparam[0]) != 'undefined' && searchparam[0] != '') {
         for (var i in tmplist) { if (tmplist[i].grade == searchparam[0]) { tmpproblemlist.push(tmplist[i]) } }
-      } else if (typeof (searchparam[1]) != 'undefined' && searchparam[1] != ''){
+      } else if (typeof (searchparam[1]) != 'undefined' && searchparam[1] != '') {
         for (var i in tmplist) { if (tmplist[i].easyclass == searchparam[1]) { tmpproblemlist.push(tmplist[i]) } }
       }
 
-      else{
+      else {
         for (var i in tmplist) { tmpproblemlist.push(tmplist[i]) }
-    }
+      }
     }
   },
 
@@ -318,21 +376,21 @@ console.log(searchparam)
   },
 
 
-showshare:function(e){
-  var index = e.target.dataset.shareindex
-  var tmpshareindexlist = this.data.shareindexlist
-  tmpshareindexlist[index]='1'
-  this.setData({
-    shareindexlist:tmpshareindexlist
-  })
-},
+  showshare: function (e) {
+    var index = e.target.dataset.shareindex
+    var tmpshareindexlist = this.data.shareindexlist
+    tmpshareindexlist[index] = '1'
+    this.setData({
+      shareindexlist: tmpshareindexlist
+    })
+  },
 
 
-clickshare:function(e){
- this.setData({
-   showsharedoor:false
- })
-},
+  clickshare: function (e) {
+    this.setData({
+      showsharedoor: false
+    })
+  },
 
 
 
@@ -383,7 +441,11 @@ clickshare:function(e){
     var that = this
     console.log('--------下拉刷新-------')
     wx.showNavigationBarLoading() //在标题栏中显示加载
-    util.pulldown(that)
+    if (that.data.activeIndex == '0') {
+      util.pulldown(that)
+    } else if (that.data.activeIndex == '1') {
+      util.getlastedsolvedprob(that)
+    }
     wx.stopPullDownRefresh() //停止下拉刷新                
   },
 

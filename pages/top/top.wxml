@@ -6,7 +6,7 @@
 
 
             <image class="avatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
-
+<text class='textstyle'>{{item.count}}</text>
           <image class='icon' src="{{icons[item.informtype]}}"></image>
 
         <view class="question" qid="{{question_id}}">

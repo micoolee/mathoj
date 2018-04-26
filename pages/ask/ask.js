@@ -9,10 +9,12 @@ Page({
     inputnum:0,
     files: ["../../images/pic_160.png"],
     gradearray: ['未选择', '一年级', '二年级', '三年级', '四年级'],
+
     grade: '未选择',
     gradeindex: 0,
     easy: 'noeasy',
-    reward: 0,
+    rewardarray: ['2','3'],
+    reward:'0',
     easyitems: [
       { name: 'difficult', value: '困难' },
       { name: 'easy', value: '简单', checked: 'true' },
@@ -62,6 +64,15 @@ Page({
   },
 
 
+  bindPickerChangereward: function (e) {
+    this.setData({
+      rewardindex: e.detail.value,
+      reward: this.data.rewardarray[e.detail.value]
+    })
+
+  },
+
+
   uploadimg: function () {
     var that = this;
     wx.chooseImage({
@@ -97,6 +108,11 @@ Page({
       wx.showModal({
         title: '提示',
         content: '请选择年级',
+      })
+    }else if(this.data.reward == '0'){
+      wx.showModal({
+        title: '提示',
+        content: '请选择reward',
       })
     }
     else{
