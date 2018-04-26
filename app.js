@@ -5,7 +5,7 @@ App({
     userInfo: null,
     baseurl: 'http://www.liyuanye.club',
     wssurl: 'ws://www.liyuanye.club/testwss/',
-    openid: 'null',
+    openid: null,
     audiopath: null,
     audiopathbak: null,
     returnaudiopath: '',

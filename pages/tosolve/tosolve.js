@@ -399,7 +399,7 @@ clickshare:function(e){
 
 
 function loading(that) {
-  if (app.globalData.openid != 'null') {
+  if (! app.globalData.openid) {
     wx.showToast({
       title: '加载完成~',
     })
