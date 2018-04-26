@@ -53,7 +53,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "师者",
+    "navigationBarTitleText": "问道",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   }

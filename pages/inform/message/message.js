@@ -41,7 +41,7 @@ Page({
             data: { 'sessionid':sessionid, 'userid': app.globalData.openid },
             success: function () {
               wx.showToast({
-                title: 'delete success',
+                title: '删除成功',
               })
               that.onLoad()
             }

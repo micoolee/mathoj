@@ -84,11 +84,23 @@ var page = Page({
     modalValue: null,
     showpic: true,
     comments: ['notnull'],
+    // backfirst: false,
+    grade:null
 
   },
   /**
    * 关闭分享
    */
+
+// backfirst:function(){
+//   wx.redirectTo({
+//     url: '../tosolve/tosolve',
+//   })
+//   this.setData({
+//     backfirst:false
+//   })
+// },
+
 
   viewimage:function(e){
     var image = e.currentTarget.dataset.image
@@ -328,8 +340,8 @@ var page = Page({
     var that = this
     if (this.data.commentcontent == null) {
       wx.showModal({
-        title: 'tishi',
-        content: 'please input something',
+        title: '提示',
+        content: '请输入评论',
       })
     }
     else {
@@ -343,7 +355,7 @@ var page = Page({
         success: function (res) {
           // event.detail.value=''
           wx.showToast({
-            title: 'comment successfully',
+            title: '评论成功',
           })
           var comments = JSON.parse(res.data.comment)
           var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
@@ -584,8 +596,8 @@ var page = Page({
     var that = this;
     if (that.data.textsolu == '') {
       wx.showModal({
-        title: 'input desc',
-        content: 'input desc',
+        title: '提示',
+        content: '请输入内容',
       })
     } else {
       this.setData({
@@ -607,21 +619,7 @@ var page = Page({
   },
 
   onLoad: function (option) {
-    if(! app.globalData.openid){
-      wx.login({
-        success: res => {
-          wx.request({
-            data: { js_code: res.code },
-            url: app.globalData.baseurl + '/getopenid/',
-            method: 'GET',
-            success: function (res) {
-              app.globalData.openid = res.data
-              app.connect()
-            },
-          })
-        }
-      })
-    }
+
     console.log(option)
       this.setData({
         problemid: option.problemid
@@ -664,6 +662,7 @@ var page = Page({
           comments = JSON.parse(tmp)
 
           that.setData({
+            grade:problem[0].fields.grade,
             desc: problem[0].fields.description,
             problempic: problem[0].fields.problempic,
             answer: answer,
@@ -683,7 +682,27 @@ var page = Page({
   },
 
   onReady: function () {
-
+    var that = this
+    console.log(app.globalData.openid)
+    if (!app.globalData.openid) {
+      console.log('wtf.......')
+      wx.login({
+        success: res => {
+          wx.request({
+            data: { js_code: res.code },
+            url: app.globalData.baseurl + '/getopenid/',
+            method: 'GET',
+            success: function (res) {
+              // that.setData({
+              //   backfirst: true
+              // })
+              app.globalData.openid = res.data
+              app.connect()
+            },
+          })
+        }
+      })
+    }
   },
   onShow: function () {
     wx.hideKeyboard()

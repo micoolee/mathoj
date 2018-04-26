@@ -1,9 +1,11 @@
 <!--question.wxml-->
 <view class="container">
+  <!-- fuck
+  <view wx:if="{{backfirst}}" bindtap="backfirst" style='font-size:20px;text-align:center'>回首页</view> -->
   <view class="question-wrp">
     <view class="question-item">
       <view class="que-tag">
-        <text class="tag">阅读</text>
+        <text class="tag">{{grade}}</text>
 
 
 

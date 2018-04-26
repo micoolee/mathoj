@@ -72,7 +72,7 @@ App({
         data: JSON.stringify({ 'userid': that.globalData.openid, 'statuscode': '1' }),
       })
       wx.onSocketMessage(function (res) {
-        console.log('chonglianhou收到服务器内容：' + res.data)
+        console.log('重连后收到服务器内容：' + res.data)
         var tmp = JSON.parse(res.data)
 
         var util = require('utils/util.js')
@@ -138,7 +138,12 @@ App({
             var one = singlemessage
 
 
-            var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
+
+
+
+            var tmp = JSON.stringify(one).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($4); var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar + $4 + tmpstr) })
+
+            // var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
 
 
 

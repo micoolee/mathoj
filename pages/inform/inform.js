@@ -3,12 +3,12 @@ const app = getApp()
 Page({
 
   /**
-   * 页面的初始数据
+   * 页面的初始数据# 0:xitong tongzhi; 1:your problem has answer;2:your guanzhu problem has answer; 3:your comment be thumbed up 4: someone invite you 5:someone subscribe you
    */
   data: {
     informlist: [],
     sixindoor: false,
-    icons: { '3': '../../images/zan.png', '0': '../../images/system.png', '1': '../../images/key.png', '2': '../../images/key.png', '4': '../../images/subscribe.png' }
+    icons: { '0': '../../images/system.png', '1': '../../images/key.png', '2': '../../images/key.png', '3': '../../images/zan.png', '4': '../../images/invite.png','5':'../../images/subscribe.png' }
   },
 
 
@@ -33,7 +33,7 @@ Page({
             data: { 'informid': informid},
             success: function () {
               wx.showToast({
-                title: 'delete success',
+                title: '删除成功',
               })
               app.getlastedinform(that)
             }

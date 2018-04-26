@@ -88,13 +88,13 @@ Page({
   ask: function () {
     if (this.data.desc==''){
       wx.showModal({
-        title: 'input somthing',
-        content: 'input somthing',
+        title: '提示',
+        content: '请输入问题描述',
       })
     } else if (this.data.grade == '未选择'){
       wx.showModal({
-        title: 'xuanze nianji',
-        content: 'input somthing',
+        title: '提示',
+        content: '请选择年级',
       })
     }
     else{
@@ -111,8 +111,8 @@ Page({
           formData: this.data,
           success: function () {
             wx.showModal({
-              title: 'tijiao chengogng',
-              content: 'queding',
+              title: '提示',
+              content: '提问成功',
               success: function (res) {
                 if (res.confirm) {
                   wx.navigateBack({
@@ -139,8 +139,8 @@ Page({
           data: this.data,
           success: function () {
             wx.showModal({
-              title: 'tijiao chengogng',
-              content: 'queding',
+              title: '提示',
+              content: '提问成功',
               success: function (res) {
                 if (res.confirm) {
                   app.globalData.placeholder = ''

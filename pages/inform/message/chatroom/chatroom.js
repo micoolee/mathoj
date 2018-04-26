@@ -31,7 +31,7 @@ sendmsg:function(e){
       success: function (res) {
         if(res.data!='200'){
           wx.showToast({
-            title: 'send fail',
+            title: '消息发送失败',
           })
         }else{
           that.setData({
@@ -42,7 +42,7 @@ sendmsg:function(e){
     })
   }else{
     wx.showToast({
-      title: 'input somthing',
+      title: '不能发送空消息',
     })
   }
   
