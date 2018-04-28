@@ -45,7 +45,6 @@ App({
         var tmp = JSON.stringify(informlist).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($4); var receivercachedoor = get_or_create_avatar($2);  if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar+ $4 + tmpstr) })
       
         informlist = JSON.parse(tmp)
-        console.log(informlist)
         that.globalData.informlist = informlist
         if(informthat){
           informthat.setData({
@@ -158,7 +157,6 @@ App({
                 informlist: all
               })
             }
-
           }
           that.globalData.reddot = true
           wx.vibrateShort({
@@ -172,9 +170,6 @@ App({
     wx.onSocketClose(function (res) {
       console.log('WebSocket 已关闭！')
       setTimeout(that.connect, that.globalData.closetime * 1000)
-
-
-
     })
   },
 
@@ -190,7 +185,7 @@ App({
           method: 'GET',
           success: function (res) {
             that.globalData.openid = res.data
-            // that.connect()
+            that.connect()
           },
         })
       }

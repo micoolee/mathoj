@@ -103,6 +103,23 @@ var page = Page({
 //   })
 // },
 
+  caina:function(e){
+    var solutionid = e.currentTarget.dataset.solutionid
+    var teacherid = e.currentTarget.dataset.teacherid
+    var problemid = e.currentTarget.dataset.problemid
+    var askeruserid = app.globalData.openid
+    wx.request({
+      url: app.globalData.baseurl+'/accept/',
+      data:{'solutionid':solutionid,'teacherid':teacherid,'askeruserid':askeruserid,'problemid':problemid},
+      success:function(res){
+        wx.showToast({
+          title: '已采纳',
+        })
+      }
+    })
+  },
+
+
 
   viewimage:function(e){
     var image = e.currentTarget.dataset.image

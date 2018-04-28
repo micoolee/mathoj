@@ -6,12 +6,11 @@
 
 
             <image class="avatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
-<text class='textstyle'>{{item.count}}</text>
-          <image class='icon' src="{{icons[item.informtype]}}"></image>
+            <text class='textstyle'>{{item.username}}</text>
+            <text class='centertext'>datishu{{item.count}}</text>
+            <text class='centertext'>cainashu{{item.acceptnum}}</text>
+            <image class='icon' src='../../images/firstrank.png'><text style='position:absolute;font-size:10px;bottom:35rpx;right:40rpx;'>{{index+1}}</text></image>
 
-        <view class="question" qid="{{question_id}}">
-            <text class='line-3'>{{item.username}}</text>
-        </view>
     </view>
 
 

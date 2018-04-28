@@ -15,7 +15,7 @@
   font-size: 17px;
 }
 
-.avatar {
+/* .avatar {
   width: 20px;
   height: 20px;
   padding: 10px 5px 5px 10px;
@@ -36,4 +36,4 @@
 .textstyle {
   font-size: 24rpx;
   margin-bottom: 5px;
-}
+} */

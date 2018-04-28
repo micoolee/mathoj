@@ -14,12 +14,10 @@
         <view wx:if='{{showpic}}' style='display:flex;flex-direction:column;'>
           <view>
             收起图片
-            <!-- <image class='updown' src='../../images/up.png' bindtap='handlepic'></image> -->
           </view>
         </view>
         <view wx:else>
           展开图片
-          <!-- <image class='updown' src='../../images/down.png' ></image> -->
         </view>
 
         <image src='{{problempic}}' hidden='{{! showpic}}' bindtap='viewimage' data-image='{{problempic}}'></image>
@@ -56,11 +54,13 @@
         <view class='feed-item'>
           <a bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.teacherid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'>
             <image class='comments-avatar-img' src='{{item.avatar}}' />
-            <text>{{item.username}}</text>
+            <text class='textstyle'>{{item.username}}</text>
+            <text bindtap='caina' class='righttext' data-solutionid='{{item.solutionid}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>采纳</text>
           </a>
           <text style='font-size:15px'>
                   {{item.text}}
             </text>
+            
 
           <view wx:if="{{item.record}}">
             <audio src="{{item.record}}"></audio>

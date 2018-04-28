@@ -105,20 +105,6 @@ Page({
     util.get10solvedprob(that)
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
-  // data: {
-  //   hide: false,
-
-  //   userInfo: '',
-  //   hasUserInfo: true,
-  //   userid: '',
 
 
-  // }
 })
