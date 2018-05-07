@@ -211,11 +211,11 @@
 }
 
 
-.avatar {
+ .mediumavatar {
   width: 20px;
   height: 20px;
   padding: 10px 5px 0px 10px;
-}
+} 
 
 .icon {
   width: 20px;
@@ -230,7 +230,7 @@
 }
 
 .textstyle {
-  font-size: 24rpx;
+  font-size: 34rpx;
   margin-top: 5px;
 }
 .righttext {

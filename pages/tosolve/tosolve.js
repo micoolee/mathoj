@@ -51,7 +51,7 @@ Page({
         ], 'type': 0
       },
       {
-        'text': 'reward',
+        'text': '奖励',
         'originalText': '不限',
         'active': false,
         'child': [
@@ -88,7 +88,7 @@ Page({
       console.log(res.target)
       var problemid = res.target.dataset.problemid
       return {
-        title: '[有人@我]小学奥数，考考你~',
+        title: '[有人@我]智力题，考考你~',
 
         path: '/pages/question/question?problemid=' + problemid,
 
@@ -103,7 +103,7 @@ Page({
 
     }
     return {
-      title: '[有人@我]小学奥数，考考你~',
+      title: '[有人@我]智力题，考考你~',
       // path: '/pages/tosolve/tosolve',
       path: '/pages/tosolve/tosolve',
       success: function (res) {

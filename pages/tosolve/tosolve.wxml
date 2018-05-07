@@ -69,7 +69,7 @@
           <!--正文  体现一下遮罩效果的-->
           <view class="cxj-content">
             <view wx:if='{{havenewbtn}}' class='weui-cells weui-cells_after-title' style='text-align:center;'>
-              <text>have new</text>
+              <text>发现新问题</text>
             </view>
             <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
               <view class="feed-item">
@@ -199,41 +199,9 @@
               </view>
             </view>
           </block>
-
-
-
-
-
-
-
-
-
-
         </view>
       </view>
     </view>
   </view>
-
-
-
-
-
-
-
-
-
-
-
   <image src='../../images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
-
-
-
-
-
-
-
-
-
-
-
 </view>

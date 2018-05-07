@@ -13,8 +13,8 @@ Page({
     grade: '未选择',
     gradeindex: 0,
     easy: 'noeasy',
-    rewardarray: ['2','3'],
-    reward:'0',
+    rewardarray: ['未选择','2','3'],
+    rewardindex:0,
     easyitems: [
       { name: 'difficult', value: '困难' },
       { name: 'easy', value: '简单', checked: 'true' },
@@ -112,14 +112,15 @@ Page({
     }else if(this.data.reward == '0'){
       wx.showModal({
         title: '提示',
-        content: '请选择reward',
+        content: '请选择奖励值',
       })
     }
     else{
 
       this.setData({
         hide: false,
-        userid: app.globalData.openid
+        userid: app.globalData.openid,
+        avatar: app.globalData.avatar,
       })
       if (this.data.img != 'noimage') {
         wx.uploadFile({

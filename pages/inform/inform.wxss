@@ -6,6 +6,10 @@
   background: #fff;
 }
 
+.textcenter{
+  text-align:center;
+}
+
 .segment {
   display: block;
   position: relative;

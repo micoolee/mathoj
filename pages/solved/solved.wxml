@@ -12,7 +12,7 @@
           </view>
           <text>{{item.username}}{{item.feed_source_txt}}</text>
         </a>
-        <image class="item-more" mode="aspectFit" src="../../images/more.png"></image>
+        <!-- <image class="item-more" mode="aspectFit" src="../../images/more.png"></image> -->
       </view>
       <view class="feed-content">
         <view class="question" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap">

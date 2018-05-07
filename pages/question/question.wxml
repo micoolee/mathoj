@@ -28,11 +28,11 @@
         <view class="left">
           <view class="watch">
             <image src="../../images/eye.png"></image>
-            <text>3316</text>
+            <text>{{lookedtime}}</text>
           </view>
           <view class="comment">
             <image src="../../images/comment2.png"></image>
-            <text>27</text>
+            <text>{{comments.length}}</text>
           </view>
         </view>
         <view class="right" bindtap='subscribe' data-id='{{subscribe_door}}'>
@@ -212,7 +212,7 @@
 <view class="extra-share-box" style="display:{{shareShow}}">
   <view class="share-box-show" animation="{{shareBottom}}">
     <view class="share-box-img-box">
-      <button class="weui-btn" type="primary" open-type='share' bindtap='clickshare' data-problemid='{{problemid}}'>share</button>
+      <button class="weui-btn" type="primary" open-type='share' bindtap='clickshare' data-problemid='{{problemid}}'>分享给好友们</button>
     </view>
     <view class="share-box-close" bindtap="shareClose">关闭</view>
   </view>
