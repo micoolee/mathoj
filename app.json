@@ -27,16 +27,16 @@
     "list": [
       {
         "pagePath": "pages/tosolve/tosolve",
-        "text": "datiqu",
+        "text": "首页",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-selected.png"
       },
-      {
-        "pagePath": "pages/solved/solved",
-        "text": "已解决",
-        "iconPath": "images/search.png",
-        "selectedIconPath": "images/search-selected.png"
-      },
+                  {
+                    "pagePath": "pages/top/top",
+                    "text": "榜单",
+                    "iconPath": "images/search.png",
+                    "selectedIconPath": "images/search-selected.png"
+                  },
 
       {
         "pagePath": "pages/inform/inform",
@@ -44,12 +44,7 @@
         "iconPath": "images/chat.png",
         "selectedIconPath": "images/chat-selected.png"
       },
-                  {
-                    "pagePath": "pages/top/top",
-                    "text": "rank",
-                    "iconPath": "images/search.png",
-                    "selectedIconPath": "images/search-selected.png"
-                  },
+
       {
         "pagePath": "pages/settings/settings",
         "text": "我的",
