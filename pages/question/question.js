@@ -89,6 +89,7 @@ var page = Page({
     inputnum:0,
     files: ["../../images/pic_160.png"],
     lookedtime:0,
+    hidecaina:true
   },
   /**
    * 关闭分享
@@ -685,6 +686,7 @@ var page = Page({
         success: function (res) {
           var subscribe_door = JSON.parse(res.data.subscribe_door)
           var answerdoor = res.data.solved
+
           that.setData({
             answerdoor: answerdoor
           })
@@ -703,6 +705,7 @@ var page = Page({
           var hidehuida = JSON.parse(res.data.answerbox)
           var comments = JSON.parse(res.data.comment)
           var lookedtime = JSON.parse(res.data.lookedtime)
+          var hidecaina = JSON.parse(res.data.hidecaina)
 
 
           var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
@@ -719,7 +722,8 @@ var page = Page({
             answer: answer,
             hidehuida: hidehuida,
             comments: comments,
-            lookedtime:lookedtime
+            lookedtime:lookedtime,
+            hidecaina:hidecaina
           })
         },
         fail: function () {

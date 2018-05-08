@@ -55,7 +55,9 @@
           <a bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.teacherid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'>
             <image class='comments-avatar-img' src='{{item.avatar}}' />
             <text class='textstyle'>{{item.username}}</text>
-            <text bindtap='caina' class='righttext' data-solutionid='{{item.solutionid}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>采纳</text>
+                        <text bindtap='caina' hidden='{{hidecaina}}' class='righttext' data-solutionid='{{item.solutionid}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>采纳</text>
+
+
           </a>
           <text style='font-size:15px'>
                   {{item.text}}

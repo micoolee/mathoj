@@ -43,7 +43,11 @@ invite:function(e){
       success: function (res) {
 
         var subscriberlist = JSON.parse(res.data.subscriberlist)
-
+        if(subscriberlist.length==0){
+          wx.showToast({
+            title: '请关注后再邀请',
+          })
+        }
         that.setData({
 
           subscriberlist: subscriberlist

@@ -1,7 +1,7 @@
   <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}" >
     <view class="segment" bindtap='showzandetail' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.informid}}' data-problemid='{{item.problem_id}}' data-informtype='{{item.informtype}}' data-sourcerid='{{item.sourcer_id}}'
       data-avatar='{{item.avatar}}' data-openid='{{item.openid}}' data-username='{{item.username}}'>
-            <image class="mediumavatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
+            <image class="bigavatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
             <text class='textstyle'>{{item.username}}</text>
             <text class='centertext'>已答{{item.count}}</text>
             <text class='centertext'>被采纳{{item.acceptnum}}</text>

@@ -1,2 +1,7 @@
 /* pages/top/top.wxss */
 
+.bigavatar{
+  width: 100rpx;
+  height:100rpx;
+  padding:10px;
+}

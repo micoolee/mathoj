@@ -2,6 +2,8 @@ const app = getApp()
 var util = require('../../utils/util.js')
 var getDateDiff = util.getDateDiff
 var get_or_create_avatar = util.get_or_create_avatar
+var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+
 Page({
   data: {
     userInfo: {},
@@ -274,6 +276,9 @@ Page({
   },
   onLoad: function () {
     var that = this
+
+
+
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -364,8 +369,15 @@ Page({
         }
       })
     }
-    console.log('getting wss')
-    util.getlastedprob(that)
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+        });
+      }
+    });   
+     util.getlastedprob(that)
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo

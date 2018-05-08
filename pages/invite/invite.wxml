@@ -1,17 +1,24 @@
-<scroll-view scroll-y="true" class="container">
-  <block wx:for="{{subscriberlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
-    <view class="feed-item">
-      <view class="feed-content">
-        <view class="question line-reback" qid="{{question_id}}" data-username='{{item.username}}' data-userid='{{item.besubscriber}}' data-avatar='{{item.avatar}}' bindtap="showmore">
-          <a class="question-link">
-          <image src='{{item.avatar}}' class='comments-avatar-img'></image>
-            <text>{{item.username}}</text>
-              <text class='weui-cell__ft' bindtap='invite' data-besubscriber='{{item.besubscriber}}'>invite</text>
-          </a>
-                          
-        </view>
+<view wx:if="{{subscriberlist.length==0}}" style='text-align:center'>
+  <text >没有可以邀请的答主,
+  请关注后再来操作</text>
+</view>
+<view wx:else>
 
+  <scroll-view scroll-y="true" class="container">
+    <block wx:for="{{subscriberlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+      <view class="feed-item">
+        <view class="feed-content">
+          <view class="question line-reback" qid="{{question_id}}" data-username='{{item.username}}' data-userid='{{item.besubscriber}}' data-avatar='{{item.avatar}}' bindtap="showmore">
+            <a class="question-link">
+              <image src='{{item.avatar}}' class='comments-avatar-img'></image>
+              <text>{{item.username}}</text>
+              <text class='weui-cell__ft' bindtap='invite' data-besubscriber='{{item.besubscriber}}'>invite</text>
+            </a>
+
+          </view>
+
+        </view>
       </view>
-    </view>
-  </block>
-</scroll-view>
+    </block>
+  </scroll-view>
+</view>
