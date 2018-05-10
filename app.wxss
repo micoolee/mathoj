@@ -243,3 +243,18 @@
   font-size: 24rpx;
   margin-bottom: 5px;
 }
+
+
+.line-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+.centertext{
+  font-size:20px;
+text-align:center;
+
+}

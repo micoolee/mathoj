@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    content:null
+    content:'请等待，加载中......'
   },
 
   /**

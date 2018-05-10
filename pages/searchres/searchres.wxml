@@ -1,5 +1,6 @@
 <scroll-view class="container" >
-<view wx:if="{{searchlistnull==0}}" class="question-link">no result</view>
+<view wx:if="{{searchlistnull==0}}" class="question-link line-3 centertext">没有匹配到您输入的关键词，
+换一个试试吧</view>
 <view wx:else>
   <block wx:for="{{searchlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
 

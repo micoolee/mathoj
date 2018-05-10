@@ -1,6 +1,3 @@
 <!--pages/storydetail/storydetail.wxml-->
-<view class='page'>
 
-
-</view>
 <view class='page__desc'>{{content}}</view>

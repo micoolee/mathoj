@@ -81,7 +81,6 @@ function get_or_create_avatar(userid){
   var res = wx.getStorageInfoSync()
   if(res.keys.indexOf(userid)>-1){
    var avatarimgcache = wx.getStorageSync(userid)
-
    return avatarimgcache
   }else{
     if (havedown.indexOf(userid)>-1){
@@ -125,7 +124,7 @@ console.log('wtf')
     success: function (res) {
       var problemlist = JSON.parse(res.data.json_data)
       
-      var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('asktime":"' + tmpstr + $2 + cacheavatar) })
+      var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w-]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('asktime":"' + tmpstr + $2 + cacheavatar) })
       // var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4,$5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4+$5 }; return ('asktime":"' + tmpstr + $2 + cacheavatar) })
 
       problemlist = JSON.parse(tmp)
@@ -190,7 +189,7 @@ function getlastedsolvedprob(that) {
         })
       } else {
         wx.showToast({
-          title: 'no solved',
+          title: '暂无已解决',
         })
       }
 

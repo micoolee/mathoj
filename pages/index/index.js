@@ -1,37 +1,6 @@
 // pages/oldMusic/index.js
 const app = getApp()
 
-const recorderManager = wx.getRecorderManager()
-const innerAudioContext = wx.createInnerAudioContext()
-recorderManager.onStart(() => {
-  console.log('recorder start')
-})
-recorderManager.onResume(() => {
-  console.log('recorder resume')
-})
-recorderManager.onPause(() => {
-  console.log('recorder pause')
-})
-recorderManager.onStop((res) => {
-  app.globalData.audiopath = res.tempFilePath
-  console.log('recorder stop', res)
-  const { tempFilePath } = res
-})
-recorderManager.onFrameRecorded((res) => {
-  const { frameBuffer } = res
-  console.log('frameBuffer.byteLength', frameBuffer.byteLength)
-})
-
-const options = {
-  duration: 10000,
-  sampleRate: 44100,
-  numberOfChannels: 1,
-  encodeBitRate: 192000,
-  format: 'aac',
-  frameSize: 50
-}
-
-// recorderManager.start(options)
 
 Page({
 
@@ -42,43 +11,70 @@ Page({
     showaudio:false,
     showyuansheng:false,
   },
+  reauthenticate:function(){
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: res => {
+              app.globalData.userInfo = res.userInfo
+              app.globalData.avatar = res.userInfo.avatarUrl
+              app.globalData.nickname = res.userInfo.nickName
+              loading(that)
+              if (app.userInfoReadyCallback) {
+                app.userInfoReadyCallback(res)
+              }
+            }, complete: function (res) {
 
-
-
-  start: function () {
-    recorderManager.start(options)
-  },
-  stop:function(){
-    recorderManager.stop()
-    this.setData({
-      showyuansheng:true,
+            }
+          })
+        }
+        else {
+          wx.getUserInfo({
+            success: function (res) {
+              app.globalData.avatar = res.userInfo.avatarUrl
+              app.globalData.nickname = res.userInfo.nickName
+              loading(that)
+              that.onShow()
+            },
+            fail: function () {
+              wx.showModal({
+                cancelText: '拒绝授权',
+                confirmText: '确定授权',
+                title: '提示',
+                content: '如果您继续点击拒绝授权,将无法体验。',
+                success: function (res) {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: (res) => {
+                        res.authSetting["scope.userInfo"] = true
+                        if (res.authSetting["scope.userInfo"]) {
+                          wx.getUserInfo({
+                            success: function (res) {
+                              app.globalData.avatar = res.userInfo.avatarUrl
+                              app.globalData.nickname = res.userInfo.nickName
+                              loading(that)
+                              that.onShow()
+                            }
+                          })
+                        }
+                      }, fail: function (res) {
+                      }
+                    })
+                  }
+                   else {
+                    wx.redirectTo({
+                      url: '../index/index'
+                    })
+                  }
+                }
+              })
+            }
+          })
+        }
+      }
     })
   },
-
-  
-submit:function(){
-  var that = this;
-  wx.uploadFile({
-    url: app.globalData.baseurl + '/test/',
-    filePath: app.globalData.audiopath,
-    name: 'record',
-    success: function (res) {
-      app.globalData.returnaudiopath = res.data
-      that.setData({
-        showaudio:true
-      })
-    }
-  })
-},
-
-ting:function(){
-  play(app.globalData.audiopath)
-},
-
-play:function(){
-  play(app.globalData.returnaudiopath)
-},
-
 
   /**
    * 生命周期函数--监听页面加载
@@ -140,16 +136,3 @@ play:function(){
 })
 
 
-
-function play(audio){
-  innerAudioContext.autoplay = true
-  console.log(app.globalData.audiopath)
-  innerAudioContext.src =audio
-  innerAudioContext.onPlay(() => {
-    console.log('开始播放')
-  })
-  innerAudioContext.onError((res) => {
-    console.log(res.errMsg)
-    console.log(res.errCode)
-  })
-}

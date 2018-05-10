@@ -3,8 +3,8 @@
 App({
   globalData: {
     userInfo: null,
-    baseurl: 'https://www.liyuanye.club',
-    wssurl: 'wss://www.liyuanye.club/testwss/',
+    baseurl: 'https://mathoj.liyuanye.club',
+    wssurl: 'wss://mathoj.liyuanye.club/testwss/',
     openid: null,
     audiopath: null,
     audiopathbak: null,
