@@ -95,7 +95,7 @@
             </view>
           </view>
           <view wx:if="{{item.image}}" class='page__teacheranswerimage'>
-            <image src='{{item.image}}' bindtap='viewimage' data-image='{{item.fields.image}}' mode='widthfix'></image>
+            <image src='{{item.image}}' bindtap='viewimage' data-image='{{item.image}}' mode='aspectFill'></image>
           </view>
         </view>
       </view>

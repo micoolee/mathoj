@@ -215,7 +215,7 @@ function solvedpulldown(that) {
       }
       else {
         wx.showToast({
-          title: 'no solved',
+          title: '到底啦~',
         })
       }
 
@@ -331,7 +331,7 @@ function get10prob(that) {
           bottom:true
         })
         wx.showToast({
-          title: 'no more',
+          title: '到底啦~',
         })
       } else {
         app.globalData.globalproblemlist = app.globalData.globalproblemlist.concat(problemlist)
@@ -373,7 +373,7 @@ function get10solvedprob(that) {
 
       if (problemlist.length == 0) {
         wx.showToast({
-          title: 'no more',
+          title: '到底啦~',
         })
       } else {
         problemlist = that.data.problemlist.concat(problemlist)
@@ -414,7 +414,7 @@ function checksolvedlasted(that) {
 
 module.exports = {
 
-  getRequestUrl: "http://localhost:59637",//获得接口地址
+  // getRequestUrl: "http://localhost:59637",//获得接口地址
   get10prob: get10prob,
   getlastedprob: getlastedprob,
   pulldown: pulldown,
