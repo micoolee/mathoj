@@ -14,7 +14,7 @@
 
 <view class="extra">
   <view class="extra-share">
-    <button bindtap='sendmsg' data-userid='{{receiverid}}' style='width:40%;margin-right:0;'>send</button>
+    <button bindtap='sendmsg' data-userid='{{receiverid}}' style='width:40%;margin-right:0;'>发送</button>
   </view>
   <input class="extra-input" type="text" value='{{chatmsg}}' maxlength="1000"  bindinput='inputtext' placeholder-class="extra-placeholder" />
 </view>

@@ -43,3 +43,7 @@
   font-size: 24rpx;
   color: #585858;
 }
+
+page{
+    background: #F0F4F3
+}

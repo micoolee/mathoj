@@ -17,6 +17,33 @@ Page({
   ranklist:[]
   },
 
+
+
+
+  showmore: function (e) {
+    var userid = e.currentTarget.dataset.userid
+    var avatar = e.currentTarget.dataset.avatar
+    var username = e.currentTarget.dataset.username
+    var openid = e.currentTarget.dataset.openid
+
+    if (openid == app.globalData.openid) {
+      wx.switchTab({
+        url: '../settings/settings',
+      })
+    } else {
+      wx.navigateTo({
+        url: `../settings/profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+      })
+    }
+
+
+  },
+
+
+
+
+
+
   /**
    * 生命周期函数--监听页面加载
    */

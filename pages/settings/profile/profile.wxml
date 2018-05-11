@@ -22,12 +22,5 @@
 
 <button data-userid='{{userInfo.userid}}' bindtap='sendsixin'>发私信</button>
 </view>
-
-  
-  <view class="list-container">
-
-
-
-  </view>
 </view>
 

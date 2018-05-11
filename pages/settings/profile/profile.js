@@ -55,7 +55,7 @@ wx.request({
   data:{'userid':e.currentTarget.dataset.userid,'subscriberid':app.globalData.openid},
   success:function(res){
     wx.showToast({
-      title: 'guan zhu chenggong',
+      title: '关注成功',
     })
   }
 })
@@ -67,7 +67,9 @@ this.setData({
       url: app.globalData.baseurl + '/desubscribeuser/',
       data: { 'userid': e.currentTarget.dataset.userid, 'subscriberid': app.globalData.openid },
       success: function () {
-        console.log('desubscribe success')
+        wx.showToast({
+          title: '已取消关注',
+        })
         that.setData({
           subscribe_door: true
         })

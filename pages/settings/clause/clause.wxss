@@ -9,3 +9,7 @@
     font-family: Adobe Fangsong Std;
     font-size: 32rpx;
 }
+
+page{
+    background: #F0F4F3
+}

@@ -284,6 +284,7 @@ Page({
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
             success: res => {
+              console.log(res.userInfo)
               app.globalData.userInfo = res.userInfo
               app.globalData.avatar = res.userInfo.avatarUrl
               app.globalData.nickname = res.userInfo.nickName
