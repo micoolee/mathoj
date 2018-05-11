@@ -1,6 +1,9 @@
 <scroll-view class="container" >
 
-
+<!-- <view wx:if="{{commentlistnull==0}}" class="question-link line-3 centertext">没有匹配到您输入的关键词，
+换一个试试吧</view> -->
+<!-- 
+<view wx:else> -->
   <block wx:for="{{commentlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
     <view class="feed-item">
 
@@ -23,4 +26,6 @@
       </view>
     </view>
   </block>
+<!-- </view> -->
+
 </scroll-view>
