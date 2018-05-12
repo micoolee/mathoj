@@ -22,6 +22,7 @@ Page({
 
   showmore: function (e) {
     var userid = e.currentTarget.dataset.userid
+    
     var avatar = e.currentTarget.dataset.avatar
     var username = e.currentTarget.dataset.username
     var openid = e.currentTarget.dataset.openid

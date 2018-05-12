@@ -94,7 +94,7 @@ Page({
 
         path: '/pages/question/question?problemid=' + problemid,
 
-        imageUrl: 'https://ceshi.guirenpu.com/images/banner.png',
+        imageUrl: app.globalData.baseurl+'/static/sharepic.jpg',
 
         success: function (res) {
 
@@ -171,18 +171,18 @@ Page({
     var searchparam = that.data.searchParam
     console.log(searchparam)
     wx.request({
-      url: app.globalData.baseurl+'/getfilterprob/',
-      data:{'filter':JSON.stringify(searchparam),'solved':that.data.activeIndex},
-      success:function(res){
+      url: app.globalData.baseurl + '/getfilterprob/',
+      data: { 'filter': JSON.stringify(searchparam), 'solved': that.data.activeIndex },
+      success: function (res) {
         var filterproblist = JSON.parse(res.data.json_data)
         var tmp = JSON.stringify(filterproblist).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
         filterproblist = JSON.parse(tmp)
-        var a= that.data.activeIndex
-        if(a == '0'){
+        var a = that.data.activeIndex
+        if (a == '0') {
           that.setData({
             problemlist: filterproblist
           })
-        }else{
+        } else {
           that.setData({
             solvedproblemlist: filterproblist
           })
@@ -190,19 +190,6 @@ Page({
 
       }
     })
-
-
-
-
-    ///////zhi jie cong problemlist filt
-    // var tmplist = app.globalData.globalproblemlist
-    // var tmpproblemlist = []
-    // that.filteritem(searchparam, tmpproblemlist, tmplist)
-
-    // this.setData({
-    //   problemlist: tmpproblemlist
-    // })
-
 
 
   },
@@ -377,8 +364,8 @@ Page({
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
         });
       }
-    });   
-     util.getlastedprob(that)
+    });
+    util.getlastedprob(that)
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo

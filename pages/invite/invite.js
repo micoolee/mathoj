@@ -6,18 +6,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-  problemid:null
+  problemid:null,
+  invitedsign:[false]
   },
 
 invite:function(e){
   var beinviter = e.currentTarget.dataset.besubscriber
   var inviter = app.globalData.openid
   var that = this
+  var index = e.currentTarget.dataset.index
   wx.request({
     url: app.globalData.baseurl+'/invite/',
     data:{'inviteruserid':inviter,'beinviterid':beinviter,'problemid':that.data.problemid},
     success:function(res){
-      console.log(res)
+      var tmp = that.data.invitedsign
+      tmp[index]=true
+      that.setData({
+        invitedsign:tmp
+      })
     }
   })
 
@@ -39,7 +45,7 @@ invite:function(e){
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      data: { 'userid': app.globalData.openid },
+      data: { 'userid': app.globalData.openid,'problemid':that.data.problemid },
       success: function (res) {
 
         var subscriberlist = JSON.parse(res.data.subscriberlist)
@@ -48,10 +54,13 @@ invite:function(e){
             title: '请关注后再邀请',
           })
         }
+        var tmplist = new Array();
+        for(var i = 0;i<subscriberlist.length;i++){
+          tmplist.push(false)
+        }
         that.setData({
-
-          subscriberlist: subscriberlist
-
+          subscriberlist: subscriberlist,
+          invitedsign:tmplist
         })
       }
     })

@@ -1,1 +1,5 @@
 /* pages/invite/invite.wxss */
+.right{
+  text-align: right;
+  font-size:40rpx
+}

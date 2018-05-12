@@ -1,5 +1,6 @@
 <!--question.wxml-->
-<view class="container">
+<view wx:if="{{showdetail}}">
+<view class="container" >
   <view class="question-wrp">
     <view class="question-item">
       <view class="que-tag">
@@ -52,17 +53,17 @@
       </view>
       <view wx:for="{{answer}}" wx:key="{{item.solutionid}}">
         <view class='feed-item'>
-          <a bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.teacherid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'>
-            <image class='comments-avatar-img' src='{{item.avatar}}' />
+          <a >
+            <image class='comments-avatar-img' src='{{item.avatar}}' bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.teacherid}}' data-username='{{item.username}}' data-openid='{{item.openid}}' />
             <text class='textstyle'>{{item.username}}</text>
-                        <text bindtap='caina' hidden='{{hidecaina}}' class='righttext' data-solutionid='{{item.solutionid}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>采纳</text>
+            <text bindtap='caina' hidden='{{hidecaina}}' class='righttext' data-solutionid='{{item.solutionid}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>采纳</text>
 
 
           </a>
           <text style='font-size:15px'>
                   {{item.text}}
             </text>
-            
+
 
           <view wx:if="{{item.record}}">
             <audio src="{{item.record}}"></audio>
@@ -78,9 +79,9 @@
                   </view> -->
 
 
-                    <image bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.record}}' src="/images/start.jpg" style='width:30px;height:30px'></image>
+                  <image bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.record}}' src="/images/start.jpg" style='width:30px;height:30px'></image>
 
-                    <image bindtap='pause1' wx:else src="/images/pause.jpg" style='width:30px;height:30px'></image>
+                  <image bindtap='pause1' wx:else src="/images/pause.jpg" style='width:30px;height:30px'></image>
 
 
                 </view>
@@ -95,7 +96,7 @@
             </view>
           </view>
           <view wx:if="{{item.image}}" class='page__teacheranswerimage'>
-            <image src='{{item.image}}' bindtap='viewimage' data-image='{{item.image}}' mode='aspectFill'></image>
+            <image src='{{item.image}}' bindtap='viewimage' data-image='{{item.image}}' data-recordsrc='{{item.record}}' mode='aspectFill'></image>
           </view>
         </view>
       </view>
@@ -138,7 +139,7 @@
       <view wx:if="{{showyuansheng}}">
         <view class="progresswrap">
           <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
-                    <image bindtap='play1' wx:if="{{tingstate}}" src="/images/start.jpg" class='recordstopimg'></image>
+          <image bindtap='play1' wx:if="{{tingstate}}" src="/images/start.jpg" class='recordstopimg'></image>
           <image bindtap='pause1' wx:else src="/images/pause.jpg" class='recordstopimg'></image>
         </view>
       </view>
@@ -155,7 +156,7 @@
   </view>
 </view>
 
-<view class="content-comments">
+<view class="content-comments" >
 
   <view class="comments-box" wx:if="{{comments.length > 0}}">
     <text class="comments-title">最新评论</text>
@@ -170,7 +171,8 @@
             <view class="comments-zan">{{item.zan}}
               <image src="../../images/zan.png" class="extra-share-img" bindtap='dianzan' data-id='{{item.commentid}}' data-problemid='{{problemid}}' data-commenter='{{item.commenter}}' />
             </view>
-            <text>{{item.username}}</text><text> {{item.submittime}}</text>
+            <text>{{item.username}}</text>
+            <text> {{item.submittime}}</text>
           </view>
           <view class="comments-content breakline-small">{{item.text}}</view>
           <view class="comments-data">{{item.times}}</view>
@@ -224,3 +226,4 @@
 <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
   <view> {{modalValue}} </view>
 </modal>
+</view>

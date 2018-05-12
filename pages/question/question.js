@@ -89,7 +89,8 @@ var page = Page({
     inputnum:0,
     files: ["../../images/pic_160.png"],
     lookedtime:0,
-    hidecaina:true
+    hidecaina:true,
+    showdetail:false
   },
   /**
    * 关闭分享
@@ -123,10 +124,15 @@ var page = Page({
 
 
   viewimage:function(e){
+    var that = this
+    var  e = e
     var image = e.currentTarget.dataset.image
     wx.previewImage({
       current: '', // 当前显示图片的http链接
-      urls: [image] // 需要预览的图片http链接列表
+      urls: [image], // 需要预览的图片http链接列表
+      success:function(){
+        that.play(e)
+      }
     })
   },
   dianzan: function (e) {
@@ -141,7 +147,7 @@ var page = Page({
         if (res.data.code == '200') {
           var comments = JSON.parse(res.data.comment)
           var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-          // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
+
 
           comments = JSON.parse(tmp)
 
@@ -173,7 +179,7 @@ var page = Page({
 
         path: '/pages/question/question?problemid=' + problemid,
 
-        imageUrl: 'https://ceshi.guirenpu.com/images/banner.png',
+        imageUrl: app.globalData.baseurl+'/static/sharepic.jpg',
 
         success: function (res) {
 
@@ -373,17 +379,13 @@ var page = Page({
           "Content-Type": "application/x-www-form-urlencoded"
         },
         success: function (res) {
-          // event.detail.value=''
+
           wx.showToast({
             title: '评论成功',
           })
           var comments = JSON.parse(res.data.comment)
           var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-
-
           comments = JSON.parse(tmp)
-
-
           that.setData({
             comments: comments,
           })
@@ -426,7 +428,7 @@ var page = Page({
         recordstate: false
       })
     } else {
-      // innerAudioContext.src = app.globalData.audiopath;
+
       recorderManager.stop()
       this.setData({
         recordstate: true,
@@ -450,7 +452,7 @@ var page = Page({
       }
     })
   },
-  //change text sulutions
+
   textsolu: function (e) {
     var inputnum = e.detail.value.length
     this.setData({
@@ -458,25 +460,6 @@ var page = Page({
       inputnum:inputnum
     })
   },
-
-  // play: function (event) {
-
-  //   if (event.currentTarget.dataset.id) {
-  //     innerAudioContext.stop()
-  //     this.setData({
-  //       playstate: false
-  //     })
-  //   } else {
-
-  //     innerAudioContext.autoplay = true
-  //     innerAudioContext.src = app.globalData.returnaudiopath
-  //     innerAudioContext.play()
-  //     this.setData({
-  //       playstate: true
-  //     })
-  //   }
-
-  // },
 
   play: function (e) {
     var that = this;
@@ -620,7 +603,7 @@ var page = Page({
     if (that.data.textsolu == '') {
       wx.showModal({
         title: '提示',
-        content: '请输入内容',
+        content: '请输入文字内容',
       })
     } else {
       this.setData({
@@ -658,22 +641,12 @@ var page = Page({
         url: `../settings/profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
       })
     }
-
-
   },
 
-
-
-
-
-
   onLoad: function (option) {
-
-    console.log(option)
       this.setData({
         problemid: option.problemid
       })
-
 
       var that = this
       wx.request({
@@ -688,6 +661,7 @@ var page = Page({
           var answerdoor = res.data.solved
 
           that.setData({
+            
             answerdoor: answerdoor
           })
           if (subscribe_door[0].i == 1) {
@@ -699,7 +673,6 @@ var page = Page({
               subscribe_door: true
             })
           }
-          // that.onShow()
           var problem = JSON.parse(res.data.problem)
           var answer = JSON.parse(res.data.answer)
           var hidehuida = JSON.parse(res.data.answerbox)
@@ -707,41 +680,36 @@ var page = Page({
           var lookedtime = JSON.parse(res.data.lookedtime)
           var hidecaina = JSON.parse(res.data.hidecaina)
 
-
           var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-          // var tmp = JSON.stringify(comments).replace(/submittime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
 
           var answertmp = JSON.stringify(answer).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
           answer = JSON.parse(answertmp)
           comments = JSON.parse(tmp)
 
           that.setData({
-            grade:problem[0].fields.grade,
+            grade: problem[0].fields.grade,
             desc: problem[0].fields.description,
             problempic: problem[0].fields.problempic,
             answer: answer,
             hidehuida: hidehuida,
             comments: comments,
-            lookedtime:lookedtime,
-            hidecaina:hidecaina
+            lookedtime: lookedtime,
+            hidecaina: hidecaina,
+            showdetail: true,
           })
+          app.globalData.answerlist = that
         },
         fail: function () {
           console.log('fail load detail')
         }
       })
 
-
-  },
-  tapName: function (event) {
-    console.log(event)
   },
 
   onReady: function () {
     var that = this
-    console.log(app.globalData.openid)
+
     if (!app.globalData.openid) {
-      console.log('wtf.......')
       wx.login({
         success: res => {
           wx.request({
@@ -749,9 +717,6 @@ var page = Page({
             url: app.globalData.baseurl + '/getopenid/',
             method: 'GET',
             success: function (res) {
-              // that.setData({
-              //   backfirst: true
-              // })
               app.globalData.openid = res.data
               app.connect()
             },

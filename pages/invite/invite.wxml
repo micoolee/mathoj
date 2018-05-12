@@ -5,16 +5,14 @@
 <view wx:else>
 
   <scroll-view scroll-y="true" class="container">
-    <block wx:for="{{subscriberlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+    <block wx:for="{{subscriberlist}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
       <view class="feed-item">
         <view class="feed-content">
-          <view class="question line-reback" qid="{{question_id}}" data-username='{{item.username}}' data-userid='{{item.besubscriber}}' data-avatar='{{item.avatar}}' bindtap="showmore">
-            <a class="question-link">
+          <view class="question line-reback" qid="{{question_id}}" data-username='{{item.username}}' data-userid='{{item.besubscriber}}' data-avatar='{{item.avatar}}'>
               <image src='{{item.avatar}}' class='comments-avatar-img'></image>
-              <text>{{item.username}}</text>
-              <text class='weui-cell__ft' bindtap='invite' data-besubscriber='{{item.besubscriber}}'>invite</text>
-            </a>
-
+              <text class='feed-content'>{{item.username}}</text>
+              <view wx:if="{{item.invitedsign || invitedsign[index]}}" class='right'>已邀请</view>
+              <view wx:else class='right'  bindtap='invite' data-index='{{index}}' data-besubscriber='{{item.besubscriber}}'>邀请</view>
           </view>
 
         </view>

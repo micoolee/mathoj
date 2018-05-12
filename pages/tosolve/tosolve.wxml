@@ -74,9 +74,9 @@
             <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
               <view class="feed-item">
                 <view class="feed-source">
-                  <a bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'>
+                  <a >
                     <view class="avatar">
-                      <image src="{{item.avatar}}"></image>
+                      <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
                     </view>
                     <text>{{item.username}}     </text>
                   </a>
@@ -100,6 +100,15 @@
                       <text class="answer-txt" aid="{{answer_id}}">{{item.fields.solver}}</text>
                     </view>
                     <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
+
+                      <view class="comments ">
+                        <view wx:if="{{item.solution_num != null}}">
+                          {{item.solution_num}} 回答
+                        </view>
+                        <view wx:else>0 回答</view>
+                      </view>
+
+
 
                       <view class="comments ">
                         <view wx:if="{{item.comment_num != null}}">
@@ -163,9 +172,9 @@
           <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
             <view class="feed-item">
               <view class="feed-source">
-                <a class="" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'>
+                <a  >
                   <view class="avatar">
-                    <image src="{{item.avatar}}"></image>
+                    <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
                   </view>
                   <text>{{item.username}}{{item.feed_source_txt}}</text>
                 </a>
