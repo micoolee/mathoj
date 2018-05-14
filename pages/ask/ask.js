@@ -48,7 +48,6 @@ Page({
     })
   },
   radioChange: function (e) {
-    console.log(e.detail.value)
     this.setData({
       easy: e.detail.value
     })
@@ -60,7 +59,6 @@ Page({
       gradeindex: e.detail.value,
       grade: this.data.gradearray[e.detail.value]
     })
-
   },
 
 
@@ -69,7 +67,6 @@ Page({
       rewardindex: e.detail.value,
       reward: this.data.rewardarray[e.detail.value]
     })
-
   },
 
 
@@ -81,7 +78,6 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success(res) {
         const src = res.tempFilePaths[0]
-        console.log(src)
         that.setData({
           files: [src],
           imagelength:1,
@@ -89,13 +85,8 @@ Page({
           askpicdoor:true,
           img: src
         })
-
-
-
       }
     })
-
-
   },
 
   ask: function () {
@@ -135,14 +126,10 @@ Page({
               success: function (res) {
                 if (res.confirm) {
                   wx.navigateBack({
-
                   })
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
                 }
               }
             })
-
           }
         })
 

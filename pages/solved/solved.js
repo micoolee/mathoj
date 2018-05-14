@@ -34,7 +34,6 @@ Page({
 
   },
   getUserInfo: function (e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -90,7 +89,6 @@ Page({
    */
   onPullDownRefresh: function () {
     var that = this
-    console.log('--------下拉刷新-------')
     wx.showNavigationBarLoading() //在标题栏中显示加载
     util.solvedpulldown(that)
     wx.stopPullDownRefresh() //停止下拉刷新   
@@ -100,7 +98,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    console.log('reach bottom')
     var that = this
     util.get10solvedprob(that)
   },

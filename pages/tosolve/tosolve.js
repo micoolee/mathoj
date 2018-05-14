@@ -87,7 +87,6 @@ Page({
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
-      console.log(res.target)
       var problemid = res.target.dataset.problemid
       return {
         title: '[有人@我]智力题，考考你~',
@@ -98,7 +97,6 @@ Page({
 
         success: function (res) {
 
-          console.log("转发成功" + res);
 
         }
       }
@@ -169,7 +167,6 @@ Page({
       tabTxt: data
     })
     var searchparam = that.data.searchParam
-    console.log(searchparam)
     wx.request({
       url: app.globalData.baseurl + '/getfilterprob/',
       data: { 'filter': JSON.stringify(searchparam), 'solved': that.data.activeIndex },
@@ -196,7 +193,6 @@ Page({
 
 
   filteritem: function (searchparam, tmpproblemlist, tmplist) {
-    console.log(searchparam)
     if (typeof (searchparam[0]) != 'undefined' && searchparam[0] != '' && typeof (searchparam[1]) != 'undefined' && searchparam[1] != '') {
       for (var i in tmplist) { if (tmplist[i].grade == searchparam[0] && tmplist[i].easyclass == searchparam[1]) { tmpproblemlist.push(tmplist[i]) }; }
 
@@ -287,7 +283,6 @@ Page({
         }
       },
       fail: function (res) {
-        console.log(res)
       }
     })
 
@@ -420,7 +415,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    console.log('reach bottom')
     var that = this
     util.get10prob(that)
   },

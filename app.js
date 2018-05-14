@@ -59,17 +59,14 @@ App({
     wx.connectSocket({
       url: that.globalData.wssurl,
       fail: function () {
-        console.log('connect failed')
       }
     })
 
     wx.onSocketOpen(function (res) {
-      console.log('websocket opened')
       wx.sendSocketMessage({
         data: JSON.stringify({ 'userid': that.globalData.openid, 'statuscode': '1' }),
       })
       wx.onSocketMessage(function (res) {
-        console.log('重连后收到服务器内容：' + res.data)
         var tmp = JSON.parse(res.data)
         var util = require('utils/util.js')
         var getDateDiff = util.getDateDiff
@@ -77,7 +74,6 @@ App({
 
         var statuscode = tmp.statuscode
         if (statuscode == '200') {
-          console.log('heart back')
         } else {
           if (statuscode == 'solution') {
             var tmpdata = that.globalData.answerlist.data.answer
@@ -86,7 +82,6 @@ App({
             that.globalData.answerlist.setData({
               answer:tmpdata
             })
-            console.log(tmp)
           }
           else {
 
@@ -164,7 +159,6 @@ App({
       })
     })
     wx.onSocketClose(function (res) {
-      console.log('WebSocket 已关闭！')
       setTimeout(that.connect, that.globalData.closetime * 1000)
     })
   },

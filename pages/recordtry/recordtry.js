@@ -5,27 +5,20 @@ const innerAudioContext = wx.createInnerAudioContext()
 innerAudioContext.autoplay = false
 
 innerAudioContext.onPlay(() => {
-  console.log('开始播放')
 })
 innerAudioContext.onStop(() => {
-  console.log('stop play')
 })
 innerAudioContext.onPause(() => {
-  console.log('pause play')
 })
 innerAudioContext.onError((res) => {
-  console.log(res.errMsg)
-  console.log(res.errCode)
+
 })
 
 recorderManager.onStart(() => {
-  console.log('recorder start')
 })
 recorderManager.onResume(() => {
-  console.log('recorder resume')
 })
 recorderManager.onPause(() => {
-  console.log('recorder pause')
 })
 recorderManager.onStop((res) => {
 
@@ -170,9 +163,7 @@ onLoad:function(){
   play1:   function (e) {
 
     var that = this;
-    console.log(app.globalData.audiopath)
     innerAudioContext.src = app.globalData.audiopath;
-    console.log(innerAudioContext.src)
     innerAudioContext.play(options);
 
     innerAudioContext.onPlay((res) =>that.updateTime(that)) //没有这个事件触发，无法执行updatatime
@@ -199,8 +190,7 @@ pause1: function() {
 
 
 updateTime: function(that) {
-  console.log("duratio的值：", innerAudioContext.duration)
-  console.log('curtime',innerAudioContext.currentTime)
+
   innerAudioContext.onTimeUpdate((res) => {
     //更新时把当前的值给slide组件里的value值。slide的滑块就能实现同步更新
     

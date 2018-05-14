@@ -51,7 +51,6 @@ sendmsg:function(e){
 
 onPullDownRefresh: function () {
   var that = this
-  console.log('--------下拉刷新-------')
   wx.showNavigationBarLoading() //在标题栏中显示加载
   util.pulldownchatroom(that)
   wx.stopPullDownRefresh() //停止下拉刷新                

@@ -22,7 +22,6 @@ Page({
       },
       data: { 'userid': app.globalData.openid },
       success: function (res) {
-        console.log(res)
         that.setData({
           commentlist: res.data
         })

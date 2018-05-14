@@ -23,8 +23,6 @@ Page({
   },
   onShow:function(){
     var avatarcache = util.get_or_create_avatar(app.globalData.openid)
-    console.log(app.globalData.userInfo)
-    console.log(avatarcache)
     this.setData({
       userInfo: { 'avatar': avatarcache, 'nickname': app.globalData.nickname }
     })

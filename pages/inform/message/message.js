@@ -99,7 +99,6 @@ Page({
 
   },
   onUnload:function(){
-    console.log('unload')
     app.globalData.sixindoor = false
     app.globalData.informthat.setData({
       sixindoor: false

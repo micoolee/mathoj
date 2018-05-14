@@ -12,8 +12,6 @@ Page({
 
 
   onReachBottom: function () {
-    console.log('加载更多')
-    console.log('this'),
     setTimeout(() => {
       this.setData({
         isHideLoadMore: true,

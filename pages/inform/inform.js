@@ -78,7 +78,6 @@ Page({
             url: app.globalData.baseurl + '/updatereaded/',
             data: { 'informid': informid },
             success: function (res) {
-              console.log(res)
             }
           })
         }
@@ -100,7 +99,6 @@ Page({
             url: app.globalData.baseurl + '/updatereaded/',
             data: { 'informid': informid },
             success: function (res) {
-              console.log(res)
             }
           })
         }

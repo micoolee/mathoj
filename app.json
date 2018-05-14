@@ -35,8 +35,8 @@
       {
         "pagePath": "pages/top/top",
         "text": "榜单",
-        "iconPath": "images/search.png",
-        "selectedIconPath": "images/search-selected.png"
+        "iconPath": "images/rank.png",
+        "selectedIconPath": "images/rank-selected.png"
       },
       {
         "pagePath": "pages/inform/inform",
@@ -58,5 +58,6 @@
     "navigationBarTitleText": "问道",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
-  }
+  },
+  "debug": false
 }

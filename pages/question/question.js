@@ -8,29 +8,21 @@ var get_or_create_avatar = util.get_or_create_avatar
 const innerAudioContext = wx.createInnerAudioContext()
 innerAudioContext.autoplay = false
 innerAudioContext.onPlay(() => {
-  console.log('开始播放')
 })
 innerAudioContext.onStop(() => {
-  console.log('stop play')
 })
 innerAudioContext.onPause(() => {
-  console.log('pause play')
 })
 innerAudioContext.onError((res) => {
-  console.log(res.errMsg)
-  console.log(res.errCode)
 })
 
 //record manager
 const recorderManager = wx.getRecorderManager()
 recorderManager.onStart(() => {
-  console.log('recorder start')
 })
 recorderManager.onResume(() => {
-  console.log('recorder resume')
 })
 recorderManager.onPause(() => {
-  console.log('recorder pause')
 })
 recorderManager.onStop((res) => {
   innerAudioContext.src = res.tempFilePath
@@ -148,7 +140,6 @@ var page = Page({
             comments: comments
           })
         } else {
-          console.log('you dianzan guo le')
         }
 
       }
@@ -160,7 +151,6 @@ var page = Page({
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
-      console.log(res.target)
       var problemid = res.target.dataset.problemid
       return {
         title: '[有人@我]小学奥数，考考你~',
@@ -170,9 +160,6 @@ var page = Page({
         imageUrl: app.globalData.baseurl+'/static/sharepic.jpg',
 
         success: function (res) {
-
-          console.log("转发成功" + res);
-
         }
       }
 
@@ -197,7 +184,6 @@ var page = Page({
 
 
   handlepic: function () {
-    console.log(this.data.showpic)
     this.setData({
       showpic: !this.data.showpic
     })
@@ -249,7 +235,6 @@ var page = Page({
       timingFunction: "ease",
     })
     this.animation = animation;
-    console.log(animation)
 
     var that = this;
     that.setData({
@@ -284,13 +269,11 @@ var page = Page({
 
   subscribe: function (e) {
     var that = this
-    console.log(e.target.dataset.id)
     if (e.target.dataset.id == true) {
       wx.request({
         url: app.globalData.baseurl + '/subscribe/',
         data: { 'problemid': this.data.problemid, 'userid': app.globalData.openid },
         success: function () {
-          console.log('subscribe success')
           that.setData({
             subscribe_door: false
           })
@@ -302,7 +285,6 @@ var page = Page({
         url: app.globalData.baseurl + '/desubscribe/',
         data: { 'problemid': this.data.problemid, 'userid': app.globalData.openid },
         success: function () {
-          console.log('desubscribe success')
           that.setData({
             subscribe_door: true
           })
@@ -371,7 +353,6 @@ var page = Page({
   audioPlay: function (event) {
 
     innerAudioContext.src = event.currentTarget.dataset.recordsrc
-    console.log(innerAudioContext.src)
     innerAudioContext.play()
   },
   audioPause: function () {
@@ -448,9 +429,7 @@ var page = Page({
 
   play1: function (e) {
     var that = this;
-    console.log(app.globalData.audiopath)
     innerAudioContext.src = app.globalData.audiopath;
-    console.log(innerAudioContext.src)
     // innerAudioContext.play(options);
     innerAudioContext.play();
     innerAudioContext.onPlay((res) => that.updateTime(that)) //没有这个事件触发，无法执行updatatime
@@ -469,8 +448,7 @@ var page = Page({
     innerAudioContext.onTimeUpdate((res) => {
       //更新时把当前的值给slide组件里的value值。slide的滑块就能实现同步更新
 
-      console.log("duratio的值：", innerAudioContext.duration)
-      console.log('curtime', innerAudioContext.currentTime)
+
       that.setData({
         duration: innerAudioContext.duration.toFixed(2) * 100,
         curTimeVal: innerAudioContext.currentTime.toFixed(2) * 100,
@@ -485,11 +463,6 @@ var page = Page({
   slideBar: function (e) {
     let that = this;
     var curval = e.detail.value / 100; //滑块拖动的当前值
-    console.log('hhhh')
-    console.log(e.detail.value)
-    console.log(innerAudioContext.currentTime)
-    console.log(curval)
-    console.log('dddd')
 
 
 
@@ -504,8 +477,7 @@ var page = Page({
       curTimeVal: 0,
       tingstate: true
     })
-    console.log('this is curtimeval')
-    console.log(that.data.curTimeVal)
+
     innerAudioContext.stop()
   },
 
@@ -517,7 +489,6 @@ var page = Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success(res) {
         const src = res.tempFilePaths[0]
-        console.log(src)
         that.setData({
           files: [src],
           answerpicsrc: src,
@@ -689,7 +660,6 @@ var page = Page({
           app.globalData.answerlist = that
         },
         fail: function () {
-          console.log('fail load detail')
         }
       })
 

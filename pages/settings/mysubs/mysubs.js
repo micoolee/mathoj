@@ -116,7 +116,6 @@ Page({
         success: function (res) {
           var problemlist = JSON.parse(res.data.json_data)
           var subscriberlist = JSON.parse(res.data.subscriberlist)
-          console.log(res)
           that.setData({
             problemlist: problemlist,
             subscriberlist :subscriberlist

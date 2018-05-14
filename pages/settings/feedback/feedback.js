@@ -25,14 +25,12 @@ wx.request({
   url: app.globalData.baseurl+'/feedback/',
   data:this.data,
   success:function(res){
-    console.log(res)
     wx.showModal({
       title: '提示',
       content: '提交成功！感谢您的反馈！',
       showCancel: false,
       success: function (res) {
         if (res.confirm) {
-          console.log('用户点击确定')
           wx.navigateBack({
             
           })

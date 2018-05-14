@@ -25,7 +25,6 @@ Page({
    */
   onLoad: function (options) {
     var searchlist = app.globalData.searchlist
-    console.log(searchlist)
 
     this.setData({
       searchlist:searchlist,

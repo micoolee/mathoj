@@ -1,4 +1,3 @@
-// pages/storydetail/storydetail.js
 const app =getApp()
 Page({
 
@@ -14,14 +13,12 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    console.log(options)
     var storyid = options.id
     
     wx.request({
       url: app.globalData.baseurl+'/getstory/',
       data:{'storyid':storyid},
       success:function(res){
-        console.log(res)
         that.setData({
           content:res.data
         })

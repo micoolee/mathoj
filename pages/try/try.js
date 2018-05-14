@@ -35,7 +35,6 @@ close:function(){
 
   })
   wx.onSocketClose(function (res) {
-    console.log('WebSocket 已关闭！')
   })
 
 
@@ -51,15 +50,12 @@ close:function(){
     })
 
     wx.onSocketOpen(function (res) {
-      console.log('websocket opened')
     })
 
     wx.onSocketMessage(function (res) {
-      console.log('收到服务器内容：' + res.data)
     })
 
     wx.onSocketClose(function (res) {
-      console.log('WebSocket 已关闭！')
       that.connect()
     })
   },

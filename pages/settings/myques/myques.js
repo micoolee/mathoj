@@ -36,93 +36,14 @@ Page({
       },
       data: { 'userid': app.globalData.openid },
       success: function (res) {
-        console.log(res)
         that.setData({
           problemlist: res.data
         })
       }
     })
-    // if (app.globalData.userInfo) {
-    //   console.log(app.globalData.openid)
-    //   wx.request({
-    //     url: app.globalData.baseurl + '/myques/',
-    //     method: 'post',
-    //     header: {
-    //       "Content-Type": "application/x-www-form-urlencoded"
-    //     },
-    //     data: { 'userid': app.globalData.openid },
-    //     success: function (res) {
-    //       console.log(res)
-    //       that.setData({
-    //         problemlist: res.data
-    //       })
-    //     }
-    //   })
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true
-    //   })
-    // } else if (this.data.canIUse) {
-    //   app.userInfoReadyCallback = res => {
-    //     console.log('222')
-    //     this.setData({
-    //       userInfo: res.userInfo,
-    //       hasUserInfo: true
-    //     })
-    //     var that = this
-
-
-    //     wx.request({
-    //       url: app.globalData.baseurl + '/myques/',
-    //       method: 'post',
-    //       data: { 'userid': app.globalData.openid },
-    //       success: function (res) {
-    //         console.log(res)
-    //         that.setData({
-    //           problemlist: res.data
-    //         })
-    //       }
-    //     })
-
-
-    //   }
-    // } else {
-    //   // 在没有 open-type=getUserInfo 版本的兼容处理
-    //   wx.getUserInfo({
-    //     success: res => {
-    //       console.log('333')
-    //       app.globalData.userInfo = res.userInfo
-    //       this.setData({
-    //         userInfo: res.userInfo,
-    //         hasUserInfo: true
-    //       })
-    //       var that = this
-
-
-    //       wx.request({
-    //         url: app.globalData.baseurl + '/myques/',
-    //         method: 'post',
-    //         data: { 'userid': app.globalData.openid },
-    //         success: function (res) {
-    //           console.log(res)
-    //           that.setData({
-    //             problemlist: res.data
-    //           })
-    //         }
-    //       })
-
-
-    //     }
-    //   })
-    // }
-
-
 
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
   onReady: function () {
   
   },

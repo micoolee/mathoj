@@ -10,7 +10,6 @@ Page({
     },
 
     bindGetUserInfo: function (e) {
-      console.log(e.detail.userInfo)
       wx.navigateBack({
         
       })
