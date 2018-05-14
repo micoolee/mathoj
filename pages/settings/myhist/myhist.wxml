@@ -12,9 +12,7 @@
         </view>
         <view class="answer-body">
           <view class="answer-actions" >
-            <view class="like dot">
-              <a>{{item.good_num}} 赞同 </a>
-            </view>
+
             <view class="comments dot">
               <a>{{item.comment_num}} 评论 </a>
             </view>

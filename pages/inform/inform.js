@@ -47,11 +47,16 @@ Page({
 
 
   onLoad: function (options) {
+    app.getlastedinform()
 
   },
 
   onPullDownRefresh: function () {
+
+    wx.showNavigationBarLoading() //在标题栏中显示加载
     app.getlastedinform()
+    wx.stopPullDownRefresh() //停止下拉刷新    
+
   },
 
   showzandetail: function (e) {
@@ -94,7 +99,6 @@ Page({
 
 
   onShow: function () {
-    console.log(app.globalData.sixindoor)
     if (app.globalData.sixindoor) {
       this.setData({
         sixindoor: true

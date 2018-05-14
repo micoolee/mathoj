@@ -44,8 +44,8 @@ App({
 
         informlist = JSON.parse(tmp)
         that.globalData.informlist = informlist
-        if (informthat) {
-          informthat.setData({
+        if (that.globalData.informthat) {
+          that.globalData.informthat.setData({
             informlist: informlist
           })
         }

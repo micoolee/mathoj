@@ -648,6 +648,23 @@ var page = Page({
         problemid: option.problemid
       })
 
+
+      if (! app.globalData.openid){
+        wx.login({
+          success: res => {
+            wx.request({
+              data: { js_code: res.code },
+              url: app.globalData.baseurl + '/getopenid/',
+              method: 'GET',
+              success: function (res) {
+                app.globalData.openid = res.data
+              },
+            })
+          }
+        })
+      }
+
+
       var that = this
       wx.request({
         url: app.globalData.baseurl + '/questiondetail/',

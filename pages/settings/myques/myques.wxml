@@ -28,14 +28,12 @@
                         <text class="answer-txt" aid="{{answer_id}}">{{item.fields.solver}}</text>
                     </view>
                     <view class="answer-actions" bindtap="bindItemTap">
-                        <view class="like dot">
-                            <a>{{item.good_num}} 赞同 </a>
-                        </view>
+
                         <view class="comments dot">
                             <a>{{item.comment_num}} 评论 </a>
                         </view>
-                        <view class="follow-it">
-                            <a>关注问题</a>
+                        <view class="follow-it dot">
+                            <a>关注</a>
                         </view>
                     </view>
                 </view>

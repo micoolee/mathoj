@@ -5,3 +5,21 @@
   height:100rpx;
   padding:10px;
 }
+
+.textstyle{
+  margin-top:10px
+}
+
+ .icon{
+  position:absolute;
+right:10px;
+
+} 
+
+view{
+  display: flex
+}
+
+.centertext{
+  margin-top:60rpx
+}

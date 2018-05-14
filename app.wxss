@@ -218,8 +218,8 @@
 } 
 
 .icon {
-  width: 20px;
-  height: 20px;
+  width: 70rpx;
+  height: 70rpx;
   float: right;
   padding: 10px 10px 5px;
 }

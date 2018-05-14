@@ -301,7 +301,7 @@ Page({
                 success: function (res) {
                   if (res.confirm) {
                     wx.openSetting({
-                      success: (res) => {
+                      success:function(res) {
                         res.authSetting["scope.userInfo"] = true
                         if (res.authSetting["scope.userInfo"]) {
                           wx.getUserInfo({
@@ -314,8 +314,10 @@ Page({
                           })
                         }
                       }, fail: function (res) {
+                        console.log(res)
                       }
                     })
+                    console.log('wtfffff')
                   } else {
                     wx.redirectTo({
                       url: '../index/index'
@@ -326,8 +328,26 @@ Page({
             }
           })
         }
+      },
+      fail:function(res){
+        console.log(res)
       }
+
+
+
+
+
+
+
+
+
+
     })
+
+
+
+
+
 
     if (app.globalData.userInfo) {
       this.setData({
@@ -357,6 +377,12 @@ Page({
         }
       })
     }
+
+
+
+
+
+    
     wx.getSystemInfo({
       success: function (res) {
         that.setData({

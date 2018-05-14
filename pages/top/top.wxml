@@ -2,9 +2,13 @@
     <view class="segment" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.informid}}' data-problemid='{{item.problem_id}}' data-informtype='{{item.informtype}}' data-sourcerid='{{item.sourcer_id}}'
       data-avatar='{{item.avatar}}' data-openid='{{item.openid}}' data-username='{{item.username}}'>
             <image class="bigavatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
-            <text class='textstyle'>{{item.username}}</text>
+            <view style='display:flex'>
+                        <text class='textstyle'>{{item.username}}</text>
             <text class='centertext'>已答{{item.count}}</text>
             <text class='centertext'>被采纳{{item.acceptnum}}</text>
-            <image class='icon' src='../../images/firstrank.png'><text style='position:absolute;font-size:10px;bottom:35rpx;right:40rpx;'>{{index+1}}</text></image>
+            
+            </view>
+
+            <image class='icon' src='../../images/firstrank.png'><text style='position:absolute;font-size:20rpx;bottom:35rpx;right:50rpx;'>{{index+1}}</text></image>
     </view>
   </scroll-view>
