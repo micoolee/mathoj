@@ -15,8 +15,9 @@ Page({
 
 
   onLoad: function () {
-    this.onPullDownRefresh()
-  },
+    var that = this
+    util.pulldownmessage(that)
+      },
 
 
 
