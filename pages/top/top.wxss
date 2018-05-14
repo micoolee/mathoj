@@ -12,7 +12,9 @@
 
  .icon{
   position:absolute;
-right:10px;
+right:30rpx;
+width:70rpx;
+height:90rpx
 
 } 
 

@@ -51,6 +51,7 @@ Page({
 
   },
 
+
   onPullDownRefresh: function () {
 
     wx.showNavigationBarLoading() //在标题栏中显示加载
@@ -60,20 +61,53 @@ Page({
   },
 
   showzandetail: function (e) {
+    var that = this
     if (this.endTime - this.startTime < 350) {
+      var readed = e.currentTarget.dataset.readed
+      var index = e.currentTarget.dataset.index
+      var informid = e.currentTarget.dataset.informid
       if(e.currentTarget.dataset.informtype != '5'){
+
         var problemid = e.currentTarget.dataset.problemid
+
+        if (readed == '0') {
+          that.data.informlist[index].readed = '1'
+          app.globalData.informlist = that.data.informlist
+
+          wx.request({
+            url: app.globalData.baseurl + '/updatereaded/',
+            data: { 'informid': informid },
+            success: function (res) {
+              console.log(res)
+            }
+          })
+        }
+
         wx.navigateTo({
           url: `../question/question?problemid=${problemid}`
         })
+
       }else{
         var sourcerid = e.currentTarget.dataset.sourcerid
         var avatar = e.currentTarget.dataset.avatar
         var username = e.currentTarget.dataset.username
         var openid = e.currentTarget.dataset.openid
+        if (readed == '0') {
+          that.data.informlist[index].readed = '1'
+          app.globalData.informlist = that.data.informlist
+
+          wx.request({
+            url: app.globalData.baseurl + '/updatereaded/',
+            data: { 'informid': informid },
+            success: function (res) {
+              console.log(res)
+            }
+          })
+        }
         wx.navigateTo({
           url: `../settings/profile/profile?userid=${sourcerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
         })
+
 
       }
 
@@ -89,6 +123,9 @@ Page({
       url: '../inform/message/message',
     })
   },
+
+
+
 
   onReady: function () {
     var that = this

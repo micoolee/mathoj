@@ -94,7 +94,7 @@ Page({
 
         path: '/pages/question/question?problemid=' + problemid,
 
-        imageUrl: app.globalData.baseurl+'/static/sharepic.jpg',
+        imageUrl: app.globalData.baseurl + '/static/sharepic.jpg',
 
         success: function (res) {
 
@@ -263,15 +263,11 @@ Page({
   },
   onLoad: function () {
     var that = this
-
-
-
     wx.getSetting({
-      success: res => {
+      success: function (res) {
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
             success: res => {
-              console.log(res.userInfo)
               app.globalData.userInfo = res.userInfo
               app.globalData.avatar = res.userInfo.avatarUrl
               app.globalData.nickname = res.userInfo.nickName
@@ -285,63 +281,14 @@ Page({
           })
         }
         else {
-          wx.getUserInfo({
-            success: function (res) {
-              app.globalData.avatar = res.userInfo.avatarUrl
-              app.globalData.nickname = res.userInfo.nickName
-              loading(that)
-              that.onShow()
-            },
-            fail: function () {
-              wx.showModal({
-                cancelText: '拒绝授权',
-                confirmText: '确定授权',
-                title: '提示',
-                content: '如果您继续点击拒绝授权,将无法体验。',
-                success: function (res) {
-                  if (res.confirm) {
-                    wx.openSetting({
-                      success:function(res) {
-                        res.authSetting["scope.userInfo"] = true
-                        if (res.authSetting["scope.userInfo"]) {
-                          wx.getUserInfo({
-                            success: function (res) {
-                              app.globalData.avatar = res.userInfo.avatarUrl
-                              app.globalData.nickname = res.userInfo.nickName
-                              loading(that)
-                              that.onShow()
-                            }
-                          })
-                        }
-                      }, fail: function (res) {
-                        console.log(res)
-                      }
-                    })
-                    console.log('wtfffff')
-                  } else {
-                    wx.redirectTo({
-                      url: '../index/index'
-                    })
-                  }
-                }
-              })
-            }
+          wx.navigateTo({
+            url: '/pages/getuserinfo/getuserinfo',
           })
         }
       },
-      fail:function(res){
+      fail: function (res) {
         console.log(res)
       }
-
-
-
-
-
-
-
-
-
-
     })
 
 
@@ -382,7 +329,7 @@ Page({
 
 
 
-    
+
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -440,11 +387,6 @@ Page({
   },
 
 
-
-
-
-
-
   /**
    * 生命周期函数--监听页面显示
    */
@@ -465,7 +407,6 @@ Page({
 
   onPullDownRefresh: function () {
     var that = this
-    console.log('--------下拉刷新-------')
     wx.showNavigationBarLoading() //在标题栏中显示加载
     if (that.data.activeIndex == '0') {
       util.pulldown(that)

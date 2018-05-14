@@ -72,7 +72,7 @@ var page = Page({
     textsolu: '',
     answerpicsrc: '',
     desc: '',
-    answer: null,
+    answer: [],
     commentcontent: null,
     subscribe_door: true,
     answerdoor:'',
@@ -92,18 +92,6 @@ var page = Page({
     hidecaina:true,
     showdetail:false
   },
-  /**
-   * 关闭分享
-   */
-
-// backfirst:function(){
-//   wx.redirectTo({
-//     url: '../tosolve/tosolve',
-//   })
-//   this.setData({
-//     backfirst:false
-//   })
-// },
 
   caina:function(e){
     var solutionid = e.currentTarget.dataset.solutionid
@@ -291,22 +279,6 @@ var page = Page({
     wx.navigateTo({
       url: `../invite/invite?problemid=${problemid}`,
     })
-  },
-
-
-  modalTap: function (res) {
-    var that = this;
-
-    console.log(res)
-    return {
-      title: '自定义转发标题',
-      path: 'pages/tosolve/tosolve',
-      success: function (res) {
-
-      },
-      fail: function (res) {
-      }
-    }
   },
 
 

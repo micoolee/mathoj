@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/tosolve/tosolve",
-     "pages/settings/settings",
+    "pages/settings/settings",
     "pages/solved/solved",
     "pages/settings/feedback/feedback",
     "pages/settings/help/help",
@@ -19,7 +19,8 @@
     "pages/inform/inform",
     "pages/searchres/searchres",
     "pages/invite/invite",
-    "pages/top/top"
+    "pages/top/top",
+    "pages/getuserinfo/getuserinfo"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",
@@ -31,20 +32,18 @@
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-selected.png"
       },
-                  {
-                    "pagePath": "pages/top/top",
-                    "text": "榜单",
-                    "iconPath": "images/search.png",
-                    "selectedIconPath": "images/search-selected.png"
-                  },
-
+      {
+        "pagePath": "pages/top/top",
+        "text": "榜单",
+        "iconPath": "images/search.png",
+        "selectedIconPath": "images/search-selected.png"
+      },
       {
         "pagePath": "pages/inform/inform",
         "text": "通知",
         "iconPath": "images/chat.png",
         "selectedIconPath": "images/chat-selected.png"
       },
-
       {
         "pagePath": "pages/settings/settings",
         "text": "我的",

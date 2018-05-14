@@ -6,8 +6,18 @@
   background: #fff;
 }
 
-.textcenter{
-  text-align:center;
+.reddot {
+float: right;
+  width: 30rpx;
+  height: 30rpx;
+  
+margin-top:10rpx;
+margin-right:10rpx;
+
+}
+
+.textcenter {
+  text-align: center;
 }
 
 .segment {

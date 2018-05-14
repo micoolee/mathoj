@@ -53,13 +53,21 @@
       </view>
       <view wx:for="{{answer}}" wx:key="{{item.solutionid}}">
         <view class='feed-item'>
-          <a >
-            <image class='comments-avatar-img' src='{{item.avatar}}' bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.teacherid}}' data-username='{{item.username}}' data-openid='{{item.openid}}' />
-            <text class='textstyle'>{{item.username}}</text>
+                        <image class='comments-avatar-img' src='{{item.avatar}}' bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.teacherid}}' data-username='{{item.username}}' data-openid='{{item.openid}}' />
+
+
+
+
+
+                        <text class='textstyle'>{{item.username}}</text>
             <text bindtap='caina' hidden='{{hidecaina}}' class='righttext' data-solutionid='{{item.solutionid}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>采纳</text>
 
 
-          </a>
+
+
+
+
+
           <text style='font-size:15px'>
                   {{item.text}}
             </text>

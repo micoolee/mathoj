@@ -84,7 +84,6 @@ function get_or_create_avatar(userid){
    return avatarimgcache
   }else{
     if (havedown.indexOf(userid)>-1){
-      console.log(userid,'isdowning')
       return false
     }else{
       havedown.push(userid)
@@ -92,11 +91,8 @@ function get_or_create_avatar(userid){
         url: app.globalData.baseurl + '/static/avatar/' + userid + '.jpg',
         success: function (res) {
           var avatarimg = res.tempFilePath
-          console.log(res)
-
           wx.setStorageSync(userid, avatarimg)
           var avatarimgcache = wx.getStorageSync(userid)
-          console.log('2222222222')
           return avatarimgcache
         }
       })
@@ -118,7 +114,7 @@ var get_or_create_avatar = get_or_create_avatar
 function getlastedprob(that) {
 
 
-console.log('wtf')
+
   wx.request({
     url: app.globalData.baseurl + '/',
     success: function (res) {
@@ -157,7 +153,6 @@ function checklasted(that) {
       data: { 'lastedid': that.data.lastedid },
       success: function (res) {
         if (res.data.code == 200) {
-          console.log(res.data.msg)
           that.setData({
             havenewbtn: true
           })
@@ -173,7 +168,6 @@ function getlastedsolvedprob(that) {
   wx.request({
     url: app.globalData.baseurl + '/solved/',
     success: function (res) {
-      console.log(res)
       if (res.data.length > 0) {
 
         var solvedproblemlist = res.data
@@ -276,7 +270,6 @@ function pulldownmessage(that) {
 
 
       var tmp = JSON.stringify(messagelist).replace(/senderavatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('senderavatar":"' + cacheavatar + $4+tmpstr) })
-      // var tmp = JSON.stringify(messagelist).replace(/submittime":"([\d- :]*)(.*?senderavatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('submittime":"' + tmpstr + $2 + cacheavatar) })
 
 
       messagelist = JSON.parse(tmp)
@@ -314,7 +307,6 @@ function pulldownchatroom(that) {
 
 
 function get10prob(that) {
-  console.log(that)
   var that = that
   // var getDateDiff = this.getDateDiff
   wx.request({
@@ -360,7 +352,6 @@ function get10prob(that) {
 
 
 function get10solvedprob(that) {
-  console.log(that)
   var that = that
   wx.request({
     url: app.globalData.baseurl + '/get10solvedprob/',
@@ -397,7 +388,6 @@ function checksolvedlasted(that) {
       data: { 'lastedid': that.data.lastedid },
       success: function (res) {
         if (res.data.code == 200) {
-          console.log(res.data.msg)
           that.setData({
             havenewbtn: true
           })
@@ -413,8 +403,6 @@ function checksolvedlasted(that) {
 
 
 module.exports = {
-
-  // getRequestUrl: "http://localhost:59637",//获得接口地址
   get10prob: get10prob,
   getlastedprob: getlastedprob,
   pulldown: pulldown,

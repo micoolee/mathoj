@@ -3,15 +3,22 @@
   <view wx:if="{{sixindoor}}" class="feed-item" bindtap='showsixin' style='font-size:20px;text-align:center'>有私信</view>
   <view wx:else class="feed-item" bindtap='showsixin' style='font-size:20px;text-align:center'>私信</view>
   <view class='weui-cells_after-title tongzhiliebiao'>通知列表:</view>
-  <scroll-view wx:for="{{informlist}}" wx:key="{{item.informid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
-    <view class="segment" bindtap='showzandetail' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.informid}}' data-problemid='{{item.problem_id}}' data-informtype='{{item.informtype}}' data-sourcerid='{{item.sourcer_id}}'
+  <scroll-view wx:for="{{informlist}}" wx:key="{{item.informid}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
+    <view class="segment " bindtap='showzandetail' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.informid}}' data-problemid='{{item.problem_id}}' data-informtype='{{item.informtype}}' data-sourcerid='{{item.sourcer_id}}' data-readed='{{item.readed}}' data-index='{{index}}'
       data-avatar='{{item.avatar}}' data-openid='{{item.openid}}' data-username='{{item.username}}'>
-            <image class="mediumavatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
-          <text class='textstyle textcenter' style='margin-left:20rpx;'>{{item.submittime}}</text>
-          <image class='icon' src="{{icons[item.informtype]}}"></image>
-        <view class="question textcenter" qid="{{question_id}}">
-            <text class='line-3'>{{item.username}}{{item.message}}</text>
-        </view>
+      <image class="mediumavatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
+      <text class='textstyle textcenter' style='margin-left:20rpx;'>{{item.submittime}}</text>
+            <image class='icon' src="{{icons[item.informtype]}}"></image>
+          <image wx:if="{{item.readed=='0'}}" class='reddot' src='../../images/reddot.png'></image>
+
+
+      <view class="question textcenter" qid="{{question_id}}">
+        <text class='line-3'>{{item.username}}{{item.message}}</text>
+
+      </view>
+
     </view>
+
+
   </scroll-view>
 </view>
