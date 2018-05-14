@@ -121,7 +121,7 @@ function getlastedprob(that) {
       var problemlist = JSON.parse(res.data.json_data)
       
       var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w-]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('asktime":"' + tmpstr + $2 + cacheavatar) })
-      // var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w]*)(.jpg)/g, function ($0, $1, $2, $3, $4,$5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4+$5 }; return ('asktime":"' + tmpstr + $2 + cacheavatar) })
+      // var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w-]*)(.jpg)/g, function ($0, $1, $2, $3, $4,$5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4+$5 }; return ('asktime":"' + tmpstr + $2 + cacheavatar) })
 
       problemlist = JSON.parse(tmp)
       app.globalData.globalproblemlist = problemlist
@@ -173,7 +173,7 @@ function getlastedsolvedprob(that) {
         var solvedproblemlist = res.data
 
 
-        var tmp = JSON.stringify(solvedproblemlist).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?solvedtime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
+        var tmp = JSON.stringify(solvedproblemlist).replace(/avatar":"(.*?avatar\/)([\w-]*)(.jpg)(.*?solvedtime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
 
         solvedproblemlist = JSON.parse(tmp)
 
@@ -269,7 +269,7 @@ function pulldownmessage(that) {
       var messagelist = res.data.json_data
 
 
-      var tmp = JSON.stringify(messagelist).replace(/senderavatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('senderavatar":"' + cacheavatar + $4+tmpstr) })
+      var tmp = JSON.stringify(messagelist).replace(/senderavatar":"(.*?avatar\/)([\w-]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('senderavatar":"' + cacheavatar + $4+tmpstr) })
 
 
       messagelist = JSON.parse(tmp)

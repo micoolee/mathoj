@@ -8,7 +8,7 @@ Page({
   data: {
     inputnum:0,
     files: ["../../images/pic_160.png"],
-    gradearray: ['未选择', '一年级', '二年级', '三年级', '四年级'],
+    gradearray: ['未选择', '一年级', '二年级', '三年级', '四年级', '五年级','六年级'],
 
     grade: '未选择',
     gradeindex: 0,
@@ -74,8 +74,8 @@ Page({
     var that = this;
     wx.chooseImage({
       count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
       success(res) {
         const src = res.tempFilePaths[0]
         that.setData({
@@ -100,7 +100,7 @@ Page({
         title: '提示',
         content: '请选择年级',
       })
-    }else if(this.data.reward == '0'){
+    }else if(this.data.reward != '2' && this.data.reward !='3'){
       wx.showModal({
         title: '提示',
         content: '请选择奖励值',
@@ -172,8 +172,8 @@ Page({
 
   previewImage: function (e) {
     wx.previewImage({
-      current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.files // 需要预览的图片http链接列表
+      current: e.currentTarget.id, 
+      urls: this.data.files 
     })
   },
 

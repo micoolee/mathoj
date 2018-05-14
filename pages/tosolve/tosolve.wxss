@@ -242,7 +242,7 @@ radio {
   overflow: hidden;
   position: fixed;
   top: 80rpx;
-  z-index: 1;
+  z-index: 501;
   border-bottom: solid 1px #eee;
   height: 100%;
   background-color: rgba(000,000,000,.5);

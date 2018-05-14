@@ -1,7 +1,16 @@
 <view class='container'>
 
-  <view wx:if="{{sixindoor}}" class="feed-item" bindtap='showsixin' style='font-size:20px;text-align:center'>有私信</view>
-  <view wx:else class="feed-item" bindtap='showsixin' style='font-size:20px;text-align:center'>私信</view>
+  <!-- <view wx:if="{{sixindoor}}" class="feed-item" bindtap='showsixin' style='font-size:20px;text-align:center'>有私信</view>
+  <view wx:else class="feed-item" bindtap='showsixin' style='font-size:20px;text-align:center'>私信</view> -->
+
+    <view class="feed-item" bindtap='showsixin' style='font-size:20px;text-align:center'>私信
+              <image wx:if="{{sixindoor}}" class='reddot' src='../../images/reddot.png'></image>
+    </view>
+
+
+
+
+
   <view class='weui-cells_after-title tongzhiliebiao'>通知列表:</view>
   <scroll-view wx:for="{{informlist}}" wx:key="{{item.informid}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
     <view class="segment " bindtap='showzandetail' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.informid}}' data-problemid='{{item.problem_id}}' data-informtype='{{item.informtype}}' data-sourcerid='{{item.sourcer_id}}' data-readed='{{item.readed}}' data-index='{{index}}'

@@ -28,9 +28,29 @@ Page({
     this.endTime = e.timeStamp;
   },
 
+
+
+
   bindLongTap: function (e) {
+
+    Array.prototype.del = function (index) {
+      if (isNaN(index) || index >= this.length) {
+        return false;
+      }
+      for (var i = 0; n = 0; i++){
+            if(this[i] != this[index]) {
+          this[n++] = this[i];
+        }
+    }
+    this.length -= 1;
+  };
+
+
+
+
     var that = this
     var sessionid = e.currentTarget.dataset.sessionid
+    var index = e.currentTarget.dataset.sessionindex
     wx.showModal({
       title: '提示',
       content: '是否删除',
@@ -40,10 +60,13 @@ Page({
             url: app.globalData.baseurl + '/deleteconversation/',
             data: { 'sessionid':sessionid, 'userid': app.globalData.openid },
             success: function () {
+              app.globalData.messagelist.del(index)
               wx.showToast({
                 title: '删除成功',
               })
-              that.onLoad()
+              // that.onLoad()
+
+              
             }
           })
 

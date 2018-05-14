@@ -2,7 +2,7 @@ const app = getApp()
 var util = require('../../utils/util.js')
 var getDateDiff = util.getDateDiff
 var get_or_create_avatar = util.get_or_create_avatar
-var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+var sliderWidth = 96; 
 
 Page({
   data: {
@@ -28,6 +28,7 @@ Page({
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
+    q:null,
 
     tabTxt: [
       {
@@ -38,7 +39,9 @@ Page({
           { 'id': 1, 'text': '一年级' },
           { 'id': 2, 'text': '二年级' },
           { 'id': 3, 'text': '三年级' },
-          { 'id': 4, 'text': '四年级' }
+          { 'id': 4, 'text': '四年级' },
+          { 'id': 5, 'text': '五年级' },
+          { 'id': 6, 'text': '六年级' },
 
         ],
         'type': 0
@@ -86,7 +89,6 @@ Page({
 
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
-      // 来自页面内转发按钮
       var problemid = res.target.dataset.problemid
       return {
         title: '[有人@我]智力题，考考你~',
@@ -104,13 +106,10 @@ Page({
     }
     return {
       title: '[有人@我]智力题，考考你~',
-      // path: '/pages/tosolve/tosolve',
       path: '/pages/tosolve/tosolve',
       success: function (res) {
-        // 转发成功
       },
       fail: function (res) {
-        // 转发失败
       }
     }
   },
@@ -172,7 +171,7 @@ Page({
       data: { 'filter': JSON.stringify(searchparam), 'solved': that.data.activeIndex },
       success: function (res) {
         var filterproblist = JSON.parse(res.data.json_data)
-        var tmp = JSON.stringify(filterproblist).replace(/avatar":"(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
+        var tmp = JSON.stringify(filterproblist).replace(/avatar":"(.*?avatar\/)([\w-]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
         filterproblist = JSON.parse(tmp)
         var a = that.data.activeIndex
         if (a == '0') {
@@ -234,20 +233,27 @@ Page({
       url: `../question/question?problemid=${problemid}`
     })
   },
+  writesearch:function(e){
+    this.setData({
+      q:e.detail.value
+    })
+  },
   search: function (e) {
     var that = this
-    if (e.detail.value == '') {
+    var q = this.data.q
+    if (q == '' || q == undefined) {
       wx.showModal({
-        title: 'input sothing',
-        content: 'input something',
+        title: '提示',
+        content: '关键词不能为空',
       })
     } else {
       wx.request({
         url: app.globalData.baseurl + '/mysearch/',
-        data: { 'q': e.detail.value },
+        data: { 'q': q },
         success: function (res) {
           that.setData({
-            inputvalue: ''
+            inputvalue: '',
+            q:null
           })
           app.globalData.searchlist = res.data
           wx.navigateTo({

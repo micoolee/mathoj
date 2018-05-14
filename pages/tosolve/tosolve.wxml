@@ -2,7 +2,7 @@
   <scroll-view>
     <view class="search flex-wrp">
       <view class="search-left flex-item">
-        <image src="../../images/search1.png"></image>
+        <image src="../../images/search1.png" bindtap='search' ></image>
         <input placeholder="搜索" placeholder-class="search-placeholder" bindinput='writesearch' bindconfirm='search' value='{{inputvalue}}' />
       </view>
 
