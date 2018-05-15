@@ -20,35 +20,8 @@ Page({
     this.endTime = e.timeStamp;
   },
 
-  bindLongTap: function (e) {
-    var that = this
-    var informid = e.currentTarget.dataset.informid
-    wx.showModal({
-      title: '提示',
-      content: '是否删除',
-      success: function (res) {
-        if (res.confirm) {
-          wx.request({
-            url: app.globalData.baseurl + '/deleteinform/',
-            data: { 'informid': informid},
-            success: function () {
-              wx.showToast({
-                title: '删除成功',
-              })
-              app.getlastedinform(that)
-            }
-          })
-
-        }
-      }
-    })
-
-  },
-
-
   onLoad: function (options) {
     app.getlastedinform()
-
   },
 
 
@@ -63,10 +36,11 @@ Page({
 
   showzandetail: function (e) {
     var that = this
+    var informid = e.currentTarget.dataset.informid
     if (this.endTime - this.startTime < 350) {
       var readed = e.currentTarget.dataset.readed
       var index = e.currentTarget.dataset.index
-      var informid = e.currentTarget.dataset.informid
+      
       if(e.currentTarget.dataset.informtype != '5'){
 
         var problemid = e.currentTarget.dataset.problemid
@@ -110,6 +84,26 @@ Page({
 
       }
 
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: '是否删除',
+        success: function (res) {
+          if (res.confirm) {
+            wx.request({
+              url: app.globalData.baseurl + '/deleteinform/',
+              data: { 'informid': informid },
+              success: function () {
+                app.getlastedinform(that)
+                wx.showToast({
+                  title: '删除成功',
+                })
+              }
+            })
+
+          }
+        }
+      })
     }
   },
 

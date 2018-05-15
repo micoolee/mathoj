@@ -1,5 +1,6 @@
 {
   "pages": [
+
     "pages/tosolve/tosolve",
     "pages/settings/settings",
     "pages/solved/solved",
@@ -10,7 +11,7 @@
     "pages/ask/ask",
     "pages/settings/mysubs/mysubs",
     "pages/settings/myhist/myhist",
-    "pages/storydetail/storydetail",
+        "pages/storydetail/storydetail",
     "pages/settings/mycomm/mycomm",
     "pages/settings/profile/profile",
     "pages/try/try",

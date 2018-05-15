@@ -1,11 +1,23 @@
 const app =getApp()
+if(app.globalData.baseurl ){
+  console.log(app.globalData.baseurl)
+  var baseurl = app.globalData.baseurl
+}else{
+  var baseurl = 'https://mathoj.liyuanye.club'
+}
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    content:'请等待，加载中......'
+    content:'请等待，加载中......',
+    title:null,
+    author:null,
+    authorid:null,
+    loadok:false,
+    storyid:null
   },
 
   /**
@@ -14,13 +26,20 @@ Page({
   onLoad: function (options) {
     var that = this
     var storyid = options.id
+    this.setData({
+      storyid : options.id
+    })
     
     wx.request({
-      url: app.globalData.baseurl+'/getstory/',
+      url: baseurl+'/getstory/',
       data:{'storyid':storyid},
       success:function(res){
         that.setData({
-          content:res.data
+          authorid:res.data.authorid,
+          title:res.data.title,
+          author:res.data.author,
+          content:res.data.content,
+          loadok:true
         })
       }
     })
@@ -72,6 +91,18 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return {
+      title: '[有人@我]小学奥数，分享给你~',
+
+      path: '/pages/storydetail/storydetail?id=' + this.data.storyid,
+
+      imageUrl: app.globalData.baseurl + '/static/sharepic.jpg',
+
+      success: function (res) {
+        wx.showToast({
+          title: '分享成功~',
+        })
+      }
+    }
   }
 })

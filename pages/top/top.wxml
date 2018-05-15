@@ -1,4 +1,4 @@
-  <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}" >
+  <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}" style='border-bottom:0.1px solid #F0F0F0;'>
     <view class="segment" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.informid}}' data-problemid='{{item.problem_id}}' data-informtype='{{item.informtype}}' data-sourcerid='{{item.sourcer_id}}'
       data-avatar='{{item.avatar}}' data-openid='{{item.openid}}' data-username='{{item.username}}'>
             <image class="bigavatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>

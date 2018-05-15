@@ -1,3 +1,8 @@
 <!--pages/storydetail/storydetail.wxml-->
-
+<view wx:if="{{loadok}}">
+<view class='centertext'>{{title}}</view>
+<view class='centertext'>{{author}}</view>
 <view class='page__desc'>{{content}}</view>
+</view>
+<view wx:else>{{content}}</view>
+
