@@ -49,7 +49,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this
+    wx.request({
+      url: app.globalData.baseurl + '/getrank/',
+      success: function (res) {
+        var ranklist = JSON.parse(res.data.json_data)
+
+        var tmp = JSON.stringify(ranklist).replace(/avatar":"(.*?avatar\/)([\w-]*)(.jpg)/g, function ($0, $1, $2, $3) { var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar) })
+
+        ranklist = JSON.parse(tmp)
+
+
+        that.setData({
+          ranklist: ranklist
+        })
+      }
+    })
   },
 
   /**
@@ -63,22 +78,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this
-    wx.request({
-      url: app.globalData.baseurl+'/getrank/',
-      success:function(res){
-        var ranklist = JSON.parse(res.data.json_data)
 
-        var tmp = JSON.stringify(ranklist).replace(/avatar":"(.*?avatar\/)([\w-]*)(.jpg)/g, function ($0, $1, $2, $3) {  var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar ) })
-
-        ranklist = JSON.parse(tmp)
-
-
-        that.setData({
-          ranklist:ranklist
-        })
-      }
-    })
   },
 
   /**
