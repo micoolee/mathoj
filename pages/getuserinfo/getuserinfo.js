@@ -11,9 +11,11 @@ Page({
     },
 
     bindGetUserInfo: function (e) {
-      wx.navigateBack({
-        
-      })
+
+      if(e.detail.userInfo){
+        wx.navigateBack({
+        })
+      }
     },
   /**
    * 生命周期函数--监听页面加载

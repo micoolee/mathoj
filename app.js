@@ -61,11 +61,11 @@ App({
     var that = this
     wx.connectSocket({
       url: that.globalData.wssurl,
-      fail: function () {
-      }
     })
 
     wx.onSocketOpen(function (res) {
+      that.globalData.closetime = 0
+      console.log('socket connect')
       wx.sendSocketMessage({
         data: JSON.stringify({ 'userid': that.globalData.openid, 'statuscode': '1' }),
       })
@@ -134,12 +134,6 @@ App({
               var one = singlemessage
 
               var tmp = JSON.stringify(one).replace(/avatar":"(.*?avatar\/)([\w-]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($4); var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar + $4 + tmpstr) })
-
-              // var tmp = JSON.stringify(one).replace(/submittime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('submittime":"' + tmpstr) })
-
-
-
-
               var tmpinformlist = JSON.parse(tmp)
               one = tmpinformlist
 
@@ -159,9 +153,15 @@ App({
             })
           }
         }
+      
       })
     })
+    wx.onSocketError(function (res) {
+      that.globalData.closetime = that.globalData.closetime + 1
+    })
+
     wx.onSocketClose(function (res) {
+      console.log('socket close')
       setTimeout(that.connect, that.globalData.closetime * 1000)
     })
   },

@@ -1,7 +1,6 @@
 const app =getApp()
 if(app.globalData.baseurl ){
-  console.log(app.globalData.baseurl)
-  var baseurl = app.globalData.baseurl
+  var baseurl = 'https://mathoj.liyuanye.club'
 }else{
   var baseurl = 'https://mathoj.liyuanye.club'
 }
