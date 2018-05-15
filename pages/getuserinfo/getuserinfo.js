@@ -6,7 +6,8 @@ Page({
    */
 
     data: {
-      canIUse: wx.canIUse('button.open-type.getUserInfo')
+      canIUse: wx.canIUse('button.open-type.getUserInfo'),
+      hidewarning:true
     },
 
     bindGetUserInfo: function (e) {
@@ -18,7 +19,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    if (options.status == '1') {
+      this.setData({
+        hidewarning: false
+      })
+
+    }
   },
 
   /**

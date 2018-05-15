@@ -79,19 +79,8 @@
 
               <view class='flex-wrp'>
                 <view class="btns">
-                  <!-- <view bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.record}}'>
-                    <image src="/images/start.jpg" style='width:30px;height:30px'></image>
-                  </view>
-                  <view bindtap='pause1' wx:else>
-                    <image src="/images/pause.jpg" style='width:30px;height:30px'></image>
-                  </view> -->
-
-
-                  <image bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.record}}' src="/images/start.jpg" style='width:30px;height:30px'></image>
-
-                  <image bindtap='pause1' wx:else src="/images/pause.jpg" style='width:30px;height:30px'></image>
-
-
+                  <image bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.record}}' src="/images/start.png" style='width:30px;height:30px'></image>
+                  <image bindtap='pause1' wx:else src="/images/pause.png" style='width:30px;height:30px'></image>
                 </view>
 
                 <view class="progresswrap">
@@ -147,8 +136,8 @@
       <view wx:if="{{showyuansheng}}">
         <view class="progresswrap">
           <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
-          <image bindtap='play1' wx:if="{{tingstate}}" src="/images/start.jpg" class='recordstopimg'></image>
-          <image bindtap='pause1' wx:else src="/images/pause.jpg" class='recordstopimg'></image>
+          <image bindtap='play1' wx:if="{{tingstate}}" src="/images/start.png" class='recordstopimg'></image>
+          <image bindtap='pause1' wx:else src="/images/pause.png" class='recordstopimg'></image>
         </view>
       </view>
 

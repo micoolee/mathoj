@@ -5,21 +5,11 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-
-    // userid: app.globalData.openid,
     hide: false,
     animationData: null,
   },
   onLoad: function (options) {
 
-  },
-  onShareAppMessage: function () {
-    // 用户点击右上角分享
-    return {
-      title: '', // 分享标题
-      desc: '', // 分享描述
-      path: '' // 分享路径
-    }
   },
   onShow:function(){
     var avatarcache = util.get_or_create_avatar(app.globalData.openid)
@@ -93,7 +83,6 @@ Page({
     wx.navigateTo({
       url: './help/help',
       success: function (res) {
-        // success
       },
     })
   },
@@ -101,13 +90,11 @@ Page({
     wx.navigateTo({
       url: './feedback/feedback',
       success: function(res){
-        // success
       },
     })
   },
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
-    
   },
 
 })

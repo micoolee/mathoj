@@ -108,8 +108,8 @@ var page = Page({
     var  e = e
     var image = e.currentTarget.dataset.image
     wx.previewImage({
-      current: '', // 当前显示图片的http链接
-      urls: [image], // 需要预览的图片http链接列表
+      current: '', 
+      urls: [image], 
       success:function(){
         that.play(e)
       }
@@ -375,20 +375,41 @@ var page = Page({
 
 
   start: function (event) {
-    if (event.currentTarget.dataset.id) {
-      recorderManager.start()
-      this.setData({
-        recordstate: false
-      })
-    } else {
+      var that = this
+      if (event.currentTarget.dataset.id) {
 
-      recorderManager.stop()
-      this.setData({
-        recordstate: true,
-        showyuansheng: true,
-        audioSrc: app.globalData.audiopath,
-      })
-    }
+
+        if (app.globalData.audiopath != null) {
+          wx.showModal({
+            title: '提示',
+            content: '你确定需要重录？',
+            success: function (res) {
+              if (res.cancel) {
+                return false;
+              }else{
+                recorderManager.start()
+                that.setData({
+                  recordstate: false
+                })
+              }
+            }
+          })
+        }else{
+          recorderManager.start()
+          that.setData({
+            recordstate: false
+          })
+        }
+
+      } else {
+        recorderManager.stop()
+        that.setData({
+          recordstate: true,
+          showyuansheng: true,
+          audioSrc: app.globalData.audiopath,
+        })
+      }
+
   },
 
   submit: function () {
@@ -398,7 +419,8 @@ var page = Page({
       filePath: app.globalData.audiopath,
       name: 'record',
       success: function (res) {
-        app.globalData.returnaudiopath = res.data
+        app.globalData.returnaudiopath = res.data,
+          app.globalData.audiopath = null//???????????
         that.setData({
           showaudio: true
         })
@@ -600,7 +622,7 @@ var page = Page({
               url: app.globalData.baseurl + '/getopenid/',
               method: 'GET',
               success: function (res) {
-                app.globalData.openid = res.data
+                app.globalData.openid = res.data.openid
               },
             })
           }
@@ -676,7 +698,7 @@ var page = Page({
             url: app.globalData.baseurl + '/getopenid/',
             method: 'GET',
             success: function (res) {
-              app.globalData.openid = res.data
+              app.globalData.openid = res.data.openid
               app.connect()
             },
           })

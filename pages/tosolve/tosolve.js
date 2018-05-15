@@ -15,7 +15,7 @@ Page({
     door: true,
     formerid: null,
     lastedid: null,
-    topStories: [{ image: "../../images/pause.jpg" }, { image: '../../images/home.png' }],
+    topStories: [],
     havenewbtn: false,
     searchcontent: null,
     inputvalue: null,

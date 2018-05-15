@@ -1,5 +1,3 @@
-<view>
 
-<button bindtap='reauthenticate'>reauthenticate</button>
+<button bindtap='reauthenticate'>重新授权</button>
 
-</view>

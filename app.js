@@ -177,7 +177,12 @@ App({
           url: this.globalData.baseurl + '/getopenid/',
           method: 'GET',
           success: function (res) {
-            that.globalData.openid = res.data
+            that.globalData.openid = res.data.openid
+            if(res.data.punish =='1'){
+              wx.redirectTo({
+                url: '/pages/getuserinfo/getuserinfo?status=1',
+              })
+            }
             that.connect()
           },
         })

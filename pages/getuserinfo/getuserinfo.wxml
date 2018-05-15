@@ -3,9 +3,21 @@
 <!--wxml-->
 <!-- 如果只是展示用户头像昵称，可以使用 <open-data /> 组件 -->
 <view class='userinfo'>
-<open-data class='userinfo-avatar' type="userAvatarUrl"></open-data>
-<open-data class = 'userinfo-nickname' type="userNickName"></open-data>
+  <open-data class='userinfo-avatar' type="userAvatarUrl"></open-data>
+  <open-data class='userinfo-nickname' type="userNickName"></open-data>
 </view>
 <!-- 需要使用 button 来授权登录 -->
-<button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
-<view wx:else>请升级微信版本</view>
+
+<view wx:if="{{hidewarning}}">
+  <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+  <view wx:else>请升级微信版本</view>
+</view>
+<view wx:else style='text-align:center'>
+  <view>
+  <text >你的帐号可能存在违规操作</text>
+  </view>
+  <view>
+  <text >请联系管理员进行解封</text>
+  </view>
+  
+</view>

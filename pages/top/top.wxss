@@ -14,8 +14,8 @@
   position:absolute;
 right:30rpx;
 width:70rpx;
-height:90rpx
-
+height:90rpx;
+padding:10px 24rpx 5px 0px
 } 
 
 view{
