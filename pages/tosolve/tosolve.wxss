@@ -132,7 +132,7 @@ radio {
 
 .search-placeholder {
   color: #8ccefd;
-  line-height: 20rpx;
+  line-height: 200rpx;
 }
 
 .container .search .search-left image {
