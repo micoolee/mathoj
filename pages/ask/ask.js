@@ -8,7 +8,7 @@ Page({
   data: {
     inputnum:0,
     files: ["../../images/pic_160.png"],
-    gradearray: ['未选择', '一年级', '二年级', '三年级', '四年级', '五年级','六年级'],
+    gradearray: ['未选择', '二年级', '三年级', '四年级', '五年级', '六年级','初一'],
 
     grade: '未选择',
     gradeindex: 0,

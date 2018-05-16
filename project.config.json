@@ -37,6 +37,12 @@
 					"name": "story",
 					"pathName": "pages/storydetail/storydetail",
 					"query": "id=1"
+				},
+				{
+					"id": -1,
+					"name": "getuserinfo",
+					"pathName": "pages/getuserinfo/getuserinfo",
+					"query": ""
 				}
 			]
 		}

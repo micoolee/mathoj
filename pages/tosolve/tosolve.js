@@ -36,12 +36,13 @@ Page({
         'originalText': '不限',
         'active': false,
         'child': [
-          { 'id': 1, 'text': '一年级' },
-          { 'id': 2, 'text': '二年级' },
-          { 'id': 3, 'text': '三年级' },
-          { 'id': 4, 'text': '四年级' },
-          { 'id': 5, 'text': '五年级' },
-          { 'id': 6, 'text': '六年级' },
+
+          { 'id': 1, 'text': '二年级' },
+          { 'id': 2, 'text': '三年级' },
+          { 'id': 3, 'text': '四年级' },
+          { 'id': 4, 'text': '五年级' },
+          { 'id': 5, 'text': '六年级' },
+          { 'id': 6, 'text': '初一' },
 
         ],
         'type': 0

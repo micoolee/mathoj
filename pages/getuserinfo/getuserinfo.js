@@ -1,4 +1,5 @@
 // pages/getuserinfo/getuserinfo.js
+const app = getApp()
 Page({
 
   /**
@@ -13,6 +14,16 @@ Page({
     bindGetUserInfo: function (e) {
 
       if(e.detail.userInfo){
+        app.globalData.avatar = e.detail.userInfo.avatarUrl
+        app.globalData.nickname = e.detail.userInfo.nickName
+        wx.request({
+          url: app.globalData.baseurl + '/uploadavatar/',
+          method: 'post',
+          data: { 'userid': app.globalData.openid, 'username': app.globalData.nickname, 'avatar': app.globalData.avatar },
+          header: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+        })
         wx.navigateBack({
         })
       }
