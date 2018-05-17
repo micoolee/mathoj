@@ -2,14 +2,18 @@
 
 <!--wxml-->
 <!-- 如果只是展示用户头像昵称，可以使用 <open-data /> 组件 -->
+
+
 <view class='userinfo'>
   <open-data class='userinfo-avatar' type="userAvatarUrl"></open-data>
   <open-data class='userinfo-nickname' type="userNickName"></open-data>
 </view>
 <!-- 需要使用 button 来授权登录 -->
 
-<view wx:if="{{hidewarning}}">
-  <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+
+<view wx:if="{{hidewarning}}" >
+
+  <button wx:if="{{canIUse}}" open-type="getUserInfo" type='primary' bindgetuserinfo="bindGetUserInfo">授权登录</button>
   <view wx:else>请升级微信版本</view>
 </view>
 <view wx:else style='text-align:center'>
@@ -20,4 +24,9 @@
   <text >请联系管理员进行解封</text>
   </view>
   
+</view>
+
+
+<view class='appdesc'>
+<text >“我爱奥数”这个小程序的产生，是为了方便热爱数学、喜欢奥数或者希望提升思维能力的同学，授权登录后，我们可以更好地展示你的头像和昵称</text>
 </view>
