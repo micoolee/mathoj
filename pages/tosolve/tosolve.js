@@ -160,33 +160,13 @@ Page({
     })
     console.log(this.data.zindex)
 
-    //我需要切换选中项 修改展示文字 并收回抽屉  
     var that = this;
     var index = e.currentTarget.dataset.index;
     var data = JSON.parse(JSON.stringify(that.data.tabTxt));
     var paramindex = e.detail.value
-    // if (typeof (e.target.dataset.id) == 'undefined' || e.target.dataset.id == '') {
-    //   data[index].active = !that.data.tabTxt[index].active;
-    // }
-    // else {
-    //   data[index].type = e.target.dataset.id;
-    //   data[index].active = !that.data.tabTxt[index].active;
-    //   if (e.target.dataset.id == '0') {
-    //     data[index].text = that.data.tabTxt[index].originalText;
-    //     //不限删除条件
-    //     delete that.data.searchParam[index];
-    //   }
-    //   else {
-    //     data[index].text = e.target.dataset.txt;
-    //     //更改删除条件
-    //     that.data.searchParam[index] = data[index].text;
-    //   }
 
-
-    // }
     if (paramindex == '0') {
         data[index].text = that.data.tabTxt[index].originalText;
-        //不限删除条件
         delete that.data.searchParam[index];
       }else{
       data[index].text = data[index]['child'][paramindex].text
