@@ -40,7 +40,7 @@ App({
       success: function (res) {
         var informlist = JSON.parse(res.data.json_data)
 
-        var tmp = JSON.stringify(informlist).replace(/avatar":"(.*?avatar\/)([\w-]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($4); var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar + $4 + tmpstr) })
+        var tmp = JSON.stringify(informlist).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($4); var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar + $4 + tmpstr) })
 
         informlist = JSON.parse(tmp)
         that.globalData.informlist = informlist
@@ -92,7 +92,7 @@ App({
               var all = that.globalData.messagelist
               var singlemessage = tmp.json_data
               var one = singlemessage
-              var tmp = JSON.stringify(one).replace(/receiveravatar":"(.*?avatar\/)([\w-]*)(.jpg)(.*?senderavatar":")(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) { var tmpstr = getDateDiff($9); var cachedoor = get_or_create_avatar($6); var receivercachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor; } else { var cacheavatar = $5 + $6 + $7; }; if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('receiveravatar":"' + receiveravatar + $4 + cacheavatar + $8 + tmpstr) })
+              var tmp = JSON.stringify(one).replace(/receiveravatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?senderavatar":")(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) { var tmpstr = getDateDiff($9); var cachedoor = get_or_create_avatar($6); var receivercachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor; } else { var cacheavatar = $5 + $6 + $7; }; if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('receiveravatar":"' + receiveravatar + $4 + cacheavatar + $8 + tmpstr) })
 
               var tmpmessagelist = JSON.parse(tmp)
               one = tmpmessagelist
@@ -133,7 +133,7 @@ App({
               var singlemessage = JSON.parse(tmp.json_data)
               var one = singlemessage
 
-              var tmp = JSON.stringify(one).replace(/avatar":"(.*?avatar\/)([\w-]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($4); var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar + $4 + tmpstr) })
+              var tmp = JSON.stringify(one).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($4); var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar + $4 + tmpstr) })
               var tmpinformlist = JSON.parse(tmp)
               one = tmpinformlist
 

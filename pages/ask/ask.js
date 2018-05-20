@@ -26,7 +26,8 @@ Page({
     avatar:app.globalData.avatar,
     screenwidth:app.globalData.screenwidth,
     screenheight: app.globalData.screenheight,
-    imagelength:0
+    imagelength:0,
+    disabledbut:false
   },
 
 
@@ -90,6 +91,7 @@ Page({
   },
 
   ask: function () {
+    var that = this
     if (this.data.desc==''){
       wx.showModal({
         title: '提示',
@@ -110,6 +112,7 @@ Page({
 
       this.setData({
         hide: false,
+        disabledbut:true,
         userid: app.globalData.openid,
         avatar: app.globalData.avatar,
       })
@@ -120,6 +123,9 @@ Page({
           name: 'problempic',
           formData: this.data,
           success: function () {
+            that.setData({
+              disabledbut:false
+            })
             wx.showModal({
               title: '提示',
               content: '提问成功',
@@ -144,6 +150,9 @@ Page({
           },
           data: this.data,
           success: function () {
+            that.setData({
+              disabledbut: false
+            })
             wx.showModal({
               title: '提示',
               content: '提问成功',

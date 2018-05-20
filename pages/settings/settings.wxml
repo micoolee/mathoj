@@ -26,6 +26,8 @@
   </view>
   <view class="weui-footer weui-footer_fixed-bottom">
     <view class="weui-footer__links">
+    
+    <view bindtap="clearcache" class="weui-footer__link">qingchu</view>
                <view bindtap="showHelp" class="weui-footer__link">软件说明</view>
                 <view bindtap="showFeedback" class="weui-footer__link">用户反馈</view>
     </view>

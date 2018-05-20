@@ -112,7 +112,7 @@
 
 
   <view class="weui-btn-area">
-    <button class="weui-btn" type="primary" bindtap="ask" data-statu="close">确定</button>
+    <button class="weui-btn" type="primary" bindtap="ask" data-statu="close" disabled='{{disabledbut}}'>确定</button>
     <button class="weui-btn" type="default" bindtap="cancelask" data-statu="close">取消</button>
   </view>
 

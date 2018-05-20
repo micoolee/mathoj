@@ -28,7 +28,7 @@
   flex-grow: 1;
   text-align: center;
 }
-.top-tab{
+/* .top-tab{
   width: 750rpx;
   height: 100rpx;
   background: #298DE5;
@@ -40,7 +40,7 @@
   position: fixed;
   top: 0;
   z-index: 9999;
-}
+} */
 .toptab.active{
   color: #ffffff;
   border-bottom: solid 2px #ffffff;

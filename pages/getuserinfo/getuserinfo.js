@@ -10,12 +10,10 @@ Page({
       canIUse: wx.canIUse('button.open-type.getUserInfo'),
       hidewarning:true
     },
-
     bindGetUserInfo: function (e) {
-
       if(e.detail.userInfo){
-        app.globalData.avatar = e.detail.userInfo.avatarUrl
         app.globalData.nickname = e.detail.userInfo.nickName
+        app.globalData.avatar = e.detail.userInfo.avatarUrl
         wx.request({
           url: app.globalData.baseurl + '/uploadavatar/',
           method: 'post',
@@ -24,6 +22,9 @@ Page({
             "Content-Type": "application/x-www-form-urlencoded"
           },
         })
+
+
+
         wx.navigateBack({
         })
       }

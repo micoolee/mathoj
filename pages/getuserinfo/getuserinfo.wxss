@@ -1,5 +1,1 @@
 /* pages/getuserinfo/getuserinfo.wxss */
-.appdesc{
-  text-align: center;
-  padding: 30rpx 20rpx 0 20rpx
-}

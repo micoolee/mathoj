@@ -22,7 +22,7 @@ Page({
     problemlist: [],
     showsharedoor: false,
     shareindexlist: [],
-
+    zindex:false,
 
     tabs: ["待解决", "已解决"],
     activeIndex: 0,
@@ -30,20 +30,26 @@ Page({
     sliderLeft: 0,
     q:null,
 
+    easyarray: ['不限','困难' , '简单'],
+    rewardarray: ['不限', '2', '3'],
+    gradearray: ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一'],
+
+
+
     tabTxt: [
       {
         'text': '年级',
         'originalText': '不限',
+        'value': ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一'],
         'active': false,
         'child': [
-
+          { 'id': 0, 'text': '不限' },
           { 'id': 1, 'text': '二年级' },
           { 'id': 2, 'text': '三年级' },
           { 'id': 3, 'text': '四年级' },
           { 'id': 4, 'text': '五年级' },
-          { 'id': 5, 'text': '六年级' },
+          { 'id': 5, 'text': '六年级' }, 
           { 'id': 6, 'text': '初一' },
-
         ],
         'type': 0
       },
@@ -51,7 +57,9 @@ Page({
         'text': '难易',
         'originalText': '不限',
         'active': false,
+        'value': ['不限', '简单', '困难'],
         'child': [
+          { 'id': 0, 'text': '不限' },
           { 'id': 1, 'text': '简单' },
           { 'id': 2, 'text': '困难' }
         ], 'type': 0
@@ -59,8 +67,10 @@ Page({
       {
         'text': '奖励',
         'originalText': '不限',
+        'value': ['不限', '2', '3'],
         'active': false,
         'child': [
+          { 'id': 0, 'text': '不限' },
           { 'id': 1, 'text': '2' },
           { 'id': 2, 'text': '3' }
         ], 'type': 0
@@ -121,6 +131,11 @@ Page({
 
 
   filterTab: function (e) {
+
+
+
+
+
     var that = this;
     var data = JSON.parse(JSON.stringify(that.data.tabTxt));
     var index = e.currentTarget.dataset.index;
@@ -132,6 +147,7 @@ Page({
     this.setData({
       tabTxt: data
     })
+    
 
   },
 
@@ -139,29 +155,44 @@ Page({
 
   filterTabChild: function (e) {
 
+    this.setData({
+      zindex: false
+    })
+    console.log(this.data.zindex)
+
     //我需要切换选中项 修改展示文字 并收回抽屉  
     var that = this;
     var index = e.currentTarget.dataset.index;
     var data = JSON.parse(JSON.stringify(that.data.tabTxt));
-    if (typeof (e.target.dataset.id) == 'undefined' || e.target.dataset.id == '') {
-      data[index].active = !that.data.tabTxt[index].active;
-    }
-    else {
-      data[index].type = e.target.dataset.id;
-      data[index].active = !that.data.tabTxt[index].active;
-      if (e.target.dataset.id == '0') {
+    var paramindex = e.detail.value
+    // if (typeof (e.target.dataset.id) == 'undefined' || e.target.dataset.id == '') {
+    //   data[index].active = !that.data.tabTxt[index].active;
+    // }
+    // else {
+    //   data[index].type = e.target.dataset.id;
+    //   data[index].active = !that.data.tabTxt[index].active;
+    //   if (e.target.dataset.id == '0') {
+    //     data[index].text = that.data.tabTxt[index].originalText;
+    //     //不限删除条件
+    //     delete that.data.searchParam[index];
+    //   }
+    //   else {
+    //     data[index].text = e.target.dataset.txt;
+    //     //更改删除条件
+    //     that.data.searchParam[index] = data[index].text;
+    //   }
+
+
+    // }
+    if (paramindex == '0') {
         data[index].text = that.data.tabTxt[index].originalText;
         //不限删除条件
         delete that.data.searchParam[index];
-      }
-      else {
-        data[index].text = e.target.dataset.txt;
-        //更改删除条件
-        that.data.searchParam[index] = data[index].text;
-      }
+      }else{
+      data[index].text = data[index]['child'][paramindex].text
+      that.data.searchParam[index] = data[index]['child'][paramindex].text
 
-
-    }
+      }
 
     that.setData({
       tabTxt: data
@@ -172,24 +203,35 @@ Page({
       data: { 'filter': JSON.stringify(searchparam), 'solved': that.data.activeIndex },
       success: function (res) {
         var filterproblist = JSON.parse(res.data.json_data)
-        var tmp = JSON.stringify(filterproblist).replace(/avatar":"(.*?avatar\/)([\w-]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-        filterproblist = JSON.parse(tmp)
-        var a = that.data.activeIndex
-        if (a == '0') {
+        if(filterproblist.length == 0){
           that.setData({
-            problemlist: filterproblist
+            bottom:true,
+            problemlist:filterproblist
           })
-        } else {
-          that.setData({
-            solvedproblemlist: filterproblist
-          })
+        }else{
+          var tmp = JSON.stringify(filterproblist).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
+          filterproblist = JSON.parse(tmp)
+          var a = that.data.activeIndex
+          if (a == '0') {
+            that.setData({
+              problemlist: filterproblist
+            })
+          } else {
+            that.setData({
+              solvedproblemlist: filterproblist
+            })
+          }
         }
+
 
       }
     })
 
 
   },
+
+
+
 
 
   filteritem: function (searchparam, tmpproblemlist, tmplist) {

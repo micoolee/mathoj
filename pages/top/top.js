@@ -55,7 +55,7 @@ Page({
       success: function (res) {
         var ranklist = JSON.parse(res.data.json_data)
 
-        var tmp = JSON.stringify(ranklist).replace(/avatar":"(.*?avatar\/)([\w-]*)(.jpg)/g, function ($0, $1, $2, $3) { var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar) })
+        var tmp = JSON.stringify(ranklist).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)/g, function ($0, $1, $2, $3) { var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar) })
 
         ranklist = JSON.parse(tmp)
 

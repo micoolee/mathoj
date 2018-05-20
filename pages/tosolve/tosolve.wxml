@@ -1,33 +1,36 @@
 <view class="container">
-  <scroll-view>
-    <view class="search flex-wrp">
-      <view class="search-left flex-item">
-        <image src="../../images/search1.png" bindtap='search' ></image>
-        <input placeholder="搜索" placeholder-class="search-placeholder" bindinput='writesearch' bindconfirm='search' value='{{inputvalue}}' />
-      </view>
-
-      <view class="search-right flex-item" bindtap="showquestool">
-        <image src="../../images/write.png"></image>
-      </view>
-      <view class="search-center flex-item" bindtap="showquestool">
-        提问
-      </view>
+  <!-- <scroll-view> -->
+  <view class="search flex-wrp ">
+    <view class="search-left flex-item">
+      <image src="../../images/search1.png" bindtap='search'></image>
+      <input placeholder="搜索" placeholder-class="search-placeholder" bindinput='writesearch' bindconfirm='search' value='{{inputvalue}}' />
     </view>
-  </scroll-view>
 
-  <view class="page">
-    <swiper class="swiper-boxs" indicator-dots autoplay duration="300">
-      <swiper-item wx:for="{{topStories}}" wx:key="{{index}}">
-        <navigator url="../storydetail/storydetail?id={{topStories[index].storyid}}">
-          <image mode="aspectFill" class="swiper-boxs-img" src="{{topStories[index].storypic}}" />
-        </navigator>
-      </swiper-item>
-    </swiper>
+    <view class="search-right flex-item" bindtap="showquestool">
+      <image src="../../images/write.png"></image>
+    </view>
+    <view class="search-center flex-item" bindtap="showquestool">
+      提问
+    </view>
+  </view>
+  <!-- </scroll-view> -->
+
+  <view class="page ">
+    <view>
+
+      <swiper class="swiper-boxs " indicator-dots autoplay duration="300">
+        <swiper-item wx:for="{{topStories}}" wx:key="{{index}}">
+          <navigator url="../storydetail/storydetail?id={{topStories[index].storyid}}">
+            <image mode="aspectFill" class="swiper-boxs-img" src="{{topStories[index].storypic}}" />
+          </navigator>
+        </swiper-item>
+      </swiper>
+    </view>
 
 
 
-    <view class="weui-tab">
-      <view class="weui-navbar">
+    <view class="weui-tab ">
+      <view class="weui-navbar ">
         <block wx:for="{{tabs}}" wx:key="*this">
           <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
             <view class="weui-navbar__title">{{item}}</view>
@@ -39,16 +42,39 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
 
           <!--筛选栏-->
+          <!-- <view class="cxj-menu">
+            <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="" data-index="{{index}}" bindtap="filterTab">
+              <text>{{item.text}}</text>
+              <image src="/images/arrow.png" class="cxj-icon"></image>
+            </view>
+          </view> -->
+          <!--条件选项栏-->
+          <!-- <view style='z-index:1000' class="cxj-tab-layout" hidden="{{!item.active}}" wx:for="{{tabTxt}}" wx:for-item="item" data-index="{{index}}" bindtap="filterTabChild">
+            <view class="{{item.type==0?'active':''}}" data-id="0" data-index="0" bindtap="filter">不限</view>
+            <view class="{{item.type==item_child.id?'active':''}}" wx:for="{{item.child}}" wx:for-item="item_child" wx:key="" data-id="{{item_child.id}}" data-index="0" data-txt="{{item_child.text}}" bindtap="filter">{{item_child.text}}
+            </view>
+          </view> -->
+
+
+          <!-- 
           <view class="cxj-menu">
             <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="" data-index="{{index}}" bindtap="filterTab">
               <text>{{item.text}}</text>
               <image src="/images/arrow.png" class="cxj-icon"></image>
             </view>
           </view>
-          <!--条件选项栏-->
+
           <view class="cxj-tab-layout" hidden="{{!item.active}}" wx:for="{{tabTxt}}" wx:for-item="item" data-index="{{index}}" bindtap="filterTabChild">
             <view class="{{item.type==0?'active':''}}" data-id="0" data-index="0" bindtap="filter">不限</view>
-            <view class="{{item.type==item_child.id?'active':''}}" wx:for="{{item.child}}" wx:for-item="item_child" wx:key="" data-id="{{item_child.id}}" data-index="0" data-txt="{{item_child.text}}" bindtap="filter">{{item_child.text}}
+            <view class="{{item.type==item_child.id?'active':''}}" wx:for="{{item.child}}" wx:for-item="item_child" wx:key="" data-id="{{item_child.id}}" data-index="0" data-txt="{{item_child.text}}" bindtap="filter">{{item_child.text}}</view>
+          </view>  -->
+
+          <view class="cxj-menu">
+            <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}">
+              <picker bindchange="filterTabChild" name="gradeindex" value="{{item.value}}" range="{{item.value}}" data-index='{{index}}'>
+                {{item.text}}
+                <image src="/images/arrow.png" class="cxj-icon"></image>
+              </picker>
             </view>
           </view>
 
@@ -61,7 +87,7 @@
             <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
               <view class="feed-item">
                 <view class="feed-source">
-                  <a >
+                  <a>
                     <view class="avatar">
                       <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
                     </view>
@@ -133,18 +159,27 @@
 
 
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-
-          <!--筛选栏-->
+<!-- 
           <view class="cxj-menu">
             <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="" data-index="{{index}}" bindtap="filterTab">
               <text>{{item.text}}</text>
               <image src="/images/arrow.png" class="cxj-icon"></image>
             </view>
           </view>
-          <!--条件选项栏-->
+
           <view class="cxj-tab-layout" hidden="{{!item.active}}" wx:for="{{tabTxt}}" wx:for-item="item" data-index="{{index}}" bindtap="filterTabChild">
             <view class="{{item.type==0?'active':''}}" data-id="0" data-index="0" bindtap="filter">不限</view>
             <view class="{{item.type==item_child.id?'active':''}}" wx:for="{{item.child}}" wx:for-item="item_child" wx:key="" data-id="{{item_child.id}}" data-index="0" data-txt="{{item_child.text}}" bindtap="filter">{{item_child.text}}</view>
+          </view>  -->
+
+
+                    <view class="cxj-menu">
+            <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}">
+              <picker bindchange="filterTabChild" name="gradeindex" value="{{item.value}}" range="{{item.value}}" data-index='{{index}}'>
+                {{item.text}}
+                <image src="/images/arrow.png" class="cxj-icon"></image>
+              </picker>
+            </view>
           </view>
 
 
@@ -152,7 +187,7 @@
           <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
             <view class="feed-item">
               <view class="feed-source">
-                <a  >
+                <a>
                   <view class="avatar">
                     <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
                   </view>

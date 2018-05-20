@@ -69,7 +69,25 @@ Page({
 
 
 
-
+clearcache:function(){
+  wx.showModal({
+    title: 'tishi',
+    content: 'clear?',
+    success:function(res){
+      if(res.confirm){
+        wx.clearstorage
+        wx.showToast({
+          title: 'SUCCESS',
+        })
+      }else{
+        wx.showToast({
+          title: 'Cancel',
+        })
+      }
+    }
+  })
+  
+},
 
   showClause: function () {
     wx.navigateTo({
