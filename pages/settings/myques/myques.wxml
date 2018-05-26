@@ -2,18 +2,17 @@
 
 
 <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-
+<view wx:if="{{problemlistnull==0}}" class="question-link line-3 centertext">没有提问记录
+<button bindtap='toask'>去提问</button>
+</view>
+<view wx:else>
 
     <block wx:for="{{problemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
         <view class="feed-item">
             <view class="feed-source">
                 <a class="">
-                    <!-- <view class="avatar">
-                        <image src="{{item.avatar}}"></image>
-                    </view> -->
                     <text>{{item.asker}}{{item.feed_source_txt}}</text>
                 </a>
-                <!-- <image class="item-more" mode="aspectFit" src="../../images/more.png"></image> -->
             </view>
             <view class="feed-content">
                 <view class="question line-reback" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap">
@@ -40,4 +39,5 @@
             </view>
         </view>
     </block>
+  </view>
 </scroll-view>

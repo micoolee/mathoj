@@ -6,8 +6,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-  commentlist:[]
+  commentlist:[],
+  commentlistnull:0
   },
+
+  tosolve: function () {
+    wx.redirectTo({
+      url: '../../../pages/tosolve/tosolve',
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -23,7 +31,8 @@ Page({
       data: { 'userid': app.globalData.openid },
       success: function (res) {
         that.setData({
-          commentlist: res.data
+          commentlist: res.data,
+          commentlistnull:res.data.length
         })
       }
     })

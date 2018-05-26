@@ -158,7 +158,6 @@ Page({
     this.setData({
       zindex: false
     })
-    console.log(this.data.zindex)
 
     var that = this;
     var index = e.currentTarget.dataset.index;

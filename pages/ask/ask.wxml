@@ -1,7 +1,7 @@
 <view class="page ">
 
 
-  <view class="weui-uploader__title pad5px">问题描述:</view>
+  <view class="weui-uploader__title pad5px">问题描述(必填):</view>
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell">
       <view class="weui-cell__bd">
@@ -20,7 +20,7 @@
         <view class="weui-cell__bd">
           <view class="weui-uploader">
             <view class="weui-uploader__hd">
-              <view class="weui-uploader__title">图片上传</view>
+              <view class="weui-uploader__title">图片上传(可选)</view>
               <view class="weui-uploader__info">{{imagelength}}/1</view>
             </view>
             <view class="weui-uploader__bd">
@@ -73,42 +73,39 @@
 
     <picker bindchange="bindPickerChange" name="gradeindex" value="{{gradeindex}}" range="{{gradearray}}">
       <view class="weui-uploader__title" style='text-align:center;padding:5px'>
-        年级:{{gradearray[gradeindex]}}
+        年级(必填):{{gradearray[gradeindex]}}
       </view>
     </picker>
   </view>
 
 
 
-    <view class="weui-cells  page__bd_spacing">
+  <view class="weui-cells  page__bd_spacing">
 
     <picker bindchange="bindPickerChangereward" name="rewardindex" value="{{rewardindex}}" range="{{rewardarray}}">
       <view class="weui-uploader__title" style='text-align:center;padding:5px'>
-        奖励:{{rewardarray[rewardindex]}}
+        奖励(必填):{{rewardarray[rewardindex]}}
       </view>
     </picker>
   </view>
 
-  <!-- <view class='section'>
-    <radio-group class="radio-group" bindchange="radioChange">难易:
-      <label class="radio" wx:for="{{easyitems}}" wx:key="unique">
-        <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
-      </label>
-    </radio-group>
-  </view>
 
 
+  <!-- <view class="weui-cells  page__bd_spacing">
+    <picker bindchange="bindPickerChangefirstclass" name="firstclassindex" value="{{firstclassindex}}" range="{{firstclassarray}}">
+      <view class="weui-uploader__title" style='text-align:center;padding:5px'>
+        yijifenlei:{{firstclassarray[firstclassindex]}}
+      </view>
+    </picker>
 
-
-  <view class="section">
-    <label class="title col-0"> 奖励:</label>
-    <input name="reward" value='0' bindinput='rewardinput'></input>
+    <picker bindchange="bindPickerChangesecondclass" name="secondclassindex" value="{{secondclassindex}}" range="{{secondclassarray}}">
+      <view class="weui-uploader__title" style='text-align:center;padding:5px'>
+        erjifenlei:{{secondclassarray[secondclassindex]}}
+      </view>
+    </picker>
   </view> -->
 
-  <!-- <view style='display:flex'>
-  <button  class="btn_ok" bindtap="ask" data-statu="close">确定</button>
-  <button class="btn_cancel" bindtap="cancelask" data-statu="close">取消</button>
-</view> -->
+
 
 
   <view class="weui-btn-area">

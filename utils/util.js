@@ -83,10 +83,10 @@ function get_or_create_avatar(userid){
    var avatarimgcache = wx.getStorageSync(userid)
    return avatarimgcache
   }else{
-    if (havedown.indexOf(userid)>-1){
-      return false
-    }else{
-      havedown.push(userid)
+    // if (havedown.indexOf(userid)>-1){
+    //   return false
+    // }else{
+    //   havedown.push(userid)
       wx.downloadFile({
         url: app.globalData.baseurl + '/static/avatar/' + userid + '.jpg',
         success: function (res) {
@@ -97,7 +97,7 @@ function get_or_create_avatar(userid){
         }
       })
       return false
-    }
+    
 
 
 

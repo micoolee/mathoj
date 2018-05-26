@@ -39,9 +39,7 @@ App({
       data: { 'userid': this.globalData.openid },
       success: function (res) {
         var informlist = JSON.parse(res.data.json_data)
-
-        var tmp = JSON.stringify(informlist).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($4); var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar + $4 + tmpstr) })
-
+        var tmp = JSON.stringify(informlist).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) {  var tmpstr = getDateDiff($5);  var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar + $4 + tmpstr) })
         informlist = JSON.parse(tmp)
         that.globalData.informlist = informlist
         if (that.globalData.informthat) {
@@ -169,6 +167,7 @@ App({
 
   onLaunch: function () {
     var that = this
+    wx.clearStorageSync()
 
     wx.login({
       success: res => {

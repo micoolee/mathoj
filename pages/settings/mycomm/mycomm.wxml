@@ -1,9 +1,8 @@
 <scroll-view class="container" >
-
-<!-- <view wx:if="{{commentlistnull==0}}" class="question-link line-3 centertext">没有匹配到您输入的关键词，
-换一个试试吧</view> -->
-<!-- 
-<view wx:else> -->
+<view wx:if="{{commentlistnull==0}}" class="question-link line-3 centertext">没有评论记录
+<button bindtap='tosolve'>去首页逛逛</button>
+</view>
+<view wx:else>
   <block wx:for="{{commentlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
     <view class="feed-item">
 
@@ -18,14 +17,10 @@
             <view class="like dot">
               <a>{{item.zan}} 赞同 </a>
             </view>
-            <!-- <view class="comments dot">
-              <a>{{item.comment_num}} 评论 </a>
-            </view> -->
           </view>
         </view>
       </view>
     </view>
   </block>
-<!-- </view> -->
-
+  </view>
 </scroll-view>

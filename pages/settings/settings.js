@@ -71,17 +71,17 @@ Page({
 
 clearcache:function(){
   wx.showModal({
-    title: 'tishi',
-    content: 'clear?',
+    title: '提示',
+    content: '确定清除?(清除后请重新打开小程序)',
     success:function(res){
       if(res.confirm){
-        wx.clearstorage
+        wx.clearStorageSync()
         wx.showToast({
-          title: 'SUCCESS',
+          title: '成功清除',
         })
       }else{
         wx.showToast({
-          title: 'Cancel',
+          title: '清除失败',
         })
       }
     }

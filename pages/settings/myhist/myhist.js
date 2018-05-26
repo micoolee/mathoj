@@ -6,16 +6,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    problemlist: null
+    problemlist: null,
+    problemlistnull: 0
   },
 
-  // bindQueTap: function (event) {
-  //   var problemid = event.currentTarget.dataset.id
-  //   wx.navigateTo({
-  //     url: `../../question/question?problemid=${problemid}`
-  //   })
-  // },
-
+tosolve:function(){
+  wx.redirectTo({
+    url: '../../../pages/tosolve/tosolve',
+  })
+},
 
 
   bindTouchStart: function (e) {
@@ -75,7 +74,8 @@ bindTouchEnd: function (e) {
       data: { 'userid': app.globalData.openid },
       success: function (res) {
         that.setData({
-          problemlist: res.data
+          problemlist: res.data,
+          problemlistnull:res.data.length
         })
       }
     })
