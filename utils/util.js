@@ -77,26 +77,32 @@ function getDateDiff(dateStr) {
 
 
 
-function get_or_create_avatar(userid){
+function get_or_create_avatar(userid,that='null'){
   var res = wx.getStorageInfoSync()
   if(res.keys.indexOf(userid)>-1){
    var avatarimgcache = wx.getStorageSync(userid)
+   if (that != 'null') {
+     that.setData({
+       userInfo: { 'avatar': avatarimgcache, 'nickname': app.globalData.nickname }
+     })
+   }
    return avatarimgcache
   }else{
-    // if (havedown.indexOf(userid)>-1){
-    //   return false
-    // }else{
-    //   havedown.push(userid)
       wx.downloadFile({
         url: app.globalData.baseurl + '/static/avatar/' + userid + '.jpg',
         success: function (res) {
           var avatarimg = res.tempFilePath
           wx.setStorageSync(userid, avatarimg)
           var avatarimgcache = wx.getStorageSync(userid)
+          if (that!='null'){
+            that.setData({
+              userInfo: { 'avatar': avatarimgcache, 'nickname': app.globalData.nickname }
+            })
+          }
+
           return avatarimgcache
         }
       })
-      return false
     
 
 

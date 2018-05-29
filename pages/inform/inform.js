@@ -41,7 +41,7 @@ Page({
       var readed = e.currentTarget.dataset.readed
       var index = e.currentTarget.dataset.index
       
-      if(e.currentTarget.dataset.informtype != '5'){
+      if (e.currentTarget.dataset.informtype != '5' && e.currentTarget.dataset.informtype != '0'){
 
         var problemid = e.currentTarget.dataset.problemid
 
@@ -61,7 +61,7 @@ Page({
           url: `../question/question?problemid=${problemid}`
         })
 
-      }else{
+      } else if (e.currentTarget.dataset.informtype == '5'){
         var sourcerid = e.currentTarget.dataset.sourcerid
         var avatar = e.currentTarget.dataset.avatar
         var username = e.currentTarget.dataset.username
@@ -82,6 +82,21 @@ Page({
         })
 
 
+      }else{
+        if (readed == '0') {
+          that.data.informlist[index].readed = '1'
+          app.globalData.informlist = that.data.informlist
+
+          wx.request({
+            url: app.globalData.baseurl + '/updatereaded/',
+            data: { 'informid': informid },
+            success: function (res) {
+            }
+          })
+        }
+        wx.navigateTo({
+          url: `/pages/howtouse/howtouse`,
+        })
       }
 
     }else{

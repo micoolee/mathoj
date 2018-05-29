@@ -12,10 +12,9 @@ Page({
 
   },
   onShow:function(){
-    var avatarcache = util.get_or_create_avatar(app.globalData.openid)
-    this.setData({
-      userInfo: { 'avatar': avatarcache, 'nickname': app.globalData.nickname }
-    })
+    var that = this
+    var a = util.get_or_create_avatar(app.globalData.openid,that)
+
     if (app.globalData.reddot) {
       wx.showTabBarRedDot({
         index: 2,
@@ -72,17 +71,18 @@ Page({
 clearcache:function(){
   wx.showModal({
     title: '提示',
-    content: '确定清除?(清除后请重新打开小程序)',
+    content: '清除后会重新加载，确定清除？',
     success:function(res){
       if(res.confirm){
         wx.clearStorageSync()
         wx.showToast({
           title: '成功清除',
         })
-      }else{
-        wx.showToast({
-          title: '清除失败',
+        wx.reLaunch({
+          url: '/pages/tosolve/tosolve',
         })
+      }else{
+
       }
     }
   })

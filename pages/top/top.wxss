@@ -23,5 +23,6 @@ view{
 }
 
 .centertext{
-  margin-top:60rpx
+  margin-top:60rpx;
+  font-size: 16px
 }

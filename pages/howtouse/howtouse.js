@@ -1,53 +1,18 @@
-// pages/settings/mycomm/mycomm.js
-const app = getApp()
+// pages/howtouse/howtouse.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  commentlist:[],
-  commentlistnull:0,
-  loadok:false
+  
   },
-
-  tosolve: function () {
-    wx.switchTab({
-      url: '../../tosolve/tosolve',
-    })
-  },
-
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    wx.request({
-      url: app.globalData.baseurl + '/mycomm/',
-      method: 'post',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      data: { 'userid': app.globalData.openid },
-      success: function (res) {
-        that.setData({
-          commentlist: res.data,
-          commentlistnull:res.data.length,
-          loadok:true
-        })
-      }
-    })
-  },
-
-
-
-  bindQueTap: function (e) {
-      var problemid = e.currentTarget.dataset.id
-      wx.navigateTo({
-        url: `../../question/question?problemid=${problemid}`
-      })
-
+  
   },
 
   /**

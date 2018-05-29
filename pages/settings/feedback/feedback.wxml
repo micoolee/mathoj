@@ -1,8 +1,23 @@
-<view class="container" >
-    <text class="feedback-label">问题描述</text>
+<view class="container">
+  <text class="feedback-label">问题描述</text>
 
-    <textarea class="feedback-text" placeholder="请详细你所遇到的问题" bindinput="getContent"/>
-    <text class="connect-label">联系方式</text>
-    <textarea class="connect-text" placeholder="请留下您的联系方式（QQ/微信/电话/等）" bindinput="getConnection"/>
-    <button class="feedback-button" bindtap="submitSuggestion">提交</button>
+  <textarea class="feedback-text" placeholder="请详细你所遇到的问题" bindinput="getContent" />
+  <text class="connect-label">联系方式</text>
+  <textarea class="connect-text" placeholder="请留下您的联系方式（QQ/微信/电话/等）" bindinput="getConnection" />
+  <view style='display:flex;margin-top:30rpx'>
+    <view class="weui-uploader__files" id="uploaderFiles">
+    <block wx:for="{{files}}" wx:key="*this">
+      <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+      </view>
+    </block>
+  </view>
+  <view class="weui-uploader__input-box">
+    <view class="weui-uploader__input" bindtap="uploadimg"></view>
+  </view>
+  </view>
+
+
+
+  <button class="feedback-button" bindtap="submitSuggestion">提交</button>
 </view>

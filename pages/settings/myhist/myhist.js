@@ -7,20 +7,21 @@ Page({
    */
   data: {
     problemlist: null,
-    problemlistnull: 0
+    problemlistnull: 0,
+    loadok: false
   },
 
-tosolve:function(){
-  wx.redirectTo({
-    url: '../../../pages/tosolve/tosolve',
-  })
-},
+  tosolve: function () {
+    wx.switchTab({
+      url: '../../tosolve/tosolve',
+    })
+  },
 
 
   bindTouchStart: function (e) {
     this.startTime = e.timeStamp;
   },
-bindTouchEnd: function (e) {
+  bindTouchEnd: function (e) {
     this.endTime = e.timeStamp;
   },
   bindQueTap: function (e) {
@@ -40,9 +41,9 @@ bindTouchEnd: function (e) {
       success: function (res) {
         if (res.confirm) {
           wx.request({
-            url: app.globalData.baseurl+'/deletehist/',
+            url: app.globalData.baseurl + '/deletehist/',
             data: { 'problemid': problemid, 'userid': app.globalData.openid },
-            success:function(){
+            success: function () {
               wx.showToast({
                 title: 'delete success',
               })
@@ -53,8 +54,8 @@ bindTouchEnd: function (e) {
 
 
         }
-        }
-        })
+      }
+    })
   },
 
 
@@ -74,8 +75,9 @@ bindTouchEnd: function (e) {
       data: { 'userid': app.globalData.openid },
       success: function (res) {
         that.setData({
+          loadok: true,
           problemlist: res.data,
-          problemlistnull:res.data.length
+          problemlistnull: res.data.length
         })
       }
     })

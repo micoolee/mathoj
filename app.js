@@ -25,7 +25,9 @@ App({
     searchlist: [],
     globalproblemlist: [],
     placeholder: '',
-    answerlist:[]
+    answerlist:[],
+    nickname:'路人甲',
+    avatar:'stranger'
   },
 
   getlastedinform: function (informthat = null) {

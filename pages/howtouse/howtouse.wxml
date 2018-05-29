@@ -1,0 +1,24 @@
+<!--pages/howtouse/howtouse.wxml-->
+<view>
+<text style='display:block;text-align:center'>使用说明</text>
+</view>
+<view>
+<text>提问：必须填写问题描述、年级和奖励</text>
+</view>
+<view>
+<text>搜索：目前只支持单个关键词查询</text>
+</view>
+<view>
+<text>回答问题：目前只有认证了的答主才有此权限</text>
+</view>
+<view>
+<text>关注、私信：点击头像可与该用户聊天</text>
+</view>
+<view>
+<text>反馈：支持图片上传</text>
+</view>
+<view>
+<text>申请答主：微信添加开发者来申请</text>
+</view>
+
+

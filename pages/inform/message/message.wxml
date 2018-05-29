@@ -1,3 +1,7 @@
+<view wx:if="{{messagelistnull==0}}" class="question-link line-3 centertext">暂时没有对话
+<button bindtap='torank'>去请教优秀答主</button>
+</view>
+<view wx:else>
 <scroll-view class="container chat" wx:for="{{messagelist}}" wx:key="{{item.sessionid}}">
 
   <view class="chat-item flex-wrp" bindtap='enterconversation'  bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-sessionindex='{{index}}' data-sessionid = '{{item.sessionid}}' data-receiverid='{{item.value[0].receiver_id}}'>
@@ -29,3 +33,4 @@
   </view>
 
 </scroll-view>
+</view>

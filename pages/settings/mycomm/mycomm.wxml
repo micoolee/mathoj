@@ -1,8 +1,10 @@
-<scroll-view class="container" >
+<view wx:if="{{loadok}}">
 <view wx:if="{{commentlistnull==0}}" class="question-link line-3 centertext">没有评论记录
 <button bindtap='tosolve'>去首页逛逛</button>
 </view>
 <view wx:else>
+<scroll-view class="container">
+
   <block wx:for="{{commentlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
     <view class="feed-item">
 
@@ -22,5 +24,7 @@
       </view>
     </view>
   </block>
-  </view>
+
 </scroll-view>
+  </view>
+</view>
