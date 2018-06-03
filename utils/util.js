@@ -192,6 +192,9 @@ function getlastedsolvedprob(that) {
         })
       }
 
+    },
+    complete:function(){
+      wx.hideNavigationBarLoading() //完成停止加载
     }
   })
 

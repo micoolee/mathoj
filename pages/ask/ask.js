@@ -8,13 +8,14 @@ Page({
   data: {
     inputnum:0,
     files: ["../../images/pic_160.png"],
-    gradearray: ['未选择', '二年级', '三年级', '四年级', '五年级', '六年级','初一'],
+    gradearray: ['未选择', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二','初三'],
 
     grade: '未选择',
     gradeindex: 0,
     easy: 'noeasy',
     rewardarray: ['未选择','2','3'],
     rewardindex:0,
+    reward:0,
     easyitems: [
       { name: 'difficult', value: '困难' },
       { name: 'easy', value: '简单', checked: 'true' },

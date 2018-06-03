@@ -32,7 +32,7 @@ Page({
 
     easyarray: ['不限','困难' , '简单'],
     rewardarray: ['不限', '2', '3'],
-    gradearray: ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一'],
+    gradearray: ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三'],
 
 
 
@@ -40,7 +40,7 @@ Page({
       {
         'text': '年级',
         'originalText': '不限',
-        'value': ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一'],
+        'value': ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三'],
         'active': false,
         'child': [
           { 'id': 0, 'text': '不限' },
@@ -50,6 +50,9 @@ Page({
           { 'id': 4, 'text': '五年级' },
           { 'id': 5, 'text': '六年级' }, 
           { 'id': 6, 'text': '初一' },
+          { 'id': 7, 'text': '初二' },
+          { 'id': 8, 'text': '初三' },
+
         ],
         'type': 0
       },
@@ -185,8 +188,17 @@ Page({
         if(filterproblist.length == 0){
           that.setData({
             bottom:true,
-            problemlist:filterproblist
           })
+          var a = that.data.activeIndex
+          if (a == '0') {
+            that.setData({
+              problemlist: filterproblist
+            })
+          } else {
+            that.setData({
+              solvedproblemlist: filterproblist
+            })
+          }
         }else{
           var tmp = JSON.stringify(filterproblist).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
           filterproblist = JSON.parse(tmp)

@@ -21,12 +21,12 @@
 			"current": -1,
 			"list": []
 		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
 		"game": {
 			"currentL": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
 			"list": []
 		},
 		"miniprogram": {
@@ -42,6 +42,18 @@
 					"id": -1,
 					"name": "getuserinfo",
 					"pathName": "pages/getuserinfo/getuserinfo",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "question",
+					"pathName": "pages/question/question",
+					"query": "problemid=57"
+				},
+				{
+					"id": -1,
+					"name": "howtouse",
+					"pathName": "pages/howtouse/howtouse",
 					"query": ""
 				}
 			]

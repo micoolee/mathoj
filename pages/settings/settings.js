@@ -7,6 +7,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     hide: false,
     animationData: null,
+    coin:null
   },
   onLoad: function (options) {
 
