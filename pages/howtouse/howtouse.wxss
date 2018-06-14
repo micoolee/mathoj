@@ -2,3 +2,4 @@
 view{
   padding: 10rpx 0 10rpx 0
 }
+@import "/wxParse/wxParse.wxss";

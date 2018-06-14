@@ -7,11 +7,10 @@
 </view>
  
 <view wx:if="{{hidewarning}}">
-<view wx:if="{{canIUse}}">
-  <button  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
-  <text>为方便展示你的头像和昵称，请点击授权登录</text>
-</view>
-
+  <view wx:if="{{canIUse}}">
+    <button  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+    <text>为方便展示你的头像和昵称，请点击授权登录</text>
+  </view>
   <view wx:else>请升级微信版本</view>
 </view>
 <view wx:else style='text-align:center'>

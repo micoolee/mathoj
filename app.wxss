@@ -12,6 +12,14 @@
   background: #F0F4F3;
 }
 
+.line-username {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  overflow: hidden;
+}
+
 .container.withtab{
   margin: 105rpx 0 0 0;
   /*top: 105rpx;*/

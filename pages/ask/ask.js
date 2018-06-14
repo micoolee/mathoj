@@ -8,12 +8,12 @@ Page({
   data: {
     inputnum:0,
     files: ["../../images/pic_160.png"],
-    gradearray: ['未选择', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二','初三'],
+    gradearray: ['未选择', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二','初三','高一','高二','高三'],
 
     grade: '未选择',
     gradeindex: 0,
     easy: 'noeasy',
-    rewardarray: ['未选择','2','3'],
+    rewardarray: ['未选择', '1个奥币','2个奥币','3个奥币'],
     rewardindex:0,
     reward:0,
     easyitems: [
@@ -103,7 +103,7 @@ Page({
         title: '提示',
         content: '请选择年级',
       })
-    }else if(this.data.reward != '2' && this.data.reward !='3'){
+    } else if (this.data.reward == '未选择' || this.data.reward ==''){
       wx.showModal({
         title: '提示',
         content: '请选择奖励值',

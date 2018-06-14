@@ -31,8 +31,8 @@ Page({
     q:null,
 
     easyarray: ['不限','困难' , '简单'],
-    rewardarray: ['不限', '2', '3'],
-    gradearray: ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三'],
+    rewardarray: ['不限', '1个奥币', '2个奥币', '3个奥币'],
+    gradearray: ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三','高一','高二','高三'],
 
 
 
@@ -40,7 +40,7 @@ Page({
       {
         'text': '年级',
         'originalText': '不限',
-        'value': ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三'],
+        'value': ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
         'active': false,
         'child': [
           { 'id': 0, 'text': '不限' },
@@ -52,6 +52,9 @@ Page({
           { 'id': 6, 'text': '初一' },
           { 'id': 7, 'text': '初二' },
           { 'id': 8, 'text': '初三' },
+          { 'id': 9, 'text': '高一' },
+          { 'id': 10, 'text': '高二' },
+          { 'id': 11, 'text': '高三' },
 
         ],
         'type': 0
@@ -70,12 +73,13 @@ Page({
       {
         'text': '奖励',
         'originalText': '不限',
-        'value': ['不限', '2', '3'],
+        'value': ['不限', '1个奥币', '2个奥币', '3个奥币'],
         'active': false,
         'child': [
           { 'id': 0, 'text': '不限' },
-          { 'id': 1, 'text': '2' },
-          { 'id': 2, 'text': '3' }
+          { 'id': 1, 'text': '1个奥币' },
+          { 'id': 2, 'text': '2个奥币' },
+          { 'id': 3, 'text': '3个奥币' }
         ], 'type': 0
       }
     ],
@@ -105,7 +109,7 @@ Page({
     if (res.from === 'button') {
       var problemid = res.target.dataset.problemid
       return {
-        title: '[有人@我]智力题，考考你~',
+        title: '[有人@我]发现一道智力题，考考你~',
 
         path: '/pages/question/question?problemid=' + problemid,
 
@@ -119,7 +123,7 @@ Page({
 
     }
     return {
-      title: '[有人@我]智力题，考考你~',
+      title: '[有人@我]发现一道智力题，考考你~',
       path: '/pages/tosolve/tosolve',
       success: function (res) {
       },
@@ -134,10 +138,6 @@ Page({
 
 
   filterTab: function (e) {
-
-
-
-
 
     var that = this;
     var data = JSON.parse(JSON.stringify(that.data.tabTxt));
@@ -200,7 +200,7 @@ Page({
             })
           }
         }else{
-          var tmp = JSON.stringify(filterproblist).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
+          var tmp = JSON.stringify(filterproblist).replace(/asktime":"([\d- :]*)(.*avatar":")(.*?avatar\/)([\w-_]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $4 + $5 }; return ('asktime":"' + tmpstr + $2 + cachedoor) })
           filterproblist = JSON.parse(tmp)
           var a = that.data.activeIndex
           if (a == '0') {

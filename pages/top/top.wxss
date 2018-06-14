@@ -10,6 +10,14 @@
   margin-top:10px
 }
 
+.test{
+  width:150px;
+       overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
  .icon{
   position:absolute;
 right:30rpx;
@@ -23,6 +31,6 @@ view{
 }
 
 .centertext{
-  margin-top:60rpx;
+  margin-top:70rpx;
   font-size: 16px
 }

@@ -142,13 +142,13 @@
       </view>
 
       <view wx:if="{{recordstate}}">
-        <button bindtap='start' type='primary' data-id='{{recordstate}}'>点我录音</button>
+        <button bindtap='start' type='primary' data-id='{{recordstate}}'>开始录音</button>
       </view>
       <view wx:else>
-        <button bindtap='start' type='primary' data-id='{{recordstate}}'>点我结束</button>
+        <button bindtap='start' type='primary' data-id='{{recordstate}}'>结束录音</button>
       </view>
 
-      <button bindtap='submitanswer'>上传</button>
+      <button bindtap='submitanswer'>提交回答</button>
     </view>
   </view>
 </view>
@@ -175,7 +175,6 @@
           <view class="comments-data">{{item.times}}</view>
         </view>
       </view>
-      <!-- <view wx:else></view> -->
 
     </view>
   </view>
@@ -193,11 +192,6 @@
     <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' />
 
     <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />
-
-    <!-- <button  class="extra-share-img" bindtap='comment'>comment</button> -->
-    <!-- <button  open-type='share' bindtap='clickshare' data-problemid='{{problemid}}'>share</button> -->
-
-
 
   </view>
   <input class="extra-input" style='width:60%;' type="text" maxlength="255" placeholder="你有什么看法?" bindinput='writecomment' placeholder-class="extra-placeholder" />
