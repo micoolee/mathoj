@@ -220,8 +220,8 @@
 
 
  .mediumavatar {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   padding: 10px 5px 0px 10px;
 } 
 
@@ -287,4 +287,14 @@ text-align:center;
   color: #585858;
   font-family: Songti SC;
   font-size: 32rpx;
+}
+
+.reddot {
+float: right;
+  width: 30rpx;
+  height: 30rpx;
+  
+margin-top:10rpx;
+margin-right:10rpx;
+
 }

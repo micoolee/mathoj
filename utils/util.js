@@ -269,7 +269,7 @@ function pulldown(that) {
 }
 
 
-function pulldownmessage(that) {
+function pulldownmessage(that=null) {
   wx.request({
     url: app.globalData.baseurl + '/getmessages/',
     data: { 'userid': app.globalData.openid, 'statuscode': '1' },
@@ -278,12 +278,13 @@ function pulldownmessage(that) {
 
 
       var tmp = JSON.stringify(messagelist).replace(/senderavatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('senderavatar":"' + cacheavatar + $4+tmpstr) })
-
-
       messagelist = JSON.parse(tmp)
-
       app.globalData.messagelist = messagelist
-
+      if(that != null){
+        that.setData({
+          showdetail: true
+        })
+      }
     },
     complete: function () {
       wx.hideNavigationBarLoading() //完成停止加载

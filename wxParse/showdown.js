@@ -1750,6 +1750,7 @@ showdown.subParser('hashHTMLBlocks', function (text, options, globals) {
       'hgroup',
       'output',
       'video',
+      'txv-video',
       'p'
     ],
     repFunc = function (wholeMatch, match, left, right) {

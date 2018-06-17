@@ -56,9 +56,16 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "奥数加油站",
+    "navigationBarTitleText": "数学辅导君",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
-  "debug": false
+  "debug": false,
+  "plugins": {
+    "tencentvideo": {
+      "version": "1.0.3",
+      "provider": "wxa75efa648b60994b"
+    }
+  }
+
 }

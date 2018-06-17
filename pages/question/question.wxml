@@ -21,7 +21,7 @@
           展开图片
         </view>
 
-        <image src='{{problempic}}' hidden='{{! showpic}}' bindtap='viewimage' data-image='{{problempic}}'></image>
+        <image src='{{problempic}}' mode='widthFix' hidden='{{! showpic}}' bindtap='viewimage' data-image='{{problempic}}'></image>
 
       </view>
 
@@ -150,6 +150,11 @@
 
       <button bindtap='submitanswer'>提交回答</button>
     </view>
+
+
+
+
+
   </view>
 </view>
 
@@ -194,7 +199,7 @@
     <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />
 
   </view>
-  <input class="extra-input" style='width:60%;' type="text" maxlength="255" placeholder="你有什么看法?" bindinput='writecomment' placeholder-class="extra-placeholder" />
+  <input class="extra-input" style='width:60%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" />
 </view>
 
 

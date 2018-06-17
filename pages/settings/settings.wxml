@@ -31,6 +31,7 @@
     <view bindtap="clearcache" class="weui-footer__link">清除缓存</view>
                <view bindtap="showHelp" class="weui-footer__link">软件说明</view>
                 <view bindtap="showFeedback" class="weui-footer__link">用户反馈</view>
+                <view bindtap="toface" class="weui-footer__link">jump</view>
     </view>
     <view class="weui-footer__text">微信添加731854938成为答主</view>
   </view>

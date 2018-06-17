@@ -1,20 +1,12 @@
 /* pages/inform/inform.wxss */
 
 .tongzhiliebiao {
-  font-size: 15px;
+  font-size: 20px;
   width: 100%;
   background: #fff;
 }
 
-.reddot {
-float: right;
-  width: 30rpx;
-  height: 30rpx;
-  
-margin-top:10rpx;
-margin-right:10rpx;
 
-}
 
 .textcenter {
   text-align: center;

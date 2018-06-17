@@ -55,6 +55,12 @@
 					"name": "howtouse",
 					"pathName": "pages/howtouse/howtouse",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "multi",
+					"pathName": "pages/multi/multi",
+					"query": ""
 				}
 			]
 		}

@@ -1,6 +1,7 @@
 const app =getApp()
 
 const WxParse = require('../../wxParse/wxParse.js');
+const txvContext = requirePlugin("tencentvideo");
 
 if(app.globalData.baseurl ){
   var baseurl = 'https://mathoj.liyuanye.club'
@@ -19,7 +20,8 @@ Page({
     author:null,
     authorid:null,
     loadok:false,
-    storyid:null
+    storyid:null,
+    videos: []
   },
 
   /**
@@ -28,7 +30,7 @@ Page({
   onLoad: function (options) {
     var that = this;
 
-
+    
 
     WxParse.emojisInit('[]', "/wxParse/emojis/", {
       "00": "00.gif",
@@ -73,11 +75,15 @@ Page({
           content:res.data.content,
           loadok:true
         })
+        var title = that.data.title;
         var article = that.data.content;
-
+        WxParse.wxParse('title', 'html', title, that, 5);
         WxParse.wxParse('article', 'html', article, that, 5);
+        let player4 = txvContext.getTxvContext('txv4');
       }
     })
+
+    
   },
   /**
    * 用户点击右上角分享

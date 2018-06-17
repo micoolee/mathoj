@@ -1,36 +1,44 @@
-<view wx:if="{{messagelistnull==0}}" class="question-link line-3 centertext">暂时没有对话
-<button bindtap='torank'>去请教优秀答主</button>
+<view wx:if="{{showdetail}}">
+<view wx:if="{{messagelistnull==0}}" class="question-link line-3 centertext">
+  暂时没有对话
+  <button bindtap='torank'>去请教优秀答主</button>
 </view>
 <view wx:else>
-<scroll-view class="container chat" wx:for="{{messagelist}}" wx:key="{{item.sessionid}}">
+  <scroll-view class="container chat" wx:for="{{messagelist}}" wx:key="{{item.sessionid}}">
 
-  <view class="chat-item flex-wrp" bindtap='enterconversation'  bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-sessionindex='{{index}}' data-sessionid = '{{item.sessionid}}' data-receiverid='{{item.value[0].receiver_id}}'>
-    <view class="avatar flex-item">
-
-      <view wx:if="{{item.value[0].ziji=='1'}}">
-        <image src="{{item.value[0].receiveravatar}}"></image>
-      </view>
-      <view wx:else>
-        <image src="{{item.value[0].senderavatar}}"></image>
-      </view>
-
-
-    </view>
-    <view class="chat-content flex-item">
-      <view class="chat-source">
-        <view wx:if="{{item.value[0].ziji=='1'}}">
-
-          <text class="chatmate">{{item.value[0].receivername}}</text>
+    <view class="chat-item flex-wrp" bindtap='enterconversation' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongpress='bindLongTap' data-sessionindex='{{index}}' data-sessionid='{{item.sessionid}}' data-receiverid='{{item.value[0].receiver_id}}'>
+      <view class="avatar flex-item">
+        <view wx:if="{{item.value[0].ziji=='1'}}" data-avatar='{{item.value[0].receiveravatar}}' data-sourcerid='{{item.sourcer_id}}' data-username='{{item.value[0].receivername}}' data-openid='{{item.openid}}'>
+          <image src="{{item.value[0].receiveravatar}}"></image>
         </view>
-        <view wx:else>
-          <text class="chatmate">{{item.value[0].sendername}}</text>
+        <view wx:else data-avatar='{{item.value[0].senderavatar}}' data-sourcerid='{{item.sourcer_id}}' data-username='{{item.value[0].sendername}}' data-openid='{{item.openid}}'>
+          <image src="{{item.value[0].senderavatar}}"></image>
         </view>
-
-        <text class="lasttime">{{item.value[0].submittime}}</text>
       </view>
-      <text class="chat-txt line-reback" data-sessionid='{{item.sessionid}}'>{{item.value[0].message}}</text>
-    </view>
-  </view>
 
-</scroll-view>
+      <view class="chat-content flex-item">
+        <view class="chat-source">
+          <view wx:if="{{item.value[0].ziji=='1'}}">
+
+            <text class="chatmate">{{item.value[0].receivername}}</text>
+            <text class="lasttime">{{item.value[0].submittime}}</text>
+            <image wx:if="{{  item.value[0].readedsign=='0'}}" class='reddot' style='width:30rpx;height:30rpx' src='../../../images/reddot.png'></image>
+          </view>
+          <view wx:else>
+            <text class="chatmate">{{item.value[0].sendername}}</text>
+            <text class="lasttime">{{item.value[0].submittime}}</text>
+            <image wx:if="{{  item.value[0].readedsign=='0'}}" class='reddot' style='width:30rpx;height:30rpx' src='../../../images/reddot.png'></image>
+          </view>
+
+
+
+        </view>
+        <text class="chat-txt line-reback" data-sessionid='{{item.sessionid}}'>{{item.value[0].message}}</text>
+
+      </view>
+    </view>
+
+  </scroll-view>
+</view>
+
 </view>

@@ -122,6 +122,27 @@ Page({
     }
   },
 
+  showmore: function (e) {
+    var sourcerid = e.currentTarget.dataset.sourcerid
+    var avatar = e.currentTarget.dataset.avatar
+    var username = e.currentTarget.dataset.username
+    var openid = e.currentTarget.dataset.openid
+
+    if (openid == app.globalData.openid) {
+      wx.switchTab({
+        url: '../settings/settings',
+      })
+    } else {
+      wx.navigateTo({
+        url: `../settings/profile/profile?userid=${sourcerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+      })
+    }
+
+
+  },
+
+
+
   showsixin: function () {
     this.setData({
       sixindoor: false
@@ -144,11 +165,25 @@ Page({
 
 
   onShow: function () {
+    var that = this
     if (app.globalData.sixindoor) {
       this.setData({
         sixindoor: true
       })
     }
+    wx.request({
+      url: app.globalData.baseurl+'/checksixin/',
+      data:{'userid':app.globalData.openid},
+      success:function(res){
+        if(res.data=='1'){
+          that.setData({
+            sixindoor:true
+          })
+        }
+      }
+    })
+
+
     app.globalData.reddot = false
     this.setData({
       informlist: app.globalData.informlist

@@ -627,62 +627,6 @@ var page = Page({
         getproblem(that)
       }
 
-
-
-      // wx.request({
-      //   url: app.globalData.baseurl + '/questiondetail/',
-      //   method: 'post',
-      //   data: { 'problemid': that.data.problemid, 'userid': app.globalData.openid },
-      //   header: {
-      //     "Content-Type": "application/x-www-form-urlencoded"
-      //   },
-      //   success: function (res) {
-      //     var subscribe_door = JSON.parse(res.data.subscribe_door)
-      //     var answerdoor = res.data.solved
-
-      //     that.setData({
-            
-      //       answerdoor: answerdoor
-      //     })
-      //     if (subscribe_door[0].i == 1) {
-      //       that.setData({
-      //         subscribe_door: false
-      //       })
-      //     } else {
-      //       that.setData({
-      //         subscribe_door: true
-      //       })
-      //     }
-      //     var problem = JSON.parse(res.data.problem)
-      //     var answer = JSON.parse(res.data.answer)
-      //     var hidehuida = JSON.parse(res.data.answerbox)
-      //     var comments = JSON.parse(res.data.comment)
-      //     var lookedtime = JSON.parse(res.data.lookedtime)
-      //     var hidecaina = JSON.parse(res.data.hidecaina)
-
-      //     var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-
-      //     var answertmp = JSON.stringify(answer).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-      //     answer = JSON.parse(answertmp)
-      //     comments = JSON.parse(tmp)
-
-      //     that.setData({
-      //       grade: problem[0].fields.grade,
-      //       desc: problem[0].fields.description,
-      //       problempic: problem[0].fields.problempic,
-      //       answer: answer,
-      //       hidehuida: hidehuida,
-      //       comments: comments,
-      //       lookedtime: lookedtime,
-      //       hidecaina: hidecaina,
-      //       showdetail: true,
-      //     })
-      //     app.globalData.answerlist = that
-      //   },
-      //   fail: function () {
-      //   }
-      // })
-
   },
 
   onReady: function () {

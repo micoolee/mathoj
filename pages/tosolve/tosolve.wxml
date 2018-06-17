@@ -57,6 +57,9 @@
             <view wx:if='{{havenewbtn}}' class='weui-cells weui-cells_after-title' style='text-align:center;'>
               <text>有人提问啦~</text>
             </view>
+
+
+
             <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
               <view class="feed-item">
                 <view class="feed-source">
@@ -69,9 +72,9 @@
 
                   <text style='margin-right:auto'>{{item.asktime}}</text>
 
-                  <view wx:if="{{shareindexlist[idx]=='1'}}">
+                  <!-- <view wx:if="{{shareindexlist[idx]=='1'}}">
                     <button open-type='share' bindtap='clickshare' data-problemid='{{item.problemid}}'>share</button>
-                  </view>
+                  </view> -->
 
                 </view>
                 <view class="feed-content">
@@ -82,9 +85,9 @@
                     </a>
                   </view>
                   <view class="answer-body">
-                    <view bindtap="bindItemTap">
+                    <!-- <view>
                       <text class="answer-txt" aid="{{answer_id}}">{{item.fields.solver}}</text>
-                    </view>
+                    </view> -->
                     <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
 
                       <view class="comments ">
@@ -159,10 +162,10 @@
                   </a>
                 </view>
                 <view class="answer-body">
-                  <view bindtap="bindItemTap">
+                  <view>
                     <text class="answer-txt" aid="{{answer_id}}">{{item.solver}}</text>
                   </view>
-                  <view class="answer-actions" bindtap="bindItemTap">
+                  <view class="answer-actions">
                     <view class="comments dot">
                       <view wx:if="{{item.comment_num != null}}">
                         {{item.comment_num}}评论
@@ -181,9 +184,9 @@
               </view>
             </view>
           </block>
-        <view class="weui-loadmore weui-loadmore_line" wx:if="{{bottom}}">
-          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
-        </view>
+          <view class="weui-loadmore weui-loadmore_line" wx:if="{{bottom}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
+          </view>
         </view>
 
       </view>
