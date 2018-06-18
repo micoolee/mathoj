@@ -456,7 +456,14 @@ Page({
    */
   onReachBottom: function () {
     var that = this
-    util.get10prob(that)
+
+
+    if (that.data.activeIndex == '0') {
+      util.get10prob(that)
+    } else if (that.data.activeIndex == '1') {
+      util.get10solvedprob(that)
+    }
+    
   },
 
 })

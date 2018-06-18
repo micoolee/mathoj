@@ -21,6 +21,7 @@ Page({
 
 
   onLoad: function () {
+    wx.showNavigationBarLoading()
     var that = this
     util.pulldownmessage(that)
   },

@@ -15,10 +15,9 @@
   </view>
   <!-- </scroll-view> -->
 
-  <view class="page ">
+  <view class="page">
     <view>
-
-      <swiper class="swiper-boxs " indicator-dots autoplay duration="500">
+      <swiper class="swiper-boxs " indicator-dots autoplay duration="300" interval='8000'>
         <swiper-item wx:for="{{topStories}}" wx:key="{{index}}">
           <navigator url="../storydetail/storydetail?id={{topStories[index].storyid}}">
             <image mode="aspectFill" class="swiper-boxs-img" src="{{topStories[index].storypic}}" />
@@ -69,27 +68,16 @@
                     </view>
                     <text>{{item.username}}     </text>
                   </a>
-
                   <text style='margin-right:auto'>{{item.asktime}}</text>
-
-                  <!-- <view wx:if="{{shareindexlist[idx]=='1'}}">
-                    <button open-type='share' bindtap='clickshare' data-problemid='{{item.problemid}}'>share</button>
-                  </view> -->
-
                 </view>
                 <view class="feed-content">
                   <view class="question" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap">
                     <a class="question-link">
                       <text class='line-3'>{{item.description}}</text>
-
                     </a>
                   </view>
                   <view class="answer-body">
-                    <!-- <view>
-                      <text class="answer-txt" aid="{{answer_id}}">{{item.fields.solver}}</text>
-                    </view> -->
                     <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
-
                       <view class="comments ">
                         <view wx:if="{{item.solution_num != null}}">
                           {{item.solution_num}} 回答

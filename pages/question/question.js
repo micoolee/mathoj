@@ -603,6 +603,7 @@ var page = Page({
   },
 
   onLoad: function (option) {
+      wx.showNavigationBarLoading()
       this.setData({
         problemid: option.problemid
       })
@@ -711,6 +712,9 @@ function getproblem(that){
       app.globalData.answerlist = that
     },
     fail: function () {
+    },
+    complete:function(){
+      wx.hideNavigationBarLoading()
     }
   })
 }

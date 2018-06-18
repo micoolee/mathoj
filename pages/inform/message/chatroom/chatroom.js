@@ -35,7 +35,8 @@ sendmsg:function(e){
           })
         }else{
           that.setData({
-            chatmsg:''
+            chatmsg:'',
+            text:null
           })
         }
       }
