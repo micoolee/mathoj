@@ -2,7 +2,6 @@
   "pages": [
     "pages/tosolve/tosolve",
     "pages/settings/settings",
-    "pages/solved/solved",
     "pages/settings/feedback/feedback",
     "pages/settings/help/help",
     "pages/settings/myques/myques",

@@ -35,6 +35,55 @@ Page({
     gradearray: ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三','高一','高二','高三'],
 
 
+    tabTxtbak: [
+      {
+        'text': '年级',
+        'originalText': '不限',
+        'value': ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
+        'active': false,
+        'child': [
+          { 'id': 0, 'text': '不限' },
+          { 'id': 1, 'text': '二年级' },
+          { 'id': 2, 'text': '三年级' },
+          { 'id': 3, 'text': '四年级' },
+          { 'id': 4, 'text': '五年级' },
+          { 'id': 5, 'text': '六年级' },
+          { 'id': 6, 'text': '初一' },
+          { 'id': 7, 'text': '初二' },
+          { 'id': 8, 'text': '初三' },
+          { 'id': 9, 'text': '高一' },
+          { 'id': 10, 'text': '高二' },
+          { 'id': 11, 'text': '高三' },
+
+        ],
+        'type': 0
+      },
+      {
+        'text': '难易',
+        'originalText': '不限',
+        'active': false,
+        'value': ['不限', '简单', '困难'],
+        'child': [
+          { 'id': 0, 'text': '不限' },
+          { 'id': 1, 'text': '简单' },
+          { 'id': 2, 'text': '困难' }
+        ], 'type': 0
+      },
+      {
+        'text': '奖励',
+        'originalText': '不限',
+        'value': ['不限', '1个奥币', '2个奥币', '3个奥币'],
+        'active': false,
+        'child': [
+          { 'id': 0, 'text': '不限' },
+          { 'id': 1, 'text': '1个奥币' },
+          { 'id': 2, 'text': '2个奥币' },
+          { 'id': 3, 'text': '3个奥币' }
+        ], 'type': 0
+      }
+    ],
+
+
 
     tabTxt: [
       {
@@ -98,6 +147,8 @@ Page({
       }
     }
     this.setData({
+      searchParam:[],
+      tabTxt:that.data.tabTxtbak,
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
@@ -137,22 +188,22 @@ Page({
 
 
 
-  filterTab: function (e) {
+  // filterTab: function (e) {
 
-    var that = this;
-    var data = JSON.parse(JSON.stringify(that.data.tabTxt));
-    var index = e.currentTarget.dataset.index;
-    var newTabTxt = data.map(function (e) {
-      e.active = false;
-      return e;
-    });
-    newTabTxt[index].active = !that.data.tabTxt[index].active;
-    this.setData({
-      tabTxt: data
-    })
+  //   var that = this;
+  //   var data = JSON.parse(JSON.stringify(that.data.tabTxt));
+  //   var index = e.currentTarget.dataset.index;
+  //   var newTabTxt = data.map(function (e) {
+  //     e.active = false;
+  //     return e;
+  //   });
+  //   newTabTxt[index].active = !that.data.tabTxt[index].active;
+  //   this.setData({
+  //     tabTxt: data
+  //   })
     
 
-  },
+  // },
 
 
 
@@ -170,11 +221,11 @@ Page({
     if (paramindex == '0') {
         data[index].text = that.data.tabTxt[index].originalText;
         delete that.data.searchParam[index];
-      }else{
+    }else{
       data[index].text = data[index]['child'][paramindex].text
       that.data.searchParam[index] = data[index]['child'][paramindex].text
 
-      }
+    }
 
     that.setData({
       tabTxt: data
@@ -457,11 +508,12 @@ Page({
   onReachBottom: function () {
     var that = this
 
-
+    var searchparam = JSON.stringify(that.data.searchParam)
+    console.log(searchparam)
     if (that.data.activeIndex == '0') {
-      util.get10prob(that)
+      util.get10prob(that,searchparam)
     } else if (that.data.activeIndex == '1') {
-      util.get10solvedprob(that)
+      util.get10solvedprob(that,searchparam)
     }
     
   },

@@ -315,12 +315,12 @@ function pulldownchatroom(that) {
 
 
 
-function get10prob(that) {
+function get10prob(that,searchparam) {
   var that = that
   // var getDateDiff = this.getDateDiff
   wx.request({
     url: app.globalData.baseurl + '/get10prob/',
-    data: { 'formerid': that.data.formerid },
+    data: { 'formerid': that.data.formerid, 'filter': searchparam, 'solved':'0'},
     success: function (res) {
       var problemlist = JSON.parse(res.data.json_data)
 
@@ -360,11 +360,11 @@ function get10prob(that) {
 
 
 
-function get10solvedprob(that) {
+function get10solvedprob(that,searchparam) {
   var that = that
   wx.request({
-    url: app.globalData.baseurl + '/get10solvedprob/',
-    data: { 'formerid': that.data.formerid },
+    url: app.globalData.baseurl + '/get10prob/',
+    data: { 'formerid': that.data.formerid, 'filter': searchparam, 'solved': '1'},
     success: function (res) {
       var problemlist = JSON.parse(res.data.json_data)
       
