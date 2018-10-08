@@ -13,8 +13,6 @@
       提问
     </view>
   </view>
-  <!-- </scroll-view> -->
-
   <view class="page">
     <view>
       <swiper class="swiper-boxs " indicator-dots autoplay duration="300" interval='8000'>

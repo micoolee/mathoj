@@ -185,28 +185,6 @@ Page({
 
 
 
-
-
-
-  // filterTab: function (e) {
-
-  //   var that = this;
-  //   var data = JSON.parse(JSON.stringify(that.data.tabTxt));
-  //   var index = e.currentTarget.dataset.index;
-  //   var newTabTxt = data.map(function (e) {
-  //     e.active = false;
-  //     return e;
-  //   });
-  //   newTabTxt[index].active = !that.data.tabTxt[index].active;
-  //   this.setData({
-  //     tabTxt: data
-  //   })
-    
-
-  // },
-
-
-
   filterTabChild: function (e) {
 
     this.setData({

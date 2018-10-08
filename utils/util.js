@@ -71,7 +71,7 @@ function getDateDiff(dateStr) {
   } else if (d_days >= 3 && d_days < 30) {
     return M + '-' + D + ' ' + H + ':' + m;
   } else if (d_days >= 30) {
-    return Y + '-' + M + '-' + D + '&nbsp;' + H + ':' + m;
+    return Y + '-' + M + '-' + D + ' ' + H + ':' + m;
   }
 }
 

@@ -194,9 +194,6 @@ App({
     that.globalData.screenwidth = a.windowWidth
     that.globalData.screenheight = a.windowHeight
     console.log(that.globalData.screenwidth)
-
-
-
   },
 
 })
