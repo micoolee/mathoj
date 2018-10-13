@@ -10,7 +10,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "1.9.94",
 	"appid": "wx993a1ac03be0e1f4",
-	"projectname": "mathoj_xianshang_hitfaceappid",
+	"projectname": "mathoj",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -61,6 +61,11 @@
 					"name": "multi",
 					"pathName": "pages/multi/multi",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "获取信息",
+					"pathName": "pages/getuserinfo/getuserinfo"
 				}
 			]
 		}
