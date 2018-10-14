@@ -18,7 +18,7 @@ Page({
 
     if (app.globalData.reddot) {
       wx.showTabBarRedDot({
-        index: 2,
+        index: 3,
       })
     }
   },

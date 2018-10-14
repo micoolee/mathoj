@@ -294,6 +294,7 @@ function pulldownmessage(that=null) {
 
 
 
+
 function pulldownchatroom(that) {
   wx.request({
     url: app.globalData.baseurl + '/getmessages/',

@@ -457,7 +457,7 @@ Page({
   onShow: function () {
     if (app.globalData.reddot) {
       wx.showTabBarRedDot({
-        index: 2,
+        index: 3,
       })
     }
     var that = this
@@ -529,6 +529,13 @@ function uploadavatar() {
     header: {
       "Content-Type": "application/x-www-form-urlencoded"
     },
+    success:function(res){
+      console.log(res)
+    },
+    fail:function(e){
+      console.log(e)
+    }
+    
   })
 
 

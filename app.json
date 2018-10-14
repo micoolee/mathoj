@@ -20,7 +20,8 @@
     "pages/invite/invite",
     "pages/top/top",
     "pages/getuserinfo/getuserinfo",
-    "pages/howtouse/howtouse"
+    "pages/howtouse/howtouse",
+    "pages/map/map"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",
@@ -31,6 +32,12 @@
         "text": "首页",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-selected.png"
+      },
+      {
+        "pagePath": "pages/map/map",
+        "text": "附近",
+        "iconPath": "images/map.png",
+        "selectedIconPath": "images/map-selected.png"
       },
       {
         "pagePath": "pages/top/top",
@@ -66,5 +73,4 @@
       "provider": "wxa75efa648b60994b"
     }
   }
-
 }

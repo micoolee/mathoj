@@ -149,7 +149,7 @@ App({
             wx.vibrateShort({
             })
             wx.showTabBarRedDot({
-              index: 2,
+              index: 3,
             })
           }
         }
