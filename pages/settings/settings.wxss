@@ -8,7 +8,14 @@
 }
 
 
-
+button::after {
+  border: none;
+}
+button {
+  background-color: #fff;
+  line-height: 1.8;
+  padding-left: 0px;
+}
 
 .list-item {
   display: flex;

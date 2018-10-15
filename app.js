@@ -5,6 +5,9 @@ App({
     userInfo: null,
     baseurl: 'https://mathoj.liyuanye.club',
     wssurl: 'wss://mathoj.liyuanye.club/testwss/',
+    // baseurl: 'http://192.168.8.191:8095',
+    // wssurl: 'ws://192.168.8.191:8095/testwss/',
+
     openid: null,
     audiopath: null,
     audiopathbak: null,

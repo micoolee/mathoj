@@ -7,6 +7,7 @@
 
 
 
+
   <view class="list-container">
     <view class="list-item" bindtap="showMyQues">
       <text class="list-name">我的提问</text>
@@ -28,10 +29,15 @@
   <view class="weui-footer weui-footer_fixed-bottom">
     <view class="weui-footer__links">
     
-    <view bindtap="clearcache" class="weui-footer__link">清除缓存</view>
-               <view bindtap="showHelp" class="weui-footer__link">软件说明</view>
-                <view bindtap="showFeedback" class="weui-footer__link">用户反馈</view>
-                <view bindtap="toface" class="weui-footer__link">小游戏</view>
+      <view bindtap="clearcache" class="weui-footer__link">清除缓存</view>
+      <view bindtap="showHelp" class="weui-footer__link">软件说明</view>
+      <view bindtap="showFeedback" class="weui-footer__link">用户反馈</view>
+      <view bindtap="toface" class="weui-footer__link">小游戏</view>
+      <view class="weui-footer__link">
+        <form  report-submit='true' bindsubmit='formsubmit'>
+          <button form-type='submit' class="weui-footer__link">接收通知</button>
+        </form>
+      </view>
     </view>
     <view class="weui-footer__text">微信添加731854938成为答主</view>
   </view>

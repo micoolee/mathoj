@@ -132,6 +132,18 @@ clearcache:function(){
         console.log(res)
       }
     })
+  },
+  //尝试获取formid
+  formsubmit: function (e) {
+    console.log(e)
+    wx.request({
+      url: app.globalData.baseurl + '/pushformid/',
+      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
+      success: function (res) {
+        console.log(res)
+      }
+
+    })
   }
 
 })
