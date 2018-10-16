@@ -1,1 +1,14 @@
-<map id="map"  scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}"   bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height: 580px;"></map>
+
+<view style='height:30px' style='display:flex;margin:auto;justify-content:center;width:100%'>
+        <form  report-submit='true' bindsubmit='formsubmitteacher' style='margin:0 6px 0 5px'>
+          <button form-type='submit' type='default'>显示老师</button>
+        </form>
+        <form  report-submit='true' bindsubmit='formsubmitstudent'style='margin:0 6px 0 5px'>
+          <button form-type='submit' type='default'>显示学生</button>
+        </form>
+</view>
+
+<map id="map"  scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}'   bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height: {{height}}px;">
+
+
+</map>

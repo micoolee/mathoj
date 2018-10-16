@@ -7,6 +7,7 @@ Page({
     longitude:0,
     centerX:0,
     centerY:0,
+    height:app.globalData.screenheight,
     scale:5,
     markers: [],
     controls: [{
@@ -19,7 +20,29 @@ Page({
         height: 40
       },
       clickable: true
-    }],
+    },
+    {
+        id: 2,
+        iconPath: '/images/plus.png',
+        position: {
+          left: 0,
+          top: 60,
+          width: 40,
+          height: 40
+        },
+        clickable: true
+      }, {
+        id: 3,
+        iconPath: '/images/minus.png',
+        position: {
+          left: 0,
+          top: 110,
+          width: 40,
+          height: 40
+        },
+        clickable: true
+      }    
+    ],
     mapCtx:null
   },
   onReady: function (e) {
@@ -27,6 +50,7 @@ Page({
     this.mapCtx = wx.createMapContext('map')
   },
   onLoad: function () {
+    console.log(app.globalData.screenheight)
     console.log('地图定位！')
     var that = this
     wx.getLocation({
@@ -50,9 +74,6 @@ Page({
           this.enterLocation()
         }
     });
-
-
-
   },
   regionchange(e) {
     console.log(e.type)
@@ -60,9 +81,24 @@ Page({
   markertap(e) {
     console.log(e)
   },
+
   controltap(e) {
+    var that = this
     console.log(e.controlId)
-    this.moveToLocation()
+    if (e.controlId === 1){
+      this.moveToLocation()
+    }
+    else if (e.controlId === 2) {
+      that.setData({
+        scale: ++that.data.scale
+      })
+    } else {
+      that.setData({
+        scale: --that.data.scale
+      })
+    }
+
+
   },
   getSchoolMarkers(){
     var that = this
@@ -99,32 +135,18 @@ Page({
       name: point.username || '',
       latitude: latitude,
       longitude: longitude,
-      width: 50,
-      height: 50
+      width: 40,
+      height: 40,
+      callout: {
+        content: point.username,
+        color: '#000000',
+        fontSize: 15,
+        borderRadius: 10,
+        display: 'ALWAYS',
+      }
     };
     return marker;
   },
-
-  //   {
-  //   "id": 1,
-  //   "name": "北京大学",
-  //   "longitude": "116.316176",
-  //   "latitude": "39.997741"
-  // },
-
-
-  // getCenterLocation: function () {
-  //   this.mapCtx.getCenterLocation({
-  //     success: function (res) {
-  //         console.log(res.longitude)
-  //         console.log(res.latitude)
-  //       this.setData({
-  //         latitude:res.latitude,
-  //         longitude:res.longitude
-  //       })
-  //     }
-  //   })
-  // },
 
   moveToLocation: function () {
     this.mapCtx.moveToLocation()
@@ -143,7 +165,6 @@ Page({
       url: app.globalData.baseurl + '/adduserlocation/',
       data: { 'openid': app.globalData.openid, 'latitude': that.data.latitude, 'longitude': that.data.longitude },
       success: function (res) {
-        console.log("add ok")
         console.log(res)
       }
     })
@@ -161,8 +182,50 @@ Page({
         return avatarimgcache
       }
     })
+  },
+  //尝试获取formid
+  formsubmitteacher: function (e) {
+    var that = this
+    console.log(e)
+    wx.request({
+      url: app.globalData.baseurl + '/pushformid/',
+      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid, 'getrole':'teacher'},
+      success: function (res) {
+        console.log(res)
+        let markers = [];
+        for (let item of res.data) {
+          let marker = that.createMarker(item);
+          markers.push(marker)
+        }
+        console.log(markers)
+        that.setData({
+          markers: markers
+        })
+      }
+
+    })
+  },
+
+  formsubmitstudent: function (e) {
+    var that = this
+    console.log(e)
+    wx.request({
+      url: app.globalData.baseurl + '/pushformid/',
+      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid,'getrole':'student'},
+      success: function (res) {
+        console.log(res)
+        let markers = [];
+        for (let item of res.data) {
+          let marker = that.createMarker(item);
+          markers.push(marker)
+        }
+        console.log(markers)
+        that.setData({
+          markers: markers
+        })
+      }
+
+    })
   }
-
-
 
 })
