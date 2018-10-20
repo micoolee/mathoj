@@ -7,6 +7,8 @@ App({
     wssurl: 'wss://mathoj.liyuanye.club/testwss/',
     // baseurl: 'http://192.168.43.49:8094',
     // wssurl: 'ws://192.168.43.49:8094/testwss/',
+    // baseurl: 'http://192.168.8.191:8094',
+    // wssurl: 'ws://192.168.8.191:8094/testwss/',
 
     openid: null,
     audiopath: null,

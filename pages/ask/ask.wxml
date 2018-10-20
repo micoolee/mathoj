@@ -42,14 +42,6 @@
   </view>
 
 
-
-
-
-
-
-
-
-
   <view class="weui-cells  page__bd_spacing">
 
     <picker bindchange="bindPickerChange" name="gradeindex" value="{{gradeindex}}" range="{{gradearray}}">
@@ -70,28 +62,13 @@
     </picker>
   </view>
 
-
-
-  <!-- <view class="weui-cells  page__bd_spacing">
-    <picker bindchange="bindPickerChangefirstclass" name="firstclassindex" value="{{firstclassindex}}" range="{{firstclassarray}}">
-      <view class="weui-uploader__title" style='text-align:center;padding:5px'>
-        yijifenlei:{{firstclassarray[firstclassindex]}}
-      </view>
-    </picker>
-
-    <picker bindchange="bindPickerChangesecondclass" name="secondclassindex" value="{{secondclassindex}}" range="{{secondclassarray}}">
-      <view class="weui-uploader__title" style='text-align:center;padding:5px'>
-        erjifenlei:{{secondclassarray[secondclassindex]}}
-      </view>
-    </picker>
-  </view> -->
-
-
-
-
   <view class="weui-btn-area">
-    <button class="weui-btn" type="primary" bindtap="ask" data-statu="close" disabled='{{disabledbut}}'>确定</button>
-    <button class="weui-btn" type="default" bindtap="cancelask" data-statu="close">取消</button>
+        <form  report-submit='true' bindsubmit='ask'>
+          <button class="weui-btn" form-type='submit' class="weui-btn" type="primary" data-statu="close" disabled='{{disabledbut}}'>确定</button>
+        </form>
+        <form  report-submit='true' bindsubmit='cancelask'>
+          <button class="weui-btn" form-type='submit' class="weui-btn" type="default" data-statu="close">取消</button>
+        </form>
   </view>
 
 </view>

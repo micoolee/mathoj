@@ -91,8 +91,14 @@ Page({
     })
   },
 
-  ask: function () {
+  ask: function (e) {
     var that = this
+    wx.request({
+      url: app.globalData.baseurl + '/pushformid/',
+      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid, 'getrole': 'null' },
+      success: function (res) {
+      }
+    })
     if (this.data.desc==''){
       wx.showModal({
         title: '提示',
@@ -187,7 +193,14 @@ Page({
     })
   },
 
-  cancelask: function () {
+  cancelask: function (e) {
+    var that = this
+    wx.request({
+      url: app.globalData.baseurl + '/pushformid/',
+      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid, 'getrole': 'null' },
+      success: function (res) {
+      }
+    })
     app.globalData.placeholder = ''
     wx.navigateBack({
       
