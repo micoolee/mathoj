@@ -7,8 +7,8 @@ Page({
     hidewarning:true
   },
   bindGetUserInfo: function (e) {
-    console.log(e)
     if(e.detail.userInfo){
+      app.globalData.authorized = 'true'
       app.globalData.nickname = e.detail.userInfo.nickName
       app.globalData.avatar = e.detail.userInfo.avatarUrl
       wx.request({
@@ -19,14 +19,13 @@ Page({
           "Content-Type": "application/x-www-form-urlencoded"
         },
       })
+      app.globalData.fromgetuserinfo = true
       wx.navigateBack({
       })
     }
   },
 
   nobindGetUserInfo: function (e) {
-    console.log(e)
-    console.log(app)
     wx.navigateBack({
     })
   },

@@ -40,7 +40,7 @@
 
 
           <view class="cxj-menu">
-            <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}">
+            <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="this">
               <picker bindchange="filterTabChild" name="gradeindex" value="{{item.value}}" range="{{item.value}}" data-index='{{index}}'>
                 {{item.text}}
                 <image src="/images/arrow.png" class="cxj-icon"></image>
@@ -121,7 +121,7 @@
 
 
           <view class="cxj-menu">
-            <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}">
+            <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="this">
               <picker bindchange="filterTabChild" name="gradeindex" value="{{item.value}}" range="{{item.value}}" data-index='{{index}}'>
                 {{item.text}}
                 <image src="/images/arrow.png" class="cxj-icon"></image>
@@ -131,7 +131,7 @@
 
 
 
-          <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+          <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="this">
             <view class="feed-item">
               <view class="feed-source">
                 <a>

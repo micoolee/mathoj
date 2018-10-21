@@ -12,7 +12,6 @@
     "pages/storydetail/storydetail",
     "pages/settings/mycomm/mycomm",
     "pages/settings/profile/profile",
-    "pages/try/try",
     "pages/inform/message/message",
     "pages/inform/message/chatroom/chatroom",
     "pages/inform/inform",
@@ -69,7 +68,7 @@
   "debug": false,
   "plugins": {
     "tencentvideo": {
-      "version": "1.0.3",
+      "version": "1.2.0",
       "provider": "wxa75efa648b60994b"
     }
   }

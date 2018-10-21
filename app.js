@@ -9,7 +9,7 @@ App({
     // wssurl: 'ws://192.168.43.49:8094/testwss/',
     // baseurl: 'http://192.168.8.191:8094',
     // wssurl: 'ws://192.168.8.191:8094/testwss/',
-
+    mapCtx:null,
     openid: null,
     audiopath: null,
     audiopathbak: null,
@@ -32,7 +32,9 @@ App({
     placeholder: '',
     answerlist:[],
     nickname:'路人甲',
-    avatar:'stranger'
+    avatar:'stranger',
+    authorized:'false',
+    fromgetuserinfo:false
   },
 
   getlastedinform: function (informthat = null) {
@@ -183,7 +185,22 @@ App({
           url: this.globalData.baseurl + '/getopenid/',
           method: 'GET',
           success: function (res) {
+            var util = require('utils/util.js')
             that.globalData.openid = res.data.openid
+            
+
+            
+            // 在没有 open-type=getUserInfo 版本的兼容处理
+            wx.getUserInfo({
+              success: res => {
+                util.loading(that)
+                that.globalData.userInfo = res.userInfo
+                that.globalData.hasUserInfo = true
+                that.globalData.nickname = res.userInfo.nickName
+                that.globalData.avatar = res.userInfo.avatarUrl
+              }
+            })
+            
             if(res.data.punish =='1'){
               wx.redirectTo({
                 url: '/pages/getuserinfo/getuserinfo?status=1',
@@ -198,7 +215,6 @@ App({
     var a = wx.getSystemInfoSync()
     that.globalData.screenwidth = a.windowWidth
     that.globalData.screenheight = a.windowHeight
-    console.log(that.globalData.screenwidth)
   },
 
 })

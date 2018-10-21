@@ -10,6 +10,7 @@
       <button style='background-color:grey;margin-bottom:30rpx;margin-left:80rpx;margin-right:80rpx;' bindtap="nobindGetUserInfo">匿名看看</button>
       <view >
       <text style='font-size:15px;display:flex;justify-content:center;'>*为方便展示你的头像和昵称，请点击授权登录</text>
+      <text style='font-size:25px;display:flex;justify-content:center;'>欢迎提问哦～</text>
       </view>
       
     </view>

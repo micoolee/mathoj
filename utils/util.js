@@ -409,6 +409,71 @@ function checksolvedlasted(that) {
 
 }
 
+function checkuserinfo(that){
+  wx.getSetting({
+    success: function (res) {
+      if (res.authSetting['scope.userInfo']) {
+        wx.getUserInfo({
+          success: res => {
+            app.globalData.userInfo = res.userInfo
+            app.globalData.avatar = res.userInfo.avatarUrl
+            app.globalData.nickname = res.userInfo.nickName
+            
+            if (app.userInfoReadyCallback) {
+              app.userInfoReadyCallback(res)
+            }
+            loading(that)
+          }, complete: function (res) {
+
+          }
+        })
+      }
+      else {
+        wx.navigateTo({
+          url: '/pages/getuserinfo/getuserinfo',
+        })
+      }
+    },
+    fail: function (res) {
+    }
+  })
+}
+
+function loading(that) {
+  if (app.globalData.avatar != 'stranger') {
+    wx.showToast({
+      title: '加载完成~',
+    })
+    uploadavatar()
+    pulldownmessage()
+    app.getlastedinform()
+
+    that.onShow()
+  } else {
+    setTimeout(function () {
+      wx.showLoading({
+        title: '加载中',
+      })
+      loading(that)
+    }, 100)
+  }
+}
+
+function uploadavatar() {
+  wx.request({
+    url: app.globalData.baseurl + '/uploadavatar/',
+    method: 'post',
+    data: { 'userid': app.globalData.openid, 'username': app.globalData.nickname, 'avatar': app.globalData.avatar },
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    success: function (res) {
+    },
+    fail: function (e) {
+    }
+
+  })
+}
 
 
 
@@ -425,5 +490,7 @@ module.exports = {
   pulldownmessage: pulldownmessage,
   pulldownchatroom: pulldownchatroom,
   getDateDiff: getDateDiff,
-  get_or_create_avatar: get_or_create_avatar
+  get_or_create_avatar: get_or_create_avatar,
+  checkuserinfo: checkuserinfo,
+  loading: loading
 }

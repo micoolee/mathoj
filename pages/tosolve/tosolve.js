@@ -272,14 +272,16 @@ Page({
     }
   },
 
-
-
-
-
   showquestool: function () {
-    wx.navigateTo({
-      url: '../ask/ask',
-    })
+    var that = this
+    if (app.globalData.authorized == 'true'||app.globalData.avatar!='stranger') {
+      wx.navigateTo({
+        url: '../ask/ask',
+      })
+    }else{
+      util.checkuserinfo(that)
+    }
+
   },
 
   totop: function () {
@@ -328,72 +330,7 @@ Page({
   },
   onLoad: function () {
     var that = this
-    wx.getSetting({
-      success: function (res) {
-        if (res.authSetting['scope.userInfo']) {
-          wx.getUserInfo({
-            success: res => {
-              app.globalData.userInfo = res.userInfo
-              app.globalData.avatar = res.userInfo.avatarUrl
-              app.globalData.nickname = res.userInfo.nickName
-              loading(that)
-              if (app.userInfoReadyCallback) {
-                app.userInfoReadyCallback(res)
-              }
-            }, complete: function (res) {
-
-            }
-          })
-        }
-        else {
-          wx.navigateTo({
-            url: '/pages/getuserinfo/getuserinfo',
-          })
-        }
-      },
-      fail: function (res) {
-      }
-    })
-
-
-
-
-
-
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-        var that = this
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-
-
-
-
-
-
+    app.globalData.mapCtx = wx.createMapContext('map')
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -499,44 +436,7 @@ Page({
 })
 
 
-function loading(that) {
-  if (app.globalData.openid) {
-    wx.showToast({
-      title: '加载完成~',
-    })
-    uploadavatar()
-    util.pulldownmessage()
-    app.getlastedinform()
-
-    that.onShow()
-  } else {
-    setTimeout(function () {
-      wx.showLoading({
-        title: '加载中',
-      })
-      loading(that)
-    }, 100)
-  }
-}
 
 
 
-function uploadavatar() {
-  wx.request({
-    url: app.globalData.baseurl + '/uploadavatar/',
-    method: 'post',
-    data: { 'userid': app.globalData.openid, 'username': app.globalData.nickname, 'avatar': app.globalData.avatar },
-    header: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    success:function(res){
-      console.log(res)
-    },
-    fail:function(e){
-      console.log(e)
-    }
-    
-  })
 
-
-}

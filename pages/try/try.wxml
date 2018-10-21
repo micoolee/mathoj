@@ -1,7 +1,0 @@
-<!--pages/try/try.wxml-->
-<text>pages/try/try.wxml</text>
-<input bindinput='inputfunc' ></input>
-<button bindtap='send'>send</button>
-
-
-<button bindtap='close'>close</button>

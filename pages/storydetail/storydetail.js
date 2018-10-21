@@ -104,22 +104,4 @@ Page({
     }
   },
 
-  // toface: function () {
-  //   wx.navigateToMiniProgram({
-  //     appId: 'wxaf249daf125d652c',
-  //     path: 'pages/index/index',
-  //     extraData: {
-  //       foo: 'bar'
-  //     },
-  //     envVersion: 'develop',
-  //     success(res) {
-  //       // 打开成功
-  //       console.log(res)
-  //     },
-  //     fail(res) {
-  //       console.log(res)
-  //     }
-  //   })
-  // }
-
 })
