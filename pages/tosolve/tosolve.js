@@ -32,28 +32,29 @@ Page({
 
     easyarray: ['不限','困难' , '简单'],
     rewardarray: ['不限', '1个奥币', '2个奥币', '3个奥币'],
-    gradearray: ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三','高一','高二','高三'],
+    gradearray: ['不限', '一年级' ,'二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三','高一','高二','高三'],
 
 
     tabTxtbak: [
       {
         'text': '年级',
         'originalText': '不限',
-        'value': ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
+        'value': ['不限', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
         'active': false,
         'child': [
           { 'id': 0, 'text': '不限' },
-          { 'id': 1, 'text': '二年级' },
-          { 'id': 2, 'text': '三年级' },
-          { 'id': 3, 'text': '四年级' },
-          { 'id': 4, 'text': '五年级' },
-          { 'id': 5, 'text': '六年级' },
-          { 'id': 6, 'text': '初一' },
-          { 'id': 7, 'text': '初二' },
-          { 'id': 8, 'text': '初三' },
-          { 'id': 9, 'text': '高一' },
-          { 'id': 10, 'text': '高二' },
-          { 'id': 11, 'text': '高三' },
+          { 'id': 1, 'text': '一年级' },
+          { 'id': 2, 'text': '二年级' },
+          { 'id': 3, 'text': '三年级' },
+          { 'id': 4, 'text': '四年级' },
+          { 'id': 5, 'text': '五年级' },
+          { 'id': 6, 'text': '六年级' },
+          { 'id': 7, 'text': '初一' },
+          { 'id': 8, 'text': '初二' },
+          { 'id': 9, 'text': '初三' },
+          { 'id': 10, 'text': '高一' },
+          { 'id': 11, 'text': '高二' },
+          { 'id': 12, 'text': '高三' },
 
         ],
         'type': 0
@@ -89,21 +90,22 @@ Page({
       {
         'text': '年级',
         'originalText': '不限',
-        'value': ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
+        'value': ['不限', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
         'active': false,
         'child': [
           { 'id': 0, 'text': '不限' },
-          { 'id': 1, 'text': '二年级' },
-          { 'id': 2, 'text': '三年级' },
-          { 'id': 3, 'text': '四年级' },
-          { 'id': 4, 'text': '五年级' },
-          { 'id': 5, 'text': '六年级' }, 
-          { 'id': 6, 'text': '初一' },
-          { 'id': 7, 'text': '初二' },
-          { 'id': 8, 'text': '初三' },
-          { 'id': 9, 'text': '高一' },
-          { 'id': 10, 'text': '高二' },
-          { 'id': 11, 'text': '高三' },
+          { 'id': 1, 'text': '一年级' },
+          { 'id': 2, 'text': '二年级' },
+          { 'id': 3, 'text': '三年级' },
+          { 'id': 4, 'text': '四年级' },
+          { 'id': 5, 'text': '五年级' },
+          { 'id': 6, 'text': '六年级' },
+          { 'id': 7, 'text': '初一' },
+          { 'id': 8, 'text': '初二' },
+          { 'id': 9, 'text': '初三' },
+          { 'id': 10, 'text': '高一' },
+          { 'id': 11, 'text': '高二' },
+          { 'id': 12, 'text': '高三' },
 
         ],
         'type': 0
@@ -210,22 +212,23 @@ Page({
     })
     var searchparam = that.data.searchParam
     wx.request({
-      url: app.globalData.baseurl + '/getfilterprob/',
-      data: { 'filter': JSON.stringify(searchparam), 'solved': that.data.activeIndex },
+      url: app.globalData.baseurl + '/problem/getten',
+      data: { 'formerid': JSON.stringify(that.data.formerid), 'filter': searchparam, 'solved': JSON.stringify(that.data.activeIndex)},
+      method:'POST',
       success: function (res) {
-        var filterproblist = JSON.parse(res.data.json_data)
-        if(filterproblist.length == 0){
+        var filterproblist = res.data.problem
+        if(filterproblist == undefined){
           that.setData({
             bottom:true,
           })
           var a = that.data.activeIndex
           if (a == '0') {
             that.setData({
-              problemlist: filterproblist
+              problemlist: []
             })
           } else {
             that.setData({
-              solvedproblemlist: filterproblist
+              solvedproblemlist: []
             })
           }
         }else{
@@ -403,6 +406,30 @@ Page({
 
   },
 
+  onReady:function(){
+    wx.showModal({
+      title: '设置',
+      content: '设置我的年级',
+      success:function(res){
+        if(res.confirm){
+          wx.showActionSheet({
+            itemList: ['一年级', '二年级', '三年级', '四年级', '五年级', '六年级'],
+            success:function(res){
+              wx.request({
+                url: app.globalData.baseurl+"setgrade",
+                data:{"grade":res.tapIndex,"userid":app.globalData.openid},
+                success:function(res){
+                  console.log(res)
+              }
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
+
 
 
 
@@ -410,7 +437,7 @@ Page({
     var that = this
     wx.showNavigationBarLoading() //在标题栏中显示加载
     if (that.data.activeIndex == '0') {
-      util.pulldown(that)
+      util.getlastedprob(that)
     } else if (that.data.activeIndex == '1') {
       util.getlastedsolvedprob(that)
     }
@@ -423,7 +450,7 @@ Page({
   onReachBottom: function () {
     var that = this
 
-    var searchparam = JSON.stringify(that.data.searchParam)
+    var searchparam = that.data.searchParam
     console.log(searchparam)
     if (that.data.activeIndex == '0') {
       util.get10prob(that,searchparam)

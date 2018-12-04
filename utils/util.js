@@ -103,12 +103,7 @@ function get_or_create_avatar(userid,that='null'){
           return avatarimgcache
         }
       })
-    
-
-
-
   }
-
 }
 
 
@@ -118,13 +113,14 @@ var getDateDiff = getDateDiff
 var get_or_create_avatar = get_or_create_avatar
 
 function getlastedprob(that) {
-
-
-
   wx.request({
-    url: app.globalData.baseurl + '/',
+    url: app.globalData.baseurl + '/problem/getten',
+    data: { 'formerid': JSON.stringify(that.data.formerid), 'filter': [], 'solved': '0' },
+    method:"POST",
     success: function (res) {
-      var problemlist = JSON.parse(res.data.json_data)
+      console.log(res)
+      var problemlist = res.data.problem
+      console.log(problemlist)
       
       var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w-_]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('asktime":"' + tmpstr + $2 + cacheavatar) })
 
@@ -139,7 +135,8 @@ function getlastedprob(that) {
         shareindexlist: arr
       })
 
-      var topstories = JSON.parse(res.data.topstory)
+      var topstories = res.data.topstory
+      console.log(topstories)
       that.setData({
         lastedid: problemlist[0].problemid,
         problemlist: problemlist,
@@ -171,11 +168,13 @@ function checklasted(that) {
 
 function getlastedsolvedprob(that) {
   wx.request({
-    url: app.globalData.baseurl + '/solved/',
+    url: app.globalData.baseurl + '/problem/getten',
+    data: { 'formerid': JSON.stringify(that.data.formerid), 'filter': [], 'solved': '1' },
+    method: "POST",
     success: function (res) {
       if (res.data.length > 0) {
 
-        var solvedproblemlist = res.data
+        var solvedproblemlist = res.data.problem
 
 
         var tmp = JSON.stringify(solvedproblemlist).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?solvedtime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
@@ -240,7 +239,7 @@ function solvedpulldown(that) {
 function pulldown(that) {
 
   wx.request({
-    url: app.globalData.baseurl + '/',
+    url: app.globalData.baseurl + '/problem/getten',
 
     success: function (res) {
       var problemlist = JSON.parse(res.data.json_data)
@@ -271,8 +270,9 @@ function pulldown(that) {
 
 function pulldownmessage(that=null) {
   wx.request({
-    url: app.globalData.baseurl + '/getmessages/',
+    url: app.globalData.baseurl + '/message/getten',
     data: { 'userid': app.globalData.openid, 'statuscode': '1' },
+    method:"post",
     success: function (res) {
       var messagelist = res.data.json_data
 
@@ -316,19 +316,17 @@ function pulldownchatroom(that) {
 
 
 
-function get10prob(that,searchparam) {
+function get10prob(that,searchparam=[]) {
   var that = that
+  console.log(that.data.formerid)
   // var getDateDiff = this.getDateDiff
   wx.request({
-    url: app.globalData.baseurl + '/get10prob/',
-    data: { 'formerid': that.data.formerid, 'filter': searchparam, 'solved':'0'},
+    url: app.globalData.baseurl + '/problem/getten',
+    data: { 'formerid': JSON.stringify(that.data.formerid), 'filter': searchparam, 'solved':'0'},
+    method:'POST',
     success: function (res) {
-      var problemlist = JSON.parse(res.data.json_data)
-
-      var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('asktime":"' + tmpstr) })
-      problemlist = JSON.parse(tmp)
-
-      if (problemlist.length == 0) {
+      var problemlist = res.data.problem
+      if (problemlist == undefined) {
         that.setData({
           bottom:true
         })
@@ -336,6 +334,11 @@ function get10prob(that,searchparam) {
           title: '到底啦~',
         })
       } else {
+
+        var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('asktime":"' + tmpstr) })
+        problemlist = JSON.parse(tmp)
+
+
         app.globalData.globalproblemlist = app.globalData.globalproblemlist.concat(problemlist)
 
         var arr = new Array(app.globalData.globalproblemlist.length + 1);
@@ -361,11 +364,11 @@ function get10prob(that,searchparam) {
 
 
 
-function get10solvedprob(that,searchparam) {
+function get10solvedprob(that,searchparam=[]) {
   var that = that
   wx.request({
-    url: app.globalData.baseurl + '/get10prob/',
-    data: { 'formerid': that.data.formerid, 'filter': searchparam, 'solved': '1'},
+    url: app.globalData.baseurl + '/problem/getten',
+    data: { 'formerid': JSON.stringify(that.data.formerid), 'filter': searchparam, 'solved': '1'},
     success: function (res) {
       var problemlist = JSON.parse(res.data.json_data)
       
@@ -440,7 +443,8 @@ function checkuserinfo(that){
 }
 
 function loading(that) {
-  if (app.globalData.avatar != 'stranger') {
+  console.log(app.globalData.openid)
+  if (app.globalData.avatar != 'stranger' && app.globalData.openid != undefined) {
     wx.showToast({
       title: '加载完成~',
     })
@@ -461,12 +465,12 @@ function loading(that) {
 
 function uploadavatar() {
   wx.request({
-    url: app.globalData.baseurl + '/uploadavatar/',
+    url: app.globalData.baseurl + '/user/uploadavatar',
     method: 'post',
-    data: { 'userid': app.globalData.openid, 'username': app.globalData.nickname, 'avatar': app.globalData.avatar },
-    header: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
+    data: { 'openid': app.globalData.openid, 'username': app.globalData.nickname, 'avatar': app.globalData.avatar },
+    // header: {
+    //   "Content-Type": "application/json"
+    // },
     success: function (res) {
     },
     fail: function (e) {

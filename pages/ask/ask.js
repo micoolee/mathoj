@@ -94,9 +94,11 @@ Page({
   ask: function (e) {
     var that = this
     wx.request({
-      url: app.globalData.baseurl + '/pushformid/',
+      url: app.globalData.baseurl + '/user/pushformid',
       data: { 'formid': e.detail.formId, 'openid': app.globalData.openid, 'getrole': 'null' },
+      method:"post",
       success: function (res) {
+        console.log(res)
       }
     })
     if (this.data.desc==''){
@@ -123,12 +125,18 @@ Page({
         userid: app.globalData.openid,
         avatar: app.globalData.avatar,
       })
+      var formdata = { "openid": app.globalData.openid, "easy": that.data.easy, "grade": that.data.grade, "desc": that.data.desc,"reward":that.data.reward,"noimage":"false" }
+      var formdata1 = { "openid": app.globalData.openid, "easy": that.data.easy, "grade": that.data.grade, "desc": that.data.desc, "reward": that.data.reward,"noimage":"true" }
       if (this.data.img != 'noimage') {
         wx.uploadFile({
-          url: app.globalData.baseurl + '/ask/',
+          url: app.globalData.baseurl + '/problem/create',
+          method: 'post',
+          header: {
+            "content-type": "application/form-data"
+          },
           filePath: this.data.img,
           name: 'problempic',
-          formData: this.data,
+          formData: formdata,
           success: function () {
             that.setData({
               disabledbut:false
@@ -149,14 +157,16 @@ Page({
 
       }
       else {
+        
         wx.request({
-          url: app.globalData.baseurl + '/ask/',
-          method: 'post',
+          url: app.globalData.baseurl + '/problem/create',
+          method: 'POST',
           header: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "content-type": "application/json"
           },
-          data: this.data,
-          success: function () {
+          data: formdata1,
+          success: function (res) {
+            console.log(res)
             that.setData({
               disabledbut: false
             })
@@ -196,8 +206,9 @@ Page({
   cancelask: function (e) {
     var that = this
     wx.request({
-      url: app.globalData.baseurl + '/pushformid/',
+      url: app.globalData.baseurl + '/user/pushformid',
       data: { 'formid': e.detail.formId, 'openid': app.globalData.openid, 'getrole': 'null' },
+      method: "post",
       success: function (res) {
       }
     })

@@ -30,13 +30,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "story",
 					"pathName": "pages/storydetail/storydetail",
-					"query": "id=1"
+					"query": "id=2"
 				},
 				{
 					"id": -1,
@@ -65,7 +65,8 @@
 				{
 					"id": -1,
 					"name": "获取信息",
-					"pathName": "pages/getuserinfo/getuserinfo"
+					"pathName": "pages/getuserinfo/getuserinfo",
+					"query": ""
 				}
 			]
 		}

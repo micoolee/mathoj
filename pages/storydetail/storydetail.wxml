@@ -4,9 +4,9 @@
   <view class='uinn' style='width: 100%;'>
     <template is="wxParse" data="{{wxParseData:title.nodes}}" />
   </view>
-</view>
-<view>
- <txv-video vid="k068804getj" playerid="txv4"></txv-video> 
+</view> -->
+<!-- <view>
+ <txv-video vid="j0776h7t82z" playerid="txv4"></txv-video> 
 
 </view> -->
 <view class="container">

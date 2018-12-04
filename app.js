@@ -3,12 +3,18 @@
 App({
   globalData: {
     userInfo: null,
-    baseurl: 'https://mathoj.liyuanye.club',
-    wssurl: 'wss://mathoj.liyuanye.club/testwss/',
+    // baseurl: 'https://mathoj.liyuanye.club',
+    // wssurl: 'wss://mathoj.liyuanye.club/testwss/',
     // baseurl: 'http://192.168.43.49:8094',
     // wssurl: 'ws://192.168.43.49:8094/testwss/',
+    
     // baseurl: 'http://192.168.8.191:8094',
     // wssurl: 'ws://192.168.8.191:8094/testwss/',
+    baseurl: 'http://192.168.0.174:8080',
+    wssurl: 'ws://192.168.0.174:8080/testwss/',
+    // baseurl: 'http://192.168.102.171:8080',
+    // wssurl: 'ws://192.168.102.171:8080/testwss/',
+
     mapCtx:null,
     openid: null,
     audiopath: null,
@@ -44,8 +50,9 @@ App({
     var get_or_create_avatar = util.get_or_create_avatar
 
     wx.request({
-      url: this.globalData.baseurl + '/getlastedinform/',
+      url: this.globalData.baseurl + '/message/getlastedinform',
       data: { 'userid': this.globalData.openid },
+      method:'POST',
       success: function (res) {
         var informlist = JSON.parse(res.data.json_data)
         var tmp = JSON.stringify(informlist).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) {  var tmpstr = getDateDiff($5);  var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar + $4 + tmpstr) })
@@ -182,10 +189,11 @@ App({
       success: res => {
         wx.request({
           data: { js_code: res.code },
-          url: this.globalData.baseurl + '/getopenid/',
-          method: 'GET',
+          url: this.globalData.baseurl + '/user/getopenid',
+          method: 'post',
           success: function (res) {
             var util = require('utils/util.js')
+            console.log(res)
             that.globalData.openid = res.data.openid
             
 
@@ -206,7 +214,7 @@ App({
                 url: '/pages/getuserinfo/getuserinfo?status=1',
               })
             }
-            that.connect()
+            // that.connect()
           },
         })
       }
