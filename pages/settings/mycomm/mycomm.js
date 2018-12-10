@@ -24,15 +24,13 @@ Page({
   onLoad: function (options) {
     var that = this
     wx.request({
-      url: app.globalData.baseurl + '/mycomm/',
+      url: app.globalData.baseurl + '/problem/getmycomment',
       method: 'post',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      data: { 'userid': app.globalData.openid },
+
+      data: { 'openid': app.globalData.openid },
       success: function (res) {
         that.setData({
-          commentlist: res.data,
+          commentlist: res.data.mycomment,
           commentlistnull:res.data.length,
           loadok:true
         })

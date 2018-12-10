@@ -6,9 +6,9 @@ Page({
   data: {
     focus: false,
     inputValue: '',
-    messagelist: app.globalData.messagelist,
+    sessionlist: app.globalData.sessionlist,
     messagethat: null,
-    messagelistnull: 0,
+    sessionlistnull: 0,
     showdetail:false
   },
 
@@ -21,9 +21,7 @@ Page({
 
 
   onLoad: function () {
-    wx.showNavigationBarLoading()
-    var that = this
-    util.pulldownmessage(that)
+
   },
 
   bindTouchStart: function (e) {
@@ -32,12 +30,7 @@ Page({
   bindTouchEnd: function (e) {
     this.endTime = e.timeStamp;
   },
-
-
-
-
   bindLongTap: function (e) {
-
     Array.prototype.del = function (index) {
       if (isNaN(index) || index >= this.length) {
         return false;
@@ -63,8 +56,9 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.request({
-            url: app.globalData.baseurl + '/deleteconversation/',
-            data: { 'sessionid': sessionid, 'userid': app.globalData.openid },
+            url: app.globalData.baseurl + '/message/deletesession',
+            method:'POST',
+            data: { 'sessionid': sessionid, 'openid': app.globalData.openid },
             success: function () {
               app.globalData.messagelist.del(index)
               that.setData({
@@ -73,9 +67,6 @@ Page({
               wx.showToast({
                 title: '删除成功',
               })
-              // that.onLoad()
-
-
             }
           })
 
@@ -112,29 +103,34 @@ Page({
     var that = this
     if (this.endTime - this.startTime < 350) {
       var sessionindex = e.currentTarget.dataset.sessionindex
-      var msg = JSON.stringify(this.data.messagelist[sessionindex])
-      if (this.data.messagelist[sessionindex].value[0]['ziji'] == '0') {
-        var receiverid = this.data.messagelist[sessionindex].value[0]['sender_id']
-        var userid = this.data.messagelist[sessionindex].value[0]['receiver_id']
+
+      var sign = this.data.sessionlist[sessionindex].sixin[0]
+
+      app.globalData.sessionindex = sessionindex
+      if (sign['ziji'] == '2') {
+        app.globalData.receiverid = sign['sender']
 
       }
       else {
-        var receiverid = this.data.messagelist[sessionindex].value[0]['receiver_id']
-        var userid = this.data.messagelist[sessionindex].value[0]['sender_id']
+        app.globalData.receiverid = sign['receiver']
       }
-      app.globalData.conversationdetaillist = this.data.messagelist[sessionindex]
-      app.globalData.receiverid = receiverid
+    
+      
 
       wx.navigateTo({
-        url: `../message/chatroom/chatroom?messagelist=111&receiverid= ${receiverid}&sessionindex=${sessionindex}`,
+        url: `../message/chat/chat?sessionlist=111&sessionindex=${sessionindex}`,
       })
-
+      console.log(that.data.sessionlist[sessionindex].sessionid)
       wx.request({
-        url: app.globalData.baseurl+'/updatesixintoread/',
-        data: { "user_id": userid, "sessionid": that.data.messagelist[sessionindex].value[0]['sessionid']}
+        url: app.globalData.baseurl+'/message/readsession',
+        method:'POST',
+        data: {"session": that.data.sessionlist[sessionindex].sessionid},
+        success:function(e){
+          console.log(e)
+        }
       })
 
-      app.globalData.messagelist[sessionindex].value[0].readedsign='1'
+      that.data.sessionlist[sessionindex].sixin[0].readed='1'
 
 
     }
@@ -150,12 +146,13 @@ Page({
   },
 
   onShow: function () {
+    wx.showNavigationBarLoading()
+    var that = this
+    util.getsessions(that)
+
+    console.log(app.globalData.sessionlist)
     app.globalData.reddot = false
-    app.globalData.messagethat = this
-    this.setData({
-      messagelist: app.globalData.messagelist,
-      messagelistnull: app.globalData.messagelist.length
-    })
+
 
   },
   onUnload: function () {

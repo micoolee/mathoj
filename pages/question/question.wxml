@@ -164,20 +164,20 @@
     <text class="comments-title">最新评论</text>
 
     <view wx:if="{{comments[0]!='notnull'}}">
-      <view class="comments-list" wx:for="{{comments}}" wx:key="{{item.commentid}}" wx:for-item="item" wx:for-index="i">
+      <view class="comments-list" wx:for="{{comments}}" wx:key="{{item.Commentid}}" wx:for-item="item" wx:for-index="i">
         <view class="comments-avatar">
-          <image class="comments-avatar-img" src="{{item.avatar}}" />
+          <image class="comments-avatar-img" src="{{item.Avatar}}" />
         </view>
         <view class="comments-main">
           <view class="comments-author">
-            <view class="comments-zan">{{item.zan}}
-              <image src="../../images/zan.png" class="extra-share-img" bindtap='dianzan' data-id='{{item.commentid}}' data-problemid='{{problemid}}' data-commenter='{{item.commenter}}' />
+            <view class="comments-zan">{{item.Zanernum}}
+              <image src="../../images/zan.png" class="extra-share-img" bindtap='dianzan' data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' />
             </view>
-            <text>{{item.username}}</text>
-            <text> {{item.submittime}}</text>
+            <text>{{item.Nickname}}</text>
+            <text> {{item.Createtime}}</text>
           </view>
-          <view class="comments-content breakline-small">{{item.text}}</view>
-          <view class="comments-data">{{item.times}}</view>
+          <view class="comments-content breakline-small">{{item.Description}}</view>
+          <!-- <view class="comments-data">{{item.Zanernum}}</view> -->
         </view>
       </view>
 

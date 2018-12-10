@@ -12,9 +12,28 @@ Page({
   onLoad: function (options) {
 
   },
-  onShow:function(){
+  // onShow:function(){
+  //   var that = this
+  //   var a = util.get_or_create_avatar(app.globalData.openid,that)
+
+  //   if (app.globalData.reddot) {
+  //     wx.showTabBarRedDot({
+  //       index: 3,
+  //     })
+  //   }
+  // },
+  onShow: function () {
     var that = this
-    var a = util.get_or_create_avatar(app.globalData.openid,that)
+    util.get_or_create_avatar(app.globalData.openid, that)
+    wx.request({
+      url: app.globalData.baseurl + '/user/getformidnum',
+      data: { 'userid': app.globalData.selfuserid },
+      method: 'POST',
+      success: function (res) {
+        console.log(res.data)
+        setnum(that,res.data.count)
+      }
+    })
 
     if (app.globalData.reddot) {
       wx.showTabBarRedDot({
@@ -22,6 +41,7 @@ Page({
       })
     }
   },
+
 
   showMyProf:function(){
     wx.navigateTo({
@@ -37,6 +57,30 @@ Page({
       },
     })
   },
+  //设置年级
+  setGrade:function(){
+    wx.showModal({
+      title: '设置',
+      content: '设置我的年级',
+      success: function (res) {
+        if (res.confirm) {
+          wx.showActionSheet({
+            itemList: ['一年级', '二年级', '三年级', '四年级', '五年级', '六年级'],
+            success: function (res) {
+              wx.request({
+                url: app.globalData.baseurl + "/user/setgrade",
+                data: { "grade": res.tapIndex, "openid": app.globalData.openid },
+                success: function (res) {
+                  console.log(res)
+                }
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
 
   showMyBrow: function () {
     wx.navigateTo({
@@ -134,16 +178,38 @@ clearcache:function(){
     })
   },
   //尝试获取formid
-  formsubmit: function (e) {
-    console.log(e)
+  //尝试获取formid
+  pushformid: function (e) {
+    var that = this
     wx.request({
-      url: app.globalData.baseurl + '/pushformid/',
+      url: app.globalData.baseurl + '/user/pushformid',
+      method: 'POST',
       data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
       success: function (res) {
         console.log(res)
+        setnum(that, res.data.count)
       }
-
     })
-  }
+  },
 
 })
+
+function setnum(that,count){
+  if (!count) {
+    console.log(0)
+    that.setData({
+      remainformidnum: 0
+    })
+    return
+  }
+  switch (count) {
+    case count > 99:
+      that.setData({
+        remainformidnum: '>99'
+      })
+    default:
+      that.setData({
+        remainformidnum: count
+      })
+  }
+}

@@ -62,9 +62,9 @@
                 <view class="feed-source">
                   <a>
                     <view class="avatar">
-                      <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
+                      <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
                     </view>
-                    <text>{{item.username}}     </text>
+                    <text>{{item.nickname}}     </text>
                   </a>
                   <text style='margin-right:auto'>{{item.asktime}}</text>
                 </view>
@@ -77,8 +77,8 @@
                   <view class="answer-body">
                     <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
                       <view class="comments ">
-                        <view wx:if="{{item.solution_num != null}}">
-                          {{item.solution_num}} 回答
+                        <view wx:if="{{item.solutionnum != null}}">
+                          {{item.solutionnum}} 回答
                         </view>
                         <view wx:else>0 回答</view>
                       </view>
@@ -86,21 +86,21 @@
 
 
                       <view class="comments ">
-                        <view wx:if="{{item.comment_num != null}}">
-                          {{item.comment_num}} 评论
+                        <view wx:if="{{item.commentnum != null}}">
+                          {{item.commentnum}} 评论
                         </view>
                         <view wx:else>0 评论</view>
                       </view>
 
                       <view class="follow-it">
-                        <view wx:if="{{item.subscribe_num != null}}">
-                          {{item.subscribe_num}} 关注
+                        <view wx:if="{{item.subscribernum != null}}">
+                          {{item.subscribernum}} 关注
                         </view>
                         <view wx:else>0 关注</view>
                       </view>
                       <view class="comments ">
-                        <view wx:if="{{item.browse_num != null}}">
-                          {{item.browse_num}} 浏览
+                        <view wx:if="{{item.browsernum != null}}">
+                          {{item.browsernum}} 浏览
                         </view>
                         <view wx:else>0 浏览</view>
                       </view>
@@ -153,15 +153,15 @@
                   </view>
                   <view class="answer-actions">
                     <view class="comments dot">
-                      <view wx:if="{{item.comment_num != null}}">
-                        {{item.comment_num}}评论
+                      <view wx:if="{{item.commentnum != null}}">
+                        {{item.commentnum}}评论
                       </view>
                       <view wx:else>0 评论</view>
                     </view>
 
                     <view class="follow-it">
-                      <view wx:if="{{item.subscribe_num != null}}">
-                        {{item.subscribe_num}}关注
+                      <view wx:if="{{item.subscribernum != null}}">
+                        {{item.subscribernum}}关注
                       </view>
                       <view wx:else>0 关注</view>
                     </view>
@@ -174,9 +174,7 @@
             <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
           </view>
         </view>
-
       </view>
-
     </view>
   </view>
   <image src='../../images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>

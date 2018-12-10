@@ -89,7 +89,7 @@ function get_or_create_avatar(userid,that='null'){
    return avatarimgcache
   }else{
       wx.downloadFile({
-        url: app.globalData.baseurl + '/static/avatar/' + userid + '.jpg',
+        url: app.globalData.baseurl + '/swagger/avatar-' + userid + '.jpg',
         success: function (res) {
           var avatarimg = res.tempFilePath
           wx.setStorageSync(userid, avatarimg)
@@ -115,16 +115,12 @@ var get_or_create_avatar = get_or_create_avatar
 function getlastedprob(that) {
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
-    data: { 'formerid': JSON.stringify(that.data.formerid), 'filter': [], 'solved': '0' },
+    data: { 'formerid': that.data.formerid, 'filter': [], 'solved': '0' },
     method:"POST",
     success: function (res) {
       console.log(res)
+      wx.hideNavigationBarLoading()
       var problemlist = res.data.problem
-      console.log(problemlist)
-      
-      var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)(.*?avatar":")(.*?avatar\/)([\w-_]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $3 + $4 + $5 }; return ('asktime":"' + tmpstr + $2 + cacheavatar) })
-
-      problemlist = JSON.parse(tmp)
       app.globalData.globalproblemlist = problemlist
 
 
@@ -151,10 +147,11 @@ function getlastedprob(that) {
 function checklasted(that) {
   if (that.data.lastedid != null) {
     wx.request({
-      url: app.globalData.baseurl + '/checklasted/',
-      data: { 'lastedid': that.data.lastedid },
+      url: app.globalData.baseurl + '/problem/checklatest',
+      method:'POST',
+      data: { 'formerid': that.data.lastedid },
       success: function (res) {
-        if (res.data.code == 200) {
+        if (res.data.count) {
           that.setData({
             havenewbtn: true
           })
@@ -169,17 +166,16 @@ function checklasted(that) {
 function getlastedsolvedprob(that) {
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
-    data: { 'formerid': JSON.stringify(that.data.formerid), 'filter': [], 'solved': '1' },
+    data: { 'formerid': that.data.formerid, 'filter': [], 'solved': '1' },
     method: "POST",
     success: function (res) {
+      wx.hideNavigationBarLoading()
       if (res.data.length > 0) {
 
         var solvedproblemlist = res.data.problem
 
 
-        var tmp = JSON.stringify(solvedproblemlist).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?solvedtime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
 
-        solvedproblemlist = JSON.parse(tmp)
 
         that.setData({
           solvedproblemlist:solvedproblemlist,
@@ -244,8 +240,6 @@ function pulldown(that) {
     success: function (res) {
       var problemlist = JSON.parse(res.data.json_data)
 
-      var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('asktime":"' + tmpstr) })
-      problemlist = JSON.parse(tmp)
 
       that.setData({
         lastedid: problemlist[0].problemid,
@@ -271,20 +265,21 @@ function pulldown(that) {
 function pulldownmessage(that=null) {
   wx.request({
     url: app.globalData.baseurl + '/message/getten',
-    data: { 'userid': app.globalData.openid, 'statuscode': '1' },
+    data: { 'openid': app.globalData.openid, 'statuscode': '1' },
     method:"post",
     success: function (res) {
-      var messagelist = res.data.json_data
-
-
-      var tmp = JSON.stringify(messagelist).replace(/senderavatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('senderavatar":"' + cacheavatar + $4+tmpstr) })
-      messagelist = JSON.parse(tmp)
-      app.globalData.messagelist = messagelist
-      if(that != null){
-        that.setData({
-          showdetail: true
-        })
+      var messagelist = res.data.message
+      if (!messagelist){
+        console.log('messagelist is null')
+      }else{
+        app.globalData.messagelist = messagelist
+        if (that != null) {
+          that.setData({
+            showdetail: true
+          })
+        }
       }
+ 
     },
     complete: function () {
       wx.hideNavigationBarLoading() //完成停止加载
@@ -292,6 +287,33 @@ function pulldownmessage(that=null) {
   })
 }
 
+
+function getsessions(that = null) {
+  wx.request({
+    url: app.globalData.baseurl + '/message/getsessions',
+    data: { 'openid': app.globalData.openid },
+    method: "post",
+    success: function (res) {
+      var sessionlist = res.data.session
+      if (!sessionlist) {
+        console.log('sessionlist is null')
+      } else {
+        app.globalData.sessionlist = sessionlist
+        if (that != null) {
+          that.setData({
+            showdetail: true,
+            sessionlist: app.globalData.sessionlist,
+            sessionlistnull: app.globalData.sessionlist.length
+          })
+        }
+      }
+
+    },
+    complete: function () {
+      wx.hideNavigationBarLoading() //完成停止加载
+    }
+  })
+}
 
 
 
@@ -322,7 +344,7 @@ function get10prob(that,searchparam=[]) {
   // var getDateDiff = this.getDateDiff
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
-    data: { 'formerid': JSON.stringify(that.data.formerid), 'filter': searchparam, 'solved':'0'},
+    data: { 'formerid': that.data.formerid, 'filter': searchparam, 'solved':'0'},
     method:'POST',
     success: function (res) {
       var problemlist = res.data.problem
@@ -335,8 +357,7 @@ function get10prob(that,searchparam=[]) {
         })
       } else {
 
-        var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('asktime":"' + tmpstr) })
-        problemlist = JSON.parse(tmp)
+
 
 
         app.globalData.globalproblemlist = app.globalData.globalproblemlist.concat(problemlist)
@@ -368,12 +389,10 @@ function get10solvedprob(that,searchparam=[]) {
   var that = that
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
-    data: { 'formerid': JSON.stringify(that.data.formerid), 'filter': searchparam, 'solved': '1'},
+    data: { 'formerid': that.data.formerid, 'filter': searchparam, 'solved': '1'},
     success: function (res) {
       var problemlist = JSON.parse(res.data.json_data)
-      
-      var tmp = JSON.stringify(problemlist).replace(/asktime":"([\d- :]*)/g, function ($0, $1) { var tmpstr = getDateDiff($1); return ('asktime":"' + tmpstr) })
-      problemlist = JSON.parse(tmp)
+
 
       if (problemlist.length == 0) {
         wx.showToast({
@@ -450,7 +469,6 @@ function loading(that) {
     })
     uploadavatar()
     pulldownmessage()
-    app.getlastedinform()
 
     that.onShow()
   } else {
@@ -481,6 +499,8 @@ function uploadavatar() {
 
 
 
+
+
 module.exports = {
   get10prob: get10prob,
   getlastedprob: getlastedprob,
@@ -496,5 +516,6 @@ module.exports = {
   getDateDiff: getDateDiff,
   get_or_create_avatar: get_or_create_avatar,
   checkuserinfo: checkuserinfo,
-  loading: loading
+  loading: loading,
+  getsessions: getsessions,
 }

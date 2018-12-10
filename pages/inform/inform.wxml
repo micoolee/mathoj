@@ -3,23 +3,18 @@
               <image wx:if="{{sixindoor}}" class='reddot' src='../../images/reddot.png'></image>
     </view>
 
-
-
-
-
   <view class='weui-cells_after-title tongzhiliebiao'>通知列表:</view>
-  <scroll-view wx:for="{{informlist}}" wx:key="{{item.informid}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
-    <view class="segment" bindtap='showzandetail' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.informid}}' data-problemid='{{item.problem_id}}' data-informtype='{{item.informtype}}' data-sourcerid='{{item.sourcer_id}}' data-readed='{{item.readed}}' data-index='{{index}}'
-      data-avatar='{{item.avatar}}' data-openid='{{item.openid}}' data-username='{{item.username}}'>
-          <image class="mediumavatar" src="{{item.avatar}}" catchtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-sourcerid='{{item.sourcer_id}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
-          <text class='textstyle textcenter' style='margin-left:20rpx;'>{{item.submittime}}</text>
-          <image class='icon' src="{{icons[item.informtype]}}"></image>
+  <scroll-view wx:for="{{informlist}}" wx:key="{{item.messageid}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
+    <view class="segment" bindtap='showzandetail' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.messageid}}' data-problemid='{{item.problemid}}' data-informtype='{{item.messagetype}}' data-sourcerid='{{item.sourcerid}}' data-readed='{{item.readed}}' data-index='{{index}}'
+      data-avatar='{{item.senderavatar}}' data-openid='{{item.senderopenid}}' data-username='{{item.sendernickname}}'>
+          <image class="mediumavatar" src="{{item.senderavatar}}" catchtap='showmore' data-avatar='{{item.senderavatar}}' data-userid='{{item.askid}}' data-sourcerid='{{item.sourcerid}}' data-username='{{item.sendernickname}}' data-openid='{{item.senderopenid}}'></image>
+          <text class='textstyle textcenter' style='margin-left:20rpx;'>{{item.sendtime}}</text>
+          <image class='icon' src="{{icons[item.messagetype]}}"></image>
           <image wx:if="{{item.readed=='0'}}" class='reddot' src='../../images/reddot.png'></image>
 
 
       <view class="question textcenter" qid="{{question_id}}">
-        <text class='line-3'>{{item.username}}{{item.message}}</text>
-
+        <text class='line-3'>{{item.sendernickname}}{{item.content}}</text>
       </view>
 
     </view>

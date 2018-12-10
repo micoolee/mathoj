@@ -5,15 +5,10 @@ App({
     userInfo: null,
     // baseurl: 'https://mathoj.liyuanye.club',
     // wssurl: 'wss://mathoj.liyuanye.club/testwss/',
-    // baseurl: 'http://192.168.43.49:8094',
-    // wssurl: 'ws://192.168.43.49:8094/testwss/',
-    
-    // baseurl: 'http://192.168.8.191:8094',
-    // wssurl: 'ws://192.168.8.191:8094/testwss/',
+
     baseurl: 'http://192.168.0.174:8080',
-    wssurl: 'ws://192.168.0.174:8080/testwss/',
-    // baseurl: 'http://192.168.102.171:8080',
-    // wssurl: 'ws://192.168.102.171:8080/testwss/',
+    wssurl: 'ws://192.168.0.174:8080/user/createwss',
+
 
     mapCtx:null,
     openid: null,
@@ -23,7 +18,7 @@ App({
     screenwidth: 0,
     screenheight: 0,
     messagelist: [],
-    conversationdetaillist: [],
+    sessionlist:[],
     receiverid: null,
     closetime: 0,
     informthat: null,
@@ -40,7 +35,9 @@ App({
     nickname:'路人甲',
     avatar:'stranger',
     authorized:'false',
-    fromgetuserinfo:false
+    fromgetuserinfo:false,
+    selfuserid:null,
+    sessionindex:null,
   },
 
   getlastedinform: function (informthat = null) {
@@ -50,13 +47,12 @@ App({
     var get_or_create_avatar = util.get_or_create_avatar
 
     wx.request({
-      url: this.globalData.baseurl + '/message/getlastedinform',
-      data: { 'userid': this.globalData.openid },
+      url: this.globalData.baseurl + '/message/getten',
+      data: { 'openid': this.globalData.openid, 'statuscode': '1' },
       method:'POST',
       success: function (res) {
-        var informlist = JSON.parse(res.data.json_data)
-        var tmp = JSON.stringify(informlist).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) {  var tmpstr = getDateDiff($5);  var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar + $4 + tmpstr) })
-        informlist = JSON.parse(tmp)
+        console.log(res.data.message)
+        var informlist = res.data.message
         that.globalData.informlist = informlist
         if (that.globalData.informthat) {
           that.globalData.informthat.setData({
@@ -65,60 +61,39 @@ App({
         }
       }
     })
-
-
-
   },
 
   connect: function () {
 
     var that = this
     wx.connectSocket({
-      url: that.globalData.wssurl,
+      url: that.globalData.wssurl + '/'+that.globalData.selfuserid,
     })
 
     wx.onSocketOpen(function (res) {
       that.globalData.closetime = 0
       console.log('socket connect')
       wx.sendSocketMessage({
-        data: JSON.stringify({ 'userid': that.globalData.openid, 'statuscode': '1' }),
+        data: {'openid': that.globalData.openid},
       })
       wx.onSocketMessage(function (res) {
+        console.log(res.data)
         var tmp = JSON.parse(res.data)
-        var util = require('utils/util.js')
-        var getDateDiff = util.getDateDiff
-        var get_or_create_avatar = util.get_or_create_avatar
+        console.log(tmp)
 
-        var statuscode = tmp.statuscode
-        if (statuscode == '200') {
-        } else {
-          if (statuscode == 'solution') {
-            var tmpdata = that.globalData.answerlist.data.answer
-            tmpdata = tmpdata.concat(JSON.parse(tmp.json_data))
-            
-            that.globalData.answerlist.setData({
-              answer:tmpdata
-            })
-          }
-          else {
 
-            if (statuscode == 'sixin') {
-              var all = that.globalData.messagelist
-              var singlemessage = tmp.json_data
+        var all = that.globalData.sessionlist
+        var singlemessage = tmp
               var one = singlemessage
-              var tmp = JSON.stringify(one).replace(/receiveravatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?senderavatar":")(.*?avatar\/)([\w]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) { var tmpstr = getDateDiff($9); var cachedoor = get_or_create_avatar($6); var receivercachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor; } else { var cacheavatar = $5 + $6 + $7; }; if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('receiveravatar":"' + receiveravatar + $4 + cacheavatar + $8 + tmpstr) })
 
-              var tmpmessagelist = JSON.parse(tmp)
-              one = tmpmessagelist
-
-              for (var i in all) { if (all[i].sessionid == one[0].sessionid) { all[i].value.unshift(one[0].value[0]); that.globalData.nothissession = false } }
+              for (var i in all) { if (all[i].sessionid == one.sessionid) { all[i].sixin.push(one.sixin); that.globalData.nothissession = false } }
               if (all.length == 0 | that.globalData.nothissession) {
-                all.unshift(one[0])
+                all.unshift(one)
               }
 
 
 
-              that.globalData.messagelist = all
+        that.globalData.sessionlist = all
               if (that.globalData.informthat) {
                 that.globalData.informthat.setData({
                   sixindoor: true,
@@ -137,36 +112,20 @@ App({
 
               if (that.globalData.chatroomthat) {
                 that.globalData.chatroomthat.setData({
-                  messagelist: all[that.globalData.conversationindex]
+                  sixinlist: all[that.globalData.sessionindex].sixin
                 })
               }
 
 
-            } else if (statuscode == 'inform') {
-              var all = that.globalData.informlist
-              var singlemessage = JSON.parse(tmp.json_data)
-              var one = singlemessage
-
-              var tmp = JSON.stringify(one).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($4); var receivercachedoor = get_or_create_avatar($2); if (receivercachedoor) { var receiveravatar = receivercachedoor } else { var receiveravatar = $1 + $2 + $3 }; return ('avatar":"' + receiveravatar + $4 + tmpstr) })
-              var tmpinformlist = JSON.parse(tmp)
-              one = tmpinformlist
-
-              all.unshift(one[0])
-              that.globalData.informlist = all
-              if (that.globalData.informthat) {
-                that.globalData.informthat.setData({
-                  informlist: all
-                })
-              }
-            }
+            
             that.globalData.reddot = true
             wx.vibrateShort({
             })
             wx.showTabBarRedDot({
               index: 3,
             })
-          }
-        }
+          
+        
       
       })
     })
@@ -181,6 +140,8 @@ App({
   },
 
 
+
+
   onLaunch: function () {
     var that = this
     wx.clearStorageSync()
@@ -193,11 +154,10 @@ App({
           method: 'post',
           success: function (res) {
             var util = require('utils/util.js')
-            console.log(res)
+            
             that.globalData.openid = res.data.openid
-            
-
-            
+            that.globalData.selfuserid = res.data.userid
+            util.getsessions()
             // 在没有 open-type=getUserInfo 版本的兼容处理
             wx.getUserInfo({
               success: res => {
@@ -214,7 +174,7 @@ App({
                 url: '/pages/getuserinfo/getuserinfo?status=1',
               })
             }
-            // that.connect()
+            that.connect()
           },
         })
       }

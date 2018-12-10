@@ -13,14 +13,14 @@
     "pages/settings/mycomm/mycomm",
     "pages/settings/profile/profile",
     "pages/inform/message/message",
-    "pages/inform/message/chatroom/chatroom",
     "pages/inform/inform",
     "pages/searchres/searchres",
     "pages/invite/invite",
     "pages/top/top",
     "pages/getuserinfo/getuserinfo",
     "pages/howtouse/howtouse",
-    "pages/map/map"
+    "pages/map/map",
+    "pages/inform/message/chat/chat"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",
@@ -68,7 +68,7 @@
   "debug": false,
   "plugins": {
     "tencentvideo": {
-      "version": "1.2.0",
+      "version": "1.2.4",
       "provider": "wxa75efa648b60994b"
     }
   }

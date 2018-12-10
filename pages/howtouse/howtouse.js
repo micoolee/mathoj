@@ -42,16 +42,15 @@ WxParse.emojisInit('[]', "/wxParse/emojis/", {
   "19": "19.gif",
 });
 wx.request({
-  url: app.globalData.baseurl+'/gethowtouse/',
+  url: app.globalData.baseurl+'/message/help',
+  method:'POST',
+  data:{'openid':app.globalData.openid},
   success: function (res) {
     var article = res.data.content;
 
     WxParse.wxParse('article', 'html', article, that, 5);
   }
 })
-
-
-
   },
 
   /**

@@ -1,39 +1,36 @@
 <view wx:if="{{showdetail}}">
-<view wx:if="{{messagelistnull==0}}" class="question-link line-3 centertext">
+<view wx:if="{{sessionlistnull==0}}" class="question-link line-3 centertext">
   暂时没有对话
   <button bindtap='torank'>去请教优秀答主</button>
 </view>
 <view wx:else>
-  <scroll-view class="container chat" wx:for="{{messagelist}}" wx:key="{{item.sessionid}}">
+  <scroll-view class="container chat" wx:for="{{sessionlist}}" wx:key="{{item.sessionid}}">
 
-    <view class="chat-item flex-wrp" bindtap='enterconversation' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongpress='bindLongTap' data-sessionindex='{{index}}' data-sessionid='{{item.sessionid}}' data-receiverid='{{item.value[0].receiver_id}}'>
+    <view class="chat-item flex-wrp" bindtap='enterconversation' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongpress='bindLongTap' data-sessionindex='{{index}}' data-sessionid='{{item.sessionid}}' data-receiverid='{{item.sixin[0].receiver}}'>
       <view class="avatar flex-item">
-        <view wx:if="{{item.value[0].ziji=='1'}}" data-avatar='{{item.value[0].receiveravatar}}' data-sourcerid='{{item.sourcer_id}}' data-username='{{item.value[0].receivername}}' data-openid='{{item.openid}}'>
-          <image src="{{item.value[0].receiveravatar}}"></image>
+        <view wx:if="{{item.sixin[item.sixin.length-1].ziji=='1'}}" data-avatar='{{item.sixin[item.sixin.length-1].receiveravatar}}' data-sourcerid='{{item.sender}}' data-username='{{item.sixin[item.sixin.length-1].receivername}}' data-openid='{{item.openid}}'>
+          <image src="{{item.sixin[item.sixin.length-1].receiveravatar}}"></image>
         </view>
-        <view wx:else data-avatar='{{item.value[0].senderavatar}}' data-sourcerid='{{item.sourcer_id}}' data-username='{{item.value[0].sendername}}' data-openid='{{item.openid}}'>
-          <image src="{{item.value[0].senderavatar}}"></image>
+        <view wx:else data-avatar='{{item.sixin[item.sixin.length-1].senderavatar}}' data-sourcerid='{{item.sender}}' data-username='{{item.sixin[item.sixin.length-1].sendername}}' data-openid='{{item.openid}}'>
+          <image src="{{item.sixin[item.sixin.length-1].senderavatar}}"></image>
         </view>
       </view>
 
       <view class="chat-content flex-item">
         <view class="chat-source">
-          <view wx:if="{{item.value[0].ziji=='1'}}">
+          <view wx:if="{{item.sixin[item.sixin.length-1].ziji=='1'}}">
 
-            <text class="chatmate">{{item.value[0].receivername}}</text>
-            <text class="lasttime">{{item.value[0].submittime}}</text>
-            <image wx:if="{{  item.value[0].readedsign=='0'}}" class='reddot' style='width:30rpx;height:30rpx' src='../../../images/reddot.png'></image>
+            <text class="chatmate">{{item.sixin[item.sixin.length-1].receivername}}</text>
+            <text class="lasttime">{{item.sixin[item.sixin.length-1].createtime}}</text>
+            <image wx:if="{{  item.sixin[item.sixin.length-1].readed=='0'}}" class='reddot' style='width:30rpx;height:30rpx' src='../../../images/reddot.png'></image>
           </view>
           <view wx:else>
-            <text class="chatmate">{{item.value[0].sendername}}</text>
-            <text class="lasttime">{{item.value[0].submittime}}</text>
-            <image wx:if="{{  item.value[0].readedsign=='0'}}" class='reddot' style='width:30rpx;height:30rpx' src='../../../images/reddot.png'></image>
+            <text class="chatmate">{{item.sixin[item.sixin.length-1].sendername}}</text>
+            <text class="lasttime">{{item.sixin[item.sixin.length-1].createtime}}</text>
+            <image wx:if="{{  item.sixin[item.sixin.length-1].readed=='0'}}" class='reddot' style='width:30rpx;height:30rpx' src='../../../images/reddot.png'></image>
           </view>
-
-
-
         </view>
-        <text class="chat-txt line-reback" data-sessionid='{{item.sessionid}}'>{{item.value[0].message}}</text>
+        <text class="chat-txt line-reback" data-sessionid='{{item.sessionid}}'>{{item.sixin[item.sixin.length-1].content}}</text>
 
       </view>
     </view>

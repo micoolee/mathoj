@@ -1,0 +1,35 @@
+<view wx:for="{{sixinlist}}" wx:index="{{index}}">
+
+  <view wx:if="{{item.ziji=='1'}}">
+    <view class="chat-item">
+      <view class="chat-main justify-end flex">
+        <view>
+          <view class='chat-centact success'>
+            {{item.content}}
+          </view>
+          <view class='gray-text text-sm text-right mt-sm'>{{item.createtime}}</view>
+        </view>
+      </view>
+      <image src="{{item.senderavatar}}" class="img-df radius" mode='widthFix'></image>
+    </view>
+  </view>
+  <view wx:else>
+    <view class="chat-item chat-left">
+      <image src="{{item.senderavatar}}" class="img-df round" mode='widthFix'></image>
+      <view class="chat-main">
+        <view>
+          <view class='chat-centact'>
+            {{item.content}}
+          </view>
+          <view class='gray-text text-sm mt-sm'>{{item.createtime}} </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view  class="bar bottomfix shadow bar-textarea">
+  <input class='flex-sub solid-bottom ml-sm' focus="true" maxlength="300" cursor-spacing="10" value='{{text}}'  bindinput='inputtext' ></input>
+
+  <button class='{{success}} btn mh-sm' bindtap='{{sendmsg}}' >发送</button>
+</view>

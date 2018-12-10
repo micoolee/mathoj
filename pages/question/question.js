@@ -49,7 +49,7 @@ var page = Page({
   data: {
     motto: '小程序版',
     userInfo: {},
-    problemid: 'unknown',
+    problemid: null,
     showaudio: false,
     showyuansheng: false,
     playstate: false,
@@ -121,20 +121,16 @@ var page = Page({
     var commenter = e.target.dataset.commenter
     var that = this
     wx.request({
-      url: app.globalData.baseurl + '/dianzan/',
-      data: { 'userid': app.globalData.openid, 'commentid': commentid, 'problemid': problemid, 'commenter': commenter },
+      url: app.globalData.baseurl + '/problem/createzancomment',
+      data: { 'openid': app.globalData.openid, 'commentid': commentid },
+      method:'POST',
       success: function (res) {
-        if (res.data.code == '200') {
-          var comments = JSON.parse(res.data.comment)
-          var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
 
-
-          comments = JSON.parse(tmp)
-          that.setData({
-            comments: comments
-          })
-        } else {
-        }
+        var comments = res.data.comment
+        that.setData({
+          comments: comments
+        })
+        
 
       }
     })
@@ -265,8 +261,9 @@ var page = Page({
     var that = this
     if (e.target.dataset.id == true) {
       wx.request({
-        url: app.globalData.baseurl + '/subscribe/',
-        data: { 'problemid': this.data.problemid, 'userid': app.globalData.openid },
+        url: app.globalData.baseurl + '/problem/subscribe',
+        data: { 'problemid': JSON.parse(this.data.problemid), 'userid': app.globalData.selfuserid },
+        method:'POST',
         success: function () {
           that.setData({
             subscribe_door: false
@@ -276,8 +273,9 @@ var page = Page({
       })
     } else {
       wx.request({
-        url: app.globalData.baseurl + '/desubscribe/',
-        data: { 'problemid': this.data.problemid, 'userid': app.globalData.openid },
+        url: app.globalData.baseurl + '/problem/desubscribe',
+        data: { 'problemid': JSON.parse(this.data.problemid), 'userid': app.globalData.selfuserid },
+        method: 'POST',
         success: function () {
           that.setData({
             subscribe_door: true
@@ -320,20 +318,16 @@ var page = Page({
     }
     else {
       wx.request({
-        url: app.globalData.baseurl + '/comment/',
+        url: app.globalData.baseurl + '/problem/createcomment',
         method: 'post',
-        data: { 'userid': app.globalData.openid, 'text': this.data.commentcontent, 'problemid': this.data.problemid },
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
+        data: { 'openid': app.globalData.openid, 'desc': this.data.commentcontent, 'problemid': JSON.parse(this.data.problemid )},
         success: function (res) {
-
           wx.showToast({
             title: '评论成功',
           })
-          var comments = JSON.parse(res.data.comment)
-          var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-          comments = JSON.parse(tmp)
+          var comments = res.data.comment
+          // var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
+          // comments = JSON.parse(tmp)
           that.setData({
             comments: comments,
           })
@@ -605,7 +599,7 @@ var page = Page({
   onLoad: function (option) {
       wx.showNavigationBarLoading()
       this.setData({
-        problemid: option.problemid
+        problemid:  option.problemid
       })
       var that = this
 
@@ -615,10 +609,12 @@ var page = Page({
           success: res => {
             wx.request({
               data: { js_code: res.code },
-              url: app.globalData.baseurl + '/getopenid/',
-              method: 'GET',
+              url: app.globalData.baseurl + '/user/getopenid',
+              
+              method: 'POST',
               success: function (res) {
                 app.globalData.openid = res.data.openid
+                app.globalData.selfuserid = res.data.userid
                 getproblem(that)
               },
             })
@@ -638,10 +634,11 @@ var page = Page({
         success: res => {
           wx.request({
             data: { js_code: res.code },
-            url: app.globalData.baseurl + '/getopenid/',
-            method: 'GET',
+            url: app.globalData.baseurl + '/user/getopenid',
+            method: 'POST',
             success: function (res) {
               app.globalData.openid = res.data.openid
+              app.globalData.selfuserid = res.data.userid
               app.connect()
             },
           })
@@ -689,7 +686,7 @@ function getproblem(that){
       var problem = res.data.problem
       console.log(problem)
       var answer
-      if (!res.data.comment) {
+      if (!res.data.answer) {
         answer = []
       } else {
         answer = res.data.answer
@@ -704,12 +701,9 @@ function getproblem(that){
       
       var lookedtime = res.data.lookedtime
       var hidecaina = res.data.hidecaina != undefined
-
-      var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-
-      var answertmp = JSON.stringify(answer).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-      answer = JSON.parse(answertmp)
-      comments = JSON.parse(tmp)
+      if (! problem.problempic){
+        problem.problempic = 'noimages'
+      }
 
       that.setData({
         grade: problem.grade,

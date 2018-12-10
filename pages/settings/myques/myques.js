@@ -34,15 +34,12 @@ toask:function(){
 
     var that = this
     wx.request({
-      url: app.globalData.baseurl + '/myques/',
+      url: app.globalData.baseurl + '/problem/getmyproblem',
       method: 'post',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      data: { 'userid': app.globalData.openid },
+      data: { 'openid': app.globalData.openid },
       success: function (res) {
         that.setData({
-          problemlist: res.data,
+          problemlist: res.data.myproblem,
           problemlistnull:res.data.length
         })
       }

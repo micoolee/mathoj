@@ -13,7 +13,8 @@ Page({
     problempicsrc: 'null',
     animationData: null,
     door: true,
-    formerid: null,
+    formerid: 0,
+    solvedformerid: 0,
     lastedid: null,
     topStories: [],
     havenewbtn: false,
@@ -190,7 +191,8 @@ Page({
   filterTabChild: function (e) {
 
     this.setData({
-      zindex: false
+      zindex: false,
+      formerid: 0
     })
 
     var that = this;
@@ -211,53 +213,64 @@ Page({
       tabTxt: data
     })
     var searchparam = that.data.searchParam
-    wx.request({
-      url: app.globalData.baseurl + '/problem/getten',
-      data: { 'formerid': JSON.stringify(that.data.formerid), 'filter': searchparam, 'solved': JSON.stringify(that.data.activeIndex)},
-      method:'POST',
-      success: function (res) {
-        var filterproblist = res.data.problem
-        if(filterproblist == undefined){
-          that.setData({
-            bottom:true,
-          })
-          var a = that.data.activeIndex
-          if (a == '0') {
+    if (that.data.activeIndex=='0'){
+      wx.request({
+        url: app.globalData.baseurl + '/problem/getten',
+        data: { 'formerid': that.data.formerid, 'filter': searchparam, 'solved': '0' },
+        method: 'POST',
+        success: function (res) {
+          console.log(res.data.problem)
+          var filterproblist = res.data.problem
+          if (filterproblist == undefined) {
             that.setData({
+              bottom: true,
               problemlist: []
             })
           } else {
             that.setData({
-              solvedproblemlist: []
-            })
-          }
-        }else{
-          var tmp = JSON.stringify(filterproblist).replace(/asktime":"([\d- :]*)(.*avatar":")(.*?avatar\/)([\w-_]*)(.jpg)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($1); var cachedoor = get_or_create_avatar($4); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $4 + $5 }; return ('asktime":"' + tmpstr + $2 + cachedoor) })
-          filterproblist = JSON.parse(tmp)
-          var a = that.data.activeIndex
-          if (a == '0') {
-            that.setData({
-              problemlist: filterproblist
-            })
-          } else {
-            that.setData({
-              solvedproblemlist: filterproblist
+              problemlist: filterproblist,
+              formerid: filterproblist[filterproblist.length-1]['problemid'],
             })
           }
         }
+      })
+    }else{
+      wx.request({
+        url: app.globalData.baseurl + '/problem/getten',
+        data: { 'formerid': that.data.solvedformerid, 'filter': searchparam, 'solved': '1' },
+        method: 'POST',
+        success: function (res) {
+          var filterproblist = res.data.problem
+          if (filterproblist == undefined) {
+            that.setData({
+              bottom: true,
+              solvedproblemlist: []
+            })
+          } else {
+            that.setData({
+              solvedproblemlist: filterproblist,
+              solvedformerid: filterproblist[filterproblist.length - 1]['problemid'],
+            })
+          }
+        }
+      })
+    }
 
 
-      }
-    })
 
 
   },
 
 
+onReady:function(){
+  
+},
+
 
 
 
   filteritem: function (searchparam, tmpproblemlist, tmplist) {
+
     if (typeof (searchparam[0]) != 'undefined' && searchparam[0] != '' && typeof (searchparam[1]) != 'undefined' && searchparam[1] != '') {
       for (var i in tmplist) { if (tmplist[i].grade == searchparam[0] && tmplist[i].easyclass == searchparam[1]) { tmpproblemlist.push(tmplist[i]) }; }
 
@@ -297,6 +310,7 @@ Page({
 
   bindQueTap: function (event) {
     var problemid = event.currentTarget.dataset.id
+    console.log(problemid)
     wx.navigateTo({
       url: `../question/question?problemid=${problemid}`
     })
@@ -406,29 +420,6 @@ Page({
 
   },
 
-  onReady:function(){
-    wx.showModal({
-      title: '设置',
-      content: '设置我的年级',
-      success:function(res){
-        if(res.confirm){
-          wx.showActionSheet({
-            itemList: ['一年级', '二年级', '三年级', '四年级', '五年级', '六年级'],
-            success:function(res){
-              wx.request({
-                url: app.globalData.baseurl+"setgrade",
-                data:{"grade":res.tapIndex,"userid":app.globalData.openid},
-                success:function(res){
-                  console.log(res)
-              }
-              })
-            }
-          })
-        }
-      }
-    })
-  },
-
 
 
 
@@ -437,10 +428,17 @@ Page({
     var that = this
     wx.showNavigationBarLoading() //在标题栏中显示加载
     if (that.data.activeIndex == '0') {
+      that.setData({
+        formerid:0
+      })
       util.getlastedprob(that)
     } else if (that.data.activeIndex == '1') {
+      that.setData({
+        solvedformerid: 0
+      })
       util.getlastedsolvedprob(that)
     }
+    
     wx.stopPullDownRefresh() //停止下拉刷新                
   },
 

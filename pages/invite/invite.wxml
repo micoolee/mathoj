@@ -1,4 +1,4 @@
-<view wx:if="{{subscriberlist.length==0}}" style='text-align:center'>
+<view wx:if="{{noone}}" style='text-align:center'>
   <text >没有可以邀请的答主,
   请关注后再来操作</text>
 </view>
@@ -8,11 +8,11 @@
     <block wx:for="{{subscriberlist}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
       <view class="feed-item">
         <view class="feed-content">
-          <view class="question line-reback" qid="{{question_id}}" data-username='{{item.username}}' data-userid='{{item.besubscriber}}' data-avatar='{{item.avatar}}'>
+          <view class="question line-reback" qid="{{question_id}}" data-username='{{item.nickname}}' data-userid='{{item.beinviterid}}' data-avatar='{{item.avatar}}'>
               <image src='{{item.avatar}}' class='comments-avatar-img'></image>
-              <text class='feed-content'>{{item.username}}</text>
-              <view wx:if="{{item.invitedsign || invitedsign[index]}}" class='right'>已邀请</view>
-              <view wx:else class='right'  bindtap='invite' data-index='{{index}}' data-besubscriber='{{item.besubscriber}}'>邀请</view>
+              <text class='feed-content'>{{item.nickname}}</text>
+              <view wx:if="{{item.invited || invitedsign[index]}}" class='right'>已邀请</view>
+              <view wx:else class='right'  bindtap='invite' data-index='{{index}}' data-besubscriber='{{item.beinviterid}}'>邀请</view>
           </view>
 
         </view>

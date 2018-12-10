@@ -4,9 +4,11 @@ const WxParse = require('../../wxParse/wxParse.js');
 const txvContext = requirePlugin("tencentvideo");
 
 if(app.globalData.baseurl ){
-  var baseurl = 'https://mathoj.liyuanye.club'
+  // var baseurl = 'https://mathoj.liyuanye.club'
+  var baseurl = 'http://192.168.0.174:8080'
 }else{
-  var baseurl = 'https://mathoj.liyuanye.club'
+  // var baseurl = 'https://mathoj.liyuanye.club'
+  var baseurl = 'http://192.168.0.174:8080'
 }
 
 Page({
@@ -29,6 +31,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    console.log(options)
 
     
 
@@ -65,8 +68,9 @@ Page({
     })
     
     wx.request({
-      url: baseurl+'/getstory/',
+      url: baseurl+'/problem/getstory',
       data:{'storyid':storyid},
+      method:'POST',
       success:function(res){
         that.setData({
           authorid:res.data.authorid,

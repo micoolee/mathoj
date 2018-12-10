@@ -33,8 +33,9 @@ Page({
     var that = this
     if (e.currentTarget.dataset.id == true) {
       wx.request({
-        url: app.globalData.baseurl + '/subscribeuser/',
-        data: { 'userid': e.currentTarget.dataset.userid, 'subscriberid': app.globalData.openid },
+        url: app.globalData.baseurl + '/user/subscribe',
+        method:'POST',
+        data: { 'besubscriberid': e.currentTarget.dataset.userid, 'subscriberid': app.globalData.openid },
         success: function (res) {
           wx.showToast({
             title: '关注成功',
@@ -46,8 +47,9 @@ Page({
       })
     } else {
       wx.request({
-        url: app.globalData.baseurl + '/desubscribeuser/',
-        data: { 'userid': e.currentTarget.dataset.userid, 'subscriberid': app.globalData.openid },
+        url: app.globalData.baseurl + '/user/desubscribe',
+        method: 'POST',
+        data: { 'besubscriberid': e.currentTarget.dataset.userid, 'subscriberid': app.globalData.openid },
         success: function () {
           wx.showToast({
             title: '已取消关注',
@@ -76,26 +78,7 @@ Page({
    */
   onShow: function () {
 
-    var that = this
-    // this.setData({
-    //   userInfo: { 'avatar': options.avatar, 'nickname': options.username, 'userid': options.userid, 'profileropenid': options.openid }
-    // })
-    wx.request({
-      url: app.globalData.baseurl + '/subscribeuserdetail/',
-      data: { 'userid': app.globalData.openid, 'besubscriber': that.data.userInfo.userid },
-      success: function (res) {
-        var subscribe_door = JSON.parse(res.data.subscribe_door)
-        if (subscribe_door[0].i == 1) {
-          that.setData({
-            subscribe_door: false
-          })
-        } else {
-          that.setData({
-            subscribe_door: true
-          })
-        }
-      }
-    })
+
   },
 
   /**

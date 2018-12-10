@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
@@ -66,6 +66,18 @@
 					"id": -1,
 					"name": "获取信息",
 					"pathName": "pages/getuserinfo/getuserinfo",
+					"query": ""
+				},
+				{
+					"id": 6,
+					"name": "chat",
+					"pathName": "pages/inform/message/chat/chat",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "setting",
+					"pathName": "pages/settings/settings",
 					"query": ""
 				}
 			]

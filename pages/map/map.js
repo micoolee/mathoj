@@ -122,12 +122,16 @@ Page({
   getSchoolMarkers(){
     var that = this
     wx.request({
-      url: app.globalData.baseurl + '/getallteacherlocations/',
+      url: app.globalData.baseurl + '/location/getteacher',
+      method:'POST',
+      data:{'openid':app.globalData.openid},
       success:function(res){
         let markers = [];
-        for (let item of res.data) {
-          let marker = that.createMarker(item);
-          markers.push(marker)
+        if (res.data.location) {
+          for (let item of res.data.location) {
+            let marker = that.createMarker(item);
+            markers.push(marker)
+          }
         }
         that.setData({
           markers: markers
@@ -189,7 +193,8 @@ Page({
   adduserlocation:function() {
     var that = this
     wx.request({
-      url: app.globalData.baseurl + '/adduserlocation/',
+      url: app.globalData.baseurl + '/location/update',
+      method:'POST',
       data: { 'openid': app.globalData.openid, 'latitude': that.data.userlatitude, 'longitude': that.data.userlongitude },
       success: function (res) {
       }
@@ -211,13 +216,17 @@ Page({
   formsubmitteacher: function (e) {
     var that = this
     wx.request({
-      url: app.globalData.baseurl + '/pushformid/',
-      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid, 'getrole':'teacher'},
+      url: app.globalData.baseurl + '/location/getteacher',
+      method:'POST',
+      data: {'openid': app.globalData.openid},
       success: function (res) {
+        console.log(res.data.location)
         let markers = [];
-        for (let item of res.data) {
-          let marker = that.createMarker(item);
-          markers.push(marker)
+        if (res.data.location){
+          for (let item of res.data.location) {
+            let marker = that.createMarker(item);
+            markers.push(marker)
+          }
         }
         that.setData({
           markers: markers
@@ -230,13 +239,16 @@ Page({
   formsubmitstudent: function (e) {
     var that = this
     wx.request({
-      url: app.globalData.baseurl + '/pushformid/',
-      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid,'getrole':'student'},
+      url: app.globalData.baseurl + '/location/getstudent',
+      data: {'openid': app.globalData.openid},
+      method:'POST',
       success: function (res) {
         let markers = [];
-        for (let item of res.data) {
-          let marker = that.createMarker(item);
-          markers.push(marker)
+        if (res.data.location) {
+          for (let item of res.data.location) {
+            let marker = that.createMarker(item);
+            markers.push(marker)
+          }
         }
         that.setData({
           markers: markers

@@ -8,7 +8,7 @@ Page({
   data: {
     informlist: [],
     sixindoor: false,
-    icons: { '0': '../../images/system.png', '1': '../../images/key.png', '2': '../../images/key.png', '3': '../../images/zan.png', '4': '../../images/invite1.png','5':'../../images/subscribe.png','6':'../../images/accept.png' }
+    icons: { '1': '../../images/system.png', '2': '../../images/subscribe.png', '3': '../../images/key.png', '4': '../../images/zan.png', '5': '../../images/zan.png', '6': '../../images/invite1.png','7':'../../images/accept.png' }
   },
 
 
@@ -20,8 +20,20 @@ Page({
     this.endTime = e.timeStamp;
   },
 
-  onLoad: function (options) {
+  onLoad: function () {
     app.getlastedinform()
+    wx.request({
+      url: app.globalData.baseurl + '/message/checksession',
+      data: { 'openid': app.globalData.openid },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.res) {
+          that.setData({
+            sixindoor: true
+          })
+        }
+      }
+    })
   },
 
 
@@ -41,7 +53,7 @@ Page({
       var readed = e.currentTarget.dataset.readed
       var index = e.currentTarget.dataset.index
       
-      if (e.currentTarget.dataset.informtype != '5' && e.currentTarget.dataset.informtype != '0'){
+      if (e.currentTarget.dataset.informtype != '2' && e.currentTarget.dataset.informtype != '1'){
 
         var problemid = e.currentTarget.dataset.problemid
 
@@ -50,8 +62,9 @@ Page({
           app.globalData.informlist = that.data.informlist
 
           wx.request({
-            url: app.globalData.baseurl + '/updatereaded/',
-            data: { 'informid': informid },
+            url: app.globalData.baseurl + '/message/read',
+            method:'POST',
+            data: { 'messageid': informid },
             success: function (res) {
             }
           })
@@ -61,7 +74,7 @@ Page({
           url: `../question/question?problemid=${problemid}`
         })
 
-      } else if (e.currentTarget.dataset.informtype == '5'){
+      } else if (e.currentTarget.dataset.informtype == '2'){
         var sourcerid = e.currentTarget.dataset.sourcerid
         var avatar = e.currentTarget.dataset.avatar
         var username = e.currentTarget.dataset.username
@@ -71,8 +84,9 @@ Page({
           app.globalData.informlist = that.data.informlist
 
           wx.request({
-            url: app.globalData.baseurl + '/updatereaded/',
-            data: { 'informid': informid },
+            url: app.globalData.baseurl + '/message/read',
+            data: { 'messageid': informid },
+            method: 'POST',
             success: function (res) {
             }
           })
@@ -88,8 +102,9 @@ Page({
           app.globalData.informlist = that.data.informlist
 
           wx.request({
-            url: app.globalData.baseurl + '/updatereaded/',
-            data: { 'informid': informid },
+            url: app.globalData.baseurl + '/message/read',
+            method: 'POST',
+            data: { 'messageid': informid },
             success: function (res) {
             }
           })
@@ -106,8 +121,8 @@ Page({
         success: function (res) {
           if (res.confirm) {
             wx.request({
-              url: app.globalData.baseurl + '/deleteinform/',
-              data: { 'informid': informid },
+              url: app.globalData.baseurl + '/message/delete',
+              data: { 'messageid': informid,'openid':app.globalData.openid },
               success: function () {
                 app.getlastedinform(that)
                 wx.showToast({
@@ -171,17 +186,7 @@ Page({
         sixindoor: true
       })
     }
-    wx.request({
-      url: app.globalData.baseurl+'/checksixin/',
-      data:{'userid':app.globalData.openid},
-      success:function(res){
-        if(res.data=='1'){
-          that.setData({
-            sixindoor:true
-          })
-        }
-      }
-    })
+
 
 
     app.globalData.reddot = false

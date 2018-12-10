@@ -67,16 +67,13 @@ Page({
 
     var that = this
     wx.request({
-      url: app.globalData.baseurl + '/myhist/',
+      url: app.globalData.baseurl + '/problem/getmyhistory',
       method: 'post',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      data: { 'userid': app.globalData.openid },
+      data: { 'openid': app.globalData.openid },
       success: function (res) {
         that.setData({
           loadok: true,
-          problemlist: res.data,
+          problemlist: res.data.history,
           problemlistnull: res.data.length
         })
       }
