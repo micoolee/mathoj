@@ -7,9 +7,19 @@ Page({
    */
   data: {
   searchlist:[],
-  searchlistnull:true
+  searchlistnull:0,
+    msg2: {
+      icon: '../../images/empty.png',
+      buttons: [{
+        text: '随便逛逛',
+      }],
+    },
   },
-
+  toindex:function(){
+    wx.navigateBack({
+      url: '../tosolve/tosolve'
+    })
+  },
 
   bindQueTap: function (e) {
     var problemid = e.currentTarget.dataset.id
@@ -25,11 +35,18 @@ Page({
    */
   onLoad: function (options) {
     var searchlist = app.globalData.searchlist
+    if (!searchlist){
+      this.setData({
+        searchlist: [],
+        searchlistnull: 0
+      })
+    }else{
+      this.setData({
+        searchlist: searchlist,
+        searchlistnull: searchlist.length
+      })
+    }
 
-    this.setData({
-      searchlist:searchlist,
-      searchlistnull:searchlist.length
-    })
   },
 
   /**

@@ -1,26 +1,21 @@
-<view >
-   <view bindtap="bindViewTap" class="userinfo">
+<view>
+  <view bindtap="bindViewTap" class="userinfo">
     <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickname}}</text>
-  </view> 
-<view hidden='{{ziji}}'>
+  </view>
+  <view hidden='{{ziji}}'>
+    <view style='margin-top:50rpx' bindtap='subscribe'  data-askerid='{{userInfo.askerid}}' data-id='{{subscribe_door}}'>
+      <view wx:if="{{subscribe_door}}" data-id='{{subscribe_door}}'>
+        <button>关注ta</button>
+      </view>
 
-<!-- <button data-userid='{{userInfo.userid}}' bindtap='subscribe'>关注ta</button> -->
+      <view wx:else data-id='{{subscribe_door}}'>
+        <button>取消关注</button>
+      </view>
+    </view>
+    <view style='margin-top:50rpx'>
+      <button data-askerid='{{userInfo.askerid}}' data-sessionid='{{sessionid}}' bindtap='sendsixin'>发私信</button>
+    </view>
 
-        <view  bindtap='subscribe' data-userid='{{userInfo.userid}}'  data-id='{{subscribe_door}}'>
-          <view wx:if="{{subscribe_door}}" data-id='{{subscribe_door}}'>
-           <button >关注ta</button>
-          </view>
-
-          <view wx:else data-id='{{subscribe_door}}'>
-            <button >取消关注</button>
-          </view>
-
-        </view>
-
-
-
-<button data-userid='{{userInfo.userid}}' bindtap='sendsixin'>发私信</button>
+  </view>
 </view>
-</view>
-

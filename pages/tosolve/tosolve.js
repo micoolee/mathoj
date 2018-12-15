@@ -1,7 +1,5 @@
 const app = getApp()
 var util = require('../../utils/util.js')
-var getDateDiff = util.getDateDiff
-var get_or_create_avatar = util.get_or_create_avatar
 var sliderWidth = 96; 
 
 Page({
@@ -330,14 +328,15 @@ onReady:function(){
       })
     } else {
       wx.request({
-        url: app.globalData.baseurl + '/mysearch/',
-        data: { 'q': q },
+        url: app.globalData.baseurl + '/problem/search',
+        data: { 'content': q },
+        method:'POST',
         success: function (res) {
           that.setData({
             inputvalue: '',
             q:null
           })
-          app.globalData.searchlist = res.data
+          app.globalData.searchlist = res.data.problem
           wx.navigateTo({
             url: `../searchres/searchres`,
           })
@@ -386,7 +385,7 @@ onReady:function(){
 
 
   showmore: function (e) {
-    var userid = e.currentTarget.dataset.userid
+    var askerid = e.currentTarget.dataset.askerid
     var avatar = e.currentTarget.dataset.avatar
     var username = e.currentTarget.dataset.username
     var openid = e.currentTarget.dataset.openid
@@ -397,7 +396,7 @@ onReady:function(){
       })
     } else {
       wx.navigateTo({
-        url: `../settings/profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+        url: `../settings/profile/profile?userid=${askerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
       })
     }
 

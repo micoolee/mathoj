@@ -1,8 +1,19 @@
 <view wx:if="{{showdetail}}">
-<view wx:if="{{sessionlistnull==0}}" class="question-link line-3 centertext">
-  暂时没有对话
-  <button bindtap='torank'>去请教优秀答主</button>
-</view>
+
+
+  <view wx:if="{{sessionlistnull==0}}" class="wux-prompt__bd">
+    <view>
+      <image src="{{ icon }}" class="wux-prompt__icon" />
+    </view>
+    <view>
+      <text>暂无对话记录</text>
+    </view>
+    <view>
+      <button class='wux-button--dark' bindtap='torank'>随便逛逛</button>
+    </view>
+  </view>
+
+
 <view wx:else>
   <scroll-view class="container chat" wx:for="{{sessionlist}}" wx:key="{{item.sessionid}}">
 
@@ -22,7 +33,6 @@
 
             <text class="chatmate">{{item.sixin[item.sixin.length-1].receivername}}</text>
             <text class="lasttime">{{item.sixin[item.sixin.length-1].createtime}}</text>
-            <image wx:if="{{  item.sixin[item.sixin.length-1].readed=='0'}}" class='reddot' style='width:30rpx;height:30rpx' src='../../../images/reddot.png'></image>
           </view>
           <view wx:else>
             <text class="chatmate">{{item.sixin[item.sixin.length-1].sendername}}</text>
@@ -30,7 +40,7 @@
             <image wx:if="{{  item.sixin[item.sixin.length-1].readed=='0'}}" class='reddot' style='width:30rpx;height:30rpx' src='../../../images/reddot.png'></image>
           </view>
         </view>
-        <text class="chat-txt line-reback" data-sessionid='{{item.sessionid}}'>{{item.sixin[item.sixin.length-1].content}}</text>
+        <text class=" line-3" style='font-size:30rpx' data-sessionid='{{item.sessionid}}'>{{item.sixin[item.sixin.length-1].content}}</text>
 
       </view>
     </view>

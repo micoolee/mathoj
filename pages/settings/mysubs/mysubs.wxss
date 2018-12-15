@@ -1,1 +1,13 @@
 /* pages/settings/mysubs/mysubs.wxss */
+/* @import "../../../colorui.wxss"; */
+.img-radius{
+  border-radius: 40%;
+}
+.weui-tab__panel{
+  height: 100%;
+}
+
+.list-box{padding:0 30rpx;background:#fff}
+.lattice-list{display:flex;flex-wrap:wrap;text-align:center;padding:0}
+.lattice-li{width:250rpx;height:250rpx;border-right:1rpx solid #eee;border-bottom:1rpx solid #eee;padding:30rpx}.lattice-li:nth-child(3n){border-right:0rpx solid #eee}
+button,form,image,input,label,navigator,scroll-view,swiper,text,textarea,view{box-sizing:border-box}

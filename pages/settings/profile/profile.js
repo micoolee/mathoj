@@ -10,22 +10,23 @@ Page({
     ziji: false,
     profileropenid: null,
     subscribe_door: true,
+    sessionid:0
   },
 
   sendsixin: function (e) {
-
+    console.log(e.currentTarget.dataset.askerid)
+    app.globalData.receiverid = e.currentTarget.dataset.askerid
     wx.navigateTo({
-      url: `../../inform/message/chatroom/chatroom?receiverid=${e.currentTarget.dataset.userid}`,
+      url: `../../inform/message/chat/chat?receiverid=${e.currentTarget.dataset.askerid}&newsession=true&sessionid=${e.currentTarget.dataset.sessionid}`,
     })
-
-
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     this.setData({
-      userInfo: { 'avatar': options.avatar, 'nickname': options.username, 'userid': options.userid, 'profileropenid': options.openid }
+      userInfo: { 'avatar': options.avatar, 'nickname': options.username, 'askerid': options.userid, 'profileropenid': options.openid}
     })
   },
 
@@ -35,7 +36,7 @@ Page({
       wx.request({
         url: app.globalData.baseurl + '/user/subscribe',
         method:'POST',
-        data: { 'besubscriberid': e.currentTarget.dataset.userid, 'subscriberid': app.globalData.openid },
+        data: { 'besubscriberid': e.currentTarget.dataset.askerid, 'subscriberid': app.globalData.openid },
         success: function (res) {
           wx.showToast({
             title: '关注成功',
@@ -49,7 +50,7 @@ Page({
       wx.request({
         url: app.globalData.baseurl + '/user/desubscribe',
         method: 'POST',
-        data: { 'besubscriberid': e.currentTarget.dataset.userid, 'subscriberid': app.globalData.openid },
+        data: { 'besubscriberid': e.currentTarget.dataset.askerid, 'subscriberid': app.globalData.openid },
         success: function () {
           wx.showToast({
             title: '已取消关注',
@@ -66,53 +67,27 @@ Page({
     }
 
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  onShow:function(){
+    var that = this
+    wx.request({
+      url: app.globalData.baseurl + '/message/getsessionid',
+      method: 'POST',
+      data: { 'receiveropenid': that.data.userInfo.profileropenid, 'senderid': app.globalData.selfuserid },
+      success: function (res) {
+        if (res.data.sessionid) {
+          that.setData({
+            sessionid: res.data.sessionid,
+          })
+        } else {
+          that.setData({
+            sessionid: 0,
+          })
+        }
 
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+      }
+    })
   }
+
+
+
 })

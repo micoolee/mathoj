@@ -3,8 +3,6 @@
 
 
 var util = require('../../utils/util.js')
-var getDateDiff = util.getDateDiff
-var get_or_create_avatar = util.get_or_create_avatar
 
 
 const app = getApp()

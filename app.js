@@ -42,13 +42,10 @@ App({
 
   getlastedinform: function (informthat = null) {
     var that = this
-    var util = require('utils/util.js')
-    var getDateDiff = util.getDateDiff
-    var get_or_create_avatar = util.get_or_create_avatar
 
     wx.request({
       url: this.globalData.baseurl + '/message/getten',
-      data: { 'openid': this.globalData.openid, 'statuscode': '1' },
+      data: { 'openid': this.globalData.openid },
       method:'POST',
       success: function (res) {
         console.log(res.data.message)
@@ -84,47 +81,44 @@ App({
 
         var all = that.globalData.sessionlist
         var singlemessage = tmp
-              var one = singlemessage
+        var one = singlemessage
 
-              for (var i in all) { if (all[i].sessionid == one.sessionid) { all[i].sixin.push(one.sixin); that.globalData.nothissession = false } }
-              if (all.length == 0 | that.globalData.nothissession) {
-                all.unshift(one)
-              }
-
-
-
+        for (var i in all) { if (all[i].sessionid == one.sessionid) { all[i].sixin.push(one.sixin); that.globalData.nothissession = false } }
+        if (all.length == 0 | that.globalData.nothissession) {
+          all.unshift(one)
+        }
         that.globalData.sessionlist = all
-              if (that.globalData.informthat) {
-                that.globalData.informthat.setData({
-                  sixindoor: true,
+        if (that.globalData.informthat) {
+          that.globalData.informthat.setData({
+            sixindoor: true,
+          })
+        } else {
+          that.globalData.sixindoor = true
+        }
 
-                })
-              } else {
-                that.globalData.sixindoor = true
-              }
-
-              if (that.globalData.messagethat) {
-                that.globalData.messagethat.setData({
-                  messagelist: all
-                })
-              }
-
-
-              if (that.globalData.chatroomthat) {
-                that.globalData.chatroomthat.setData({
-                  sixinlist: all[that.globalData.sessionindex].sixin
-                })
-              }
+        if (that.globalData.messagethat) {
+          that.globalData.messagethat.setData({
+            sessionlist: all
+          })
+        }
 
 
-            
-            that.globalData.reddot = true
-            wx.vibrateShort({
-            })
-            wx.showTabBarRedDot({
-              index: 3,
-            })
-          
+        if (that.globalData.chatroomthat) {
+          that.globalData.chatroomthat.setData({
+            sixinlist: all[that.globalData.sessionindex].sixin
+          })
+          that.globalData.chatroomthat.refresh()
+        }
+
+
+      
+        that.globalData.reddot = true
+        wx.vibrateShort({
+        })
+        wx.showTabBarRedDot({
+          index: 3,
+        })
+      
         
       
       })

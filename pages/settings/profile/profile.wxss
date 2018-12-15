@@ -18,3 +18,7 @@
   font-family: Songti SC;
   font-size: 32rpx;
 }
+
+button{
+  width: 61.8%
+}

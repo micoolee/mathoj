@@ -43,6 +43,26 @@ Page({
           height: 40
         },
         clickable: true
+      }, {
+        id: 4,
+        iconPath: '/images/teacher.png',
+        position: {
+          left: 50,
+          top: 10,
+          width: 40,
+          height: 40
+        },
+        clickable: true
+      }, {
+        id: 5,
+        iconPath: '/images/student.png',
+        position: {
+          left: 100,
+          top: 10,
+          width: 40,
+          height: 40
+        },
+        clickable: true
       }    
     ],
     mapCtx:null
@@ -106,7 +126,7 @@ Page({
       that.setData({
         scale: tmpscale
       })
-    } else {
+    } else if(e.controlId === 3) {
       that.getCenterLocation()
       let tmpscale = --that.data.scale
       if (tmpscale < 5) {
@@ -115,6 +135,12 @@ Page({
       that.setData({
         scale: tmpscale
       })
+    }else if (e.controlId === 4) {
+      //teacher
+      that.formsubmitteacher()
+    } else if (e.controlId === 5) {
+      //student
+      that.formsubmitstudent()
     }
 
 
@@ -168,6 +194,7 @@ Page({
       longitude: longitude,
       width: 40,
       height: 40,
+      istrue:true,
       callout: {
         content: point.username,
         color: '#000000',

@@ -13,7 +13,8 @@ Page({
     tabs: ["题目", "用户"],
     activeIndex: 0,
     sliderOffset: 0,
-    sliderLeft: 0
+    sliderLeft: 0,
+    icon: '../../../images/empty.png',
   },
 
 
@@ -36,8 +37,6 @@ Page({
       wx.navigateTo({
         url: `../profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
       })
-    
-
 
   },
 
@@ -105,47 +104,43 @@ Page({
   onLoad: function (options) {
 
     var that = this
-
       wx.request({
-        url: app.globalData.baseurl + '/mysubs/',
+        url: app.globalData.baseurl + '/problem/getmysubscribeprob',
         method: 'post',
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        data: { 'userid': app.globalData.openid },
+        data: { 'openid': app.globalData.openid },
         success: function (res) {
-          var problemlist = JSON.parse(res.data.json_data)
-          var subscriberlist = JSON.parse(res.data.subscriberlist)
+          var problemlist = res.data.problem
           that.setData({
             problemlist: problemlist,
-            subscriberlist :subscriberlist
 
           })
         }
       })
+      wx.request({
+        url: app.globalData.baseurl + '/problem/getmysubscribeuser',
+        method: 'post',
+        data: { 'openid': app.globalData.openid },
+        success: function (res) {
+          var subscriberlist = res.data.user
+          that.setData({
+            subscriberlist: subscriberlist
+          })
+        }
+      })
+
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    
 
-
-  
-    
-
-
-
-
-
-
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
-        });
-      }
-    });
+      wx.getSystemInfo({
+        success: function (res) {
+          that.setData({
+            sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+            sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+          });
+        }
+      });
 
 
 

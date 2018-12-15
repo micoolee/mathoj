@@ -7,25 +7,20 @@ Page({
    */
   data: {
     problemlist:null,
-    problemlistnull:0
+    problemlistnull:0,
+    icon: '../../../images/empty.png',
   },
-
-
-toask:function(){
-  wx.navigateTo({
-    url: '/pages/ask/ask',
-  })
-},
-
-
+  tosolve:function(){
+    wx.switchTab({
+      url: '../../tosolve/tosolve',
+    })
+  },
   bindQueTap: function (event) {
     var problemid = event.currentTarget.dataset.id
     wx.navigateTo({
       url: `../../question/question?problemid=${problemid}`
     })
   },
-
-
 
   /**
    * 生命周期函数--监听页面加载
@@ -38,10 +33,18 @@ toask:function(){
       method: 'post',
       data: { 'openid': app.globalData.openid },
       success: function (res) {
-        that.setData({
-          problemlist: res.data.myproblem,
-          problemlistnull:res.data.length
-        })
+        if(res.data.myproblem){
+          that.setData({
+            problemlist: res.data.myproblem,
+            problemlistnull: res.data.myproblem.length
+          })
+        }else{
+          that.setData({
+            problemlist: [],
+            problemlistnull: 0
+          })
+        }
+
       }
     })
 

@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 7,
+			"current": 13,
 			"list": [
 				{
 					"id": 0,
@@ -79,6 +79,41 @@
 					"name": "setting",
 					"pathName": "pages/settings/settings",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "ser",
+					"pathName": "pages/searchres/searchres",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "mycomment",
+					"pathName": "pages/settings/mycomm/mycomm",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "myhis",
+					"pathName": "pages/settings/myhist/myhist",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "myque",
+					"pathName": "pages/settings/myques/myques",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "mysub",
+					"pathName": "pages/settings/mysubs/mysubs",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "try",
+					"pathName": "pages/try/try"
 				}
 			]
 		}

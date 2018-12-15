@@ -99,7 +99,6 @@ function get_or_create_avatar(userid,that='null'){
               userInfo: { 'avatar': avatarimgcache, 'nickname': app.globalData.nickname }
             })
           }
-
           return avatarimgcache
         }
       })
@@ -109,8 +108,6 @@ function get_or_create_avatar(userid,that='null'){
 
 
 
-var getDateDiff = getDateDiff
-var get_or_create_avatar = get_or_create_avatar
 
 function getlastedprob(that) {
   wx.request({
@@ -128,7 +125,8 @@ function getlastedprob(that) {
       arr = arr.join('0,').split(',');
       arr.length = arr.length - 1;
       that.setData({
-        shareindexlist: arr
+        shareindexlist: arr,
+        havenewbtn:false
       })
 
       var topstories = res.data.topstory
@@ -296,6 +294,14 @@ function getsessions(that = null) {
     success: function (res) {
       var sessionlist = res.data.session
       if (!sessionlist) {
+        app.globalData.sessionlist = []
+        if (that != null) {
+          that.setData({
+            showdetail: true,
+            sessionlist: [],
+            sessionlistnull: 0
+          })
+        }
         console.log('sessionlist is null')
       } else {
         app.globalData.sessionlist = sessionlist

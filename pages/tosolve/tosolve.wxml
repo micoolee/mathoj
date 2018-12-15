@@ -51,25 +51,27 @@
 
           <!--正文  体现一下遮罩效果的-->
           <view class="cxj-content">
-            <view wx:if='{{havenewbtn}}' class='weui-cells weui-cells_after-title' style='text-align:center;'>
-              <text>有人提问啦~</text>
+            <view wx:if='{{havenewbtn}}' >
+              <wux-notice-bar mode="closable" content="有人提问啦~" />
             </view>
+
+        
 
 
 
             <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
-              <view class="feed-item">
+              <view class="feed-item"  data-id='{{item.problemid}}' bindtap="bindQueTap">
                 <view class="feed-source">
                   <a>
-                    <view class="avatar">
-                      <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
+                    <view class="avatar" catchtap='showmore' data-avatar='{{item.avatar}}' data-askerid='{{item.askerid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'>
+                      <image src="{{item.avatar}}" ></image>
                     </view>
-                    <text>{{item.nickname}}     </text>
+                    <text>{{item.nickname}}</text>
                   </a>
                   <text style='margin-right:auto'>{{item.asktime}}</text>
                 </view>
                 <view class="feed-content">
-                  <view class="question" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                  <view class="question" qid="{{question_id}}">
                     <a class="question-link">
                       <text class='line-3'>{{item.description}}</text>
                     </a>
@@ -132,17 +134,17 @@
 
 
           <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="this">
-            <view class="feed-item">
+            <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
               <view class="feed-source">
                 <a>
                   <view class="avatar">
-                    <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
+                    <image src="{{item.avatar}}" catchtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
                   </view>
                   <text>{{item.username}}{{item.feed_source_txt}}</text>
                 </a>
               </view>
               <view class="feed-content">
-                <view class="question" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                <view class="question" qid="{{question_id}}" >
                   <a class="question-link">
                     <text class='line-3'>{{item.description}}</text>
                   </a>

@@ -1,77 +1,69 @@
 <view class="page">
 
-    <view class="weui-tab">
-      <view class="weui-navbar">
-        <block wx:for="{{tabs}}" wx:key="*this">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-            <view class="weui-navbar__title">{{item}}</view>
-          </view>
-        </block>
-        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
-      </view>
-      <view class="weui-tab__panel">
-        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+  <view class="weui-tab">
+    <view class="weui-navbar">
+      <block wx:for="{{tabs}}" wx:key="*this">
+        <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+          <view class="weui-navbar__title">{{item}}</view>
+        </view>
+      </block>
+      <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+    </view>
+    <view class="weui-tab__panel">
+          <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
 
 
 
 
 
-          <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-            <block wx:for="{{problemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
-              <view class="feed-item">
-                <view class="feed-content">
-                  <view class="question line-reback" qid="{{question_id}}" data-id='{{item.problemid}}' bindtap="bindQueTap" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap'>
-                    <a class="question-link">
-                      <text>{{item.description}}</text>
-                    </a>
-                  </view>
-                  <view class="answer-body">
-                    <view class="answer-actions" bindtap="bindItemTap">
+        <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+          <block wx:for="{{problemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+            <view class="feed-item" style='width:100%' data-id='{{item.problemid}}' bindtap="bindQueTap" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap'>
+              <view class="feed-content">
+                <view class="question line-reback"  >
+                  <a class="question-link">
+                    <text>{{item.description}}</text>
+                  </a>
+                </view>
+                <view class="answer-body">
+                  <view class="answer-actions" bindtap="bindItemTap">
 
-                      <view class="comments dot">
-                        <a>{{item.comment_num}} 评论 </a>
-                      </view>
+                    <view class="comments dot">
+                      <a>{{item.commentnum}} 评论 </a>
                     </view>
                   </view>
                 </view>
               </view>
-            </block>
-          </scroll-view>
+            </view>
+          </block>
+        </scroll-view>
 
 
 
 
 
 
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-
-
-          <scroll-view scroll-y="true" class="container">
-            <block wx:for="{{subscriberlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
-              <view class="feed-item">
-                <view class="feed-content">
-                  <view class="question line-reback" qid="{{question_id}}" data-username='{{item.username}}' data-userid='{{item.besubscriber}}' data-avatar='{{item.avatar}}' bindtap="showmore">
-                    <a class="question-link">
-                      <text>{{item.username}}</text>
-                    </a>
-                  </view>
-
-                </view>
-              </view>
-            </block>
-          </scroll-view>
+      </view>
 
 
 
-
-
-
-
-
+      <view class='list-box lattice-list' hidden="{{activeIndex != 1}}">
+        <view wx:for="{{subscriberlist}}" class='lattice-li'>
+          <view style='height: 100%;display:flex;flex-direction:column;align-items:center;' data-username='{{item.nickname}}' data-userid='{{item.userid}}' data-avatar='{{item.avatar}}' bindtap="showmore">
+            <view style='margin-top:30rpx'>
+              <image src='{{item.avatar}}' style='width:80rpx;height:80rpx;' class='img-radius'></image>
+            </view>
+            <view>
+              {{item.nickname}}
+            </view>
+          </view>
 
 
         </view>
       </view>
+
+
+
     </view>
+  </view>
 </view>

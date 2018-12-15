@@ -46,7 +46,7 @@
           <button  form-type='submit' plain='true' style='padding:0;border:none'>
             <image src='../../images/bottle.png'style='width:80rpx;height:120rpx;' ></image>
           </button>
-          <text style='position:absolute;font-size:30rpx;bottom:20rpx;right:12rpx;left:12rpx;'>{{remainformidnum}}</text>
+          <text style='position:absolute;font-size:30rpx;bottom:20rpx;right:12rpx;left:12rpx;'>{{remainformidnumorstr}}</text>
         </form>
       </view>
 

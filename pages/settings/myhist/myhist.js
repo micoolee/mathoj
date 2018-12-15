@@ -8,7 +8,8 @@ Page({
   data: {
     problemlist: null,
     problemlistnull: 0,
-    loadok: false
+    loadok: false,
+    icon: '../../../images/empty.png',
   },
 
   tosolve: function () {
@@ -71,11 +72,20 @@ Page({
       method: 'post',
       data: { 'openid': app.globalData.openid },
       success: function (res) {
-        that.setData({
-          loadok: true,
-          problemlist: res.data.history,
-          problemlistnull: res.data.length
-        })
+        if (res.data.history){
+          that.setData({
+            loadok: true,
+            problemlist: res.data.history,
+            problemlistnull: res.data.history.length
+          })
+        }else{
+          that.setData({
+            loadok: true,
+            problemlist: [],
+            problemlistnull: 0
+          })
+        }
+
       }
     })
 

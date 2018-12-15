@@ -1,8 +1,6 @@
 //answer.js
 var util = require('../../utils/util.js')
 var app = getApp()
-var getDateDiff = util.getDateDiff
-var get_or_create_avatar = util.get_or_create_avatar
 
 //inner audio
 const innerAudioContext = wx.createInnerAudioContext()
@@ -87,12 +85,10 @@ var page = Page({
 
   caina:function(e){
     var solutionid = e.currentTarget.dataset.solutionid
-    var teacherid = e.currentTarget.dataset.teacherid
-    var problemid = e.currentTarget.dataset.problemid
-    var askeruserid = app.globalData.openid
     wx.request({
-      url: app.globalData.baseurl+'/accept/',
-      data:{'solutionid':solutionid,'teacherid':teacherid,'askeruserid':askeruserid,'problemid':problemid},
+      url: app.globalData.baseurl+'/problem/createcaina',
+      data:{'solutionid':solutionid,'openid':app.globalData.openid},
+      method:'POST',
       success:function(res){
         wx.showToast({
           title: '已采纳',
@@ -166,12 +162,6 @@ var page = Page({
       }
     }
   },
-
-
-
-
-
-
 
   handlepic: function () {
     this.setData({
@@ -326,8 +316,7 @@ var page = Page({
             title: '评论成功',
           })
           var comments = res.data.comment
-          // var tmp = JSON.stringify(comments).replace(/avatar":"(.*?avatar\/)([\w-_]*)(.jpg)(.*?submittime":")([\d- :]*)/g, function ($0, $1, $2, $3, $4, $5) { var tmpstr = getDateDiff($5); var cachedoor = get_or_create_avatar($2); if (cachedoor) { var cacheavatar = cachedoor } else { var cacheavatar = $1 + $2 + $3 }; return ('avatar":"' + cacheavatar + $4 + tmpstr) })
-          // comments = JSON.parse(tmp)
+
           that.setData({
             comments: comments,
           })
@@ -509,12 +498,10 @@ var page = Page({
 
   uploadtext: function (that) {
     wx.request({
-      url: app.globalData.baseurl + '/submitanswer/',
+      url: app.globalData.baseurl + '/problem/createsolution',
       method: 'post',
-      data: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'text' },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
+      data: { 'desc': that.data.textsolu, 'problemid': JSON.parse(that.data.problemid), 'openid': app.globalData.openid, 'pic': 'text' },
+      
       success: function (res) {
         wx.showToast({
           title: '提交成功',
@@ -526,9 +513,9 @@ var page = Page({
 
   uploadimg: function (that) {
     wx.uploadFile({
-      url: app.globalData.baseurl + '/submitanswer/',
+      url: app.globalData.baseurl + '/problem/createsolution',
       filePath: that.data.answerpicsrc,
-      formData: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'true' },
+      formData: { 'desc': that.data.textsolu, 'problemid': JSON.parse(that.data.problemid), 'openid': app.globalData.openid, 'pic': 'true' },
       name: 'image',
       success: function (res) {
         wx.showToast({
@@ -540,8 +527,8 @@ var page = Page({
 
   uploadrecord: function (that) {
     wx.uploadFile({
-      formData: { 'textsolu': that.data.textsolu, 'problemid': that.data.problemid, 'teacherid': app.globalData.openid, 'imgsign': 'false' },
-      url: app.globalData.baseurl + '/submitanswer/',
+      formData: { 'desc': that.data.textsolu, 'problemid': JSON.parse(that.data.problemid), 'openid': app.globalData.openid, 'pic': 'false' },
+      url: app.globalData.baseurl + '/problem/createsolution',
       filePath: app.globalData.audiopath,
       name: 'record',
       success: function (res) {

@@ -8,7 +8,10 @@ Page({
   data: {
   commentlist:[],
   commentlistnull:0,
-  loadok:false
+  loadok:false,
+
+  icon: '../../../images/empty.png',
+
   },
 
   tosolve: function () {
@@ -29,11 +32,20 @@ Page({
 
       data: { 'openid': app.globalData.openid },
       success: function (res) {
-        that.setData({
-          commentlist: res.data.mycomment,
-          commentlistnull:res.data.length,
-          loadok:true
-        })
+        if (res.data.mycomment){
+          that.setData({
+            commentlist: res.data.mycomment,
+            commentlistnull: res.data.mycomment.length,
+            loadok: true
+          })
+        }else{
+          that.setData({
+            commentlist: [],
+            commentlistnull: 0,
+            loadok: true
+          })
+        }
+
       }
     })
   },

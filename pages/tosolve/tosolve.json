@@ -1,2 +1,6 @@
 {
+  "navigationBarTitleText": "数学辅导君",
+  "usingComponents": {
+    "wux-notice-bar": "../../dist/notice-bar/index"
+  }
 }

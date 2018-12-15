@@ -9,7 +9,16 @@ Page({
     sessionlist: app.globalData.sessionlist,
     messagethat: null,
     sessionlistnull: 0,
-    showdetail:false
+    showdetail:false,
+    icon: '../../../images/empty.png',
+  },
+
+  onLoad:function(){
+    var that = this
+    app.globalData.messagethat = that
+    wx.showNavigationBarLoading()
+    var that = this
+    util.getsessions(that)
   },
 
   torank:function(){
@@ -17,11 +26,6 @@ Page({
     wx.switchTab({
       url: '/pages/top/top',
     })
-  },
-
-
-  onLoad: function () {
-
   },
 
   bindTouchStart: function (e) {
@@ -116,9 +120,9 @@ Page({
       }
     
       
-
+      var sessionid = that.data.sessionlist[sessionindex].sessionid
       wx.navigateTo({
-        url: `../message/chat/chat?sessionlist=111&sessionindex=${sessionindex}`,
+        url: `../message/chat/chat?sessionlist=111&sessionid=${sessionid}&newsession=false`,
       })
       console.log(that.data.sessionlist[sessionindex].sessionid)
       wx.request({
@@ -129,9 +133,6 @@ Page({
           console.log(e)
         }
       })
-
-      that.data.sessionlist[sessionindex].sixin[0].readed='1'
-
 
     }
   },
@@ -146,20 +147,24 @@ Page({
   },
 
   onShow: function () {
-    wx.showNavigationBarLoading()
-    var that = this
-    util.getsessions(that)
 
-    console.log(app.globalData.sessionlist)
     app.globalData.reddot = false
-
-
   },
+  //退出时去除tarbar的reddot
   onUnload: function () {
     app.globalData.sixindoor = false
-    app.globalData.informthat.setData({
-      sixindoor: false
+    wx.hideTabBarRedDot({
+      index: 3,
     })
+    if (app.globalData.informthat){
+      app.globalData.informthat.setData({
+        sixindoor: false
+      })
+    }
+    
+
   }
+
+
 
 })

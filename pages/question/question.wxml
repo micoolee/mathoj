@@ -53,7 +53,7 @@
       </view>
       <view wx:for="{{answer}}" wx:key="{{item.solutionid}}">
         <view class='feed-item'>
-                        <image class='comments-avatar-img' src='{{item.avatar}}' bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.teacherid}}' data-username='{{item.username}}' data-openid='{{item.openid}}' />
+                        <image class='comments-avatar-img' src='{{item.Avatar}}' bindtap='showmore' data-avatar='{{item.Avatar}}' data-userid='{{item.Solverid}}' data-username='{{item.username}}' data-openid='{{item.Openid}}' />
 
 
 
@@ -69,7 +69,7 @@
 
 
           <text style='font-size:15px'>
-                  {{item.text}}
+                  {{item.Description}}
             </text>
 
 
@@ -102,7 +102,7 @@
 
     <view wx:if="{{answerdoor != 'yes'}}" class="que-operate flex-wrp">
 
-      <view class="write flex-item" bindtap='showanswerbox' wx:if='{{hidehuida}}'>
+      <view class="write flex-item" bindtap='showanswerbox' hidden='{{hidehuida}}'>
         <image src="../../images/write.png"></image>
         <text>写回答</text>
       </view>

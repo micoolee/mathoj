@@ -1,7 +1,6 @@
-  <text style='text-align:center;display:block'>答主排行榜</text>
+  <text style='text-align:center;display:block'>答题之星</text>
   <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}" style='border-bottom:0.1px solid #F0F0F0;'>
-    <view class="segment" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' 
-      data-avatar='{{item.avatar}}' data-openid='{{item.openid}}' data-username='{{item.username}}'>
+    <view class="segment" >
             <image class="bigavatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
             <view style='display:flex'>
                         <text class='textstyle test'>{{item.nickname}}</text>
@@ -11,3 +10,18 @@
             <image class='icon' src='../../images/firstrank.png'><text style='position:absolute;font-size:30rpx;bottom:40rpx;right:50rpx;'>{{index+1}}</text></image>
     </view>
   </scroll-view>
+
+
+    <!-- <text style='text-align:center;display:block'>提问之星</text>
+  <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}" style='border-bottom:0.1px solid #F0F0F0;'>
+    <view class="segment" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' 
+      data-avatar='{{item.avatar}}' data-openid='{{item.openid}}' data-username='{{item.username}}'>
+            <image class="bigavatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
+            <view style='display:flex'>
+                        <text class='textstyle test'>{{item.nickname}}</text>
+            <text class='centertext' style='position:absolute;margin-right:30rpx;margin-left:120rpx'>提问数{{item.problemnum-1}}        </text>
+            </view>
+
+            <image class='icon' src='../../images/firstrank.png'><text style='position:absolute;font-size:30rpx;bottom:40rpx;right:50rpx;'>{{index+1}}</text></image>
+    </view>
+  </scroll-view> -->

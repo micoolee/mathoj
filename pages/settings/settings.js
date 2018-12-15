@@ -7,33 +7,28 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     hide: false,
     animationData: null,
-    coin:null
+    coin:null,
+    remainformidnumorstr:null,
+    remainformidnum:0
   },
   onLoad: function (options) {
-
-  },
-  // onShow:function(){
-  //   var that = this
-  //   var a = util.get_or_create_avatar(app.globalData.openid,that)
-
-  //   if (app.globalData.reddot) {
-  //     wx.showTabBarRedDot({
-  //       index: 3,
-  //     })
-  //   }
-  // },
-  onShow: function () {
     var that = this
-    util.get_or_create_avatar(app.globalData.openid, that)
+    //获取瓶子数
     wx.request({
       url: app.globalData.baseurl + '/user/getformidnum',
       data: { 'userid': app.globalData.selfuserid },
       method: 'POST',
       success: function (res) {
         console.log(res.data)
-        setnum(that,res.data.count)
+        setnum(that, res.data.count)
       }
     })
+  },
+
+  onShow: function () {
+    var that = this
+    util.get_or_create_avatar(app.globalData.openid, that)
+
 
     if (app.globalData.reddot) {
       wx.showTabBarRedDot({
@@ -181,35 +176,48 @@ clearcache:function(){
   //尝试获取formid
   pushformid: function (e) {
     var that = this
+    setnum(that)
     wx.request({
       url: app.globalData.baseurl + '/user/pushformid',
       method: 'POST',
       data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
-      success: function (res) {
-        console.log(res)
-        setnum(that, res.data.count)
+      success: function (res) {        
       }
     })
   },
 
 })
 
-function setnum(that,count){
+function setnum(that,count=-1){
   if (!count) {
     console.log(0)
     that.setData({
-      remainformidnum: 0
+      remainformidnum: 0,
+      remainformidnumorstr: 0
     })
     return
   }
-  switch (count) {
-    case count > 99:
+  if(count == -1){
+    that.setData({
+      remainformidnum: that.data.remainformidnum + 1,
+      
+    })
+    if (that.data.remainformidnum>99){
       that.setData({
-        remainformidnum: '>99'
+        remainformidnumorstr:">99",
       })
-    default:
+    }else{
       that.setData({
-        remainformidnum: count
+        remainformidnumorstr: that.data.remainformidnum,
       })
+    }
+    return
   }
+  that.setData({
+    remainformidnum: count,
+    remainformidnumorstr: count
+  })
+
+
+
 }

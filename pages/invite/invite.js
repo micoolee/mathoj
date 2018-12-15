@@ -8,7 +8,8 @@ Page({
   data: {
   problemid:null,
   invitedsign:[false],
-  noone:false
+  noone:false,
+    icon: '../../images/empty.png',
   },
 
 invite:function(e){
@@ -18,6 +19,7 @@ invite:function(e){
   var index = e.currentTarget.dataset.index
   wx.request({
     url: app.globalData.baseurl+'/problem/invite',
+    method:'POST',
     data:{'inviterid':inviter,'beinviterid':beinviter,'problemid':that.data.problemid},
     success:function(res){
       var tmp = that.data.invitedsign
@@ -29,12 +31,19 @@ invite:function(e){
   })
 
 },
+
+  torank: function () {
+    var that = this
+    wx.switchTab({
+      url: '/pages/top/top',
+    })
+  },
   onShow:function(){
     var that = this
     wx.request({
       url: app.globalData.baseurl + '/problem/getinvitelist',
       method: 'post',
-      data: { 'userid': app.globalData.openid, 'problemid': JSON.parse(that.data.problemid) },
+      data: { 'openid': app.globalData.openid, 'problemid': JSON.parse(that.data.problemid) },
       success: function (res) {
         var subscriberlist = res.data.beinviter
         if (! subscriberlist ) {

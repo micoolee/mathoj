@@ -51,37 +51,16 @@ Page({
   },
   submitSuggestion: function () {
     var that = this
-    if(this.data.uploadfile){
+    if (that.data.uploadfile){
       wx.uploadFile({
-      url: app.globalData.baseurl + '/feedback/',
+      url: app.globalData.baseurl + '/user/feedback',
       filePath: that.data.files[0],
+      method:'POST',
       name: 'errorimage',
-      formData:{'content':that.data.content,'connect':that.data.connect,'errortype':'1'},
-            success: function (res) {
-        wx.showModal({
-          title: '提示',
-          content: '提交成功！感谢您的反馈！',
-          showCancel: false,
-          success: function (res) {
-            if (res.confirm) {
-              wx.navigateBack({
-
-              })
-            }
-          }
-        })
-      }
-    })
-    }else{
-      if(this.data.content!=""){
-      wx.request({
-      url: app.globalData.baseurl + '/feedback/',
-      
-      data: this.data,
-      method:'post',
       header: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "content-type": "application/form-data"
       },
+      formData:{'userid':app.globalData.selfuserid,'content':that.data.content,'connection':that.data.connect,'noimage':'false'},
       success: function (res) {
         wx.showModal({
           title: '提示',
@@ -97,6 +76,27 @@ Page({
         })
       }
     })
+    }else{
+      if (that.data.content!=""){
+        wx.request({
+          url: app.globalData.baseurl + '/user/feedback',
+          data: { 'userid': app.globalData.userid, 'content': that.data.content, 'connection': that.data.connect, 'noimage': 'true'},
+          method:'post',
+          success: function (res) {
+            wx.showModal({
+              title: '提示',
+              content: '提交成功！感谢您的反馈！',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  wx.navigateBack({
+
+                  })
+                }
+              }
+            })
+          }
+        })
       }else{
         wx.showModal({
           title: '提示',
@@ -105,11 +105,6 @@ Page({
       }
 
     }
-
-
-
-
-
   }
 
 })

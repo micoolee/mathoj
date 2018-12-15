@@ -1,18 +1,58 @@
-<scroll-view class="container" >
-<view wx:if="{{searchlistnull==0}}" class="question-link line-3 centertext">没有匹配到您输入的关键词，
-换一个试试吧</view>
-<view wx:else>
-  <block wx:for="{{searchlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+<view wx:if="{{searchlistnull==0}}" class="wux-prompt__bd">
+  <view>
+    <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
+  </view>
 
-    <view class="feed-item">
-      <view class="feed-content" data-id='{{item.pk}}' bindtap="bindQueTap" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' >
-        <view class="question" qid="{{question_id}}" >
-          <a class="question-link">
-            <text>{{item.fields.description}}</text>
-          </a>
-        </view>
-      </view>
-    </view>
-  </block>
+  <view>
+    <text>无匹配结果</text>
+  </view>
+  <view>
+    <button class='wux-button--dark' bindtap='toindex'>重新输入</button>
+  </view>
 </view>
-</scroll-view>
+<view wx:else>
+  <scroll-view class="container">
+
+
+
+
+
+    <block wx:for="{{searchlist}}" wx:key="{{item.problemid}}">
+      <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
+        <view class="feed-source">
+          <!-- <a>
+            <view class="avatar">
+              <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-askerid='{{item.askerid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
+            </view>
+            <text>{{item.nickname}}     </text>
+          </a> -->
+          <text style='margin-right:auto'>{{item.asktime}}</text>
+        </view>
+
+
+        <view class="feed-content">
+          <view class="question">
+            <a class="question-link">
+              <text>{{item.description}}</text>
+            </a>
+            <a class="question-link">
+              <text>{{item.grade}}</text>
+            </a>
+          </view>
+        </view>
+        <view class="comments ">
+          <view wx:if="{{item.solutionnum != null}}">
+            {{item.solutionnum}} 回答
+          </view>
+          <view wx:else>0 回答</view>
+        </view>
+
+
+
+
+
+      </view>
+    </block>
+
+  </scroll-view>
+</view>

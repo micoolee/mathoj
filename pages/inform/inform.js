@@ -21,6 +21,8 @@ Page({
   },
 
   onLoad: function () {
+    var that = this
+    app.globalData.informthat = that
     app.getlastedinform()
     wx.request({
       url: app.globalData.baseurl + '/message/checksession',
@@ -122,6 +124,7 @@ Page({
           if (res.confirm) {
             wx.request({
               url: app.globalData.baseurl + '/message/delete',
+              method:'POST',
               data: { 'messageid': informid,'openid':app.globalData.openid },
               success: function () {
                 app.getlastedinform(that)
@@ -167,15 +170,6 @@ Page({
       url: '../inform/message/message',
     })
   },
-
-
-
-
-  onReady: function () {
-    var that = this
-    app.globalData.informthat = that
-  },
-
 
 
 
