@@ -164,11 +164,11 @@ function checklasted(that) {
 function getlastedsolvedprob(that) {
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
-    data: { 'formerid': that.data.formerid, 'filter': [], 'solved': '1' },
+    data: { 'formerid': 0, 'filter': [], 'solved': '1' },
     method: "POST",
     success: function (res) {
       wx.hideNavigationBarLoading()
-      if (res.data.length > 0) {
+      if (res.data.problem.length > 0) {
 
         var solvedproblemlist = res.data.problem
 
@@ -177,7 +177,7 @@ function getlastedsolvedprob(that) {
 
         that.setData({
           solvedproblemlist:solvedproblemlist,
-          formerid:solvedproblemlist[solvedproblemlist.length-1].problemid
+          solvedformerid:solvedproblemlist[solvedproblemlist.length-1].problemid
         })
       } else {
         wx.showToast({
@@ -203,7 +203,7 @@ function solvedpulldown(that) {
       var problemlist = res.data
       if (problemlist.length > 0) {
         that.setData({
-          lastedid: problemlist[0].problemid,
+          solvedformerid: problemlist[0].problemid,
           problemlist: problemlist,
           formerid: problemlist[problemlist['length'] - 1].problemid
         })
@@ -395,7 +395,7 @@ function get10solvedprob(that,searchparam=[]) {
   var that = that
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
-    data: { 'formerid': that.data.formerid, 'filter': searchparam, 'solved': '1'},
+    data: { 'formerid': that.data.solvedformerid, 'filter': searchparam, 'solved': '1'},
     success: function (res) {
       var problemlist = JSON.parse(res.data.json_data)
 
@@ -408,7 +408,7 @@ function get10solvedprob(that,searchparam=[]) {
         problemlist = that.data.problemlist.concat(problemlist)
         that.setData({
           problemlist: problemlist,
-          formerid: problemlist[problemlist['length'] - 1].problemid
+          solvedformerid: problemlist[problemlist['length'] - 1].problemid
         })
       }
 
@@ -420,10 +420,10 @@ function get10solvedprob(that,searchparam=[]) {
 
 
 function checksolvedlasted(that) {
-  if (that.data.lastedid != null) {
+  if (that.data.solvedformerid != null) {
     wx.request({
       url: app.globalData.baseurl + '/checksolvedlasted/',
-      data: { 'lastedid': that.data.lastedid },
+      data: { 'lastedid': that.data.solvedformerid },
       success: function (res) {
         if (res.data.code == 200) {
           that.setData({

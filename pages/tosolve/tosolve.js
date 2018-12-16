@@ -134,7 +134,8 @@ Page({
       }
     ],
     searchParam: [],
-    solvedproblemlist: []
+    solvedproblemlist: [],
+    solvedformerid:0
   },
 
 
@@ -235,7 +236,7 @@ Page({
     }else{
       wx.request({
         url: app.globalData.baseurl + '/problem/getten',
-        data: { 'formerid': that.data.solvedformerid, 'filter': searchparam, 'solved': '1' },
+        data: { 'formerid': 0, 'filter': searchparam, 'solved': '1' },
         method: 'POST',
         success: function (res) {
           var filterproblist = res.data.problem

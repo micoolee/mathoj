@@ -6,8 +6,11 @@ App({
     // baseurl: 'https://mathoj.liyuanye.club',
     // wssurl: 'wss://mathoj.liyuanye.club/testwss/',
 
-    baseurl: 'http://192.168.0.174:8080',
-    wssurl: 'ws://192.168.0.174:8080/user/createwss',
+    // baseurl: 'http://192.168.0.174:8080',
+    // wssurl: 'ws://192.168.0.174:8080/user/createwss',
+
+    baseurl: 'https://www.liyuanye.club',
+    wssurl: 'https://www.liyuanye.club/user/createwss',
 
 
     mapCtx:null,
@@ -26,7 +29,7 @@ App({
     messagethat: null,
     reddot: false,
     sixindoor: false,
-    nothissession: true,
+    
     chatroomthat: null,
     searchlist: [],
     globalproblemlist: [],
@@ -82,9 +85,10 @@ App({
         var all = that.globalData.sessionlist
         var singlemessage = tmp
         var one = singlemessage
-
-        for (var i in all) { if (all[i].sessionid == one.sessionid) { all[i].sixin.push(one.sixin); that.globalData.nothissession = false } }
-        if (all.length == 0 | that.globalData.nothissession) {
+        var index = null
+        nothissession= true
+        for (var i in all) { if (all[i].sessionid == one.sessionid) { all[i].sixin.push(one.sixin); index = i } }
+        if (all.length == 0 | index==null) {
           all.unshift(one)
         }
         that.globalData.sessionlist = all
@@ -103,11 +107,11 @@ App({
         }
 
 
-        if (that.globalData.chatroomthat) {
-          that.globalData.chatroomthat.setData({
-            sixinlist: all[that.globalData.sessionindex].sixin
-          })
-          that.globalData.chatroomthat.refresh()
+        if (that.globalData.chatroomthat && index != null) {
+            that.globalData.chatroomthat.setData({
+              sixinlist: all[index].sixin
+            })
+            that.globalData.chatroomthat.refresh()
         }
 
 

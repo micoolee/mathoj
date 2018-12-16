@@ -1,7 +1,4 @@
-<!-- <view wx:if="{{noone}}" style='text-align:center'>
-  <text >没有可以邀请的答主,
-  请关注后再来操作</text>
-</view> -->
+
   <view wx:if="{{noone}}" class="wux-prompt__bd">
     <view>
       <image src="{{ icon }}" class="wux-prompt__icon" />
@@ -21,11 +18,14 @@
     <block wx:for="{{subscriberlist}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
       <view class="feed-item">
         <view class="feed-content">
-          <view class="question line-reback" qid="{{question_id}}" data-username='{{item.nickname}}' data-userid='{{item.beinviterid}}' data-avatar='{{item.avatar}}'>
+          <view class="question line-reback" style='display:flex' data-username='{{item.nickname}}' data-avatar='{{item.avatar}}'>            
               <image src='{{item.avatar}}' class='comments-avatar-img'></image>
-              <text class='feed-content'>{{item.nickname}}</text>
-              <view wx:if="{{item.invited || invitedsign[index]}}" class='right'>已邀请</view>
-              <view wx:else class='right'  bindtap='invite' data-index='{{index}}' data-besubscriber='{{item.beinviterid}}'>邀请</view>
+              <view style='flex:3;text-align:center;'>
+              <text class='feed-content' style='font-size:30rpx;'>{{item.nickname}}</text>
+              </view>
+              
+              <view style='flex:9' wx:if="{{item.invited=='true' || invitedsign[index]}}" class='right'>已邀请</view>
+              <view style='flex:9' wx:else class='right'  bindtap='invite' data-index='{{index}}' data-beinviter='{{item.beinviterid}}'  >邀请</view>
           </view>
 
         </view>

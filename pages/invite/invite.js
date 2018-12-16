@@ -13,14 +13,14 @@ Page({
   },
 
 invite:function(e){
-  var beinviter = e.currentTarget.dataset.besubscriber
-  var inviter = app.globalData.openid
+  
+  var beinviter = e.currentTarget.dataset.beinviter
   var that = this
   var index = e.currentTarget.dataset.index
   wx.request({
-    url: app.globalData.baseurl+'/problem/invite',
+    url: app.globalData.baseurl +'/problem/createinvite',
     method:'POST',
-    data:{'inviterid':inviter,'beinviterid':beinviter,'problemid':that.data.problemid},
+    data: { 'inviterid': app.globalData.selfuserid,'beinviterid':beinviter,'problemid':JSON.parse(that.data.problemid)},
     success:function(res){
       var tmp = that.data.invitedsign
       tmp[index]=true

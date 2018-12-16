@@ -500,7 +500,8 @@ var page = Page({
     wx.request({
       url: app.globalData.baseurl + '/problem/createsolution',
       method: 'post',
-      data: { 'desc': that.data.textsolu, 'problemid': JSON.parse(that.data.problemid), 'openid': app.globalData.openid, 'pic': 'text' },
+      data: { 'desc': that.data.textsolu, 'problemid': JSON.parse(that.data.problemid), 'openid': app.globalData.openid, 'pic': '','record':'' },
+    
       
       success: function (res) {
         wx.showToast({
@@ -515,7 +516,7 @@ var page = Page({
     wx.uploadFile({
       url: app.globalData.baseurl + '/problem/createsolution',
       filePath: that.data.answerpicsrc,
-      formData: { 'desc': that.data.textsolu, 'problemid': JSON.parse(that.data.problemid), 'openid': app.globalData.openid, 'pic': 'true' },
+      formData: { 'desc': that.data.textsolu, 'problemid': JSON.parse(that.data.problemid), 'openid': app.globalData.openid, 'noimage': 'false', 'norecord': 'true' },
       name: 'image',
       success: function (res) {
         wx.showToast({
@@ -527,7 +528,7 @@ var page = Page({
 
   uploadrecord: function (that) {
     wx.uploadFile({
-      formData: { 'desc': that.data.textsolu, 'problemid': JSON.parse(that.data.problemid), 'openid': app.globalData.openid, 'pic': 'false' },
+      formData: { 'desc': that.data.textsolu, 'problemid': JSON.parse(that.data.problemid), 'openid': app.globalData.openid, 'noimage': 'true','norecord':'false'},
       url: app.globalData.baseurl + '/problem/createsolution',
       filePath: app.globalData.audiopath,
       name: 'record',
@@ -678,7 +679,7 @@ function getproblem(that){
       } else {
         answer = res.data.answer
       }
-      var hidehuida = res.data.answerbox == undefined
+      var hidehuida = res.data.hideanwserbox
       var comments
       if (! res.data.comment){
         comments = []

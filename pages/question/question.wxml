@@ -1,225 +1,214 @@
 <!--question.wxml-->
 <view wx:if="{{showdetail}}">
-<view class="container" >
-  <view class="question-wrp">
-    <view class="question-item">
-      <view class="que-tag">
-        <text class="tag">{{grade}}</text>
-
-      </view>
-      <view class="que-title breakline">
-        {{desc}}
-      </view>
-
-      <view wx:if="{{problempic != 'noimages'}}" style='justify-content:center' class='page__text' bindtap='handlepic'>
-        <view wx:if='{{showpic}}' style='display:flex;flex-direction:column;'>
-          <view>
-            收起图片
-          </view>
-        </view>
-        <view wx:else>
-          展开图片
-        </view>
-
-        <image src='{{problempic}}' mode='widthFix' hidden='{{! showpic}}' bindtap='viewimage' data-image='{{problempic}}'></image>
-
-      </view>
-
-      <view class="que-follow">
-        <view class="left">
-          <view class="watch">
-            <image src="../../images/eye.png"></image>
-            <text>{{lookedtime}}</text>
-          </view>
-          <view class="comment">
-            <image src="../../images/comment2.png"></image>
-            <text>{{comments.length}}</text>
-          </view>
-        </view>
-        <view class="right" bindtap='subscribe' data-id='{{subscribe_door}}'>
-          <view wx:if="{{subscribe_door}}" data-id='{{subscribe_door}}'>
-            关注
-          </view>
-          <view wx:else data-id='{{subscribe_door}}'>
-            取消关注
-          </view>
+  <view class="container">
+    <view class="question-wrp">
+      <view class="question-item">
+        <view class="que-tag">
+          <text class="tag">{{grade}}</text>
 
         </view>
+        <view class="que-title breakline">
+          {{desc}}
+        </view>
+
+        <view wx:if="{{problempic != 'noimages'}}" style='justify-content:center' class='page__text' bindtap='handlepic'>
+          <view wx:if='{{showpic}}' style='display:flex;flex-direction:column;'>
+            <view>
+              收起图片
+            </view>
+          </view>
+          <view wx:else>
+            展开图片
+          </view>
+
+          <image src='{{problempic}}' mode='widthFix' hidden='{{! showpic}}' bindtap='viewimage' data-image='{{problempic}}'></image>
+
+        </view>
+
+        <view class="que-follow">
+          <view class="left">
+            <view class="watch">
+              <image src="../../images/eye.png"></image>
+              <text>{{lookedtime}}</text>
+            </view>
+            <view class="comment">
+              <image src="../../images/comment2.png"></image>
+              <text>{{comments.length}}</text>
+            </view>
+          </view>
+          <view class="right" bindtap='subscribe' data-id='{{subscribe_door}}'>
+            <view wx:if="{{subscribe_door}}" data-id='{{subscribe_door}}'>
+              关注
+            </view>
+            <view wx:else data-id='{{subscribe_door}}'>
+              取消关注
+            </view>
+
+          </view>
+        </view>
       </view>
-    </view>
-    <view>
-      <view class='page__teacheranswer'>
-        指点迷津：
-      </view>
-      <view wx:for="{{answer}}" wx:key="{{item.solutionid}}">
-        <view class='feed-item'>
-                        <image class='comments-avatar-img' src='{{item.Avatar}}' bindtap='showmore' data-avatar='{{item.Avatar}}' data-userid='{{item.Solverid}}' data-username='{{item.username}}' data-openid='{{item.Openid}}' />
+      <view>
+        <view class='page__teacheranswer'>
+          指点迷津：
+        </view>
+        <view wx:for="{{answer}}" wx:key="{{item.solutionID}}">
+          <view class='feed-item'>
+            <image class='comments-avatar-img' src='{{item.Avatar}}' bindtap='showmore' data-avatar='{{item.Avatar}}' data-userid='{{item.Solverid}}' data-username='{{item.username}}' data-openid='{{item.Openid}}' />
 
+            <text class='textstyle'>{{item.username}}</text>
+            <text bindtap='caina' hidden='{{hidecaina}}' class='righttext' data-solutionid='{{item.solutionID}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>采纳</text>
 
-
-
-
-                        <text class='textstyle'>{{item.username}}</text>
-            <text bindtap='caina' hidden='{{hidecaina}}' class='righttext' data-solutionid='{{item.solutionid}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>采纳</text>
-
-
-
-
-
-
-
-          <text style='font-size:15px'>
+            <text style='font-size:15px'>
                   {{item.Description}}
             </text>
 
 
-          <view wx:if="{{item.record}}">
-            <audio src="{{item.record}}"></audio>
-            <view class='record-controller'>
+            <view wx:if="{{item.Record != undefined}}">
+              <audio src="{{item.Record}}"></audio>
+              <view class='record-controller'>
 
-              <view class='flex-wrp'>
-                <view class="btns">
-                  <image bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.record}}' src="/images/start.png" style='width:30px;height:30px'></image>
-                  <image bindtap='pause1' wx:else src="/images/pause.png" style='width:30px;height:30px'></image>
+                <view class='flex-wrp'>
+                  <view class="btns">
+                    <image bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.Record}}' src="/images/start.png" style='width:30px;height:30px'></image>
+                    <image bindtap='pause1' wx:else src="/images/pause.png" style='width:30px;height:30px'></image>
+                  </view>
+
+                  <view class="progresswrap">
+                    <slider class="drag page__bd_spacing" style='width:500rpx' step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
+                  </view>
+
+
                 </view>
-
-                <view class="progresswrap">
-                  <slider class="drag page__bd_spacing" style='width:500rpx' step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
-                </view>
-
 
               </view>
-
+            </view>
+            <view wx:if="{{item.Image != undefined}}" class='page__teacheranswerimage'>
+              <image src='{{item.Image}}' bindtap='viewimage' data-image='{{item.Image}}' data-recordsrc='{{item.Record}}' mode='widthFix'></image>
             </view>
           </view>
-          <view wx:if="{{item.image}}" class='page__teacheranswerimage'>
-            <image src='{{item.image}}' bindtap='viewimage' data-image='{{item.image}}' data-recordsrc='{{item.record}}' mode='widthFix'></image>
+        </view>
+      </view>
+
+      <view wx:if="{{answerdoor != 'yes'}}" class="que-operate flex-wrp">
+
+        <view class="write flex-item" bindtap='showanswerbox' hidden='{{hidehuida=="true"}}'>
+          <image src="../../images/write.png"></image>
+          <text>写回答</text>
+        </view>
+        <view class="invite flex-item" bindtap='showinvitebox' data-problemid='{{problemid}}'>
+          <image src="../../images/invite.png"></image>
+          <text>邀请回答</text>
+        </view>
+      </view>
+
+
+
+      <view name='teacheranswer' hidden='{{answerbox}}' class='answer-box'>
+        <view class="weui-cell__bd">
+          <textarea class="weui-textarea" name="desc" placeholder="请回答" value='{{placeholder}}' maxlength="500" style="height: 5.3em" bindinput="textsolu" />
+          <view class="weui-textarea-counter">{{inputnum}}/500</view>
+        </view>
+
+        <view style='display:flex;justify-content:center'>
+          <view class="weui-uploader__files" id="uploaderFiles">
+            <block wx:for="{{files}}" wx:key="*this">
+              <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+              </view>
+            </block>
+          </view>
+          <view class="weui-uploader__input-box">
+            <view class="weui-uploader__input" bindtap="takephoto"></view>
           </view>
         </view>
-      </view>
 
-    </view>
-
-    <view wx:if="{{answerdoor != 'yes'}}" class="que-operate flex-wrp">
-
-      <view class="write flex-item" bindtap='showanswerbox' hidden='{{hidehuida}}'>
-        <image src="../../images/write.png"></image>
-        <text>写回答</text>
-      </view>
-      <view class="invite flex-item" bindtap='showinvitebox' data-problemid='{{problemid}}'>
-        <image src="../../images/invite.png"></image>
-        <text>邀请回答</text>
-      </view>
-    </view>
-
-
-
-    <view name='teacheranswer' hidden='{{answerbox}}' class='answer-box'>
-      <view class="weui-cell__bd">
-        <textarea class="weui-textarea" name="desc" placeholder="请回答" value='{{placeholder}}' maxlength="500" style="height: 5.3em" bindinput="textsolu" />
-        <view class="weui-textarea-counter">{{inputnum}}/500</view>
-      </view>
-
-      <view style='display:flex;justify-content:center'>
-        <view class="weui-uploader__files" id="uploaderFiles">
-          <block wx:for="{{files}}" wx:key="*this">
-            <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-              <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-            </view>
-          </block>
-        </view>
-        <view class="weui-uploader__input-box">
-          <view class="weui-uploader__input" bindtap="takephoto"></view>
-        </view>
-      </view>
-
-      <view wx:if="{{showyuansheng}}">
-        <view class="progresswrap">
-          <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
-          <image bindtap='play1' wx:if="{{tingstate}}" src="/images/start.png" class='recordstopimg'></image>
-          <image bindtap='pause1' wx:else src="/images/pause.png" class='recordstopimg'></image>
-        </view>
-      </view>
-
-      <view wx:if="{{recordstate}}">
-        <button bindtap='start' type='primary' data-id='{{recordstate}}'>开始录音</button>
-      </view>
-      <view wx:else>
-        <button bindtap='start' type='primary' data-id='{{recordstate}}'>结束录音</button>
-      </view>
-
-      <button bindtap='submitanswer'>提交回答</button>
-    </view>
-
-
-
-
-
-  </view>
-</view>
-
-<view class="content-comments" >
-
-  <view class="comments-box" wx:if="{{comments.length > 0}}">
-    <text class="comments-title">最新评论</text>
-
-    <view wx:if="{{comments[0]!='notnull'}}">
-      <view class="comments-list" wx:for="{{comments}}" wx:key="{{item.Commentid}}" wx:for-item="item" wx:for-index="i">
-        <view class="comments-avatar">
-          <image class="comments-avatar-img" src="{{item.Avatar}}" />
-        </view>
-        <view class="comments-main">
-          <view class="comments-author">
-            <view class="comments-zan">{{item.Zanernum}}
-              <image src="../../images/zan.png" class="extra-share-img" bindtap='dianzan' data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' />
-            </view>
-            <text>{{item.Nickname}}</text>
-            <text> {{item.Createtime}}</text>
+        <view wx:if="{{showyuansheng}}">
+          <view class="progresswrap">
+            <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
+            <image bindtap='play1' wx:if="{{tingstate}}" src="/images/start.png" class='recordstopimg'></image>
+            <image bindtap='pause1' wx:else src="/images/pause.png" class='recordstopimg'></image>
           </view>
-          <view class="comments-content breakline-small">{{item.Description}}</view>
-          <!-- <view class="comments-data">{{item.Zanernum}}</view> -->
         </view>
+
+        <view wx:if="{{recordstate}}">
+          <button bindtap='start' type='primary' data-id='{{recordstate}}'>开始录音</button>
+        </view>
+        <view wx:else>
+          <button bindtap='start' type='primary' data-id='{{recordstate}}'>结束录音</button>
+        </view>
+
+        <button bindtap='submitanswer'>提交回答</button>
       </view>
 
+
+
+
+
     </view>
   </view>
-  <!-- 没有评论 -->
-  <view class="not-comments" wx:else> 暂时还没有评论喔! </view>
-</view>
 
+  <view class="content-comments">
 
-<!-- </scroll-view> -->
+    <view class="comments-box" wx:if="{{comments.length > 0}}">
+      <text class="comments-title">最新评论</text>
 
-<!-- 评论 点赞 分享  -->
-<view class="extra">
-  <view class="extra-share">
+      <view wx:if="{{comments[0]!='notnull'}}">
+        <view class="comments-list" wx:for="{{comments}}" wx:key="{{item.Commentid}}" wx:for-item="item" wx:for-index="i">
+          <view class="comments-avatar">
+            <image class="comments-avatar-img" src="{{item.Avatar}}" />
+          </view>
+          <view class="comments-main">
+            <view class="comments-author">
+              <view class="comments-zan">{{item.Zanernum}}
+                <image src="../../images/zan.png" class="extra-share-img" bindtap='dianzan' data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' />
+              </view>
+              <text>{{item.Nickname}}</text>
+              <text> {{item.Createtime}}</text>
+            </view>
+            <view class="comments-content breakline-small">{{item.Description}}</view>
+            <!-- <view class="comments-data">{{item.Zanernum}}</view> -->
+          </view>
+        </view>
 
-    <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' />
-
-    <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />
-
-  </view>
-  <input class="extra-input" style='width:60%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" />
-</view>
-
-
-
-
-<!-- 分享层 -->
-
-
-
-<view class="extra-share-box" style="display:{{shareShow}}">
-  <view class="share-box-show" animation="{{shareBottom}}">
-    <view class="share-box-img-box">
-      <button class="weui-btn" type="primary" open-type='share' bindtap='clickshare' data-problemid='{{problemid}}'>分享给好友们</button>
+      </view>
     </view>
-    <view class="share-box-close" bindtap="shareClose">关闭</view>
+    <!-- 没有评论 -->
+    <view class="not-comments" wx:else> 暂时还没有评论喔! </view>
   </view>
-  <view class="share-box-opacity" animation="{{shareOpacity}}" bindtap="shareClose"></view>
-</view>
 
-<modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
-  <view> {{modalValue}} </view>
-</modal>
+
+  <!-- </scroll-view> -->
+
+  <!-- 评论 点赞 分享  -->
+  <view class="extra">
+    <view class="extra-share">
+
+      <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' />
+
+      <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />
+
+    </view>
+    <input class="extra-input" style='width:60%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" />
+  </view>
+
+
+
+
+  <!-- 分享层 -->
+
+
+
+  <view class="extra-share-box" style="display:{{shareShow}}">
+    <view class="share-box-show" animation="{{shareBottom}}">
+      <view class="share-box-img-box">
+        <button class="weui-btn" type="primary" open-type='share' bindtap='clickshare' data-problemid='{{problemid}}'>分享给好友们</button>
+      </view>
+      <view class="share-box-close" bindtap="shareClose">关闭</view>
+    </view>
+    <view class="share-box-opacity" animation="{{shareOpacity}}" bindtap="shareClose"></view>
+  </view>
+
+  <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
+    <view> {{modalValue}} </view>
+  </modal>
 </view>
