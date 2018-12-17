@@ -40,15 +40,6 @@ Page({
 
   },
 
-
-
-
-
-
-
-
-
-
   bindTouchStart: function (e) {
     this.startTime = e.timeStamp;
   },
@@ -93,11 +84,6 @@ Page({
     }
   },
 
-
-
-
-
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -112,7 +98,6 @@ Page({
           var problemlist = res.data.problem
           that.setData({
             problemlist: problemlist,
-
           })
         }
       })

@@ -2,14 +2,8 @@ const app =getApp()
 
 const WxParse = require('../../wxParse/wxParse.js');
 const txvContext = requirePlugin("tencentvideo");
-
-if(app.globalData.baseurl ){
-  // var baseurl = 'https://mathoj.liyuanye.club'
-  var baseurl = 'http://192.168.0.174:8080'
-}else{
-  // var baseurl = 'https://mathoj.liyuanye.club'
-  var baseurl = 'http://192.168.0.174:8080'
-}
+//mike dev
+var baseurl = 'https://www.liyuanye.club'
 
 Page({
 

@@ -4,7 +4,6 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     hide: false,
     animationData: null,
     coin:null,
@@ -19,7 +18,6 @@ Page({
       data: { 'userid': app.globalData.selfuserid },
       method: 'POST',
       success: function (res) {
-        console.log(res.data)
         setnum(that, res.data.count)
       }
     })
@@ -38,20 +36,7 @@ Page({
   },
 
 
-  showMyProf:function(){
-    wx.navigateTo({
-      url: '../profile/profile',
-    })
-  },
 
-  showMyQues: function () {
-    wx.navigateTo({
-      url: './myques/myques',
-      success: function (res) {
-
-      },
-    })
-  },
   //设置年级
   setGrade:function(){
     wx.showModal({
@@ -75,7 +60,14 @@ Page({
       }
     })
   },
+  showMyQues: function () {
+      wx.navigateTo({
+          url: './myques/myques',
+          success: function (res) {
 
+          },
+      })
+  },
 
   showMyBrow: function () {
     wx.navigateTo({
@@ -95,8 +87,6 @@ Page({
     })
   },
 
-
-
   showMyComm: function () {
     wx.navigateTo({
       url: './mycomm/mycomm',
@@ -108,35 +98,27 @@ Page({
 
 
 
-clearcache:function(){
-  wx.showModal({
-    title: '提示',
-    content: '清除后会重新加载，确定清除？',
-    success:function(res){
-      if(res.confirm){
-        wx.clearStorageSync()
-        wx.showToast({
-          title: '成功清除',
-        })
-        wx.reLaunch({
-          url: '/pages/tosolve/tosolve',
-        })
-      }else{
+  clearcache:function(){
+    wx.showModal({
+      title: '提示',
+      content: '清除后会重新加载，确定清除？',
+      success:function(res){
+        if(res.confirm){
+          wx.clearStorageSync()
+          wx.showToast({
+            title: '成功清除',
+          })
+          wx.reLaunch({
+            url: '/pages/tosolve/tosolve',
+          })
+        }else{
 
+        }
       }
-    }
-  })
-  
-},
-
-  showClause: function () {
-    wx.navigateTo({
-      url: './clause/clause',
-      success: function (res) {
-      }
-
     })
+
   },
+
   showHelp: function () {
     wx.navigateTo({
       url: './help/help',
@@ -144,6 +126,7 @@ clearcache:function(){
       },
     })
   },
+
   showFeedback: function () {
     wx.navigateTo({
       url: './feedback/feedback',
@@ -151,6 +134,7 @@ clearcache:function(){
       },
     })
   },
+
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
   },
@@ -217,7 +201,5 @@ function setnum(that,count=-1){
     remainformidnum: count,
     remainformidnumorstr: count
   })
-
-
 
 }

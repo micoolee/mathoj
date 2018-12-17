@@ -10,12 +10,7 @@
       <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
     </view>
     <view class="weui-tab__panel">
-          <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-
-
-
-
-
+      <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
         <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
           <block wx:for="{{problemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
             <view class="feed-item" style='width:100%' data-id='{{item.problemid}}' bindtap="bindQueTap" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap'>
@@ -37,15 +32,7 @@
             </view>
           </block>
         </scroll-view>
-
-
-
-
-
-
       </view>
-
-
 
       <view class='list-box lattice-list' hidden="{{activeIndex != 1}}">
         <view wx:for="{{subscriberlist}}" class='lattice-li'>
@@ -57,13 +44,8 @@
               {{item.nickname}}
             </view>
           </view>
-
-
         </view>
       </view>
-
-
-
     </view>
   </view>
 </view>

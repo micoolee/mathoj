@@ -7,7 +7,6 @@ Page({
     userInfo: {},
     bottom: false,
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     problempicsrc: 'null',
     animationData: null,
     door: true,
@@ -455,9 +454,7 @@ onReady:function(){
     } else if (that.data.activeIndex == '1') {
       util.get10solvedprob(that,searchparam)
     }
-    
   },
-
 })
 
 

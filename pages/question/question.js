@@ -501,8 +501,6 @@ var page = Page({
       url: app.globalData.baseurl + '/problem/createsolution',
       method: 'post',
       data: { 'desc': that.data.textsolu, 'problemid': JSON.parse(that.data.problemid), 'openid': app.globalData.openid, 'pic': '','record':'' },
-    
-      
       success: function (res) {
         wx.showToast({
           title: '提交成功',

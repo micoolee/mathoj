@@ -12,14 +12,12 @@ Page({
       app.globalData.nickname = e.detail.userInfo.nickName
       app.globalData.avatar = e.detail.userInfo.avatarUrl
       wx.request({
-        url: app.globalData.baseurl + '/uploadavatar/',
+        url: app.globalData.baseurl + '/user/uploadavatar',
         method: 'post',
-        data: { 'userid': app.globalData.openid, 'username': app.globalData.nickname, 'avatar': app.globalData.avatar },
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-      })
-      app.globalData.fromgetuserinfo = true
+        data: { 'openid': app.globalData.openid, 'username': app.globalData.nickname, 'avatar': app.globalData.avatar},
+
+      });
+      app.globalData.fromgetuserinfo = true;
       wx.navigateBack({
       })
     }

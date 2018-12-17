@@ -1,8 +1,3 @@
-<!-- <view wx:if="{{problemlistnull==0}}" class="question-link line-3 centertext">没有提问记录
-    <button bindtap='toask'>去提问</button>
-  </view> -->
-
-
 <view wx:if="{{problemlistnull==0}}" class="wux-prompt__bd">
   <view>
     <image src="{{ icon }}" class="wux-prompt__icon" />

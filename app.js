@@ -4,15 +4,13 @@ App({
   globalData: {
     userInfo: null,
     // baseurl: 'https://mathoj.liyuanye.club',
-    // wssurl: 'wss://mathoj.liyuanye.club/testwss/',
+    // wssurl: 'wss://mathoj.liyuanye.club/user/createwss',
 
     // baseurl: 'http://192.168.0.174:8080',
     // wssurl: 'ws://192.168.0.174:8080/user/createwss',
-
+    //mike dev
     baseurl: 'https://www.liyuanye.club',
-    wssurl: 'https://www.liyuanye.club/user/createwss',
-
-
+    wssurl: 'wss://www.liyuanye.club/user/createwss',
     mapCtx:null,
     openid: null,
     audiopath: null,
@@ -44,7 +42,7 @@ App({
   },
 
   getlastedinform: function (informthat = null) {
-    var that = this
+    var that = this;
 
     wx.request({
       url: this.globalData.baseurl + '/message/getten',
@@ -78,18 +76,12 @@ App({
       })
       wx.onSocketMessage(function (res) {
         console.log(res.data)
-        var tmp = JSON.parse(res.data)
-        console.log(tmp)
-
-
+        var singlemessage = JSON.parse(res.data)
         var all = that.globalData.sessionlist
-        var singlemessage = tmp
-        var one = singlemessage
         var index = null
-        nothissession= true
-        for (var i in all) { if (all[i].sessionid == one.sessionid) { all[i].sixin.push(one.sixin); index = i } }
+        for (var i in all) { if (all[i].sessionid == singlemessage.sessionid) { all[i].sixin.push(singlemessage.sixin); index = i } }
         if (all.length == 0 | index==null) {
-          all.unshift(one)
+          all.unshift(singlemessage)
         }
         that.globalData.sessionlist = all
         if (that.globalData.informthat) {
@@ -106,16 +98,14 @@ App({
           })
         }
 
-
         if (that.globalData.chatroomthat && index != null) {
+            console.log(all[index].sixin)
             that.globalData.chatroomthat.setData({
               sixinlist: all[index].sixin
             })
             that.globalData.chatroomthat.refresh()
         }
 
-
-      
         that.globalData.reddot = true
         wx.vibrateShort({
         })
@@ -126,13 +116,13 @@ App({
         
       
       })
-    })
+    });
     wx.onSocketError(function (res) {
       that.globalData.closetime = that.globalData.closetime + 1
-    })
+    });
 
     wx.onSocketClose(function (res) {
-      console.log('socket close')
+      console.log('socket close');
       setTimeout(that.connect, that.globalData.closetime * 1000)
     })
   },
