@@ -7,7 +7,10 @@
       <text>无评论记录</text>
     </view>
     <view>
-      <button class='wux-button--dark' bindtap='tosolve'>随便逛逛</button>
+            <form  report-submit='true' bindsubmit='tosolve'>
+
+      <button class='wux-button--dark' form-type='submit' >随便逛逛</button>
+      </form>
     </view>
   </view>
 

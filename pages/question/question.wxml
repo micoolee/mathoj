@@ -51,16 +51,32 @@
         <view class='page__teacheranswer'>
           指点迷津：
         </view>
-        <view wx:for="{{answer}}" wx:key="{{item.solutionID}}">
+
+        
+        <view wx:for="{{answer}}" wx:key="{{item.SolutionID}}">
           <view class='feed-item'>
-            <image class='comments-avatar-img' src='{{item.Avatar}}' bindtap='showmore' data-avatar='{{item.Avatar}}' data-userid='{{item.Solverid}}' data-username='{{item.username}}' data-openid='{{item.Openid}}' />
 
-            <text class='textstyle'>{{item.username}}</text>
-            <text bindtap='caina' hidden='{{hidecaina}}' class='righttext' data-solutionid='{{item.solutionID}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>采纳</text>
+            <view style='flex:2;display:flex;'>
+              <image class='comments-avatar-img' src='{{item.Avatar}}' bindtap='showmore' data-avatar='{{item.Avatar}}' data-userid='{{item.Solverid}}' data-username='{{item.Solvernickname}}' data-openid='{{item.Openid}}' />
+              <view style='flex-direction:row;display:flex'>
+                <text class='textstyle'>{{item.Solvernickname}}</text>
+                <text class='textstyle' style='margin-left:10rpx;'>{{item.Createtime}}</text>
 
-            <text style='font-size:15px'>
-                  {{item.Description}}
-            </text>
+
+
+              </view>
+              <view style='flex:2'></view>
+              <view style='flex:2;display:flex;'>
+               <text bindtap='zansolution' class='textstyle' style='justify-content:flex-end;font-size:35rpx;' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>{{item.Zanernum}}赞</text>
+
+                  <text bindtap='caina' class='textstyle' style='font-size:35rpx;' hidden='{{hidecaina}}' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>-{{item.Cainastatus}}</text>
+              </view>
+            </view>
+
+            <view style='margin-left:80rpx;font-size:30rpx;'>
+              解析：{{item.Description}}
+            </view>
+
 
 
             <view wx:if="{{item.Record != undefined}}">
@@ -72,12 +88,9 @@
                     <image bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.Record}}' src="/images/start.png" style='width:30px;height:30px'></image>
                     <image bindtap='pause1' wx:else src="/images/pause.png" style='width:30px;height:30px'></image>
                   </view>
-
                   <view class="progresswrap">
                     <slider class="drag page__bd_spacing" style='width:500rpx' step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
                   </view>
-
-
                 </view>
 
               </view>
@@ -130,18 +143,16 @@
           </view>
         </view>
 
-        <view wx:if="{{recordstate}}">
+        <view wx:if="{{recordstate}}" style='margin-top:20rpx;margin-bottom:20rpx;'>
           <button bindtap='start' type='primary' data-id='{{recordstate}}'>开始录音</button>
         </view>
-        <view wx:else>
+        <view wx:else style='margin-top:20rpx;margin-bottom:20rpx;'>
           <button bindtap='start' type='primary' data-id='{{recordstate}}'>结束录音</button>
         </view>
-
-        <button bindtap='submitanswer'>提交回答</button>
+        <form report-submit='true' bindsubmit='submitanswer'>
+          <button bindtap='submitanswer' form-type="submit">提交回答</button>
+        </form>
       </view>
-
-
-
 
 
     </view>
@@ -172,30 +183,18 @@
 
       </view>
     </view>
-    <!-- 没有评论 -->
     <view class="not-comments" wx:else> 暂时还没有评论喔! </view>
   </view>
 
 
-  <!-- </scroll-view> -->
 
-  <!-- 评论 点赞 分享  -->
   <view class="extra">
     <view class="extra-share">
-
       <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' />
-
       <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />
-
     </view>
-    <input class="extra-input" style='width:60%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" />
+    <input class="extra-input" style='width:80%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" />
   </view>
-
-
-
-
-  <!-- 分享层 -->
-
 
 
   <view class="extra-share-box" style="display:{{shareShow}}">

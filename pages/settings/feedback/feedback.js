@@ -37,8 +37,6 @@ Page({
     })
   },
 
-  onLoad: function (options) {
-  },
   getContent: function (e) {
     this.setData({
       content: e.detail.value
@@ -49,7 +47,14 @@ Page({
       connect: e.detail.value
     })
   },
-  submitSuggestion: function () {
+  submitSuggestion: function (e) {
+      wx.request({
+          url: app.globalData.baseurl + '/user/pushformid',
+          method: 'POST',
+          data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
+          success: function (res) {
+          }
+      })
     var that = this
     if (that.data.uploadfile){
       wx.uploadFile({

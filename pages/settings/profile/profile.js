@@ -14,15 +14,19 @@ Page({
   },
 
   sendsixin: function (e) {
-    console.log(e.currentTarget.dataset.askerid)
+      wx.request({
+          url: app.globalData.baseurl + '/user/pushformid',
+          method: 'POST',
+          data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
+          success: function (res) {
+          }
+      })
     app.globalData.receiverid = e.currentTarget.dataset.askerid
     wx.navigateTo({
       url: `../../inform/message/chat/chat?receiverid=${e.currentTarget.dataset.askerid}&newsession=true&sessionid=${e.currentTarget.dataset.sessionid}`,
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
+
   onLoad: function (options) {
 
     this.setData({
@@ -31,6 +35,13 @@ Page({
   },
 
   subscribe: function (e) {
+      wx.request({
+          url: app.globalData.baseurl + '/user/pushformid',
+          method: 'POST',
+          data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
+          success: function (res) {
+          }
+      })
     var that = this
     if (e.currentTarget.dataset.id == true) {
       wx.request({
@@ -55,10 +66,6 @@ Page({
           wx.showToast({
             title: '已取消关注',
           })
-          that.setData({
-            subscribe_door: true
-          })
-          // that.onShow()
         }
       })
       this.setData({
@@ -74,6 +81,11 @@ Page({
       method: 'POST',
       data: { 'receiveropenid': that.data.userInfo.profileropenid, 'senderid': app.globalData.selfuserid },
       success: function (res) {
+          if(res.data.subscribenum){
+              that.setData({
+                  subscribe_door:false
+              })
+          }
         if (res.data.sessionid) {
           that.setData({
             sessionid: res.data.sessionid,
@@ -83,7 +95,6 @@ Page({
             sessionid: 0,
           })
         }
-
       }
     })
   }

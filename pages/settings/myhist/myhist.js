@@ -2,9 +2,6 @@
 const app = getApp()
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     problemlist: null,
     problemlistnull: 0,
@@ -12,7 +9,16 @@ Page({
     icon: '../../../images/empty.png',
   },
 
-  tosolve: function () {
+  tosolve: function (e) {
+    var that = this
+    wx.request({
+      url: app.globalData.baseurl + '/user/pushformid',
+      method: 'POST',
+      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
+      success: function (res) {
+      }
+    })
+
     wx.switchTab({
       url: '../../tosolve/tosolve',
     })
@@ -51,21 +57,11 @@ Page({
               that.onLoad()
             }
           })
-
-
-
         }
       }
     })
   },
-
-
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
     var that = this
     wx.request({
       url: app.globalData.baseurl + '/problem/getmyhistory',
@@ -85,42 +81,7 @@ Page({
             problemlistnull: 0
           })
         }
-
       }
     })
-
-
-
   },
-
-  onReady: function () {
-
-  },
-
-
-  onShow: function () {
-
-  },
-
-
-  onHide: function () {
-
-  },
-
-  onUnload: function () {
-
-  },
-
-  onPullDownRefresh: function () {
-
-  },
-
-  onReachBottom: function () {
-
-  },
-
-
-  onShareAppMessage: function () {
-
-  }
 })

@@ -40,7 +40,7 @@
       },
       {
         "pagePath": "pages/top/top",
-        "text": "榜单",
+        "text": "星榜",
         "iconPath": "images/rank.png",
         "selectedIconPath": "images/rank-selected.png"
       },

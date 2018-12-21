@@ -80,21 +80,49 @@ var page = Page({
     files: ["../../images/pic_160.png"],
     lookedtime:0,
     hidecaina:true,
-    showdetail:false
+    showdetail:false,
   },
 
   caina:function(e){
+    var that = this
     var solutionid = e.currentTarget.dataset.solutionid
+    var all = that.data.answer
     wx.request({
       url: app.globalData.baseurl+'/problem/createcaina',
       data:{'solutionid':solutionid,'openid':app.globalData.openid},
       method:'POST',
       success:function(res){
+        all[e.currentTarget.dataset.index].Cainastatus = '已采纳'
+        that.setData({
+          answer:all
+        })
+
         wx.showToast({
           title: '已采纳',
         })
       }
     })
+  },
+
+  zansolution:function(e){
+      var that = this
+      var solutionid = e.currentTarget.dataset.solutionid
+      var all = that.data.answer
+      wx.request({
+          url: app.globalData.baseurl+'/problem/createzansolution',
+          data:{'solutionid':solutionid,'openid':app.globalData.openid},
+          method:'POST',
+          success:function(res){
+              all[e.currentTarget.dataset.index].Zanstatus = '已赞'
+              that.setData({
+                  answer:all
+              })
+
+              wx.showToast({
+                  title: '已赞',
+              })
+          }
+      })
   },
 
 
@@ -126,8 +154,6 @@ var page = Page({
         that.setData({
           comments: comments
         })
-        
-
       }
     })
   },
@@ -208,7 +234,6 @@ var page = Page({
     })
   },
   showShare: function (e) {
-
     // 创建动画
     var animation = wx.createAnimation({
       duration: 100,
@@ -326,7 +351,7 @@ var page = Page({
   },
 
 
-
+//todel
   audioPlay: function (event) {
 
     innerAudioContext.src = event.currentTarget.dataset.recordsrc
@@ -397,7 +422,7 @@ var page = Page({
       name: 'record',
       success: function (res) {
         app.globalData.returnaudiopath = res.data,
-          app.globalData.audiopath = null//???????????
+        app.globalData.audiopath = null
         that.setData({
           showaudio: true
         })
@@ -429,7 +454,6 @@ var page = Page({
   play1: function (e) {
     var that = this;
     innerAudioContext.src = app.globalData.audiopath;
-    // innerAudioContext.play(options);
     innerAudioContext.play();
     innerAudioContext.onPlay((res) => that.updateTime(that)) //没有这个事件触发，无法执行updatatime
     this.setData({
@@ -503,7 +527,7 @@ var page = Page({
       data: { 'desc': that.data.textsolu, 'problemid': JSON.parse(that.data.problemid), 'openid': app.globalData.openid, 'pic': '','record':'' },
       success: function (res) {
         wx.showToast({
-          title: '提交成功',
+          title: '回答成功',
         })
       }
     })
@@ -518,7 +542,7 @@ var page = Page({
       name: 'image',
       success: function (res) {
         wx.showToast({
-          title: '提交成功',
+          title: '回答成功',
         })
       }
     })
@@ -532,12 +556,19 @@ var page = Page({
       name: 'record',
       success: function (res) {
         wx.showToast({
-          title: '提交成功',
+          title: '回答成功',
         })
       },
     })
   },
-  submitanswer: function () {
+  submitanswer: function (e) {
+      wx.request({
+          url: app.globalData.baseurl + '/user/pushformid',
+          method: 'POST',
+          data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
+          success: function (res) {
+          }
+      });
     var that = this;
     if (that.data.textsolu == '') {
       wx.showModal({
@@ -547,7 +578,7 @@ var page = Page({
     } else {
       this.setData({
         answerbox: true
-      })
+      });
       if (app.globalData.audiopath) {
         that.uploadrecord(that)
       }
@@ -583,7 +614,7 @@ var page = Page({
   },
 
   onLoad: function (option) {
-      wx.showNavigationBarLoading()
+
       this.setData({
         problemid:  option.problemid
       })
@@ -636,15 +667,20 @@ var page = Page({
     wx.hideKeyboard()
 
   },
-  onHide: function () {
+    onPullDownRefresh: function () {
+        var that = this
 
-  }
+        getproblem(that)
+
+        wx.stopPullDownRefresh() //停止下拉刷新
+    }
+
 })
 
 
 
 function getproblem(that){
-  console.log('problemid',that.data.problemid)
+    wx.showNavigationBarLoading()
   wx.request({
     url: app.globalData.baseurl + '/problem/detail',
     method: 'post',
@@ -670,7 +706,6 @@ function getproblem(that){
         })
       }
       var problem = res.data.problem
-      console.log(problem)
       var answer
       if (!res.data.answer) {
         answer = []

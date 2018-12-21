@@ -1,4 +1,4 @@
-<view style='background-image: url("../../images/bak.jpg");height:100%'>
+<view style='height:100%'>
   <view class='userinfo'>
     <open-data class='userinfo-avatar' type="userAvatarUrl"></open-data>
     <open-data class='userinfo-nickname' type="userNickName">，你好</open-data>
@@ -7,7 +7,7 @@
   <view wx:if="{{hidewarning}}">
     <view wx:if="{{canIUse}}">
       <button style='margin-left:80rpx;margin-right:80rpx;margin-bottom:30rpx;margin-top:30rpx;' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
-      <button style='background-color:grey;margin-bottom:30rpx;margin-left:80rpx;margin-right:80rpx;' bindtap="nobindGetUserInfo">匿名看看</button>
+      <!-- <button style='background-color:grey;margin-bottom:30rpx;margin-left:80rpx;margin-right:80rpx;' bindtap="nobindGetUserInfo">匿名看看</button> -->
       <view >
       <text style='font-size:15px;display:flex;justify-content:center;'>*为方便展示你的头像和昵称，请点击授权登录</text>
       <text style='font-size:25px;display:flex;justify-content:center;'>欢迎提问哦～</text>

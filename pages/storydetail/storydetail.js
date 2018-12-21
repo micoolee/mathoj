@@ -3,13 +3,10 @@ const app =getApp()
 const WxParse = require('../../wxParse/wxParse.js');
 const txvContext = requirePlugin("tencentvideo");
 //mike dev
-var baseurl = 'https://www.liyuanye.club'
+var baseurl = 'https://mathoj.liyuanye.club'
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     content:'请等待，加载中......',
     title:null,
@@ -20,42 +17,12 @@ Page({
     videos: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     var that = this;
-    console.log(options)
-
-    
 
     WxParse.emojisInit('[]', "/wxParse/emojis/", {
       "00": "00.gif",
-      "01": "01.gif",
-      "02": "02.gif",
-      "03": "03.gif",
-      "04": "04.gif",
-      "05": "05.gif",
-      "06": "06.gif",
-      "07": "07.gif",
-      "08": "08.gif",
-      "09": "09.gif",
-      "09": "09.gif",
-      "10": "10.gif",
-      "11": "11.gif",
-      "12": "12.gif",
-      "13": "13.gif",
-      "14": "14.gif",
-      "15": "15.gif",
-      "16": "16.gif",
-      "17": "17.gif",
-      "18": "18.gif",
-      "19": "19.gif",
     });
-
-
-
-
     var storyid = options.id
     this.setData({
       storyid : options.id
@@ -80,20 +47,12 @@ Page({
         let player4 = txvContext.getTxvContext('txv4');
       }
     })
-
-    
   },
-  /**
-   * 用户点击右上角分享
-   */
   onShareAppMessage: function () {
     return {
       title: '[有人@我]小学奥数，分享给你~',
-
       path: '/pages/storydetail/storydetail?id=' + this.data.storyid,
-
       imageUrl: app.globalData.baseurl + '/static/sharepic.jpg',
-
       success: function (res) {
         wx.showToast({
           title: '分享成功~',

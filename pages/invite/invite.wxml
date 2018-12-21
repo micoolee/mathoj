@@ -7,7 +7,9 @@
       <text>暂无可以邀请的答主，关注后再来</text>
     </view>
     <view>
-      <button class='wux-button--dark' bindtap='torank'>去关注</button>
+    <form  report-submit='true' bindsubmit='torank' >
+      <button class='wux-button--dark' form-type="submit">去关注</button>
+      </form>
     </view>
   </view>
 

@@ -68,7 +68,7 @@ Page({
     mapCtx:null
   },
   onReady: function (e) {
-    // 使用 wx.createMapContext 获取 map 上下文 
+    // 使用 wx.createMapContext 获取 map 上下文
     this.mapCtx = wx.createMapContext('map')
   },
   onLoad: function () {
@@ -183,9 +183,6 @@ Page({
   createMarker(point) {
     let latitude = point.latitude;
     let longitude = point.longitude;
-
-    // var avatar = this.downloadfile(point.avatar,point.id)
-
     let marker = {
       iconPath: point.avatar,
       id: point.id || 0,
@@ -227,18 +224,6 @@ Page({
       }
     })
   },
-
-  downloadfile:function(url,id){
-    wx.downloadFile({
-      url: url,
-      success: function (res) {
-        var avatarimg = res.tempFilePath
-        wx.setStorageSync(string(id), avatarimg)
-        var avatarimgcache = wx.getStorageSync(string(id))
-        return avatarimgcache
-      }
-    })
-  },
   //尝试获取formid
   formsubmitteacher: function (e) {
     var that = this
@@ -247,7 +232,6 @@ Page({
       method:'POST',
       data: {'openid': app.globalData.openid},
       success: function (res) {
-        console.log(res.data.location)
         let markers = [];
         if (res.data.location){
           for (let item of res.data.location) {

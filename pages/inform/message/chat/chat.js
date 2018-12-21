@@ -13,7 +13,32 @@ Page({
     sessionid:null,
     newsession:false,
   },
+  onPullDownRefresh:function(){
+    wx.showNavigationBarLoading()
+    var that = this
+    wx.request({
+      url: app.globalData.baseurl + '/message/gettensixins',
+      data: { 'openid': app.globalData.openid, 'formersixinid': app.globalData.formersixinid, 'sessionid': that.data.sessionid },
+      method: 'POST',
+      success: function (res) {
+        
+        if (res.data.sixin) {
+          var all = that.data.sixinlist
+          app.globalData.formersixinid = res.data.sixin[0].sixinid
+          that.setData({
+            sixinlist: res.data.sixin.concat(all)
+          })
+        }else{
+          wx.showToast({
+            title: '没有了',
+          })
+        }
 
+      }
+    })
+    wx.stopPullDownRefresh()
+    wx.hideNavigationBarLoading()
+  },
 
   onLoad: function (option) {
     var that = this
@@ -25,17 +50,14 @@ Page({
 
     //第一次赋值给app.globaldata,为后面ws直接推送提供入口
     app.globalData.chatroomthat = that
-    // if (that.data.newsession) {
-    //   return
-    // }
     //第一次需要api请求
     wx.request({
       url: app.globalData.baseurl + '/message/gettensixins',
       data: { 'openid': app.globalData.openid, 'formersixinid': 0, 'sessionid': JSON.parse(option.sessionid)},
       method: 'POST',
       success: function (res) {
-        console.log(res.data.sixin)
         if (res.data.sixin){
+          app.globalData.formersixinid = res.data.sixin[0].sixinid
           that.setData({
             sixinlist: res.data.sixin
           })
@@ -87,17 +109,24 @@ Page({
       method: 'POST',
       data: { "session": that.data.sessionid },
       success: function (e) {
-        console.log(e)
       }
     })
 
   },
 
   refresh:function(){
+    var that = this
     that.pageScrollToBottom()
   },
 
   sendmsg: function (e) {
+      wx.request({
+          url: app.globalData.baseurl + '/user/pushformid',
+          method: 'POST',
+          data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
+          success: function (res) {
+          }
+      })
     var that = this
     var receiverid = JSON.parse(app.globalData.receiverid)
     var senderopenid = app.globalData.openid
@@ -107,21 +136,25 @@ Page({
       data: { 'receiverid': receiverid, 'senderopenid': senderopenid, 'content': that.data.text},
       method:'POST',
       success: function (res) {
+        that.setData({
+          success: '',
+          sendmsg: ''
+        })
         if (res.data.result_code) {
           wx.showToast({
             title: '消息发送失败',
           })
         } else {
           that.pageScrollToBottom()
+          var all = app.globalData.sessionlist
           //直接本地添加到会话中
           if (app.globalData.sessionlist.length==0){
             //第一个会话
-            var all = app.globalData.sessionlist
+            
             var one = {}
             one['sessionid'] = res.data.session.sessionid
             one['sixin'] = [{ 'ziji': "1", "senderavatar": app.globalData.avatar, "content": that.data.text }]
             all.push(one)
-            // all['sixin']={ 'ziji': "1", "senderavatar": app.globalData.avatar, "content": that.data.text }
             that.setData({
               text: '',
               sixinlist: one['sixin'],
@@ -129,8 +162,12 @@ Page({
             app.globalData.sessionindex = 0
             app.globalData.sessionlist = all
           }else{
-            if (app.globalData.sessionindex){
-              var all = app.globalData.sessionlist[app.globalData.sessionindex]
+            var index = null
+            for (var i in all) { if (all[i].sessionid == res.data.session.sessionid) { index = i } }
+
+            if (index!=null){
+              //在原有绘画中加入新私信
+              var all = app.globalData.sessionlist[index]
               all.sixin.push({ 'ziji': "1", "senderavatar": app.globalData.avatar, "content": that.data.text })
               that.setData({
                 text: '',
@@ -138,10 +175,8 @@ Page({
               })
               app.globalData.sessionlist[app.globalData.sessionindex] = all
             }else{
-
-
-
-              var all = app.globalData.sessionlist
+              //添加了一个新绘画
+              
               var one = {}
               one['sessionid'] = res.data.session.sessionid
               one['sixin'] = [{ 'ziji': "1", "senderavatar": app.globalData.avatar, "content": that.data.text }]
@@ -178,16 +213,3 @@ Page({
 }
 
 })
-
-// function pageScrollToBottom () {
-//   var that = this
-//   setTimeout(function () {
-//     wx.createSelectorQuery().select('#j_page').boundingClientRect(function (rect) {
-//       // 使页面滚动到底部
-//       wx.pageScrollTo({
-//         scrollTop: rect.bottom + rect.height +3000
-//       })
-//     }).exec();
-//   }, 2000)
-
-// }

@@ -142,7 +142,7 @@
 .extra-input{ width: 80%; height: 20px; margin: 10px; font-size: 13px; font-weight: 300; line-height: 20px; padding: 0 6px; border-left: 2px solid #48C23D; color: #444; }
 .extra-placeholder{ font-size: 13px; font-weight: 300; color: #999; }
 /* 点赞 评论 分享 */
-.extra-share{ position: absolute; right: 5px; width: 50%; }
+.extra-share{ position: absolute; right: 5px; width: 30%; }
 .extra-share-img{ width: 20px; height: 20px; float: right; padding: 10px 15px; }
 
 .comments-avatar-img{ width: 40px; height: 40px; border-radius: 50%; border: 1px solid #F2F2F2; }

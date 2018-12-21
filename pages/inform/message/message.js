@@ -21,7 +21,14 @@ Page({
     util.getsessions(that)
   },
 
-  torank:function(){
+  torank:function(e){
+      wx.request({
+          url: app.globalData.baseurl + '/user/pushformid',
+          method: 'POST',
+          data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
+          success: function (res) {
+          }
+      })
     var that = this
     wx.switchTab({
       url: '/pages/top/top',
@@ -124,13 +131,11 @@ Page({
       wx.navigateTo({
         url: `../message/chat/chat?sessionlist=111&sessionid=${sessionid}&newsession=false`,
       })
-      console.log(that.data.sessionlist[sessionindex].sessionid)
       wx.request({
         url: app.globalData.baseurl+'/message/readsession',
         method:'POST',
         data: {"session": that.data.sessionlist[sessionindex].sessionid},
         success:function(e){
-          console.log(e)
         }
       })
 

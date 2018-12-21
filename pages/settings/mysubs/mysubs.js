@@ -1,12 +1,8 @@
-// pages/settings/myques/myques.js
 const app = getApp()
 
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     problemlist: null,
     subscriberlist:null,
@@ -32,8 +28,6 @@ Page({
     var avatar = e.currentTarget.dataset.avatar
     var username = e.currentTarget.dataset.username
     var openid = app.globalData.openid
-
-
       wx.navigateTo({
         url: `../profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
       })
@@ -69,11 +63,7 @@ Page({
         }
       }
     })
-
   },
-
-
-
 
   bindQueTap: function (e) {
     if (this.endTime - this.startTime < 350) {
@@ -84,9 +74,18 @@ Page({
     }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  tosolve: function (e) {
+    wx.request({
+      url: app.globalData.baseurl + '/user/pushformid',
+      method: 'POST',
+      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
+    })
+
+    wx.switchTab({
+      url: '../../tosolve/tosolve',
+    })
+  },
+
   onLoad: function (options) {
 
     var that = this
@@ -96,9 +95,12 @@ Page({
         data: { 'openid': app.globalData.openid },
         success: function (res) {
           var problemlist = res.data.problem
-          that.setData({
-            problemlist: problemlist,
-          })
+          if(problemlist){
+            that.setData({
+              problemlist: problemlist,
+            })
+          }
+
         }
       })
       wx.request({
@@ -107,9 +109,11 @@ Page({
         data: { 'openid': app.globalData.openid },
         success: function (res) {
           var subscriberlist = res.data.user
-          that.setData({
-            subscriberlist: subscriberlist
-          })
+          if (subscriberlist){
+            that.setData({
+              subscriberlist: subscriberlist
+            })
+          }
         }
       })
 
@@ -126,68 +130,5 @@ Page({
           });
         }
       });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

@@ -3,14 +3,11 @@
 App({
   globalData: {
     userInfo: null,
-    // baseurl: 'https://mathoj.liyuanye.club',
-    // wssurl: 'wss://mathoj.liyuanye.club/user/createwss',
-
-    // baseurl: 'http://192.168.0.174:8080',
-    // wssurl: 'ws://192.168.0.174:8080/user/createwss',
+    baseurl: 'https://mathoj.liyuanye.club',
+    wssurl: 'wss://mathoj.liyuanye.club/user/createwss',
     //mike dev
-    baseurl: 'https://www.liyuanye.club',
-    wssurl: 'wss://www.liyuanye.club/user/createwss',
+    // baseurl: 'https://www.liyuanye.club',
+    // wssurl: 'wss://www.liyuanye.club/user/createwss',
     mapCtx:null,
     openid: null,
     audiopath: null,
@@ -49,7 +46,6 @@ App({
       data: { 'openid': this.globalData.openid },
       method:'POST',
       success: function (res) {
-        console.log(res.data.message)
         var informlist = res.data.message
         that.globalData.informlist = informlist
         if (that.globalData.informthat) {
@@ -75,7 +71,6 @@ App({
         data: {'openid': that.globalData.openid},
       })
       wx.onSocketMessage(function (res) {
-        console.log(res.data)
         var singlemessage = JSON.parse(res.data)
         var all = that.globalData.sessionlist
         var index = null
@@ -99,7 +94,6 @@ App({
         }
 
         if (that.globalData.chatroomthat && index != null) {
-            console.log(all[index].sixin)
             that.globalData.chatroomthat.setData({
               sixinlist: all[index].sixin
             })

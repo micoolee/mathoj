@@ -31,15 +31,6 @@ Page({
     disabledbut:false
   },
 
-
-  rewardinput: function (e) {
-    this.setData({
-      reward: e.detail.value
-    })
-  },
-
-
-
   descinput: function (e) {
     var num = e.detail.value.length
     app.globalData.placeholder= e.detail.value
@@ -49,12 +40,6 @@ Page({
       
     })
   },
-  radioChange: function (e) {
-    this.setData({
-      easy: e.detail.value
-    })
-  },
-
 
   bindPickerChange: function (e) {
     this.setData({
@@ -63,14 +48,12 @@ Page({
     })
   },
 
-
   bindPickerChangereward: function (e) {
     this.setData({
       rewardindex: e.detail.value,
       reward: this.data.rewardarray[e.detail.value]
     })
   },
-
 
   uploadimg: function () {
     var that = this;
@@ -95,10 +78,9 @@ Page({
     var that = this
     wx.request({
       url: app.globalData.baseurl + '/user/pushformid',
-      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid, 'getrole': 'null' },
+      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid},
       method:"post",
       success: function (res) {
-        console.log(res)
       }
     })
     if (this.data.desc==''){
@@ -166,7 +148,6 @@ Page({
           },
           data: formdata1,
           success: function (res) {
-            console.log(res)
             that.setData({
               disabledbut: false
             })
@@ -182,18 +163,10 @@ Page({
                 }
               }
             })
-
           },
-
-
         })
-
       }
-
     }
-
-
-
   },
 
   previewImage: function (e) {
@@ -207,7 +180,7 @@ Page({
     var that = this
     wx.request({
       url: app.globalData.baseurl + '/user/pushformid',
-      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid, 'getrole': 'null' },
+      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid},
       method: "post",
       success: function (res) {
       }

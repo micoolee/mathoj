@@ -11,6 +11,24 @@
     </view>
     <view class="weui-tab__panel">
       <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+
+        <view wx:if="{{problemlist==null}}" class="wux-prompt__bd" style='margin-top:400rpx;'>
+          <view>
+            <image src="{{ icon }}" class="wux-prompt__icon" />
+          </view>
+
+          <view>
+            <text>无关注记录</text>
+          </view>
+          <view>
+            <form  report-submit='true' bindsubmit='tosolve'>
+            <button class='wux-button--dark' form-type='submit'>随便逛逛</button>
+            </form>
+          </view>
+        </view>
+        <view wx:else>
+
+
         <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
           <block wx:for="{{problemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
             <view class="feed-item" style='width:100%' data-id='{{item.problemid}}' bindtap="bindQueTap" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap'>
@@ -32,19 +50,41 @@
             </view>
           </block>
         </scroll-view>
+        </view>
       </view>
 
       <view class='list-box lattice-list' hidden="{{activeIndex != 1}}">
-        <view wx:for="{{subscriberlist}}" class='lattice-li'>
-          <view style='height: 100%;display:flex;flex-direction:column;align-items:center;' data-username='{{item.nickname}}' data-userid='{{item.userid}}' data-avatar='{{item.avatar}}' bindtap="showmore">
-            <view style='margin-top:30rpx'>
-              <image src='{{item.avatar}}' style='width:80rpx;height:80rpx;' class='img-radius'></image>
-            </view>
-            <view>
-              {{item.nickname}}
-            </view>
+
+        <view wx:if="{{subscriberlist==null}}" class="wux-prompt__bd" style='margin-top:400rpx;'>
+          <view>
+            <image src="{{ icon }}" class="wux-prompt__icon" />
+          </view>
+
+          <view>
+            <text>无关注记录</text>
+          </view>
+          <view>
+            <form  report-submit='true' bindsubmit='tosolve'>
+            <button class='wux-button--dark' form-type='submit'>随便逛逛</button>
+            </form>
           </view>
         </view>
+        <view wx:else>
+                  <view wx:for="{{subscriberlist}}" class='lattice-li'>
+                    <view style='height: 100%;display:flex;flex-direction:column;align-items:center;' data-username='{{item.nickname}}' data-userid='{{item.userid}}' data-avatar='{{item.avatar}}' bindtap="showmore">
+                      <view style='margin-top:30rpx'>
+                        <image src='{{item.avatar}}' style='width:80rpx;height:80rpx;' class='img-radius'></image>
+                      </view>
+                      <view>
+                        {{item.nickname}}
+                      </view>
+                    </view>
+                  </view>
+
+
+        </view>
+
+
       </view>
     </view>
   </view>

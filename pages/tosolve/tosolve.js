@@ -18,8 +18,6 @@ Page({
     searchcontent: null,
     inputvalue: null,
     problemlist: [],
-    showsharedoor: false,
-    shareindexlist: [],
     zindex:false,
 
     tabs: ["待解决", "已解决"],
@@ -27,6 +25,9 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     q:null,
+    msg2: {
+      icon: '../../images/empty.png',
+    },
 
     easyarray: ['不限','困难' , '简单'],
     rewardarray: ['不限', '1个奥币', '2个奥币', '3个奥币'],
@@ -217,7 +218,6 @@ Page({
         data: { 'formerid': that.data.formerid, 'filter': searchparam, 'solved': '0' },
         method: 'POST',
         success: function (res) {
-          console.log(res.data.problem)
           var filterproblist = res.data.problem
           if (filterproblist == undefined) {
             that.setData({
@@ -253,17 +253,7 @@ Page({
         }
       })
     }
-
-
-
-
   },
-
-
-onReady:function(){
-  
-},
-
 
 
 
@@ -308,7 +298,6 @@ onReady:function(){
 
   bindQueTap: function (event) {
     var problemid = event.currentTarget.dataset.id
-    console.log(problemid)
     wx.navigateTo({
       url: `../question/question?problemid=${problemid}`
     })
@@ -366,21 +355,10 @@ onReady:function(){
   },
 
 
-  showshare: function (e) {
-    var index = e.target.dataset.shareindex
-    var tmpshareindexlist = this.data.shareindexlist
-    tmpshareindexlist[index] = '1'
-    this.setData({
-      shareindexlist: tmpshareindexlist
-    })
-  },
 
 
-  clickshare: function (e) {
-    this.setData({
-      showsharedoor: false
-    })
-  },
+
+
 
 
 
@@ -399,14 +377,8 @@ onReady:function(){
         url: `../settings/profile/profile?userid=${askerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
       })
     }
-
-
   },
 
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
     if (app.globalData.reddot) {
       wx.showTabBarRedDot({
@@ -415,13 +387,7 @@ onReady:function(){
     }
     var that = this
     util.checklasted(that)
-
-
   },
-
-
-
-
 
   onPullDownRefresh: function () {
     var that = this
@@ -437,18 +403,11 @@ onReady:function(){
       })
       util.getlastedsolvedprob(that)
     }
-    
     wx.stopPullDownRefresh() //停止下拉刷新                
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
   onReachBottom: function () {
     var that = this
-
     var searchparam = that.data.searchParam
-    console.log(searchparam)
     if (that.data.activeIndex == '0') {
       util.get10prob(that,searchparam)
     } else if (that.data.activeIndex == '1') {

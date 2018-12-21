@@ -32,7 +32,14 @@ invite:function(e){
 
 },
 
-  torank: function () {
+  torank: function (e) {
+      wx.request({
+          url: app.globalData.baseurl + '/user/pushformid',
+          method: 'POST',
+          data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
+          success: function (res) {
+          }
+      })
     var that = this
     wx.switchTab({
       url: '/pages/top/top',
@@ -68,9 +75,6 @@ invite:function(e){
   },
 
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     var that = this
     that.setData({

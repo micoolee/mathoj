@@ -40,7 +40,6 @@ Page({
 
 
   onPullDownRefresh: function () {
-
     wx.showNavigationBarLoading() //在标题栏中显示加载
     app.getlastedinform()
     wx.stopPullDownRefresh() //停止下拉刷新    
@@ -48,7 +47,7 @@ Page({
 
   },
 
-  showzandetail: function (e) {
+  showinformdetail: function (e) {
     var that = this
     var informid = e.currentTarget.dataset.informid
     if (this.endTime - this.startTime < 350) {
@@ -184,9 +183,12 @@ Page({
 
 
     app.globalData.reddot = false
-    this.setData({
-      informlist: app.globalData.informlist
-    })
+    if (app.globalData.informlist){
+      this.setData({
+        informlist: app.globalData.informlist
+      })
+    }
+
     wx.hideTabBarRedDot({
       index: 2,
     })

@@ -34,9 +34,6 @@ Page({
       })
     }
   },
-
-
-
   //设置年级
   setGrade:function(){
     wx.showModal({
@@ -50,9 +47,6 @@ Page({
               wx.request({
                 url: app.globalData.baseurl + "/user/setgrade",
                 data: { "grade": res.tapIndex, "openid": app.globalData.openid },
-                success: function (res) {
-                  console.log(res)
-                }
               })
             }
           })
@@ -147,16 +141,8 @@ Page({
         foo: 'bar'
       },
       envVersion: 'develop',
-      success(res) {
-        // 打开成功
-        console.log(res)
-      },
-      fail(res){
-        console.log(res)
-      }
     })
   },
-  //尝试获取formid
   //尝试获取formid
   pushformid: function (e) {
     var that = this
@@ -174,7 +160,6 @@ Page({
 
 function setnum(that,count=-1){
   if (!count) {
-    console.log(0)
     that.setData({
       remainformidnum: 0,
       remainformidnumorstr: 0

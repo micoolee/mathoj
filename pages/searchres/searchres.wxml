@@ -7,25 +7,16 @@
     <text>无匹配结果</text>
   </view>
   <view>
-    <button class='wux-button--dark' bindtap='toindex'>重新输入</button>
+    <form  report-submit='true' bindsubmit='pushformid' >
+    <button class='wux-button--dark'form-type='submit'>重新输入</button>
+    </form>
   </view>
 </view>
 <view wx:else>
   <scroll-view class="container">
-
-
-
-
-
     <block wx:for="{{searchlist}}" wx:key="{{item.problemid}}">
       <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
         <view class="feed-source">
-          <!-- <a>
-            <view class="avatar">
-              <image src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-askerid='{{item.askerid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
-            </view>
-            <text>{{item.nickname}}     </text>
-          </a> -->
           <text style='margin-right:auto'>{{item.asktime}}</text>
         </view>
 
@@ -46,11 +37,6 @@
           </view>
           <view wx:else>0 回答</view>
         </view>
-
-
-
-
-
       </view>
     </block>
 

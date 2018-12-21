@@ -1,2 +1,1 @@
-<map id="map"  scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}'   bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{height}}px;">
-</map>
+<map id="map"  scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}'   bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{height}}px;"></map>

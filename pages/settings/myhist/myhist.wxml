@@ -1,7 +1,4 @@
 <view wx:if="{{loadok}}">
-  <!-- <view wx:if="{{problemlistnull==0}}" class="question-link line-3 centertext">没有历史记录
-    <button bindtap='tosolve'>去首页逛逛</button>
-  </view> -->
 
 <view wx:if="{{problemlistnull==0}}" class="wux-prompt__bd">
   <view>
@@ -12,7 +9,9 @@
     <text>无浏览记录</text>
   </view>
   <view>
-    <button class='wux-button--dark' bindtap='tosolve'>随便逛逛</button>
+   <form  report-submit='true' bindsubmit='tosolve'>
+    <button class='wux-button--dark' form-type='submit'>随便逛逛</button>
+    </form>
   </view>
 </view>
 

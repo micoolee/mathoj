@@ -8,11 +8,6 @@
   font-size: 38rpx;
 }
 
-.updown {
-  width: 20px;
-  height: 20px;
-}
-
 .breakline-small {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -52,11 +47,6 @@
   font-size: 28rpx;
   vertical-align: middle;
 }
-
-/* .question-item .que-title{
-    padding: 40rpx 20rpx 30rpx;
-    font-size: 38rpx;
-} */
 
 .question-item .que-content {
   padding: 0 20rpx;
@@ -244,8 +234,6 @@ page {
   font-weight: normal;
   line-height: 20px;
 }
-
-/* .comments-zan::before{ content: ''; height: 14px; width: 14px; background: url("../../static/zan.png")  #FFF no-repeat 50% 50%; background-size: cover; position: absolute; top: 2px; left: 0; } */
 
 .comments-content {
   color: #666;
