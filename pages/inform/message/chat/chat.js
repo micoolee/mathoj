@@ -24,9 +24,25 @@ Page({
         
         if (res.data.sixin) {
           var all = that.data.sixinlist
+
+          var sixinlist = res.data.sixin.concat(all)
+
+          var util = require("../../../../utils/util.js")
+          //加载缓存中的照片
+          for (var i in sixinlist) {
+            if (util.storedid.get(sixinlist[i].openid) == 'downloaded') {
+              console.log('direct use')
+              sixinlist[i].avatar = util.get_or_create_avatar(sixinlist[i].openid)
+            } else if (util.storedid.get(sixinlist[i].openid) == undefined) {
+              console.log('download')
+              util.get_or_create_avatar(sixinlist[i].openid)
+            }
+          }
+
+
           app.globalData.formersixinid = res.data.sixin[0].sixinid
           that.setData({
-            sixinlist: res.data.sixin.concat(all)
+            sixinlist: sixinlist
           })
         }else{
           wx.showToast({
@@ -58,8 +74,21 @@ Page({
       success: function (res) {
         if (res.data.sixin){
           app.globalData.formersixinid = res.data.sixin[0].sixinid
+          var sixinlist = res.data.sixin
+          var util = require("../../../../utils/util.js")
+          //加载缓存中的照片
+          for (var i in sixinlist) {
+            if (util.storedid.get(sixinlist[i].openid) == 'downloaded') {
+              console.log('direct use')
+              sixinlist[i].avatar = util.get_or_create_avatar(sixinlist[i].openid)
+            } else if (util.storedid.get(sixinlist[i].openid) == undefined) {
+              console.log('download')
+              util.get_or_create_avatar(sixinlist[i].openid)
+            }
+          }
+
           that.setData({
-            sixinlist: res.data.sixin
+            sixinlist: sixinlist
           })
         }else{
           that.setData({

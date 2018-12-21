@@ -140,7 +140,13 @@ Page({
       extraData: {
         foo: 'bar'
       },
-      envVersion: 'develop',
+      envVersion: 'release',
+      success:function(e){
+        console.log(e)
+      },
+      fail:function(e){
+        console.log(e)
+      }
     })
   },
   //尝试获取formid

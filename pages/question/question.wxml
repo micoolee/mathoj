@@ -57,7 +57,7 @@
           <view class='feed-item'>
 
             <view style='flex:2;display:flex;'>
-              <image class='comments-avatar-img' src='{{item.Avatar}}' bindtap='showmore' data-avatar='{{item.Avatar}}' data-userid='{{item.Solverid}}' data-username='{{item.Solvernickname}}' data-openid='{{item.Openid}}' />
+              <image class='comments-avatar-img' style='width:70rpx;height:70rpx;' src='{{item.Avatar}}' bindtap='showmore' data-avatar='{{item.Avatar}}' data-userid='{{item.Solverid}}' data-username='{{item.Solvernickname}}' data-openid='{{item.Openid}}' />
               <view style='flex-direction:row;display:flex'>
                 <text class='textstyle'>{{item.Solvernickname}}</text>
                 <text class='textstyle' style='margin-left:10rpx;'>{{item.Createtime}}</text>
@@ -66,11 +66,17 @@
 
               </view>
               <view style='flex:2'></view>
-              <view style='flex:2;display:flex;'>
+              <view style='display:flex;'>
                <text bindtap='zansolution' class='textstyle' style='justify-content:flex-end;font-size:35rpx;' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>{{item.Zanernum}}赞</text>
 
-                  <text bindtap='caina' class='textstyle' style='font-size:35rpx;' hidden='{{hidecaina}}' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>-{{item.Cainastatus}}</text>
+
               </view>
+
+              <view style='display:flex;margin-left:20rpx;' wx:if='{{!hidecaina}}'>
+
+                  <text bindtap='caina' class='textstyle' style='font-size:35rpx;'  data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>{{item.Cainastatus}}</text>
+              </view>
+
             </view>
 
             <view style='margin-left:80rpx;font-size:30rpx;'>

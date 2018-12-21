@@ -1,54 +1,75 @@
 const app = getApp()
-function get_or_create_avatar(userid,that='null'){
+
+var storedid = new Map();
+
+function get_or_create_avatar(userid, that = 'null') {
   var res = wx.getStorageInfoSync();
-  if(res.keys.indexOf(userid)>-1){
-   var avatarimgcache = wx.getStorageSync(userid)
-   if (that != 'null') {
-     that.setData({
-       userInfo: { 'avatar': avatarimgcache, 'nickname': app.globalData.nickname }
-     })
-   }
-   return avatarimgcache
-  }else{
-      wx.downloadFile({
-        url: app.globalData.baseurl + '/swagger/avatar-' + userid + '.jpg',
-        success: function (res) {
-          wx.setStorageSync(userid, res.tempFilePath)
-          var avatarimgcache = wx.getStorageSync(userid)
-          if (that!='null'){
-            that.setData({
-              userInfo: { 'avatar': avatarimgcache, 'nickname': app.globalData.nickname }
-            })
-          }
-          return avatarimgcache
+  if (res.keys.indexOf(userid) > -1) {
+    var avatarimgcache = wx.getStorageSync(userid)
+    if (that != 'null') {
+      that.setData({
+        userInfo: {
+          'avatar': avatarimgcache,
+          'nickname': app.globalData.nickname
         }
       })
+    }
+    return avatarimgcache
+  } else {
+    storedid.set(userid, 'downloading')
+    wx.downloadFile({
+      url: app.globalData.baseurl + '/swagger/avatar-' + userid + '.jpg',
+      success: function(res) {
+        wx.setStorageSync(userid, res.tempFilePath)
+        storedid.set(userid, 'downloaded')
+        var avatarimgcache = wx.getStorageSync(userid)
+        if (that != 'null') {
+          that.setData({
+            userInfo: {
+              'avatar': avatarimgcache,
+              'nickname': app.globalData.nickname
+            }
+          })
+        }
+        return avatarimgcache
+      }
+    })
   }
 }
 
 function getlastedprob(that) {
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
-    data: { 'formerid': that.data.formerid, 'filter': [], 'solved': '0' },
-    method:"POST",
-    success: function (res) {
+    data: {
+      'formerid': that.data.formerid,
+      'filter': [],
+      'solved': '0'
+    },
+    method: "POST",
+    success: function(res) {
       wx.hideNavigationBarLoading()
       var problemlist = res.data.problem
-      app.globalData.globalproblemlist = problemlist
+      console.log(problemlist)
+
+      //加载缓存中的照片
+      for (var i in problemlist) {
+        if (storedid.get(problemlist[i].openid) == 'downloaded') {
+          problemlist[i].avatar = get_or_create_avatar(problemlist[i].openid)
+        } else if (storedid.get(problemlist[i].openid) == undefined) {
+          get_or_create_avatar(problemlist[i].openid)
+        }
+      }
       that.setData({
         topStories: res.data.topstory,
       })
-      if (!app.globalData.globalproblemlist){
+      if (!problemlist) {
         that.setData({
-          problemlist:[]
+          problemlist: []
         })
         return
       }
-      var arr = new Array(app.globalData.globalproblemlist.length + 1);
-      arr = arr.join('0,').split(',');
-      arr.length = arr.length - 1;
       that.setData({
-        havenewbtn:false,
+        havenewbtn: false,
         lastedid: problemlist[0].problemid,
         problemlist: problemlist,
         formerid: problemlist[problemlist['length'] - 1].problemid
@@ -62,9 +83,11 @@ function checklasted(that) {
   if (that.data.lastedid != null) {
     wx.request({
       url: app.globalData.baseurl + '/problem/checklatest',
-      method:'POST',
-      data: { 'formerid': that.data.lastedid },
-      success: function (res) {
+      method: 'POST',
+      data: {
+        'formerid': that.data.lastedid
+      },
+      success: function(res) {
         if (res.data.count) {
           that.setData({
             havenewbtn: true
@@ -78,15 +101,30 @@ function checklasted(that) {
 function getlastedsolvedprob(that) {
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
-    data: { 'formerid': 0, 'filter': [], 'solved': '1' },
+    data: {
+      'formerid': 0,
+      'filter': [],
+      'solved': '1'
+    },
     method: "POST",
-    success: function (res) {
+    success: function(res) {
       wx.hideNavigationBarLoading()
       if (res.data.problem) {
         var solvedproblemlist = res.data.problem
+        console.log(solvedproblemlist)
+        //加载缓存中的照片
+        for (var i in solvedproblemlist) {
+          if (storedid.get(solvedproblemlist[i].openid) == 'downloaded') {
+            solvedproblemlist[i].avatar = get_or_create_avatar(solvedproblemlist[i].openid)
+          } else if (storedid.get(solvedproblemlist[i].openid) == undefined) {
+            get_or_create_avatar(solvedproblemlist[i].openid)
+          }
+        }
+
+
         that.setData({
-          solvedproblemlist:solvedproblemlist,
-          solvedformerid:solvedproblemlist[solvedproblemlist.length-1].problemid
+          solvedproblemlist: solvedproblemlist,
+          solvedformerid: solvedproblemlist[solvedproblemlist.length - 1].problemid
         })
       } else {
         wx.showToast({
@@ -95,20 +133,23 @@ function getlastedsolvedprob(that) {
       }
 
     },
-    complete:function(){
+    complete: function() {
       wx.hideNavigationBarLoading() //完成停止加载
     }
   })
 }
 
-function pulldownmessage(that=null) {
+function pulldownmessage(that = null) {
   wx.request({
     url: app.globalData.baseurl + '/message/getten',
-    data: { 'openid': app.globalData.openid, 'statuscode': '1' },
-    method:"post",
-    success: function (res) {
+    data: {
+      'openid': app.globalData.openid,
+      'statuscode': '1'
+    },
+    method: "post",
+    success: function(res) {
       var messagelist = res.data.message
-      if (messagelist){
+      if (messagelist) {
         app.globalData.messagelist = messagelist
         if (that != null) {
           that.setData({
@@ -117,7 +158,7 @@ function pulldownmessage(that=null) {
         }
       }
     },
-    complete: function () {
+    complete: function() {
       wx.hideNavigationBarLoading() //完成停止加载
     }
   })
@@ -127,9 +168,11 @@ function pulldownmessage(that=null) {
 function getsessions(that = null) {
   wx.request({
     url: app.globalData.baseurl + '/message/getsessions',
-    data: { 'openid': app.globalData.openid },
+    data: {
+      'openid': app.globalData.openid
+    },
     method: "post",
-    success: function (res) {
+    success: function(res) {
       var sessionlist = res.data.session
       if (!sessionlist) {
         app.globalData.sessionlist = []
@@ -150,35 +193,44 @@ function getsessions(that = null) {
           })
         }
       }
-
     },
-    complete: function () {
+    complete: function() {
       wx.hideNavigationBarLoading() //完成停止加载
     }
   })
 }
 
-function get10prob(that,searchparam=[]) {
-  var that = that
+function get10prob(that, searchparam = []) {
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
-    data: { 'formerid': that.data.formerid, 'filter': searchparam, 'solved':'0'},
-    method:'POST',
-    success: function (res) {
+    data: {
+      'formerid': that.data.formerid,
+      'filter': searchparam,
+      'solved': '0'
+    },
+    method: 'POST',
+    success: function(res) {
       var problemlist = res.data.problem
-      if (problemlist == undefined) {
+      if (!problemlist) {
         that.setData({
-          bottom:true
+          bottom: true
         })
         wx.showToast({
           title: '到底啦~',
         })
       } else {
-        app.globalData.globalproblemlist = app.globalData.globalproblemlist.concat(problemlist)
-
-
-
         problemlist = that.data.problemlist.concat(problemlist)
+        console.log(problemlist)
+        //加载缓存中的照片
+        for (var i in problemlist) {
+          if (storedid.get(problemlist[i].openid) == 'downloaded') {
+            problemlist[i].avatar = get_or_create_avatar(problemlist[i].openid)
+          } else if (storedid.get(problemlist[i].openid) == undefined) {
+            get_or_create_avatar(problemlist[i].openid)
+          }
+        }
+
+
         that.setData({
           problemlist: problemlist,
           formerid: problemlist[problemlist['length'] - 1].problemid
@@ -188,12 +240,17 @@ function get10prob(that,searchparam=[]) {
   })
 }
 
-function get10solvedprob(that,searchparam=[]) {
+function get10solvedprob(that, searchparam = []) {
   var that = that
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
-    data: { 'formerid': that.data.solvedformerid, 'filter': searchparam, 'solved': '1'},
-    success: function (res) {
+    data: {
+      'formerid': that.data.solvedformerid,
+      'filter': searchparam,
+      'solved': '1'
+    },
+    method:'POST',
+    success: function(res) {
       var problemlist = JSON.parse(res.data.json_data)
       if (problemlist.length == 0) {
         wx.showToast({
@@ -201,6 +258,17 @@ function get10solvedprob(that,searchparam=[]) {
         })
       } else {
         problemlist = that.data.problemlist.concat(problemlist)
+        console.log(problemlist)
+
+        //加载缓存中的照片
+        for (var i in problemlist) {
+          if (storedid.get(problemlist[i].openid) == 'downloaded') {
+            problemlist[i].avatar = get_or_create_avatar(problemlist[i].openid)
+          } else if (storedid.get(problemlist[i].openid) == undefined) {
+            get_or_create_avatar(problemlist[i].openid)
+          }
+        }
+
         that.setData({
           problemlist: problemlist,
           solvedformerid: problemlist[problemlist['length'] - 1].problemid
@@ -210,25 +278,24 @@ function get10solvedprob(that,searchparam=[]) {
   })
 }
 
-function checkuserinfo(that){
+function checkuserinfo(that) {
   wx.getSetting({
-    success: function (res) {
+    success: function(res) {
       if (res.authSetting['scope.userInfo']) {
         wx.getUserInfo({
           success: res => {
             app.globalData.userInfo = res.userInfo
             app.globalData.avatar = res.userInfo.avatarUrl
             app.globalData.nickname = res.userInfo.nickName
-            
+
             if (app.userInfoReadyCallback) {
               app.userInfoReadyCallback(res)
             }
             loading(that)
-          }, complete: function (res) {
-          }
+          },
+          complete: function(res) {}
         })
-      }
-      else {
+      } else {
         wx.navigateTo({
           url: '/pages/getuserinfo/getuserinfo',
         })
@@ -246,7 +313,7 @@ function loading(that) {
     pulldownmessage()
     that.onShow()
   } else {
-    setTimeout(function () {
+    setTimeout(function() {
       wx.showLoading({
         title: '加载中',
       })
@@ -259,7 +326,11 @@ function uploadavatar() {
   wx.request({
     url: app.globalData.baseurl + '/user/uploadavatar',
     method: 'post',
-    data: { 'openid': app.globalData.openid, 'username': app.globalData.nickname, 'avatar': app.globalData.avatar },
+    data: {
+      'openid': app.globalData.openid,
+      'username': app.globalData.nickname,
+      'avatar': app.globalData.avatar
+    },
   })
 }
 
@@ -278,4 +349,5 @@ module.exports = {
   checkuserinfo: checkuserinfo,
   loading: loading,
   getsessions: getsessions,
+  storedid: storedid
 }

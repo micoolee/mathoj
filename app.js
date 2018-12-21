@@ -5,9 +5,6 @@ App({
     userInfo: null,
     baseurl: 'https://mathoj.liyuanye.club',
     wssurl: 'wss://mathoj.liyuanye.club/user/createwss',
-    //mike dev
-    // baseurl: 'https://www.liyuanye.club',
-    // wssurl: 'wss://www.liyuanye.club/user/createwss',
     mapCtx:null,
     openid: null,
     audiopath: null,
@@ -27,7 +24,6 @@ App({
     
     chatroomthat: null,
     searchlist: [],
-    globalproblemlist: [],
     placeholder: '',
     answerlist:[],
     nickname:'路人甲',
@@ -71,6 +67,7 @@ App({
         data: {'openid': that.globalData.openid},
       })
       wx.onSocketMessage(function (res) {
+        var util = require('utils/util.js')
         var singlemessage = JSON.parse(res.data)
         var all = that.globalData.sessionlist
         var index = null

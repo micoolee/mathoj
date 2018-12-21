@@ -2,198 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ae79c0a-6fe1-403b-8c79-09039210007f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/leemike.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mathoj_frontend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/app.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/bak.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/ask/ask.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/ask/ask.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/getuserinfo/getuserinfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/getuserinfo/getuserinfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/getuserinfo/getuserinfo.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/getuserinfo/getuserinfo.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/howtouse/howtouse.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/howtouse/howtouse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/inform/inform.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/inform/inform.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/inform/inform.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/inform/inform.wxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/inform/message/chat/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/inform/message/chat/chat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/inform/message/chat/chat.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/inform/message/chat/chat.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/inform/message/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/inform/message/message.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/inform/message/message.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/inform/message/message.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/invite/invite.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/invite/invite.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/invite/invite.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/invite/invite.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/logs/logs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/logs/logs.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/logs/logs.wxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/logs/logs.wxss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/map/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/map/map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/map/map.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/map/map.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/question/question.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/question/question.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/question/question.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/question/question.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/question/question.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/question/question.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/recordtry/recordtry.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/recordtry/recordtry.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/recordtry/recordtry.wxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/recordtry/recordtry.wxss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/searchres/searchres.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/searchres/searchres.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/searchres/searchres.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/searchres/searchres.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/clause/clause.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/clause/clause.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/clause/clause.wxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/clause/clause.wxss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/feedback/feedback.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/feedback/feedback.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/feedback/feedback.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/feedback/feedback.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/mycomm/mycomm.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/mycomm/mycomm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/mycomm/mycomm.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/mycomm/mycomm.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/myhist/myhist.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/myhist/myhist.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/myhist/myhist.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/myhist/myhist.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/myques/myques.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/myques/myques.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/myques/myques.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/myques/myques.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/mysubs/mysubs.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/mysubs/mysubs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/mysubs/mysubs.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/mysubs/mysubs.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/profile/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/profile/profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/settings/profile/profile.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/profile/profile.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/settings/help/help.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/help/help.wxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/settings/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/storydetail/storydetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/storydetail/storydetail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/top/top.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/top/top.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/tosolve/tosolve.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tosolve/tosolve.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/tosolve/tosolve.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tosolve/tosolve.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/project.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/settings/settings.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/settings/settings.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/top/top.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/top/top.wxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/util.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/01.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/02.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/03.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/04.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/05.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/06.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/07.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/08.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/09.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/10.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/100.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/101.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/102.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/103.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/104.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/105.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/106.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/107.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/108.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/109.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/11.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/110.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/111.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/112.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/113.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/114.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/115.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/116.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/117.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/118.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/119.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/12.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/120.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/121.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/122.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/123.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/124.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/125.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/126.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/127.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/128.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/129.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/13.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/130.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/131.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/132.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/133.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/134.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/14.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/15.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/16.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/17.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/18.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/19.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/20.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/21.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/22.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/23.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/24.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/25.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/26.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/27.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/28.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/29.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/30.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/31.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/32.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/33.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/34.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/35.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/36.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/37.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/38.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/39.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/40.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/41.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/42.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/43.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/44.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/45.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/46.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/47.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/48.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/49.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/50.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/51.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/52.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/53.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/54.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/55.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/56.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/57.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/58.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/59.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/60.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/61.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/62.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/63.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/64.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/65.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/66.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/67.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/68.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/69.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/70.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/71.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/72.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/73.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/74.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/75.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/76.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/77.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/78.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/79.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/80.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/81.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/82.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/83.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/84.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/85.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/86.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/87.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/88.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/89.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/90.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/91.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/92.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/93.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/94.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/95.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/96.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/97.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/98.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/emojis/99.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wxParse/wxParse.js" beforeDir="false" afterPath="$PROJECT_DIR$/wxParse/wxParse.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -204,11 +26,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="229">
+              <caret line="27" column="18" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="question.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/question/question.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="394">
-              <caret line="472" lean-forward="true" selection-start-line="472" selection-end-line="472" />
+              <caret line="472" selection-start-line="472" selection-end-line="472" />
             </state>
           </provider>
         </entry>
@@ -216,8 +47,26 @@
       <file leaf-file-name="util.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/util.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2280">
-              <caret line="152" lean-forward="true" selection-start-line="152" selection-end-line="152" />
+            <state relative-caret-position="163">
+              <caret line="258" column="14" selection-start-line="258" selection-start-column="14" selection-end-line="258" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lib.dom.d.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="259">
+              <caret line="15912" column="17" selection-start-line="15912" selection-start-column="17" selection-end-line="15912" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lib.es5.d.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="259">
+              <caret line="373" column="4" selection-start-line="373" selection-start-column="4" selection-end-line="373" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -226,7 +75,7 @@
         <entry file="file://$PROJECT_DIR$/pages/settings/settings.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="251">
-              <caret line="27" column="58" lean-forward="true" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
+              <caret line="27" column="58" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -240,20 +89,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="searchres.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/searchres/searchres.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="question.wxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/question/question.wxml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="324">
-              <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
+              <caret line="142" selection-start-line="142" selection-end-line="142" />
             </state>
           </provider>
         </entry>
@@ -262,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/pages/getuserinfo/getuserinfo.wxml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="405">
-              <caret line="27" column="7" lean-forward="true" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+              <caret line="27" column="7" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -276,27 +116,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="top.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/top/top.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="33" lean-forward="true" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="top.wxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/top/top.wxml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>showsha</find>
-      <find>share-box-close</find>
-      <find>updown</find>
       <find>answer-feed</find>
       <find>question-wrp</find>
       <find>breakline</find>
@@ -324,6 +147,9 @@
       <find>get_or_create_avatar</find>
       <find>getDateTimeStamp</find>
       <find>console.log</find>
+      <find>setInterval</find>
+      <find>lData.globalproblemlist</find>
+      <find>timeou</find>
     </findStrings>
   </component>
   <component name="GOROOT" path="/usr/local/Cellar/go/1.10.3/libexec" />
@@ -334,7 +160,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/pages/settings/myques/myques.wxml" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/pages/ask/ask.js" />
         <option value="$PROJECT_DIR$/app.json" />
         <option value="$PROJECT_DIR$/pages/inform/inform.js" />
@@ -369,6 +194,7 @@
         <option value="$PROJECT_DIR$/pages/question/question.wxml" />
         <option value="$PROJECT_DIR$/pages/getuserinfo/getuserinfo.wxml" />
         <option value="$PROJECT_DIR$/utils/util.js" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -573,6 +399,25 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="mathoj_frontend" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/" />
+      <directory value="$PROJECT_DIR$/" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="mathoj_frontend" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+    </configuration>
+  </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
@@ -604,23 +449,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wxParse/wxParse.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="141" column="21" selection-start-line="141" selection-start-column="21" selection-end-line="141" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wxParse/html2json.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="55" column="26" lean-forward="true" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wxParse/emojis/94.gif">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/wxParse/emojis/00.gif">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -854,21 +682,21 @@
     <entry file="file://$PROJECT_DIR$/pages/question/question.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="394">
-          <caret line="472" lean-forward="true" selection-start-line="472" selection-end-line="472" />
+          <caret line="472" selection-start-line="472" selection-end-line="472" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/question/question.wxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
-          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
+          <caret line="142" selection-start-line="142" selection-end-line="142" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/getuserinfo/getuserinfo.wxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
-          <caret line="27" column="7" lean-forward="true" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+          <caret line="27" column="7" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -882,14 +710,35 @@
     <entry file="file://$PROJECT_DIR$/pages/settings/settings.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="251">
-          <caret line="27" column="58" lean-forward="true" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
+          <caret line="27" column="58" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="373" column="4" selection-start-line="373" selection-start-column="4" selection-end-line="373" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="15912" column="17" selection-start-line="15912" selection-start-column="17" selection-end-line="15912" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="27" column="18" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/util.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2280">
-          <caret line="152" lean-forward="true" selection-start-line="152" selection-end-line="152" />
+        <state relative-caret-position="163">
+          <caret line="258" column="14" selection-start-line="258" selection-start-column="14" selection-end-line="258" selection-end-column="14" />
         </state>
       </provider>
     </entry>
