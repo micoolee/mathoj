@@ -5,6 +5,7 @@ App({
     userInfo: null,
     baseurl: 'https://mathoj.liyuanye.club',
     wssurl: 'wss://mathoj.liyuanye.club/user/createwss',
+
     mapCtx:null,
     openid: null,
     audiopath: null,

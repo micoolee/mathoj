@@ -45,7 +45,7 @@ button {
 }
 
 .list-container {
-  margin-top: 98rpx;
+  margin-top: 50rpx;
   width: 100%;
 }
 

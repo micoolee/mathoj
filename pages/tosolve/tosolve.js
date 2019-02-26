@@ -20,7 +20,7 @@ Page({
     problemlist: [],
     zindex:false,
 
-    tabs: ["待解决", "已解决"],
+    tabs: ["题库", "好题"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,

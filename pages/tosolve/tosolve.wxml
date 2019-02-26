@@ -50,7 +50,7 @@
 
 
           <!--正文  体现一下遮罩效果的-->
-          <view class="cxj-content" >
+          <view class="cxj-content">
             <view wx:if='{{havenewbtn}}'>
               <wux-notice-bar mode="closable" content="有人提问啦~" />
             </view>
@@ -151,59 +151,74 @@
             </view>
           </view>
 
-           <view wx:if="{{solvedproblemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
-              <view>
-                <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
-              </view>
-
-              <view>
-                <text>暂无已解决</text>
-              </view>
+          <view wx:if="{{solvedproblemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
+            <view>
+              <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
             </view>
 
+            <view>
+              <text>暂无好题</text>
+            </view>
+          </view>
 
-            <view wx:else>
+
+          <view wx:else>
 
 
-          <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="this">
-            <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
-              <view class="feed-source">
-                <a>
-                  <view class="avatar">
-                    <image src="{{item.avatar}}" catchtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.username}}' data-openid='{{item.openid}}'></image>
-                  </view>
-                  <text>{{item.username}}{{item.feed_source_txt}}</text>
-                </a>
-              </view>
-              <view class="feed-content">
-                <view class="question" qid="{{question_id}}">
-                  <a class="question-link">
-                    <text class='line-3'>{{item.description}}</text>
+            <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="this">
+              <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                <view class="feed-source">
+                  <a style='display:flex;align-items:center;'>
+                    <view class="avatar">
+                      <image src="{{item.avatar}}" catchtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
+                    </view>
+                    <text>{{item.nickname}}</text>
+                    <text>{{item.grade}}</text>
+                    
+                    <view style='display:flex;flex:2'></view>
+                    <view style='display:flex;align-items:center;'>
+                    <text>推荐人:</text>
+                     
+                      <image style='height:60rpx;width:60rpx;' catchtap='showmore' src='{{item.recommenderavatar}}' data-avatar='{{item.recommenderavatar}}' data-username='{{item.recommendername}}' data-userid='{{item.recommenderid}}'></image>
+                    </view>
                   </a>
                 </view>
-                <view class="answer-body">
-                  <view>
-                    <text class="answer-txt" aid="{{answer_id}}">{{item.solver}}</text>
-                  </view>
-                  <view class="answer-actions">
-                    <view class="comments dot">
-                      <view wx:if="{{item.commentnum != null}}">
-                        {{item.commentnum}}评论
-                      </view>
-                      <view wx:else>0 评论</view>
+                <view class="feed-content">
+                  <view class="question" style='display:flex;' qid="{{question_id}}">
+
+                    <view style='display:flex;align-items:center;'>
+                      <a class="question-link">
+                        <text class='line-3'>{{item.description}}</text>
+                      </a>
                     </view>
 
-                    <view class="follow-it">
-                      <view wx:if="{{item.subscribernum != null}}">
-                        {{item.subscribernum}}关注
+
+                  </view>
+                  <view class="answer-body">
+                    <view>
+                      <text class="answer-txt" aid="{{answer_id}}">{{item.solver}}</text>
+                    </view>
+                    <view class="answer-actions">
+                      <view class="comments dot">
+                        <view wx:if="{{item.browsernum != null}}">
+                          {{item.browsernum}}浏览
+                        </view>
+                        <view wx:else>0 浏览</view>
                       </view>
-                      <view wx:else>0 关注</view>
+
+                      <view class="follow-it">
+                        <view wx:if="{{item.solutionnum != null}}">
+                          {{item.solutionnum}}答案
+                        </view>
+                        <view wx:else>0 答案</view>
+                      </view>
+
+                      <text>{{item.asktime}}</text>
                     </view>
                   </view>
                 </view>
               </view>
-            </view>
-          </block>
+            </block>
 
           </view>
           <view class="weui-loadmore weui-loadmore_line" wx:if="{{bottom}}">

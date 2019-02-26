@@ -99,13 +99,13 @@ Page({
     }else{
       util.checkuserinfo(that)
     }
-
-    
-
   },
   regionchange(e) {
   },
   markertap(e) {
+    var that = this
+    console.log(that.data.markers)
+    console.log(e)
   },
 
   controltap(e) {
@@ -232,16 +232,18 @@ Page({
       method:'POST',
       data: {'openid': app.globalData.openid},
       success: function (res) {
-        let markers = [];
+        var markers = [];
         if (res.data.location){
           for (let item of res.data.location) {
             let marker = that.createMarker(item);
             markers.push(marker)
           }
         }
+        console.log('teacher:',markers)
         that.setData({
           markers: markers
         })
+        console.log(that.data.markers)
       }
 
     })
@@ -254,7 +256,7 @@ Page({
       data: {'openid': app.globalData.openid},
       method:'POST',
       success: function (res) {
-        let markers = [];
+        var markers = [];
         if (res.data.location) {
           for (let item of res.data.location) {
             let marker = that.createMarker(item);

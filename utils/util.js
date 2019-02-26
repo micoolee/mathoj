@@ -50,7 +50,6 @@ function getlastedprob(that) {
       wx.hideNavigationBarLoading()
       var problemlist = res.data.problem
       console.log(problemlist)
-
       //加载缓存中的照片
       for (var i in problemlist) {
         if (storedid.get(problemlist[i].openid) == 'downloaded') {
@@ -120,15 +119,13 @@ function getlastedsolvedprob(that) {
             get_or_create_avatar(solvedproblemlist[i].openid)
           }
         }
-
-
         that.setData({
           solvedproblemlist: solvedproblemlist,
           solvedformerid: solvedproblemlist[solvedproblemlist.length - 1].problemid
         })
       } else {
         wx.showToast({
-          title: '暂无已解决',
+          title: '暂无好题',
         })
       }
 
@@ -229,8 +226,6 @@ function get10prob(that, searchparam = []) {
             get_or_create_avatar(problemlist[i].openid)
           }
         }
-
-
         that.setData({
           problemlist: problemlist,
           formerid: problemlist[problemlist['length'] - 1].problemid
@@ -251,12 +246,13 @@ function get10solvedprob(that, searchparam = []) {
     },
     method:'POST',
     success: function(res) {
-      var problemlist = JSON.parse(res.data.json_data)
-      if (problemlist.length == 0) {
+      
+      if (!res.data.json_data || res.data.json_data.length == 0) {
         wx.showToast({
           title: '到底啦~',
         })
       } else {
+        var problemlist = JSON.parse(res.data.json_data)
         problemlist = that.data.problemlist.concat(problemlist)
         console.log(problemlist)
 
@@ -314,9 +310,9 @@ function loading(that) {
     that.onShow()
   } else {
     setTimeout(function() {
-      wx.showLoading({
-        title: '加载中',
-      })
+      // wx.showLoading({
+      //   title: '加载中',
+      // })
       loading(that)
     }, 100)
   }

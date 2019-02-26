@@ -68,11 +68,16 @@
   "debug": false,
   "plugins": {
     "tencentvideo": {
-      "version": "1.2.4",
+      "version": "1.2.5",
       "provider": "wxa75efa648b60994b"
     }
   },
   "navigateToMiniProgramAppIdList": [
     "wxaf249daf125d652c"
-  ]
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于附近老师/学生的展示"
+    }
+  }
 }

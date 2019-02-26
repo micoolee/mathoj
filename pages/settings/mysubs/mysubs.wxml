@@ -69,7 +69,7 @@
             </form>
           </view>
         </view>
-        <view wx:else>
+        <view wx:else style='flex-direction:row;display:flex;flex-wrap:wrap;'>
                   <view wx:for="{{subscriberlist}}" class='lattice-li'>
                     <view style='height: 100%;display:flex;flex-direction:column;align-items:center;' data-username='{{item.nickname}}' data-userid='{{item.userid}}' data-avatar='{{item.avatar}}' bindtap="showmore">
                       <view style='margin-top:30rpx'>

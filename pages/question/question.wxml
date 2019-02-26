@@ -20,9 +20,7 @@
           <view wx:else>
             展开图片
           </view>
-
           <image src='{{problempic}}' mode='widthFix' hidden='{{! showpic}}' bindtap='viewimage' data-image='{{problempic}}'></image>
-
         </view>
 
         <view class="que-follow">
@@ -139,6 +137,10 @@
           <view class="weui-uploader__input-box">
             <view class="weui-uploader__input" bindtap="takephoto"></view>
           </view>
+                  <label>
+        <switch bindchange="switch2Change" />
+        好题
+        </label>
         </view>
 
         <view wx:if="{{showyuansheng}}">
@@ -155,6 +157,9 @@
         <view wx:else style='margin-top:20rpx;margin-bottom:20rpx;'>
           <button bindtap='start' type='primary' data-id='{{recordstate}}'>结束录音</button>
         </view>
+
+        
+        
         <form report-submit='true' bindsubmit='submitanswer'>
           <button bindtap='submitanswer' form-type="submit">提交回答</button>
         </form>
@@ -164,7 +169,7 @@
     </view>
   </view>
 
-  <view class="content-comments">
+  <view class="content-comments" style='margin-bottom:80rpx'>
 
     <view class="comments-box" wx:if="{{comments.length > 0}}">
       <text class="comments-title">最新评论</text>
@@ -176,7 +181,7 @@
           </view>
           <view class="comments-main">
             <view class="comments-author">
-              <view class="comments-zan">{{item.Zanernum}}
+              <view class="comments-zan" style='display:flex;align-items:center;'>{{item.Zanernum}}
                 <image src="../../images/zan.png" class="extra-share-img" bindtap='dianzan' data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' />
               </view>
               <text>{{item.Nickname}}</text>
@@ -197,20 +202,8 @@
   <view class="extra">
     <view class="extra-share">
       <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' />
-      <image src="../../images/share.png" class="extra-share-img" bindtap="showShare" />
     </view>
-    <input class="extra-input" style='width:80%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" />
-  </view>
-
-
-  <view class="extra-share-box" style="display:{{shareShow}}">
-    <view class="share-box-show" animation="{{shareBottom}}">
-      <view class="share-box-img-box">
-        <button class="weui-btn" type="primary" open-type='share' bindtap='clickshare' data-problemid='{{problemid}}'>分享给好友们</button>
-      </view>
-      <view class="share-box-close" bindtap="shareClose">关闭</view>
-    </view>
-    <view class="share-box-opacity" animation="{{shareOpacity}}" bindtap="shareClose"></view>
+    <input class="extra-input" style='width:80%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" value='{{commentcontent}}'/>
   </view>
 
   <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
