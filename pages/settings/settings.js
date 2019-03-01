@@ -16,12 +16,15 @@ Page({
     hide: false,
     animationData: null,
     coin:null,
-    remainformidnumorstr:null,
+    remainformidnumorstr:'',
     remainformidnum:0,
     canvas_style:''
   },
   onLoad: function (options) {
     var that = this
+    wx.showLoading({
+      title: '加载中',
+    })
     //获取瓶子数
     wx.request({
       url: app.globalData.baseurl + '/user/getformidnum',
@@ -29,6 +32,8 @@ Page({
       method: 'POST',
       success: function (res) {
         setnum(that, res.data.count)
+      },complete:function(e){
+        wx.hideLoading()
       }
     })
     ctx = wx.createCanvasContext('canvas_wi')
@@ -37,67 +42,34 @@ Page({
   onShow: function () {
     var that = this
     util.get_or_create_avatar(app.globalData.openid, that)
-
-
     if (app.globalData.reddot) {
       wx.showTabBarRedDot({
         index: 3,
       })
     }
   },
-  //设置年级
-  setGrade:function(){
-    wx.showModal({
-      title: '设置',
-      content: '设置我的年级',
-      success: function (res) {
-        if (res.confirm) {
-          wx.showActionSheet({
-            itemList: ['一年级', '二年级', '三年级', '四年级', '五年级', '六年级'],
-            success: function (res) {
-              wx.request({
-                url: app.globalData.baseurl + "/user/setgrade",
-                data: { "grade": res.tapIndex, "openid": app.globalData.openid },
-              })
-            }
-          })
-        }
-      }
-    })
-  },
+
   showMyQues: function () {
       wx.navigateTo({
           url: './myques/myques',
-          success: function (res) {
-
-          },
       })
   },
 
   showMyBrow: function () {
     wx.navigateTo({
       url: './myhist/myhist',
-      success: function (res) {
-
-      },
     })
   },
 
   showMySubs: function () {
     wx.navigateTo({
       url: './mysubs/mysubs',
-      success: function (res) {
-
-      },
     })
   },
 
   showMyComm: function () {
     wx.navigateTo({
       url: './mycomm/mycomm',
-      success: function (res) {
-
-      },
     })
   },
 
@@ -116,8 +88,6 @@ Page({
           wx.reLaunch({
             url: '/pages/tosolve/tosolve',
           })
-        }else{
-
         }
       }
     })
@@ -127,16 +97,12 @@ Page({
   showHelp: function () {
     wx.navigateTo({
       url: './help/help',
-      success: function (res) {
-      },
     })
   },
 
   showFeedback: function () {
     wx.navigateTo({
       url: './feedback/feedback',
-      success: function(res){
-      },
     })
   },
 
@@ -151,19 +117,12 @@ Page({
       extraData: {
         foo: 'bar'
       },
-      envVersion: 'release',
-      success:function(e){
-        console.log(e)
-      },
-      fail:function(e){
-        console.log(e)
-      }
+      envVersion: 'release'
     })
   },
   //尝试获取formid
   pushformid: function (e) {
     wx.vibrateShort({
-      
     })
     var that = this
     that.setData({
@@ -175,10 +134,7 @@ Page({
       url: app.globalData.baseurl + '/user/pushformid',
       method: 'POST',
       data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
-      success: function (res) {        
-      }
     })
-    
   },
 
 
@@ -188,12 +144,9 @@ Page({
     var that = this
     var p10 = data[0];   // 三阶贝塞尔曲线起点坐标值
     var p11 = data[1];   // 三阶贝塞尔曲线第一个控制点坐标值
-
     var t = factor.t;
-
     /*计算多项式系数 （下同）*/
     var cy1 = 3 * (p10.y - p11.y);
-
     var xt1 = p10.x;
     var yt1 = cy1 * t + p11.y;
 
@@ -213,8 +166,6 @@ Page({
         that.drawImage([{ x: 40, y: 400 }, { x: 60, y: 0 }])
       })
     }
-
-
   },
 
 
@@ -242,7 +193,6 @@ Page({
     }, 500)
     that.drawImage([{ x: 40, y: 400 }, { x: 60, y: 0 }])
   }
-
 })
 
 function setnum(that,count=-1){
@@ -256,7 +206,6 @@ function setnum(that,count=-1){
   if(count == -1){
     that.setData({
       remainformidnum: that.data.remainformidnum + 1,
-      
     })
     if (that.data.remainformidnum>99){
       that.setData({
