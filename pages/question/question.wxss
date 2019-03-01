@@ -1,5 +1,8 @@
 /**answer.wxss**/
 
+.midpic{
+  width:45%;
+}
 .breakline {
   display: -webkit-box;
   -webkit-box-orient: vertical;

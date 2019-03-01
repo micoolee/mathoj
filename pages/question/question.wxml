@@ -1,4 +1,3 @@
-<!--question.wxml-->
 <view wx:if="{{showdetail}}">
   <view class="container">
     <view class="question-wrp">
@@ -20,7 +19,24 @@
           <view wx:else>
             展开图片
           </view>
-          <image src='{{problempic}}' mode='widthFix' hidden='{{! showpic}}' bindtap='viewimage' data-image='{{problempic}}'></image>
+          <view style='' wx:if="{{problempic1==''}}">
+            <!-- 只有一张图片 -->
+            <image wx:if="{{problempic}}" src='{{problempic}}' mode='widthFix' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic}}'></image>
+          </view>
+          <view  wx:else>
+            <view style='display:flex'>
+              <image class='midpic' wx:if="{{problempic}}" src='{{problempic}}' mode='widthFix' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic}}'></image>
+              <image class='midpic' wx:if="{{problempic1!=''}}" src='{{problempic1}}' mode='widthFix' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic1}}'></image>
+            </view>
+            <view style='display:flex'>
+              <image class='midpic' wx:if="{{problempic2!=''}}" src='{{problempic2}}' mode='widthFix' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic2}}'></image>
+              <image class='midpic' wx:if="{{problempic3!=''}}" src='{{problempic3}}' mode='widthFix' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic3}}'></image>
+            </view>
+
+
+          </view>
+
+
         </view>
 
         <view class="que-follow">
@@ -50,7 +66,7 @@
           指点迷津：
         </view>
 
-        
+
         <view wx:for="{{answer}}" wx:key="{{item.SolutionID}}">
           <view class='feed-item'>
 
@@ -65,14 +81,16 @@
               </view>
               <view style='flex:2'></view>
               <view style='display:flex;'>
-               <text bindtap='zansolution' class='textstyle' style='justify-content:flex-end;font-size:35rpx;' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>{{item.Zanernum}}赞</text>
-
+                <text class='textstyle' style='justify-content:flex-end;font-size:35rpx;'>{{item.Zanernum}}</text>
+                <image wx:if="{{item.Zanstatus=='赞'}}" src="../../images/zan.png" style='padding:10px 15px 0 2px;' class="extra-share-img" catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'
+                />
+                <image wx:else src="../../images/zan.png" style='padding:10px 15px 0 2px;' class="extra-share-img" />
 
               </view>
 
               <view style='display:flex;margin-left:20rpx;' wx:if='{{!hidecaina}}'>
 
-                  <text bindtap='caina' class='textstyle' style='font-size:35rpx;'  data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>{{item.Cainastatus}}</text>
+                <text bindtap='caina' class='textstyle' style='font-size:35rpx;' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>{{item.Cainastatus}}</text>
               </view>
 
             </view>
@@ -137,10 +155,9 @@
           <view class="weui-uploader__input-box">
             <view class="weui-uploader__input" bindtap="takephoto"></view>
           </view>
-                  <label>
-        <switch bindchange="switch2Change" />
-        好题
-        </label>
+          <label>
+            <switch bindchange="switch2Change" /> 好题
+          </label>
         </view>
 
         <view wx:if="{{showyuansheng}}">
@@ -158,8 +175,8 @@
           <button bindtap='start' type='primary' data-id='{{recordstate}}'>结束录音</button>
         </view>
 
-        
-        
+
+
         <form report-submit='true' bindsubmit='submitanswer'>
           <button bindtap='submitanswer' form-type="submit">提交回答</button>
         </form>
@@ -203,7 +220,7 @@
     <view class="extra-share">
       <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' />
     </view>
-    <input class="extra-input" style='width:80%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" value='{{commentcontent}}'/>
+    <input class="extra-input" style='width:80%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" value='{{commentcontent}}' />
   </view>
 
   <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">

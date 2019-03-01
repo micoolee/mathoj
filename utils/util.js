@@ -38,6 +38,7 @@ function get_or_create_avatar(userid, that = 'null') {
 }
 
 function getlastedprob(that) {
+  var utilthat = this
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
     data: {
@@ -49,7 +50,6 @@ function getlastedprob(that) {
     success: function(res) {
       wx.hideNavigationBarLoading()
       var problemlist = res.data.problem
-      console.log(problemlist)
       //加载缓存中的照片
       for (var i in problemlist) {
         if (storedid.get(problemlist[i].openid) == 'downloaded') {
@@ -73,6 +73,8 @@ function getlastedprob(that) {
         problemlist: problemlist,
         formerid: problemlist[problemlist['length'] - 1].problemid
       })
+    },complete:function(e){
+      wx.hideLoading()
     }
   })
 }
@@ -98,6 +100,9 @@ function checklasted(that) {
 }
 
 function getlastedsolvedprob(that) {
+  wx.showLoading({
+    title: '加载中',
+  })
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
     data: {
@@ -108,6 +113,7 @@ function getlastedsolvedprob(that) {
     method: "POST",
     success: function(res) {
       wx.hideNavigationBarLoading()
+      
       if (res.data.problem) {
         var solvedproblemlist = res.data.problem
         console.log(solvedproblemlist)
@@ -132,6 +138,7 @@ function getlastedsolvedprob(that) {
     },
     complete: function() {
       wx.hideNavigationBarLoading() //完成停止加载
+      wx.hideLoading()
     }
   })
 }
@@ -305,14 +312,12 @@ function loading(that) {
     wx.showToast({
       title: '加载完成~',
     })
+    wx.hideLoading()
     uploadavatar()
     pulldownmessage()
     that.onShow()
   } else {
     setTimeout(function() {
-      // wx.showLoading({
-      //   title: '加载中',
-      // })
       loading(that)
     }, 100)
   }
@@ -330,7 +335,24 @@ function uploadavatar() {
   })
 }
 
+function uploadfile(url,filepath,name,formdata,success,fail){
+  wx.uploadFile({
+    url: app.globalData.baseurl + url,
+    method: 'post',
+    header: {
+      "content-type": "application/form-data"
+    },
+    filePath: filepath,
+    name: name,
+    formData: formdata,
+    success:function(e){
+      success(e)
+    },fail:function(e){
+      fail(e)
+    }
 
+})
+}
 
 
 
@@ -345,5 +367,6 @@ module.exports = {
   checkuserinfo: checkuserinfo,
   loading: loading,
   getsessions: getsessions,
-  storedid: storedid
+  storedid: storedid,
+  uploadfile:uploadfile
 }

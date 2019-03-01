@@ -6,6 +6,10 @@ App({
     baseurl: 'https://mathoj.liyuanye.club',
     wssurl: 'wss://mathoj.liyuanye.club/user/createwss',
 
+    // baseurl: 'http://192.168.8.101:8080',
+    // wssurl: 'ws://192.168.8.101:8080/user/createwss',
+    
+
     mapCtx:null,
     openid: null,
     audiopath: null,
@@ -55,7 +59,6 @@ App({
   },
 
   connect: function () {
-
     var that = this
     wx.connectSocket({
       url: that.globalData.wssurl + '/'+that.globalData.selfuserid,
@@ -119,44 +122,53 @@ App({
     })
   },
 
+  
+  login_getopenid:function(res){
+    var that = this
+    var util = require('utils/util.js')
+    wx.request({
+      data: { js_code: res.code },
+      url: this.globalData.baseurl + '/user/getopenid',
+      method: 'post',
+      success: function (res) {
+        that.globalData.openid = res.data.openid
+        that.globalData.selfuserid = res.data.userid
+        util.getsessions()
+        // 在没有 open-type=getUserInfo 版本的兼容处理
+        wx.getUserInfo({
+          success: res => {
+            util.loading(that)
+            that.globalData.userInfo = res.userInfo
+            that.globalData.hasUserInfo = true
+            that.globalData.nickname = res.userInfo.nickName
+            that.globalData.avatar = res.userInfo.avatarUrl
+          }
+        })
 
-
+        if (res.data.punish == '1') {
+          wx.redirectTo({
+            url: '/pages/getuserinfo/getuserinfo?status=1',
+          })
+        }
+        that.connect()
+      },fail:function(e){
+        console.log('fail login')
+        // clearTimeout()
+        setTimeout(function(e){that.login_getopenid(res)},1000)
+      }
+    })
+  },
 
   onLaunch: function () {
     var that = this
     wx.clearStorageSync()
+    wx.showLoading({
+      title: '加载中',
+    })
 
     wx.login({
       success: res => {
-        wx.request({
-          data: { js_code: res.code },
-          url: this.globalData.baseurl + '/user/getopenid',
-          method: 'post',
-          success: function (res) {
-            var util = require('utils/util.js')
-            
-            that.globalData.openid = res.data.openid
-            that.globalData.selfuserid = res.data.userid
-            util.getsessions()
-            // 在没有 open-type=getUserInfo 版本的兼容处理
-            wx.getUserInfo({
-              success: res => {
-                util.loading(that)
-                that.globalData.userInfo = res.userInfo
-                that.globalData.hasUserInfo = true
-                that.globalData.nickname = res.userInfo.nickName
-                that.globalData.avatar = res.userInfo.avatarUrl
-              }
-            })
-            
-            if(res.data.punish =='1'){
-              wx.redirectTo({
-                url: '/pages/getuserinfo/getuserinfo?status=1',
-              })
-            }
-            that.connect()
-          },
-        })
+        that.login_getopenid(res)
       }
     })
 

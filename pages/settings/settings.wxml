@@ -1,4 +1,7 @@
 <view >
+    <view class="v-canvas" style="z-index:100;">
+        <canvas canvas-id="canvas_wi" style="{{canvas_style}}" class="myCanvas"/>
+    </view>
   <view bindtap="bindViewTap"  class="userinfo">
       <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
       <text class="userinfo-nickname">{{userInfo.nickname}}</text>
@@ -32,8 +35,9 @@
         <form  report-submit='true' bindsubmit='pushformid' >
           <button  form-type='submit' plain='true' style='padding:0;border:none'>
             <image src='../../images/bottle.png'style='width:80rpx;height:120rpx;' ></image>
+            <text style='position:absolute;font-size:30rpx;bottom:20rpx;right:12rpx;left:12rpx;'>{{remainformidnumorstr}}</text>
           </button>
-          <text style='position:absolute;font-size:30rpx;bottom:20rpx;right:12rpx;left:12rpx;'>{{remainformidnumorstr}}</text>
+
         </form>
       </view>
       <view bindtap="showFeedback" class="weui-footer__link">用户反馈</view>

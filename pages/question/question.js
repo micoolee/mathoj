@@ -64,6 +64,9 @@ var page = Page({
     subscribe_door: true,
     answerdoor: '',
     problempic: 'noimages',
+    problempic1:'',
+    problempic2:'',
+    problempic3:'',
     modalHidden: true,
     shareShow: 'none',
     shareOpacity: {},
@@ -71,7 +74,6 @@ var page = Page({
     modalValue: null,
     showpic: true,
     comments: ['notnull'],
-    // backfirst: false,
     grade: null,
     inputnum: 0,
     files: ["../../images/pic_160.png"],
@@ -83,7 +85,6 @@ var page = Page({
 
   },
   switch2Change(e) {
-    console.log('switch2 发生 change 事件，携带值为', e.detail.value)
     var that = this
     if (e.detail.value) {
       that.setData({
@@ -94,7 +95,6 @@ var page = Page({
         haoti: 'false'
       })
     }
-
   },
   caina: function(e) {
     var that = this
@@ -150,12 +150,22 @@ var page = Page({
     var that = this
     var e = e
     var image = e.currentTarget.dataset.image
+    var images = []
+    if(that.data.problempic!=''){
+      images=images.concat([that.data.problempic])
+    }
+    if (that.data.problempic1 != '') {
+      images=images.concat([that.data.problempic1])
+    }
+    if (that.data.problempic2 != '') {
+      images=images.concat([that.data.problempic2])
+    }
+    if (that.data.problempic3 != '') {
+      images=images.concat([that.data.problempic3])
+    }
     wx.previewImage({
-      current: '',
-      urls: [image],
-      success: function() {
-        that.play(e)
-      }
+      current: image,
+      urls: images,
     })
   },
   dianzan: function(e) {
@@ -191,21 +201,16 @@ var page = Page({
       problemid = res.target.dataset.problemid
       return {
         title: '[有人@我]小学奥数，考考你~',
-
         path: '/pages/question/question?problemid=' + problemid,
-
         imageUrl: app.globalData.baseurl + '/static/sharepic.jpg',
-
         success: function(res) {}
       }
 
     }
     return {
       title: '[有人@我]中小学数学题，考考你~',
-      // path: '/pages/tosolve/tosolve',
       path: '/pages/question/question?problemid=' + problemid,
       success: function(res) {
-        // 转发成功
       },
 
     }
@@ -353,7 +358,7 @@ var page = Page({
   comment: function(event) {
     var event = event
     var that = this
-    if (this.data.commentcontent == null) {
+    if (this.data.commentcontent == null||this.data.commentcontent=='') {
       wx.showModal({
         title: '提示',
         content: '请输入评论',
@@ -376,6 +381,10 @@ var page = Page({
           that.setData({
             comments: comments,
             commentcontent:''
+          })
+        },fail:function(e){
+          wx.showToast({
+            title: '评论失败',
           })
         }
       })
@@ -517,8 +526,7 @@ var page = Page({
   //拖动滑块
   slideBar: function(e) {
     let that = this;
-    var curval = e.detail.value / 100; //滑块拖动的当前值
-
+    var curval = e.detail.value / 100; 
 
 
     innerAudioContext.seek(curval); //让滑块跳转至指定位置
@@ -808,6 +816,9 @@ function getproblem(that) {
         grade: problem.grade,
         desc: problem.description,
         problempic: problem.problempic,
+        problempic1:problem.problempic1||'',
+        problempic2: problem.problempic2 || '',
+        problempic3: problem.problempic3 || '',
         answer: answer,
         hidehuida: hidehuida,
         comments: comments,

@@ -1,5 +1,7 @@
 // pages/ask/ask.js
+
 const app = getApp()
+var util = require('../../utils/util.js')
 Page({
 
   /**
@@ -13,16 +15,16 @@ Page({
     grade: '未选择',
     gradeindex: 0,
     easy: 'noeasy',
-    rewardarray: ['未选择', '1个奥币','2个奥币','3个奥币'],
-    rewardindex:0,
-    reward:0,
+    // rewardarray: ['未选择', '1个奥币','2个奥币','3个奥币'],
+    // rewardindex:0,
+    reward: '1个奥币',
     easyitems: [
       { name: 'difficult', value: '困难' },
       { name: 'easy', value: '简单', checked: 'true' },
     ],
     desc: '',
     placeholder:'',
-    img: 'noimage',
+    imgs: 'noimage',
     askpicdoor:false,
     avatar:app.globalData.avatar,
     screenwidth:app.globalData.screenwidth,
@@ -48,31 +50,60 @@ Page({
     })
   },
 
-  bindPickerChangereward: function (e) {
-    this.setData({
-      rewardindex: e.detail.value,
-      reward: this.data.rewardarray[e.detail.value]
-    })
-  },
-
   uploadimg: function () {
     var that = this;
     wx.chooseImage({
-      count: 1, // 默认9
+      count: 4, // 默认9
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success(res) {
         const src = res.tempFilePaths[0]
+        if (that.data.files[0] == "../../images/pic_160.png"){
+          var files = [src]
+        }else{
+          var files = that.data.files.concat([src])
+        }
+        
+        
         that.setData({
-          files: [src],
-          imagelength:1,
+          files: files,
+          imagelength:files.length,
           problempicsrc: src,
           askpicdoor:true,
-          img: src
+          imgs: files
         })
       }
     })
   },
+
+  uploadimgs: function (formdata,imgs,i){
+    var that = this
+    console.log(i)
+    if(i>imgs.length-1){
+      wx.showModal({
+        title: '提示',
+        content: '提问成功',
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateBack({
+            })
+          }
+        }
+      })
+      return
+    }
+    util.uploadfile('/problem/create', imgs[i], 'problempic', formdata,
+      function (res) {
+        console.log(res)
+        var data = JSON.parse(res.data)
+        i++
+        formdata['problemid'] = data.problemid * 1
+        formdata['imgindex'] = i
+        that.uploadimgs(formdata,that.data.imgs,i)
+      },function(e){console.log('error',e)})
+  },
+
+
 
   ask: function (e) {
     var that = this
@@ -93,12 +124,8 @@ Page({
         title: '提示',
         content: '请选择年级',
       })
-    } else if (this.data.reward == '未选择' || this.data.reward ==''){
-      wx.showModal({
-        title: '提示',
-        content: '请选择奖励值',
-      })
-    }
+    } 
+
     else{
 
       this.setData({
@@ -109,32 +136,54 @@ Page({
       })
       var formdata = { "openid": app.globalData.openid, "easy": that.data.easy, "grade": that.data.grade, "desc": that.data.desc,"reward":that.data.reward,"noimage":"false" }
       var formdata1 = { "openid": app.globalData.openid, "easy": that.data.easy, "grade": that.data.grade, "desc": that.data.desc, "reward": that.data.reward,"noimage":"true" }
-      if (this.data.img != 'noimage') {
-        wx.uploadFile({
-          url: app.globalData.baseurl + '/problem/create',
-          method: 'post',
-          header: {
-            "content-type": "application/form-data"
-          },
-          filePath: this.data.img,
-          name: 'problempic',
-          formData: formdata,
-          success: function () {
-            that.setData({
-              disabledbut:false
-            })
-            wx.showModal({
-              title: '提示',
-              content: '提问成功',
-              success: function (res) {
-                if (res.confirm) {
-                  wx.navigateBack({
-                  })
-                }
-              }
-            })
-          }
+      if (this.data.imgs != 'noimage') {
+        var pid = 0
+        formdata['problemid']=pid
+        that.setData({
+          disabledbut: false
         })
+        formdata['imgindex'] = 0
+        that.uploadimgs(formdata,that.data.imgs,0)
+        // util.uploadfile('/problem/create', this.data.img[0], 'problempic', formdata, 
+        //   function (res) {
+        //     console.log(res)
+        //     var data = JSON.parse(res.data)
+        //     that.setData({
+        //       disabledbut: false
+        //     })
+        //     if (that.data.img.length==2){
+        //       formdata['problemid'] = data.problemid * 1
+        //       util.uploadfile('/problem/create', that.data.img[1], 'problempic', formdata,function(e){
+        //         wx.showModal({
+        //           title: '提示',
+        //           content: '提问成功',
+        //           success: function (res) {
+        //             if (res.confirm) {
+        //               wx.navigateBack({
+        //               })
+        //             }
+        //           }
+        //         })
+        //       },function(e){
+
+        //       })
+        //     }else{
+        //     wx.showModal({
+        //       title: '提示',
+        //       content: '提问成功',
+        //       success: function (res) {
+        //         if (res.confirm) {
+        //           wx.navigateBack({
+        //           })
+        //         }
+        //       }
+        //     })
+        //     }
+
+        //   }
+        // , function(e){})
+
+
 
 
       }
@@ -187,7 +236,7 @@ Page({
     })
     app.globalData.placeholder = ''
     wx.navigateBack({
-      
+      //
     })
   },
  onShow:function(){
