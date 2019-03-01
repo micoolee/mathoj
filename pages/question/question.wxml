@@ -25,12 +25,12 @@
           </view>
           <view  wx:else>
             <view style='display:flex'>
-              <image class='midpic' wx:if="{{problempic}}" src='{{problempic}}' mode='widthFix' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic}}'></image>
-              <image class='midpic' wx:if="{{problempic1!=''}}" src='{{problempic1}}' mode='widthFix' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic1}}'></image>
+              <image mode='aspectFill' class='midpic' wx:if="{{problempic}}" src='{{problempic}}'  hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic}}'></image>
+              <image mode='aspectFill' style='margin-left:20rpx' class='midpic' wx:if="{{problempic1!=''}}" src='{{problempic1}}'  hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic1}}'></image>
             </view>
-            <view style='display:flex'>
-              <image class='midpic' wx:if="{{problempic2!=''}}" src='{{problempic2}}' mode='widthFix' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic2}}'></image>
-              <image class='midpic' wx:if="{{problempic3!=''}}" src='{{problempic3}}' mode='widthFix' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic3}}'></image>
+            <view style='display:flex;margin-top:20rpx'>
+              <image mode='aspectFill' class='midpic' wx:if="{{problempic2!=''}}" src='{{problempic2}}'  hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic2}}'></image>
+              <image mode='aspectFill' style='margin-left:20rpx' class='midpic' wx:if="{{problempic3!=''}}" src='{{problempic3}}' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic3}}'></image>
             </view>
 
 

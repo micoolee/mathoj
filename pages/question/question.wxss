@@ -1,7 +1,7 @@
 /**answer.wxss**/
 
 .midpic{
-  width:45%;
+  width:100%;
 }
 .breakline {
   display: -webkit-box;

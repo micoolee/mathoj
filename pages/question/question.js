@@ -112,7 +112,6 @@ var page = Page({
         that.setData({
           answer: all
         })
-
         wx.showToast({
           title: '已采纳',
         })
@@ -136,7 +135,6 @@ var page = Page({
         that.setData({
           answer: all
         })
-
         wx.showToast({
           title: '已赞',
         })
@@ -148,7 +146,6 @@ var page = Page({
 
   viewimage: function(e) {
     var that = this
-    var e = e
     var image = e.currentTarget.dataset.image
     var images = []
     if(that.data.problempic!=''){
@@ -181,7 +178,6 @@ var page = Page({
       },
       method: 'POST',
       success: function(res) {
-
         var comments = res.data.comment
         that.setData({
           comments: comments

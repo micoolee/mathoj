@@ -52,23 +52,21 @@ Page({
 
   uploadimg: function () {
     var that = this;
+    var files
     wx.chooseImage({
       count: 4, // 默认9
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success(res) {
-        const src = res.tempFilePaths[0]
         if (that.data.files[0] == "../../images/pic_160.png"){
-          var files = [src]
+          files = res.tempFilePaths
         }else{
-          var files = that.data.files.concat([src])
+          files = that.data.files.concat(res.tempFilePaths)
         }
-        
         
         that.setData({
           files: files,
           imagelength:files.length,
-          problempicsrc: src,
           askpicdoor:true,
           imgs: files
         })
@@ -78,7 +76,6 @@ Page({
 
   uploadimgs: function (formdata,imgs,i){
     var that = this
-    console.log(i)
     if(i>imgs.length-1){
       wx.showModal({
         title: '提示',
@@ -144,51 +141,8 @@ Page({
         })
         formdata['imgindex'] = 0
         that.uploadimgs(formdata,that.data.imgs,0)
-        // util.uploadfile('/problem/create', this.data.img[0], 'problempic', formdata, 
-        //   function (res) {
-        //     console.log(res)
-        //     var data = JSON.parse(res.data)
-        //     that.setData({
-        //       disabledbut: false
-        //     })
-        //     if (that.data.img.length==2){
-        //       formdata['problemid'] = data.problemid * 1
-        //       util.uploadfile('/problem/create', that.data.img[1], 'problempic', formdata,function(e){
-        //         wx.showModal({
-        //           title: '提示',
-        //           content: '提问成功',
-        //           success: function (res) {
-        //             if (res.confirm) {
-        //               wx.navigateBack({
-        //               })
-        //             }
-        //           }
-        //         })
-        //       },function(e){
-
-        //       })
-        //     }else{
-        //     wx.showModal({
-        //       title: '提示',
-        //       content: '提问成功',
-        //       success: function (res) {
-        //         if (res.confirm) {
-        //           wx.navigateBack({
-        //           })
-        //         }
-        //       }
-        //     })
-        //     }
-
-        //   }
-        // , function(e){})
-
-
-
-
       }
       else {
-        
         wx.request({
           url: app.globalData.baseurl + '/problem/create',
           method: 'POST',
