@@ -7,6 +7,28 @@ Page({
     problemlistnull:0,
     icon: '../../../images/empty.png',
   },
+  deleteproblem:function(e){
+    console.log(e)
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          wx.request({
+          url: app.globalData.baseurl + '/problem/delete',
+            method: 'POST',
+              data: { 'problemid': e.currentTarget.dataset.pid },
+          success: function (res) {
+            console.log('success to delete')
+          }
+        })
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+
+  },
   tosolve:function(e){
     var that = this
     wx.request({

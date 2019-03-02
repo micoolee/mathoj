@@ -5,10 +5,9 @@ App({
     userInfo: null,
     baseurl: 'https://mathoj.liyuanye.club',
     wssurl: 'wss://mathoj.liyuanye.club/user/createwss',
-
-    // baseurl: 'http://192.168.8.101:8080',
-    // wssurl: 'ws://192.168.8.101:8080/user/createwss',
     
+    // baseurl: 'http://192.168.0.104:8080',
+    // wssurl: 'ws://192.168.0.104:8080/user/createwss',
 
     mapCtx:null,
     openid: null,
@@ -26,7 +25,6 @@ App({
     messagethat: null,
     reddot: false,
     sixindoor: false,
-    
     chatroomthat: null,
     searchlist: [],
     placeholder: '',
@@ -41,7 +39,6 @@ App({
 
   getlastedinform: function (informthat = null) {
     var that = this;
-
     wx.request({
       url: this.globalData.baseurl + '/message/getten',
       data: { 'openid': this.globalData.openid },
@@ -108,8 +105,6 @@ App({
           index: 3,
         })
       
-        
-      
       })
     });
     wx.onSocketError(function (res) {
@@ -153,8 +148,9 @@ App({
         that.connect()
       },fail:function(e){
         console.log('fail login')
-        // clearTimeout()
         setTimeout(function(e){that.login_getopenid(res)},1000)
+      },complete:function(e){
+        wx.hideLoading()
       }
     })
   },

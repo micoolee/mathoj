@@ -18,18 +18,22 @@
   <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
     <block wx:for="{{problemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
       <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
-        <view class="feed-source">
-          <a class="">
+        <view class="feed-source" style='display:flex;justify-content:space-between;'>
+          <view >
             <text>{{item.createtime}}</text>
-          </a>
+          </view>
+          <view catchtap='deleteproblem' data-pid='{{item.problemid}}'>
+          <text>删除</text>
+          </view>
+          
         </view>
         <view class="feed-content">
           <view class="question line-reback" >
             <a class="question-link">
               <text>{{item.content}}</text>
-              <view wx:if="{{item.problempic != undefined}}">
+              <!-- <view wx:if="{{item.problempic != undefined}}">
                 <image src='{{item.problempic}}'></image>
-              </view>
+              </view> -->
             </a>
           </view>
           <view class="answer-body">

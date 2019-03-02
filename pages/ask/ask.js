@@ -15,8 +15,7 @@ Page({
     grade: '未选择',
     gradeindex: 0,
     easy: 'noeasy',
-    // rewardarray: ['未选择', '1个奥币','2个奥币','3个奥币'],
-    // rewardindex:0,
+
     reward: '1个奥币',
     easyitems: [
       { name: 'difficult', value: '困难' },
@@ -27,10 +26,22 @@ Page({
     imgs: 'noimage',
     askpicdoor:false,
     avatar:app.globalData.avatar,
-    screenwidth:app.globalData.screenwidth,
-    screenheight: app.globalData.screenheight,
+    // screenwidth:app.globalData.screenwidth,
+    // screenheight: app.globalData.screenheight,
     imagelength:0,
     disabledbut:false
+  },
+
+  deletethisimg:function(e){
+    var that = this
+    console.log(e)
+    var files = that.data.files
+    files.splice(e.currentTarget.dataset.index,1)
+    that.setData({
+      files: files,
+      imagelength: files.length,
+      imgs: files
+    })
   },
 
   descinput: function (e) {
@@ -39,7 +50,6 @@ Page({
     this.setData({
       desc: e.detail.value,
       inputnum:num,
-      
     })
   },
 
@@ -77,6 +87,10 @@ Page({
   uploadimgs: function (formdata,imgs,i){
     var that = this
     if(i>imgs.length-1){
+      that.setData({
+        disabledbut: false
+      })
+      wx.hideLoading()
       wx.showModal({
         title: '提示',
         content: '提问成功',
@@ -103,13 +117,12 @@ Page({
 
 
   ask: function (e) {
+
     var that = this
     wx.request({
       url: app.globalData.baseurl + '/user/pushformid',
       data: { 'formid': e.detail.formId, 'openid': app.globalData.openid},
       method:"post",
-      success: function (res) {
-      }
     })
     if (this.data.desc==''){
       wx.showModal({
@@ -122,9 +135,10 @@ Page({
         content: '请选择年级',
       })
     } 
-
     else{
-
+      wx.showLoading({
+        title: '上传中',
+      })
       this.setData({
         hide: false,
         disabledbut:true,
@@ -136,9 +150,7 @@ Page({
       if (this.data.imgs != 'noimage') {
         var pid = 0
         formdata['problemid']=pid
-        that.setData({
-          disabledbut: false
-        })
+
         formdata['imgindex'] = 0
         that.uploadimgs(formdata,that.data.imgs,0)
       }
@@ -162,12 +174,16 @@ Page({
                   app.globalData.placeholder = ''
                   wx.navigateBack({
                   })
-                } else if (res.cancel) {
                 }
               }
             })
-          },
+          },complete:function(e){
+            wx.hideLoading()
+          }
         })
+
+
+
       }
     }
   },
@@ -185,12 +201,9 @@ Page({
       url: app.globalData.baseurl + '/user/pushformid',
       data: { 'formid': e.detail.formId, 'openid': app.globalData.openid},
       method: "post",
-      success: function (res) {
-      }
     })
     app.globalData.placeholder = ''
     wx.navigateBack({
-      //
     })
   },
  onShow:function(){
