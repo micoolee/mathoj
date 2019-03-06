@@ -6,10 +6,10 @@
       <input placeholder-class="search-placeholder" bindinput='writesearch' bindconfirm='search' value='{{inputvalue}}' />
     </view>
 
-    <view class="search-right flex-item" bindtap="showquestool">
+    <view class="search-right flex-item" bindtap="toask">
       <image src="../../images/write.png"></image>
     </view>
-    <view class="search-center flex-item" bindtap="showquestool">
+    <view class="search-center flex-item" bindtap="toask">
       提问
     </view>
   </view>
@@ -68,8 +68,6 @@
 
 
             <view wx:else>
-
-
               <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
                 <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
                   <view class="feed-source" style='display:flex'>
@@ -229,4 +227,8 @@
     </view>
   </view>
   <image src='../../images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
+
+
+
+
 </view>

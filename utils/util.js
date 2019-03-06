@@ -1,7 +1,22 @@
 const app = getApp()
-
+var network = require("./network.js")
 var storedid = new Map();
+var categorys= {
+  12: ["集合", "基本初等函数", "平面解析几何", "算法初步", "统计", "概率", "平面向量", "三角恒等变换", "解三角形", "数列", "不等式", "圆锥曲线与方程", "空间向量与立体几何", "导数", "推理与证明", "复数", "坐标系与参数方程", "其它"],
+    2: ["其它"],
+      9: ["二次根式", "一元二次方程", "旋转", "圆", "概率初步", "二次函数", "相似", "锐角三角形", "投影与视图"],
+        7: ["有理数", "整式的加减", "一元一次方程", "图形认识初步", "相交线与平行线", "平面直角坐标系", "三角形", "二元一次方程组", "不等式与不等式组", "数据统计"],
+          10: ["集合与函数", "基本初等函数", "空间几何", "点线面位置关系", "直线与方程", "圆与方程", "算法初步", "统计", "概率"],
+            5: ["四则混合运算", "其它"],
+              11: ["集合", "基本初等函数", "平面解析几何", "算法初步", "统计", "概率", "平面向量", "三角恒等变换", "解三角形", "数列", "不等式", "圆锥曲线与方程", "空间向量与立体几何", "导数", "推理与证明", "复数", "坐标系与参数方程", "其它"],
+                1: ["其它"],
+                  4: ["其它"],
+                    6: ["数与计算", "比和比例", "几何初步", "统计初步", "应用题", "平面直角坐标系", "三角形", "二元一次方程组", "不等式与不等式组", "数据统计"],
+                      3: ["其它"],
+                        8: ["全等三角形", "轴对称", "实数", "一次函数", "整式乘除", "因式分解", "分式", "反比例函数", "勾股定理", "四边形", "数据分析"]
+}
 
+var gradearray = ['未选择', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三']
 function get_or_create_avatar(userid, that = 'null') {
   var res = wx.getStorageInfoSync();
   if (res.keys.indexOf(userid) > -1) {
@@ -37,56 +52,61 @@ function get_or_create_avatar(userid, that = 'null') {
   }
 }
 
-function getlastedprob(that) {
+function getlastedprob(that,filter) {
   var utilthat = this
-  wx.request({
-    url: app.globalData.baseurl + '/problem/getten',
-    data: {
-      'formerid': that.data.formerid,
-      'filter': [],
-      'solved': '0'
-    },
-    method: "POST",
-    success: function(res) {
-      wx.hideNavigationBarLoading()
-      var problemlist = res.data.problem
-      //加载缓存中的照片
-      for (var i in problemlist) {
-        if (storedid.get(problemlist[i].openid) == 'downloaded') {
-          problemlist[i].avatar = get_or_create_avatar(problemlist[i].openid)
-        } else if (storedid.get(problemlist[i].openid) == undefined) {
-          get_or_create_avatar(problemlist[i].openid)
-        }
+  console.log(filter)
+  network.post('/problem/getten', {
+    'formerid': that.data.formerid,
+    'filter': filter||[],
+    'solved': '0'
+  }, function (res) {
+    wx.hideNavigationBarLoading()
+    var problemlist = res.problem
+    //加载缓存中的照片
+    for (var i in problemlist) {
+      if (storedid.get(problemlist[i].openid) == 'downloaded') {
+        problemlist[i].avatar = get_or_create_avatar(problemlist[i].openid)
+      } else if (storedid.get(problemlist[i].openid) == undefined) {
+        get_or_create_avatar(problemlist[i].openid)
       }
-      that.setData({
-        topStories: res.data.topstory,
-      })
-      if (!problemlist) {
-        that.setData({
-          problemlist: []
-        })
-        return
-      }
-      that.setData({
-        havenewbtn: false,
-        lastedid: problemlist[0].problemid,
-        problemlist: problemlist,
-        formerid: problemlist[problemlist['length'] - 1].problemid
-      })
-    },complete:function(e){
-      wx.hideLoading()
     }
-  })
+    that.setData({
+      topStories: res.topstory,
+    })
+    if (!problemlist) {
+      that.setData({
+        problemlist: []
+      })
+      return
+    }
+    that.setData({
+      havenewbtn: false,
+      lastedid: problemlist[0].problemid,
+      problemlist: problemlist,
+      formerid: problemlist[problemlist['length'] - 1].problemid
+    })
+  },function(e){
+    console.log('fail')
+  },
+  function (e) {
+    wx.hideLoading()
+  }
+  )
 }
 
 
 function checklasted(that) {
   if (that.data.lastedid != null) {
+    var grade = 0
+    if (app.globalData.onlysee){
+      grade = app.globalData.grade
+    }
     wx.request({
       url: app.globalData.baseurl + '/problem/checklatest',
       method: 'POST',
       data: {
-        'formerid': that.data.lastedid
+        'formerid': that.data.lastedid,
+        'grade':grade
       },
       success: function(res) {
         if (res.data.count) {
@@ -99,7 +119,7 @@ function checklasted(that) {
   }
 }
 
-function getlastedsolvedprob(that) {
+function getlastedsolvedprob(that,filter) {
   wx.showLoading({
     title: '加载中',
   })
@@ -107,7 +127,7 @@ function getlastedsolvedprob(that) {
     url: app.globalData.baseurl + '/problem/getten',
     data: {
       'formerid': 0,
-      'filter': [],
+      'filter': filter||[],
       'solved': '1'
     },
     method: "POST",
@@ -132,6 +152,10 @@ function getlastedsolvedprob(that) {
       } else {
         wx.showToast({
           title: '暂无好题',
+        })
+        that.setData({
+          solvedproblemlist: [],
+          solvedformerid: 0
         })
       }
 
@@ -243,7 +267,7 @@ function get10prob(that, searchparam = []) {
 }
 
 function get10solvedprob(that, searchparam = []) {
-  var that = that
+  // var that = that
   wx.request({
     url: app.globalData.baseurl + '/problem/getten',
     data: {
@@ -324,14 +348,10 @@ function loading(that) {
 }
 
 function uploadavatar() {
-  wx.request({
-    url: app.globalData.baseurl + '/user/uploadavatar',
-    method: 'post',
-    data: {
-      'openid': app.globalData.openid,
-      'username': app.globalData.nickname,
-      'avatar': app.globalData.avatar
-    },
+  network.post('/user/uploadavatar', {
+    'openid': app.globalData.openid,
+    'username': app.globalData.nickname,
+    'avatar': app.globalData.avatar
   })
 }
 
@@ -350,9 +370,57 @@ function uploadfile(url,filepath,name,formdata,success,fail){
     },fail:function(e){
       fail(e)
     }
-
 })
 }
+
+var tabtxt = [
+  {
+    'text': '年级',
+    'originalText': '不限',
+    'value': ['不限', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
+    'active': false,
+    'child': [
+      { 'id': 0, 'text': '不限' },
+      { 'id': 1, 'text': '一年级' },
+      { 'id': 2, 'text': '二年级' },
+      { 'id': 3, 'text': '三年级' },
+      { 'id': 4, 'text': '四年级' },
+      { 'id': 5, 'text': '五年级' },
+      { 'id': 6, 'text': '六年级' },
+      { 'id': 7, 'text': '初一' },
+      { 'id': 8, 'text': '初二' },
+      { 'id': 9, 'text': '初三' },
+      { 'id': 10, 'text': '高一' },
+      { 'id': 11, 'text': '高二' },
+      { 'id': 12, 'text': '高三' },
+
+    ],
+    'type': 0
+  },
+  {
+    'text': '难易',
+    'originalText': '不限',
+    'active': false,
+    'value': ['不限', '简单', '困难'],
+    'child': [
+      { 'id': 0, 'text': '不限' },
+      { 'id': 1, 'text': '简单' },
+      { 'id': 2, 'text': '困难' }
+    ], 'type': 0
+  },
+  {
+    'text': '奖励',
+    'originalText': '不限',
+    'value': ['不限', '1个奥币', '2个奥币', '3个奥币'],
+    'active': false,
+    'child': [
+      { 'id': 0, 'text': '不限' },
+      { 'id': 1, 'text': '1个奥币' },
+      { 'id': 2, 'text': '2个奥币' },
+      { 'id': 3, 'text': '3个奥币' }
+    ], 'type': 0
+  }
+]
 
 
 
@@ -368,5 +436,8 @@ module.exports = {
   loading: loading,
   getsessions: getsessions,
   storedid: storedid,
-  uploadfile:uploadfile
+  uploadfile:uploadfile,
+  categorys: categorys,
+  gradearray: gradearray,
+  tabtxt:tabtxt
 }

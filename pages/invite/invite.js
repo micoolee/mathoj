@@ -12,6 +12,19 @@ Page({
     icon: '../../images/empty.png',
   },
 
+  onShareAppMessage: function (res) {
+    var that = this
+    console.log(res)
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      return {
+        title: '[有人@我]数学题，你会做么',
+        path: '/pages/question/question?problemid=' + that.data.problemid,
+        imageUrl: app.globalData.baseurl + '/swagger/mobiwusi.jpg',
+      }
+    }
+  },
+
 invite:function(e){
   
   var beinviter = e.currentTarget.dataset.beinviter

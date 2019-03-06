@@ -1,0 +1,14 @@
+<!--pages/settings/config/config.wxml-->
+<view style='margin-top:50rpx;'>
+  <view class='line'>
+  <text style='margin-left:10px'>只显示本年级</text>
+  <switch checked="{{onlysee}}" bindchange="switch1Change"  />
+  </view>
+    <view class='line' >
+  <text style='margin-left:10px'>我的年级</text>
+  <picker value="{{index}}"bindchange='changegrade' range="{{grades}}" >{{grades[index]}}</picker>
+  </view>
+  <view style='margin-top:50rpx;'>
+  <button type='primary' style='width:80%' bindtap='save'>保存</button>
+  </view>
+</view>

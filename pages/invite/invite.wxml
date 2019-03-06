@@ -32,6 +32,11 @@
 
         </view>
       </view>
+
     </block>
+
+          <view style='display:flex;background-color:white;'>
+      <button type='primary' style='width:80%;margin-top:40rpx;' open-type='share'>寻求场外帮助</button>
+      </view>
   </scroll-view>
 </view>

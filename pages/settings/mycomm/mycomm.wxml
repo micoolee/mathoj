@@ -26,9 +26,14 @@
               </a>
             </view>
             <view class="answer-body">
-              <view class="answer-actions">
-                <view class="like dot">
-                  <a>{{item.zanernum}} 赞同 </a>
+              <view class="answer-actions" style='display:flex;justify-content:space-between;'>
+                <view class="like">
+                  <a wx:if="{{item.zanernum}}">{{item.zanernum}} 赞同 </a>
+                  <a wx:else>0 赞同 </a>
+                </view>
+
+                <view catchtap='deletecomment' data-cid='{{item.commentid}}' class="like" style='margin-right:20rpx'>
+                  <a>删除</a>
                 </view>
               </view>
             </view>

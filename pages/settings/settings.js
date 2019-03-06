@@ -1,5 +1,6 @@
 var app = getApp()
 var util = require('../../utils/util.js')
+var network = require('../../utils/network.js')
 let animation = require("../../utils/requestanimation.js")
 
 var ctx = null;
@@ -18,10 +19,53 @@ Page({
     coin:null,
     remainformidnumorstr:'',
     remainformidnum:0,
-    canvas_style:''
+    canvas_style:'',
+    modalHidden: true,
+    grades:'',
+    gradeindex:0,
   },
+  modalChange: function (e) {
+    var that = this
+    console.log(e)
+    if(this.data.gradeindex != 0){
+      network.post('/user/setgrade',{'openid':app.globalData.openid,'grade':this.data.gradeindex},function(e){
+        app.globalData.grade = that.data.gradeindex*1
+      },function(e){
+      })
+      this.setData({
+        modalHidden:true
+      })
+    }
+  },
+  selectgrade:function(e){
+    console.log(e)
+    this.setData({
+      gradeindex:e.detail.value*1
+    })
+  },
+  onShareAppMessage:function(res){
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      return {
+        title: '[有人@我]数学题，你会做么',
+        path: '/pages/tosolve/tosolve',
+        imageUrl: app.globalData.baseurl + '/swagger/mobiwusi.jpg',
+        success: function (res) { }
+      }
+
+    }
+  },
+
   onLoad: function (options) {
     var that = this
+    if (app.globalData.grade == 0) {
+      that.setData({
+        modalHidden: false
+      })
+    }
+    that.setData({
+      grades:util.gradearray
+    })
     wx.showLoading({
       title: '加载中',
     })
@@ -47,6 +91,7 @@ Page({
         index: 3,
       })
     }
+
   },
 
   showMyQues: function () {
@@ -91,7 +136,6 @@ Page({
         }
       }
     })
-
   },
 
   showHelp: function () {
@@ -105,7 +149,11 @@ Page({
       url: './feedback/feedback',
     })
   },
-
+  showConfig:function(){
+    wx.navigateTo({
+      url: './config/config',
+    })
+  },
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
   },

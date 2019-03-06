@@ -4,7 +4,7 @@
       <view class="question-item">
         <view class="que-tag">
           <text class="tag">{{grade}}</text>
-
+          <text wx:if="{{category}}" class="tag">{{category}}</text>
         </view>
         <view class="que-title breakline">
           {{desc}}
@@ -12,14 +12,12 @@
 
         <view wx:if="{{problempic != 'noimages'}}" style='justify-content:center' class='page__text' bindtap='handlepic'>
           <view wx:if='{{showpic}}' style='display:flex;flex-direction:column;'>
-            <view>
               收起图片
-            </view>
           </view>
           <view wx:else>
             展开图片
           </view>
-          <view style='' wx:if="{{problempic1==''}}">
+          <view wx:if="{{problempic1==''}}">
             <!-- 只有一张图片 -->
             <image wx:if="{{problempic}}" src='{{problempic}}' mode='widthFix' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic}}'></image>
           </view>
@@ -32,8 +30,6 @@
               <image mode='aspectFill' class='midpic' wx:if="{{problempic2!=''}}" src='{{problempic2}}'  hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic2}}'></image>
               <image mode='aspectFill' style='margin-left:20rpx' class='midpic' wx:if="{{problempic3!=''}}" src='{{problempic3}}' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic3}}'></image>
             </view>
-
-
           </view>
 
 
@@ -57,7 +53,6 @@
             <view wx:else data-id='{{subscribe_door}}'>
               取消关注
             </view>
-
           </view>
         </view>
       </view>
@@ -69,15 +64,11 @@
 
         <view wx:for="{{answer}}" wx:key="{{item.SolutionID}}">
           <view class='feed-item'>
-
             <view style='flex:2;display:flex;'>
               <image class='comments-avatar-img' style='width:70rpx;height:70rpx;' src='{{item.Avatar}}' bindtap='showmore' data-avatar='{{item.Avatar}}' data-userid='{{item.Solverid}}' data-username='{{item.Solvernickname}}' data-openid='{{item.Openid}}' />
               <view style='flex-direction:row;display:flex'>
                 <text class='textstyle'>{{item.Solvernickname}}</text>
                 <text class='textstyle' style='margin-left:10rpx;'>{{item.Createtime}}</text>
-
-
-
               </view>
               <view style='flex:2'></view>
               <view style='display:flex;'>
@@ -85,11 +76,9 @@
                 <image wx:if="{{item.Zanstatus=='赞'}}" src="../../images/zan.png" style='padding:10px 15px 0 2px;' class="extra-share-img" catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'
                 />
                 <image wx:else src="../../images/zan.png" style='padding:10px 15px 0 2px;' class="extra-share-img" />
-
               </view>
 
               <view style='display:flex;margin-left:20rpx;' wx:if='{{!hidecaina}}'>
-
                 <text bindtap='caina' class='textstyle' style='font-size:35rpx;' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>{{item.Cainastatus}}</text>
               </view>
 
@@ -98,9 +87,6 @@
             <view style='margin-left:80rpx;font-size:30rpx;'>
               解析：{{item.Description}}
             </view>
-
-
-
             <view wx:if="{{item.Record != undefined}}">
               <audio src="{{item.Record}}"></audio>
               <view class='record-controller'>
@@ -118,7 +104,7 @@
               </view>
             </view>
             <view wx:if="{{item.Image != undefined}}" class='page__teacheranswerimage'>
-              <image src='{{item.Image}}' bindtap='viewimage' data-image='{{item.Image}}' data-recordsrc='{{item.Record}}' mode='widthFix'></image>
+              <image src='{{item.Image}}' data-key='pimg' bindtap='viewimage' data-image='{{item.Image}}' data-recordsrc='{{item.Record}}' mode='widthFix'></image>
             </view>
           </view>
         </view>
@@ -205,7 +191,6 @@
               <text> {{item.Createtime}}</text>
             </view>
             <view class="comments-content breakline-small">{{item.Description}}</view>
-            <!-- <view class="comments-data">{{item.Zanernum}}</view> -->
           </view>
         </view>
 
@@ -222,8 +207,4 @@
     </view>
     <input class="extra-input" style='width:80%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" value='{{commentcontent}}' />
   </view>
-
-  <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
-    <view> {{modalValue}} </view>
-  </modal>
 </view>

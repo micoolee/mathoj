@@ -6,8 +6,8 @@ App({
     baseurl: 'https://mathoj.liyuanye.club',
     wssurl: 'wss://mathoj.liyuanye.club/user/createwss',
     
-    // baseurl: 'http://192.168.0.104:8080',
-    // wssurl: 'ws://192.168.0.104:8080/user/createwss',
+    // baseurl: 'http://192.168.8.101:8080',
+    // wssurl: 'ws://192.168.8.101:8080/user/createwss',
 
     mapCtx:null,
     openid: null,
@@ -35,6 +35,10 @@ App({
     fromgetuserinfo:false,
     selfuserid:null,
     sessionindex:null,
+    grade:null,
+    onlysee:true,
+    tosolvethat:null,
+    getopenidok:false
   },
 
   getlastedinform: function (informthat = null) {
@@ -128,8 +132,11 @@ App({
       success: function (res) {
         that.globalData.openid = res.data.openid
         that.globalData.selfuserid = res.data.userid
+        that.globalData.grade = res.data.grade || 0
+        that.globalData.onlysee = res.data.onlysee ||false
+        that.globalData.getopenidok = true
         util.getsessions()
-        // 在没有 open-type=getUserInfo 版本的兼容处理
+
         wx.getUserInfo({
           success: res => {
             util.loading(that)
@@ -147,7 +154,6 @@ App({
         }
         that.connect()
       },fail:function(e){
-        console.log('fail login')
         setTimeout(function(e){that.login_getopenid(res)},1000)
       },complete:function(e){
         wx.hideLoading()
@@ -157,7 +163,7 @@ App({
 
   onLaunch: function () {
     var that = this
-    wx.clearStorageSync()
+    // wx.clearStorageSync()
     wx.showLoading({
       title: '加载中',
     })

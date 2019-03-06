@@ -34,105 +34,8 @@ Page({
     gradearray: ['不限', '一年级' ,'二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三','高一','高二','高三'],
 
 
-    tabTxtbak: [
-      {
-        'text': '年级',
-        'originalText': '不限',
-        'value': ['不限', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
-        'active': false,
-        'child': [
-          { 'id': 0, 'text': '不限' },
-          { 'id': 1, 'text': '一年级' },
-          { 'id': 2, 'text': '二年级' },
-          { 'id': 3, 'text': '三年级' },
-          { 'id': 4, 'text': '四年级' },
-          { 'id': 5, 'text': '五年级' },
-          { 'id': 6, 'text': '六年级' },
-          { 'id': 7, 'text': '初一' },
-          { 'id': 8, 'text': '初二' },
-          { 'id': 9, 'text': '初三' },
-          { 'id': 10, 'text': '高一' },
-          { 'id': 11, 'text': '高二' },
-          { 'id': 12, 'text': '高三' },
-
-        ],
-        'type': 0
-      },
-      {
-        'text': '难易',
-        'originalText': '不限',
-        'active': false,
-        'value': ['不限', '简单', '困难'],
-        'child': [
-          { 'id': 0, 'text': '不限' },
-          { 'id': 1, 'text': '简单' },
-          { 'id': 2, 'text': '困难' }
-        ], 'type': 0
-      },
-      {
-        'text': '奖励',
-        'originalText': '不限',
-        'value': ['不限', '1个奥币', '2个奥币', '3个奥币'],
-        'active': false,
-        'child': [
-          { 'id': 0, 'text': '不限' },
-          { 'id': 1, 'text': '1个奥币' },
-          { 'id': 2, 'text': '2个奥币' },
-          { 'id': 3, 'text': '3个奥币' }
-        ], 'type': 0
-      }
-    ],
-
-
-
-    tabTxt: [
-      {
-        'text': '年级',
-        'originalText': '不限',
-        'value': ['不限', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
-        'active': false,
-        'child': [
-          { 'id': 0, 'text': '不限' },
-          { 'id': 1, 'text': '一年级' },
-          { 'id': 2, 'text': '二年级' },
-          { 'id': 3, 'text': '三年级' },
-          { 'id': 4, 'text': '四年级' },
-          { 'id': 5, 'text': '五年级' },
-          { 'id': 6, 'text': '六年级' },
-          { 'id': 7, 'text': '初一' },
-          { 'id': 8, 'text': '初二' },
-          { 'id': 9, 'text': '初三' },
-          { 'id': 10, 'text': '高一' },
-          { 'id': 11, 'text': '高二' },
-          { 'id': 12, 'text': '高三' },
-
-        ],
-        'type': 0
-      },
-      {
-        'text': '难易',
-        'originalText': '不限',
-        'active': false,
-        'value': ['不限', '简单', '困难'],
-        'child': [
-          { 'id': 0, 'text': '不限' },
-          { 'id': 1, 'text': '简单' },
-          { 'id': 2, 'text': '困难' }
-        ], 'type': 0
-      },
-      {
-        'text': '奖励',
-        'originalText': '不限',
-        'value': ['不限', '1个奥币', '2个奥币', '3个奥币'],
-        'active': false,
-        'child': [
-          { 'id': 0, 'text': '不限' },
-          { 'id': 1, 'text': '1个奥币' },
-          { 'id': 2, 'text': '2个奥币' },
-          { 'id': 3, 'text': '3个奥币' }
-        ], 'type': 0
-      }
-    ],
+    tabTxtbak: '',
+    tabTxt: '',
     searchParam: [],
     solvedproblemlist: [],
     solvedformerid:0
@@ -143,17 +46,24 @@ Page({
 
   tabClick: function (e) {
     var that = this
-    if (e.currentTarget.id == '1') {
-      if (that.data.solvedproblemlist.length == 0) {
-        util.getlastedsolvedprob(that)
-      }
+    var a
+    if(app.globalData.grade!=0&&app.globalData.onlysee){
+      a = [util.gradearray[app.globalData.grade]]
+    }else{
+      a=[]
     }
+    console.log(a)
     this.setData({
-      searchParam:[],
+      searchParam:a,
       tabTxt:that.data.tabTxtbak,
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
-    });
+    })
+    if (e.currentTarget.id == '1') {
+      if (that.data.solvedproblemlist.length == 0) {
+        util.getlastedsolvedprob(that,that.data.searchParam)
+      }
+    }
   },
 
 
@@ -163,32 +73,19 @@ Page({
       var problemid = res.target.dataset.problemid
       return {
         title: '[有人@我]发现一道智力题，考考你~',
-
         path: '/pages/question/question?problemid=' + problemid,
-
         imageUrl: app.globalData.baseurl + '/static/sharepic.jpg',
-
-        success: function (res) {
-
-
-        }
       }
-
     }
     return {
       title: '[有人@我]发现一道智力题，考考你~',
       path: '/pages/tosolve/tosolve',
-      success: function (res) {
-      },
-      fail: function (res) {
-      }
     }
   },
 
 
 
   filterTabChild: function (e) {
-
     this.setData({
       zindex: false,
       formerid: 0
@@ -207,15 +104,13 @@ Page({
       that.data.searchParam[index] = data[index]['child'][paramindex].text
 
     }
-
     that.setData({
       tabTxt: data
     })
-    var searchparam = that.data.searchParam
     if (that.data.activeIndex=='0'){
       wx.request({
         url: app.globalData.baseurl + '/problem/getten',
-        data: { 'formerid': that.data.formerid, 'filter': searchparam, 'solved': '0' },
+        data: { 'formerid': that.data.formerid, 'filter': that.data.searchParam, 'solved': '0' },
         method: 'POST',
         success: function (res) {
           var filterproblist = res.data.problem
@@ -235,7 +130,7 @@ Page({
     }else{
       wx.request({
         url: app.globalData.baseurl + '/problem/getten',
-        data: { 'formerid': 0, 'filter': searchparam, 'solved': '1' },
+        data: { 'formerid': 0, 'filter': that.data.searchParam, 'solved': '1' },
         method: 'POST',
         success: function (res) {
           var filterproblist = res.data.problem
@@ -255,28 +150,7 @@ Page({
     }
   },
 
-
-
-  filteritem: function (searchparam, tmpproblemlist, tmplist) {
-
-    if (typeof (searchparam[0]) != 'undefined' && searchparam[0] != '' && typeof (searchparam[1]) != 'undefined' && searchparam[1] != '') {
-      for (var i in tmplist) { if (tmplist[i].grade == searchparam[0] && tmplist[i].easyclass == searchparam[1]) { tmpproblemlist.push(tmplist[i]) }; }
-
-    }
-    else {
-      if (typeof (searchparam[0]) != 'undefined' && searchparam[0] != '') {
-        for (var i in tmplist) { if (tmplist[i].grade == searchparam[0]) { tmpproblemlist.push(tmplist[i]) } }
-      } else if (typeof (searchparam[1]) != 'undefined' && searchparam[1] != '') {
-        for (var i in tmplist) { if (tmplist[i].easyclass == searchparam[1]) { tmpproblemlist.push(tmplist[i]) } }
-      }
-
-      else {
-        for (var i in tmplist) { tmpproblemlist.push(tmplist[i]) }
-      }
-    }
-  },
-
-  showquestool: function () {
+  toask: function () {
     var that = this
     if (app.globalData.authorized == 'true'||app.globalData.avatar!='stranger') {
       wx.navigateTo({
@@ -285,23 +159,21 @@ Page({
     }else{
       util.checkuserinfo(that)
     }
-
   },
-
   totop: function () {
     wx.pageScrollTo({
       scrollTop: 0,
       duration: 300
     })
   },
-
-
-  bindQueTap: function (event) {
-    var problemid = event.currentTarget.dataset.id
+  bindQueTap: function (e) {
+    var problemid = e.currentTarget.dataset.id
     wx.navigateTo({
       url: `../question/question?problemid=${problemid}`
     })
   },
+
+  // 搜索框搜索
   writesearch:function(e){
     this.setData({
       q:e.detail.value
@@ -333,8 +205,35 @@ Page({
       })
     }
   },
+
+  //轮询直到getopenid加载完毕
+  load:function(e){
+    var that = this
+    setTimeout(function () {
+      if(app.globalData.getopenidok){
+        if (app.globalData.onlysee && app.globalData.grade != 0 && app.globalData.grade) {
+          util.getlastedprob(that, [util.gradearray[app.globalData.grade]])
+          that.setData({
+            searchParam: [util.gradearray[app.globalData.grade]]
+          })
+        } else {
+          util.getlastedprob(that)
+        }
+      }else{
+        that.load()
+      }
+    }, 500)
+  },
+ 
   onLoad: function () {
     var that = this
+    app.globalData.tosolvethat = that
+    that.setData({
+      tabTxt:util.tabtxt,
+      tabTxtbak: util.tabtxt,
+    })
+    that.load()
+
     app.globalData.mapCtx = wx.createMapContext('map')
     wx.getSystemInfo({
       success: function (res) {
@@ -344,7 +243,6 @@ Page({
         });
       }
     });
-    util.getlastedprob(that)
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
@@ -354,20 +252,12 @@ Page({
     })
   },
 
-
-
-
-
-
-
-
-
   showmore: function (e) {
     var askerid = e.currentTarget.dataset.askerid
     var avatar = e.currentTarget.dataset.avatar
     var username = e.currentTarget.dataset.username
     var openid = e.currentTarget.dataset.openid
-
+    //如果是自己
     if (openid == app.globalData.openid) {
       wx.switchTab({
         url: '../settings/settings',
@@ -380,34 +270,36 @@ Page({
   },
 
   onShow: function () {
+    var that = this
     if (app.globalData.reddot) {
       wx.showTabBarRedDot({
         index: 3,
       })
     }
-    var that = this
     util.checklasted(that)
   },
 
   onPullDownRefresh: function () {
     var that = this
     wx.showNavigationBarLoading() //在标题栏中显示加载
+    console.log(that.data.searchParam)
     if (that.data.activeIndex == '0') {
       that.setData({
         formerid:0
       })
-      util.getlastedprob(that)
+      util.getlastedprob(that, that.data.searchParam)
     } else if (that.data.activeIndex == '1') {
       that.setData({
         solvedformerid: 0
       })
-      util.getlastedsolvedprob(that)
+      util.getlastedsolvedprob(that, that.data.searchParam)
     }
     wx.stopPullDownRefresh() //停止下拉刷新                
   },
   onReachBottom: function () {
     var that = this
     var searchparam = that.data.searchParam
+    console.log(that.data.searchParam)
     if (that.data.activeIndex == '0') {
       util.get10prob(that,searchparam)
     } else if (that.data.activeIndex == '1') {

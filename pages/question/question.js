@@ -67,7 +67,7 @@ var page = Page({
     problempic1:'',
     problempic2:'',
     problempic3:'',
-    modalHidden: true,
+    modalHidden: false,
     shareShow: 'none',
     shareOpacity: {},
     shareBottom: {},
@@ -82,7 +82,7 @@ var page = Page({
     showdetail: false,
     topicids: [],
     haoti: 'false',
-
+    category:''
   },
   switch2Change(e) {
     var that = this
@@ -160,6 +160,10 @@ var page = Page({
     if (that.data.problempic3 != '') {
       images=images.concat([that.data.problempic3])
     }
+    console.log(e.currentTarget.dataset)
+    if(e.currentTarget.dataset.key){
+      images = images.concat([image])
+    }
     wx.previewImage({
       current: image,
       urls: images,
@@ -196,7 +200,7 @@ var page = Page({
       // 来自页面内转发按钮
       problemid = res.target.dataset.problemid
       return {
-        title: '[有人@我]小学奥数，考考你~',
+        title: '[有人@我]数学题，考考你',
         path: '/pages/question/question?problemid=' + problemid,
         imageUrl: app.globalData.baseurl + '/static/sharepic.jpg',
         success: function(res) {}
@@ -309,7 +313,6 @@ var page = Page({
           that.setData({
             subscribe_door: false
           })
-          // that.onShow()
         }
       })
     } else {
@@ -324,7 +327,6 @@ var page = Page({
           that.setData({
             subscribe_door: true
           })
-          // that.onShow()
         }
       })
       this.setData({
@@ -771,13 +773,6 @@ function getproblem(that) {
     },
     success: function(res) {
       var subscribe_door = res.data.subscribe_door
-      //回答窗口一直开放
-      // var answerdoor = res.data.solved
-      // that.setData({
-      //   answerdoor: answerdoor
-      // })
-
-
       if (subscribe_door == '1') {
         that.setData({
           subscribe_door: false
@@ -810,6 +805,7 @@ function getproblem(that) {
 
       that.setData({
         grade: problem.grade,
+        category:problem.category||'',
         desc: problem.description,
         problempic: problem.problempic,
         problempic1:problem.problempic1||'',

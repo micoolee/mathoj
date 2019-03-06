@@ -3,15 +3,12 @@
 const app = getApp()
 var util = require('../../utils/util.js')
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     inputnum:0,
     files: ["../../images/pic_160.png"],
-    gradearray: ['未选择', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二','初三','高一','高二','高三'],
-
+    gradearray: '',
+    categorys:'',
+    categoryindex:-1,
     grade: '未选择',
     gradeindex: 0,
     easy: 'noeasy',
@@ -26,10 +23,15 @@ Page({
     imgs: 'noimage',
     askpicdoor:false,
     avatar:app.globalData.avatar,
-    // screenwidth:app.globalData.screenwidth,
-    // screenheight: app.globalData.screenheight,
     imagelength:0,
     disabledbut:false
+  },
+
+
+  bindPickerChangeCategory:function(e){
+    this.setData({
+      categoryindex: e.detail.value*1,
+    })
   },
 
   deletethisimg:function(e){
@@ -55,8 +57,8 @@ Page({
 
   bindPickerChange: function (e) {
     this.setData({
-      gradeindex: e.detail.value,
-      grade: this.data.gradearray[e.detail.value]
+      gradeindex: e.detail.value*1,
+      grade: this.data.gradearray[e.detail.value*1]
     })
   },
 
@@ -145,8 +147,8 @@ Page({
         userid: app.globalData.openid,
         avatar: app.globalData.avatar,
       })
-      var formdata = { "openid": app.globalData.openid, "easy": that.data.easy, "grade": that.data.grade, "desc": that.data.desc,"reward":that.data.reward,"noimage":"false" }
-      var formdata1 = { "openid": app.globalData.openid, "easy": that.data.easy, "grade": that.data.grade, "desc": that.data.desc, "reward": that.data.reward,"noimage":"true" }
+      var formdata = { "openid": app.globalData.openid,'categoryid':that.data.categoryindex, "easy": that.data.easy, "grade": that.data.grade, "desc": that.data.desc,"reward":that.data.reward,"noimage":"false" }
+      var formdata1 = { "openid": app.globalData.openid, 'categoryid': that.data.categoryindex, "easy": that.data.easy, "grade": that.data.grade, "desc": that.data.desc, "reward": that.data.reward,"noimage":"true" }
       if (this.data.imgs != 'noimage') {
         var pid = 0
         formdata['problemid']=pid
@@ -207,10 +209,12 @@ Page({
     })
   },
  onShow:function(){
+
    this.setData({
-     placeholder: app.globalData.placeholder
+     placeholder: app.globalData.placeholder,
+     categorys:util.categorys,
+     gradearray: util.gradearray
    })
  }
-
 
 })

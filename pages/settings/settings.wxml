@@ -9,11 +9,11 @@
   <view class="list-container">
     <view class="list-item" bindtap="showMyQues">
       <text class="list-name">我的提问</text>
-      <image class="list-icon" src="/images/chevron.png"></image>
+      <image  class="list-icon" src="/images/chevron.png"></image>
     </view>
     <view class="list-item" bindtap="showMySubs">
       <text class="list-name">我的关注</text>
-      <image class="list-icon" src="/images/chevron.png"></image>
+      <image  class="list-icon" src="/images/chevron.png"></image>
     </view>
     <view class="list-item" bindtap="showMyBrow">
       <text class="list-name">我的浏览</text>
@@ -21,6 +21,10 @@
     </view>
     <view class="list-item" bindtap="showMyComm">
       <text class="list-name">我的评论</text>
+      <image class="list-icon" src="/images/chevron.png"></image>
+    </view>
+    <view class="list-item" bindtap="showConfig">
+      <text class="list-name">设置</text>
       <image class="list-icon" src="/images/chevron.png"></image>
     </view>
   </view>
@@ -43,6 +47,19 @@
       <view bindtap="showFeedback" class="weui-footer__link">用户反馈</view>
       <view bindtap="toface" class="weui-footer__link">小游戏</view>
     </view>
-    <view class="weui-footer__text">微信添加731854938成为答主</view>
+    <view class="weui-footer__text" style='display:flex;'>
+    <button open-type="share" type='primary' style='padding:10rpx;width:80%;'>邀请学霸加入</button>
+    </view>
+    
   </view>
+
+  <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
+    <picker bindchange="selectgrade" value="{{gradeindex}}" range="{{grades}}">
+      <view >
+        设置您的年级:{{grades[gradeindex]}}
+      </view>
+    </picker>
+
+  </modal>
+
 </view>
