@@ -2,7 +2,7 @@
     <view class="v-canvas" style="z-index:100;">
         <canvas canvas-id="canvas_wi" style="{{canvas_style}}" class="myCanvas"/>
     </view>
-  <view bindtap="bindViewTap"  class="userinfo">
+  <view bindtap="bindViewTap"  class="userinfo" style='padding-top:50px;'>
       <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
       <text class="userinfo-nickname">{{userInfo.nickname}}</text>
   </view>
@@ -55,11 +55,10 @@
 
   <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">
     <picker bindchange="selectgrade" value="{{gradeindex}}" range="{{grades}}">
-      <view >
+      <view style='justify-content:center;display:flex;'>
         设置您的年级:{{grades[gradeindex]}}
       </view>
     </picker>
-
   </modal>
 
 </view>

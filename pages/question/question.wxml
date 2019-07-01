@@ -81,10 +81,9 @@
               <view style='display:flex;margin-left:20rpx;' wx:if='{{!hidecaina}}'>
                 <text bindtap='caina' class='textstyle' style='font-size:35rpx;' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>{{item.Cainastatus}}</text>
               </view>
-
             </view>
 
-            <view style='margin-left:80rpx;font-size:30rpx;'>
+            <view style='margin-left:40rpx;font-size:30rpx;'>
               解析：{{item.Description}}
             </view>
             <view wx:if="{{item.Record != undefined}}">

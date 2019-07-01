@@ -266,7 +266,7 @@ text-align:center;
 .userinfo-avatar {
   width: 168rpx;
   height: 168rpx;
-  margin-top: 64rpx;
+  /* margin-top: 64rpx; */
   border-radius: 50%;
 }
 

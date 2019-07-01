@@ -26,12 +26,15 @@ Page({
   },
   modalChange: function (e) {
     var that = this
-    console.log(e)
     if(this.data.gradeindex != 0){
       network.post('/user/setgrade',{'openid':app.globalData.openid,'grade':this.data.gradeindex},function(e){
         app.globalData.grade = that.data.gradeindex*1
+        wx.showToast({
+          title: '设置成功',
+        })
       },function(e){
       })
+
       this.setData({
         modalHidden:true
       })

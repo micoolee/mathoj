@@ -175,9 +175,9 @@
                     
                     <view style='display:flex;flex:2'></view>
                     <view style='display:flex;align-items:center;'>
-                    <text>推荐人:</text>
+                    <text>推荐人 </text>
                      
-                      <image style='height:60rpx;width:60rpx;' catchtap='showmore' src='{{item.recommenderavatar}}' data-avatar='{{item.recommenderavatar}}' data-username='{{item.recommendername}}' data-userid='{{item.recommenderid}}'></image>
+                      <image style='height:60rpx;width:60rpx;border-radius:50%;' catchtap='showmore' src='{{item.recommenderavatar}}' data-avatar='{{item.recommenderavatar}}' data-username='{{item.recommendername}}' data-userid='{{item.recommenderid}}'></image>
                     </view>
                   </a>
                 </view>
