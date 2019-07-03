@@ -1,12 +1,11 @@
-// let config = require("../config.js")
-// let util = require("./util.js")
+let console = require("./console.js")
+let config = require("../config.js")
 var app = getApp()
 let network = {
   //post请求
   post: (url, params, success, fail,complete) => {
-
     wx.request({
-      url: app.globalData.baseurl+ `${url}`,
+      url: config.host+ url,
       method: "POST",
       data: params,
       success: res => {
@@ -20,7 +19,7 @@ let network = {
         if (fail) {
           fail()
         } else {
-          // util.toast("服务器开小差了！")
+          util.toast("服务器开小差了！")
         }
       },
       complete:(e) =>{
@@ -30,36 +29,11 @@ let network = {
       }
     })
   },
-  //get请求
-  get: (url, params, success, fail) => {
-
-    wx.request({
-      url: app.globalData.baseurl +`${url}`,
-      method: "GET",
-      header: {
-        "lversion": `${config.lversion}`,
-        "content-type": "application/json"
-      },
-      data: params,
-      success: res => {
-        if (success) {
-          success(res.data)
-        }
-      },
-      fail: () => {
-        if (fail) {
-          fail()
-        } else {
-          // util.toast("服务器开小差了！")
-        }
-      }
-    })
-  },
 
   //post文件请求
   postfile: (url, params, filepath, filename, success, fail) => {
     wx.uploadFile({
-      url: app.globalData.baseurl +`${url}`,
+      url: `${config.host}` +`${url}`,
       method: 'post',
       header: {
         "content-type": "application/form-data"

@@ -5,7 +5,7 @@
     <view wx:if="{{item.ziji=='1'}}">
       <view class="chat-item">
         <view class="chat-main justify-end flex">
-          <view>
+          <view style='display:flex;flex-direction:column;'>
             <view class='chat-centact success' style='word-break:break-all;'>
               {{item.content}}
             </view>
@@ -19,7 +19,7 @@
       <view class="chat-item chat-left">
         <image src="{{item.senderavatar}}" class="img-df round" mode='widthFix'></image>
         <view class="chat-main">
-          <view>
+          <view style='display:flex;flex-direction:column;'>
             <view class='chat-centact' style='word-break:break-all;'>
               {{item.content}}
             </view>

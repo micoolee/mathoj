@@ -1,6 +1,7 @@
 const app = getApp()
 var util = require('../../../utils/util.js')
-
+var console = require('../../../utils/console.js')
+var network = require('../../../utils/network.js')
 
 Page({
   data: {
@@ -18,18 +19,11 @@ Page({
     app.globalData.messagethat = that
     wx.showNavigationBarLoading()
     var that = this
-    util.getsessions(that)
+    util.getsessions(app,that)
   },
 
   torank:function(e){
-      wx.request({
-          url: app.globalData.baseurl + '/user/pushformid',
-          method: 'POST',
-          data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
-          success: function (res) {
-          }
-      })
-    var that = this
+    network.post('/user/pushformid', { 'formid': e.detail.formId, 'openid': app.globalData.openid })
     wx.switchTab({
       url: '/pages/top/top',
     })
@@ -55,9 +49,6 @@ Page({
       this.length -= 1;
     };
 
-
-
-
     var that = this
     var sessionid = e.currentTarget.dataset.sessionid
     var index = e.currentTarget.dataset.sessionindex
@@ -66,21 +57,15 @@ Page({
       content: '是否删除',
       success: function (res) {
         if (res.confirm) {
-          wx.request({
-            url: app.globalData.baseurl + '/message/deletesession',
-            method:'POST',
-            data: { 'sessionid': sessionid, 'openid': app.globalData.openid },
-            success: function () {
-              app.globalData.messagelist.del(index)
-              that.setData({
-                messagelist: app.globalData.messagelist
-              })
-              wx.showToast({
-                title: '删除成功',
-              })
-            }
+          network.post('/message/deletesession', { 'sessionid': sessionid, 'openid': app.globalData.openid }, function () {
+            app.globalData.messagelist.del(index)
+            that.setData({
+              messagelist: app.globalData.messagelist
+            })
+            wx.showToast({
+              title: '删除成功',
+            })
           })
-
         }
       }
     })
@@ -114,31 +99,19 @@ Page({
     var that = this
     if (this.endTime - this.startTime < 350) {
       var sessionindex = e.currentTarget.dataset.sessionindex
-
       var sign = this.data.sessionlist[sessionindex].sixin[0]
-
       app.globalData.sessionindex = sessionindex
       if (sign['ziji'] == '2') {
         app.globalData.receiverid = sign['sender']
-
       }
       else {
         app.globalData.receiverid = sign['receiver']
       }
-    
-      
       var sessionid = that.data.sessionlist[sessionindex].sessionid
       wx.navigateTo({
         url: `../message/chat/chat?sessionlist=111&sessionid=${sessionid}&newsession=false`,
       })
-      wx.request({
-        url: app.globalData.baseurl+'/message/readsession',
-        method:'POST',
-        data: {"session": that.data.sessionlist[sessionindex].sessionid},
-        success:function(e){
-        }
-      })
-
+      network.post('/message/readsession',{"session": that.data.sessionlist[sessionindex].sessionid})
     }
   },
 
@@ -152,7 +125,6 @@ Page({
   },
 
   onShow: function () {
-
     app.globalData.reddot = false
   },
   //退出时去除tarbar的reddot
@@ -166,10 +138,5 @@ Page({
         sixindoor: false
       })
     }
-    
-
   }
-
-
-
 })

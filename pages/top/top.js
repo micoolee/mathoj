@@ -1,9 +1,11 @@
 const app = getApp()
+var console = require('../../utils/console.js')
+var network = require('../../utils/network.js')
 Page({
   data: {
-  ranklist:[]
+    ranklist: []
   },
-  showmore: function (e) {
+  showmore: function(e) {
     var userid = e.currentTarget.dataset.userid
     var avatar = e.currentTarget.dataset.avatar
     var username = e.currentTarget.dataset.username
@@ -19,25 +21,21 @@ Page({
       })
     }
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.showNavigationBarLoading()
     var that = this
-    wx.request({
-      url: app.globalData.baseurl + '/problem/getrank',
-      method:'POST',
-      data:{'openid':app.globalData.openid},
-      success: function (res) {
-        var ranklist = res.data.rankdetail
-        that.setData({
-          ranklist: ranklist
-        })
-      },
-      complete:function(){
-        wx.hideNavigationBarLoading()
-      }
+    network.post('/problem/getrank', {
+      'openid': app.globalData.openid
+    }, function(res) {
+      var ranklist = res.rankdetail
+      that.setData({
+        ranklist: ranklist
+      })
+    }, function() {}, function() {
+      wx.hideNavigationBarLoading()
     })
   },
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     wx.showNavigationBarLoading()
     wx.stopPullDownRefresh()
     wx.hideNavigationBarLoading()

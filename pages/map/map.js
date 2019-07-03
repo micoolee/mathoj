@@ -1,29 +1,31 @@
 // map.js
 var util = require('../../utils/util.js')
 const app = getApp()
+var network = require('../../utils/network.js')
+var console = require('../../utils/console.js')
 Page({
   data: {
-    latitude:0,
-    longitude:0,
+    latitude: 0,
+    longitude: 0,
     userlatitude: 0,
     userlongitude: 0,
-    centerX:0,
-    centerY:0,
-    height:app.globalData.screenheight,
-    scale:5,
+    centerX: 0,
+    centerY: 0,
+    height: app.globalData.screenheight,
+    scale: 5,
     markers: [],
     controls: [{
-      id: 1,
-      iconPath: '/images/location-control.png',
-      position: {
-        left: 0,
-        top:10,
-        width: 40,
-        height: 40
+        id: 1,
+        iconPath: '/images/location-control.png',
+        position: {
+          left: 0,
+          top: 10,
+          width: 40,
+          height: 40
+        },
+        clickable: true
       },
-      clickable: true
-    },
-    {
+      {
         id: 2,
         iconPath: '/images/plus.png',
         position: {
@@ -63,17 +65,17 @@ Page({
           height: 40
         },
         clickable: true
-      }    
+      }
     ],
-    mapCtx:null
+    mapCtx: null
   },
-  onReady: function (e) {
+  onReady: function(e) {
     // 使用 wx.createMapContext 获取 map 上下文
     this.mapCtx = wx.createMapContext('map')
   },
-  onLoad: function () {
+  onLoad: function() {
     var that = this
-    if (app.globalData.authorized=='true' || app.globalData.avatar!= 'stranger'){
+    if (app.globalData.authorized == 'true' || app.globalData.avatar != 'stranger') {
       wx.getLocation({
         type: 'gcj02', //返回可以用于wx.openLocation的经纬度
         success: (res) => {
@@ -84,7 +86,7 @@ Page({
             centerX: longitude,
             centerY: latitude,
             latitude: res.latitude,
-            longitude: res.longitude, 
+            longitude: res.longitude,
             userlatitude: res.latitude,
             userlongitude: res.longitude,
             scale: 1
@@ -96,12 +98,11 @@ Page({
           this.enterLocation()
         }
       });
-    }else{
+    } else {
       util.checkuserinfo(that)
     }
   },
-  regionchange(e) {
-  },
+  regionchange(e) {},
   markertap(e) {
     var that = this
     console.log(that.data.markers)
@@ -110,23 +111,19 @@ Page({
 
   controltap(e) {
     var that = this
-    wx.vibrateShort({
-    })
-    if (e.controlId === 1){
-      // app.globalData.mapCtx.moveToLocation()
+    wx.vibrateShort({})
+    if (e.controlId === 1) {
       this.mapCtx.moveToLocation()
-
-    }
-    else if (e.controlId === 2) {
+    } else if (e.controlId === 2) {
       that.getCenterLocation()
       let tmpscale = ++that.data.scale
-      if (tmpscale >18){
+      if (tmpscale > 18) {
         tmpscale = 18
       }
       that.setData({
         scale: tmpscale
       })
-    } else if(e.controlId === 3) {
+    } else if (e.controlId === 3) {
       that.getCenterLocation()
       let tmpscale = --that.data.scale
       if (tmpscale < 5) {
@@ -135,7 +132,7 @@ Page({
       that.setData({
         scale: tmpscale
       })
-    }else if (e.controlId === 4) {
+    } else if (e.controlId === 4) {
       //teacher
       that.formsubmitteacher()
     } else if (e.controlId === 5) {
@@ -145,36 +142,33 @@ Page({
 
 
   },
-  getSchoolMarkers(){
+  getSchoolMarkers() {
     var that = this
-    wx.request({
-      url: app.globalData.baseurl + '/location/getteacher',
-      method:'POST',
-      data:{'openid':app.globalData.openid},
-      success:function(res){
-        let markers = [];
-        if (res.data.location) {
-          for (let item of res.data.location) {
-            let marker = that.createMarker(item);
-            markers.push(marker)
-          }
+    network.post('/location/getteacher', {
+      'openid': app.globalData.openid
+    }, function(res) {
+      let markers = [];
+      if (res.location) {
+        for (let item of res.location) {
+          let marker = that.createMarker(item);
+          markers.push(marker)
         }
-        that.setData({
-          markers: markers
-        })
       }
+      that.setData({
+        markers: markers
+      })
     })
   },
 
-  getCenterLocation: function () {
+  getCenterLocation: function() {
     var that = this
     this.mapCtx.getCenterLocation({
-      success: function (res) {
+      success: function(res) {
         that.setData({
           centerX: res.longitude,
           centerY: res.latitude,
           latitude: res.latitude,
-          longitude: res.longitude, 
+          longitude: res.longitude,
         })
       }
     })
@@ -191,7 +185,7 @@ Page({
       longitude: longitude,
       width: 40,
       height: 40,
-      istrue:true,
+      istrue: true,
       callout: {
         content: point.username,
         color: '#000000',
@@ -203,77 +197,65 @@ Page({
     return marker;
   },
 
-  moveToLocation: function () {
+  moveToLocation: function() {
     this.mapCtx.moveToLocation()
   },
-  enterLocation:function(){
+  enterLocation: function() {
     this.mapCtx.moveToLocation()
-    // app.globalData.mapCtx.moveToLocation()
     this.setData({
       scale: 15,
     })
   },
 
-  adduserlocation:function() {
+  adduserlocation: function() {
     var that = this
-    wx.request({
-      url: app.globalData.baseurl + '/location/update',
-      method:'POST',
-      data: { 'openid': app.globalData.openid, 'latitude': that.data.userlatitude, 'longitude': that.data.userlongitude },
-      success: function (res) {
-      }
+    network.post('/location/update', {
+      'openid': app.globalData.openid,
+      'latitude': that.data.userlatitude,
+      'longitude': that.data.userlongitude
     })
   },
-  //尝试获取formid
-  formsubmitteacher: function (e) {
+  formsubmitteacher: function(e) {
     var that = this
-    wx.request({
-      url: app.globalData.baseurl + '/location/getteacher',
-      method:'POST',
-      data: {'openid': app.globalData.openid},
-      success: function (res) {
-        var markers = [];
-        if (res.data.location){
-          for (let item of res.data.location) {
-            let marker = that.createMarker(item);
-            markers.push(marker)
-          }
+    network.post('/location/getteacher', {
+      'openid': app.globalData.openid
+    }, function(res) {
+      var markers = [];
+      if (res.location) {
+        for (let item of res.location) {
+          let marker = that.createMarker(item);
+          markers.push(marker)
         }
-        console.log('teacher:',markers)
-        that.setData({
-          markers: markers
-        })
-        console.log(that.data.markers)
       }
-
+      console.log('teacher:', markers)
+      that.setData({
+        markers: markers
+      })
+      console.log(that.data.markers)
     })
   },
 
-  formsubmitstudent: function (e) {
+  formsubmitstudent: function(e) {
     var that = this
-    wx.request({
-      url: app.globalData.baseurl + '/location/getstudent',
-      data: {'openid': app.globalData.openid},
-      method:'POST',
-      success: function (res) {
-        var markers = [];
-        if (res.data.location) {
-          for (let item of res.data.location) {
-            let marker = that.createMarker(item);
-            markers.push(marker)
-          }
+    network.post('/location/getstudent', {
+      'openid': app.globalData.openid
+    }, function(res) {
+      var markers = [];
+      if (res.location) {
+        for (let item of res.location) {
+          let marker = that.createMarker(item);
+          markers.push(marker)
         }
-        that.setData({
-          markers: markers
-        })
       }
-
+      that.setData({
+        markers: markers
+      })
     })
   },
-  onShow:function(){
-    
+  onShow: function() {
+
     var that = this
-    if (app.globalData.fromgetuserinfo){
+    if (app.globalData.fromgetuserinfo) {
       if (app.globalData.authorized == 'true' || app.globalData.avatar != 'stranger') {
         wx.getLocation({
           type: 'gcj02', //返回可以用于wx.openLocation的经纬度
@@ -294,7 +276,6 @@ Page({
             that.adduserlocation()
             that.getSchoolMarkers()
             that.enterLocation()
-
           }
         });
       }

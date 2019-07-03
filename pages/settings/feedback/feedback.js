@@ -1,7 +1,8 @@
 // pages/settings/feedback/feedback.js
 var app = getApp()
-
-
+var network = require('../../../utils/network.js')
+var config = require('../../../config.js')
+var console = require('../../../utils/console.js')
 Page({
   data: {
     content: "",
@@ -48,17 +49,11 @@ Page({
     })
   },
   submitSuggestion: function (e) {
-      wx.request({
-          url: app.globalData.baseurl + '/user/pushformid',
-          method: 'POST',
-          data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
-          success: function (res) {
-          }
-      })
+    network.post('/user/pushformid',{ 'formid': e.detail.formId, 'openid': app.globalData.openid })
     var that = this
     if (that.data.uploadfile){
       wx.uploadFile({
-      url: app.globalData.baseurl + '/user/feedback',
+      url: config.host + '/user/feedback',
       filePath: that.data.files[0],
       method:'POST',
       name: 'errorimage',
@@ -83,24 +78,21 @@ Page({
     })
     }else{
       if (that.data.content!=""){
-        wx.request({
-          url: app.globalData.baseurl + '/user/feedback',
-          data: { 'userid': app.globalData.userid, 'content': that.data.content, 'connection': that.data.connect, 'noimage': 'true'},
-          method:'post',
-          success: function (res) {
+        network.post('/user/feedback',{ 'userid': app.globalData.userid,
+            'content': that.data.content,
+            'connection': that.data.connect, 'noimage': 'true'},function (res) {
             wx.showModal({
-              title: '提示',
-              content: '提交成功！感谢您的反馈！',
-              showCancel: false,
-              success: function (res) {
-                if (res.confirm) {
-                  wx.navigateBack({
+                title: '提示',
+                content: '提交成功！感谢您的反馈！',
+                showCancel: false,
+                success: function (res) {
+                    if (res.confirm) {
+                        wx.navigateBack({
 
-                  })
+                        })
+                    }
                 }
-              }
             })
-          }
         })
       }else{
         wx.showModal({
@@ -108,7 +100,6 @@ Page({
           content: '请输入问题描述或者图片',
         })
       }
-
     }
   }
 

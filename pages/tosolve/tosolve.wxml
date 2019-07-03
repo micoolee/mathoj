@@ -1,13 +1,14 @@
 <view class="container">
   <!-- <scroll-view> -->
   <view class="search flex-wrp ">
-    <view class="search-left flex-item">
-      <image src="../../images/search1.png" bindtap='search'></image>
+    <view class="search-left flex-item" style='display:flex'>
+      <icon bindtap='search' class='mathoj mathojsoushuo' style='color:white;font-size:40rpx;padding:0 20rpx;'></icon>
       <input placeholder-class="search-placeholder" bindinput='writesearch' bindconfirm='search' value='{{inputvalue}}' />
     </view>
 
     <view class="search-right flex-item" bindtap="toask">
-      <image src="../../images/write.png"></image>
+      <icon class='mathoj mathojxiehuida' style='color:white;font-size:40rpx;padding:0 20rpx;'></icon>
+      
     </view>
     <view class="search-center flex-item" bindtap="toask">
       提问
@@ -161,8 +162,6 @@
 
 
           <view wx:else>
-
-
             <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="this">
               <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
                 <view class="feed-source">
@@ -227,8 +226,4 @@
     </view>
   </view>
   <image src='../../images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
-
-
-
-
 </view>

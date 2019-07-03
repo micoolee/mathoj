@@ -1,19 +1,17 @@
-<view >
-    <view class="v-canvas" style="z-index:100;">
-        <canvas canvas-id="canvas_wi" style="{{canvas_style}}" class="myCanvas"/>
-    </view>
-  <view bindtap="bindViewTap"  class="userinfo" style='padding-top:50px;'>
-      <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickname}}</text>
+<view>
+
+  <view bindtap="bindViewTap" class="userinfo" style='padding-top:50rpx;'>
+    <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickname}}</text>
   </view>
   <view class="list-container">
     <view class="list-item" bindtap="showMyQues">
       <text class="list-name">我的提问</text>
-      <image  class="list-icon" src="/images/chevron.png"></image>
+      <image class="list-icon" src="/images/chevron.png"></image>
     </view>
     <view class="list-item" bindtap="showMySubs">
       <text class="list-name">我的关注</text>
-      <image  class="list-icon" src="/images/chevron.png"></image>
+      <image class="list-icon" src="/images/chevron.png"></image>
     </view>
     <view class="list-item" bindtap="showMyBrow">
       <text class="list-name">我的浏览</text>
@@ -28,29 +26,27 @@
       <image class="list-icon" src="/images/chevron.png"></image>
     </view>
   </view>
-  <view >
+  <view>
   </view>
-  <view class="weui-footer weui-footer_fixed-bottom">
-    <view class="weui-footer__links">
-    
+  <view class="weui-footer">
+    <view class="weui-footer__links" style='padding:10px 0;'>
       <view bindtap="clearcache" class="weui-footer__link">清除缓存</view>
       <view bindtap="showHelp" class="weui-footer__link">软件说明</view>
       <view class="weui-footer__link">
-        <form  report-submit='true' bindsubmit='pushformid' >
-          <button  form-type='submit' plain='true' style='padding:0;border:none'>
-            <image src='../../images/bottle.png'style='width:80rpx;height:120rpx;' ></image>
-            <text style='position:absolute;font-size:30rpx;bottom:20rpx;right:12rpx;left:12rpx;'>{{remainformidnumorstr}}</text>
+        <form report-submit='true' bindsubmit='pushformid'>
+          <button form-type='submit' plain='true' style='padding:0;border:none'>
+            <icon class='mathoj mathojshengyuduanxin' style='font-size:60rpx;color:lightgray'></icon>
+            <text style='position:absolute;font-size:30rpx;bottom:20rpx;right:12rpx;left:12rpx;color:black'>{{remainformidnumorstr}}</text>
           </button>
-
         </form>
       </view>
       <view bindtap="showFeedback" class="weui-footer__link">用户反馈</view>
       <view bindtap="toface" class="weui-footer__link">小游戏</view>
     </view>
     <view class="weui-footer__text" style='display:flex;'>
-    <button open-type="share" type='primary' style='padding:10rpx;width:80%;'>邀请学霸加入</button>
+      <button open-type="share" type='primary' style='padding:10rpx;width:80%;'>邀请学霸加入</button>
     </view>
-    
+
   </view>
 
   <modal class="modal" hidden="{{modalHidden}}" no-cancel bindconfirm="modalChange">

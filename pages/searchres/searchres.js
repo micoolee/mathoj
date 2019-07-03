@@ -1,5 +1,7 @@
 // pages/searchres/searchres.js
 const app = getApp()
+var network = require('../../utils/network.js')
+var console = require('../../utils/console.js')
 Page({
 
   data: {
@@ -13,14 +15,7 @@ Page({
     },
   },
   pushformid:function(e){
-    wx.request({
-      url: app.globalData.baseurl + '/user/pushformid',
-      method: 'POST',
-      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
-      success: function (res) {
-      }
-    })
-
+    network.post('/user/pushformid',{ 'formid': e.detail.formId, 'openid': app.globalData.openid })
     wx.navigateBack({
       url: '../tosolve/tosolve'
     })

@@ -6,7 +6,11 @@
                         <text class='textstyle test'>{{item.nickname}}</text>
             <text class='centertext' style='position:absolute;margin-right:30rpx;margin-left:120rpx'>已答{{item.solutionum-1}}        被采纳{{item.cainanum-1}}</text>
             </view>
+            <!-- <image class='icon' src='../../images/firstrank.png'></image> -->
+            <view style='position:absolute;font-size:30rpx;right:50rpx;align-items:center;'>
+            <icon class='mathoj mathojxunzhang' style="font-size:80rpx;color:{{index==0?'gold':index==1?'silver':index==2?'orange':''}}"></icon>
+            <text style=''>{{index+1}}</text>
+            </view>
 
-            <image class='icon' src='../../images/firstrank.png'><text style='position:absolute;font-size:30rpx;bottom:40rpx;right:50rpx;'>{{index+1}}</text></image>
     </view>
   </scroll-view>

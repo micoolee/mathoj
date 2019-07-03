@@ -1,26 +1,22 @@
 // pages/settings/mycomm/mycomm.js
 const app = getApp()
+var network = require('../../../utils/network.js')
+var console = require('../../../utils/console.js')
 Page({
-
-
   data: {
-  commentlist:[],
-  commentlistnull:0,
-  loadok:false,
-  icon: '../../../images/empty.png',
+    commentlist: [],
+    commentlistnull: 0,
+    loadok: false,
+    icon: '../../../images/empty.png',
   },
-  deletecomment:function(e){
+  deletecomment: function(e) {
     wx.showModal({
       title: '提示',
       content: '确定要删除吗？',
-      success: function (sm) {
+      success: function(sm) {
         if (sm.confirm) {
-          wx.request({
-            url: app.globalData.baseurl + '/problem/deletecomment',
-            method: 'POST',
-            data: { 'commentid': e.currentTarget.dataset.cid },
-            success: function (res) {
-            }
+          network.post('/problem/deletecomment', {
+            'commentid': e.currentTarget.dataset.cid
           })
         } else if (sm.cancel) {
           console.log('用户点击取消')
@@ -29,54 +25,45 @@ Page({
     })
   },
 
-  tosolve: function (e) {
+  tosolve: function(e) {
     var that = this
-    wx.request({
-      url: app.globalData.baseurl + '/user/pushformid',
-      method: 'POST',
-      data: { 'formid': e.detail.formId, 'openid': app.globalData.openid },
-      success: function (res) {
-      }
+    network.post('/user/pushformid', {
+      'formid': e.detail.formId,
+      'openid': app.globalData.openid
     })
-
     wx.switchTab({
       url: '../../tosolve/tosolve',
     })
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this
-    wx.request({
-      url: app.globalData.baseurl + '/problem/getmycomment',
-      method: 'post',
-
-      data: { 'openid': app.globalData.openid },
-      success: function (res) {
-        if (res.data.mycomment){
-          that.setData({
-            commentlist: res.data.mycomment,
-            commentlistnull: res.data.mycomment.length,
-            loadok: true
-          })
-        }else{
-          that.setData({
-            commentlist: [],
-            commentlistnull: 0,
-            loadok: true
-          })
-        }
-
+    network.post('/problem/getmycomment', {
+      'openid': app.globalData.openid
+    }, function(res) {
+      if (res.mycomment) {
+        that.setData({
+          commentlist: res.mycomment,
+          commentlistnull: res.mycomment.length,
+          loadok: true
+        })
+      } else {
+        that.setData({
+          commentlist: [],
+          commentlistnull: 0,
+          loadok: true
+        })
       }
     })
   },
 
 
 
-  bindQueTap: function (e) {
-      var problemid = e.currentTarget.dataset.id
-      wx.navigateTo({
-        url: `../../question/question?problemid=${problemid}`
-      })
+  bindQueTap: function(e) {
+    var problemid = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `../../question/question?problemid=${problemid}`
+    })
 
   },
 })

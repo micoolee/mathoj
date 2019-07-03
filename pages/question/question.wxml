@@ -12,7 +12,7 @@
 
         <view wx:if="{{problempic != 'noimages'}}" style='justify-content:center' class='page__text' bindtap='handlepic'>
           <view wx:if='{{showpic}}' style='display:flex;flex-direction:column;'>
-              收起图片
+            收起图片
           </view>
           <view wx:else>
             展开图片
@@ -21,13 +21,13 @@
             <!-- 只有一张图片 -->
             <image wx:if="{{problempic}}" src='{{problempic}}' mode='widthFix' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic}}'></image>
           </view>
-          <view  wx:else>
+          <view wx:else>
             <view style='display:flex'>
-              <image mode='aspectFill' class='midpic' wx:if="{{problempic}}" src='{{problempic}}'  hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic}}'></image>
-              <image mode='aspectFill' style='margin-left:20rpx' class='midpic' wx:if="{{problempic1!=''}}" src='{{problempic1}}'  hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic1}}'></image>
+              <image mode='aspectFill' class='midpic' wx:if="{{problempic}}" src='{{problempic}}' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic}}'></image>
+              <image mode='aspectFill' style='margin-left:20rpx' class='midpic' wx:if="{{problempic1!=''}}" src='{{problempic1}}' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic1}}'></image>
             </view>
             <view style='display:flex;margin-top:20rpx'>
-              <image mode='aspectFill' class='midpic' wx:if="{{problempic2!=''}}" src='{{problempic2}}'  hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic2}}'></image>
+              <image mode='aspectFill' class='midpic' wx:if="{{problempic2!=''}}" src='{{problempic2}}' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic2}}'></image>
               <image mode='aspectFill' style='margin-left:20rpx' class='midpic' wx:if="{{problempic3!=''}}" src='{{problempic3}}' hidden='{{! showpic}}' catchtap='viewimage' data-image='{{problempic3}}'></image>
             </view>
           </view>
@@ -38,11 +38,11 @@
         <view class="que-follow">
           <view class="left">
             <view class="watch">
-              <image src="../../images/eye.png"></image>
+              <icon class='mathoj mathojyuedushu' style='color:gray;font-size:35rpx;'></icon>
               <text>{{lookedtime}}</text>
             </view>
-            <view class="comment">
-              <image src="../../images/comment2.png"></image>
+            <view class="comment" style='margin-left:10px'>
+              <icon class='mathoj mathojliuyan' style='color:gray;font-size:35rpx;'></icon>
               <text>{{comments.length}}</text>
             </view>
           </view>
@@ -72,10 +72,9 @@
               </view>
               <view style='flex:2'></view>
               <view style='display:flex;'>
-                <text class='textstyle' style='justify-content:flex-end;font-size:35rpx;'>{{item.Zanernum}}</text>
-                <image wx:if="{{item.Zanstatus=='赞'}}" src="../../images/zan.png" style='padding:10px 15px 0 2px;' class="extra-share-img" catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'
-                />
-                <image wx:else src="../../images/zan.png" style='padding:10px 15px 0 2px;' class="extra-share-img" />
+                <text class='textstyle' style='justify-content:flex-end;font-size:35rpx;align-self:center;'>{{item.Zanernum}}</text>
+                <icon wx:if="{{item.Zanstatus=='赞'}}" style='padding:10px 15px 0 2px;font-size:50rpx;' catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}' class='mathoj mathojdianzan_active'></icon>
+                <icon wx:else class='mathoj mathojdianzan_inactive' style='font-size:50rpx;'></icon>
               </view>
 
               <view style='display:flex;margin-left:20rpx;' wx:if='{{!hidecaina}}'>
@@ -112,11 +111,11 @@
       <view wx:if="{{answerdoor != 'yes'}}" class="que-operate flex-wrp">
 
         <view class="write flex-item" bindtap='showanswerbox' hidden='{{hidehuida=="true"}}'>
-          <image src="../../images/write.png"></image>
+          <icon class='mathoj mathojxiehuida' style='font-size:60rpx'></icon>
           <text>写回答</text>
         </view>
         <view class="invite flex-item" bindtap='showinvitebox' data-problemid='{{problemid}}'>
-          <image src="../../images/invite.png"></image>
+          <icon class='mathoj mathojyaoqing' style='font-size:60rpx'></icon>
           <text>邀请回答</text>
         </view>
       </view>
@@ -166,16 +165,12 @@
           <button bindtap='submitanswer' form-type="submit">提交回答</button>
         </form>
       </view>
-
-
     </view>
   </view>
 
   <view class="content-comments" style='margin-bottom:80rpx'>
-
     <view class="comments-box" wx:if="{{comments.length > 0}}">
       <text class="comments-title">最新评论</text>
-
       <view wx:if="{{comments[0]!='notnull'}}">
         <view class="comments-list" wx:for="{{comments}}" wx:key="{{item.Commentid}}" wx:for-item="item" wx:for-index="i">
           <view class="comments-avatar">
@@ -184,7 +179,7 @@
           <view class="comments-main">
             <view class="comments-author">
               <view class="comments-zan" style='display:flex;align-items:center;'>{{item.Zanernum}}
-                <image src="../../images/zan.png" class="extra-share-img" bindtap='dianzan' data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' />
+                <icon data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' bindtap='dianzan' class='mathoj mathojdianzan_inactive' style='font-size:50rpx;'></icon>
               </view>
               <text>{{item.Nickname}}</text>
               <text> {{item.Createtime}}</text>
@@ -202,7 +197,7 @@
 
   <view class="extra">
     <view class="extra-share">
-      <image src="../../images/comments.png" class="extra-share-img" bindtap='comment' />
+      <icon bindtap='comment' style='font-size:50rpx;padding-right:32rpx;float:right' class='mathoj mathojliuyan'></icon>
     </view>
     <input class="extra-input" style='width:80%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" value='{{commentcontent}}' />
   </view>

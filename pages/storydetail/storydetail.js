@@ -1,10 +1,10 @@
 const app =getApp()
 
 const WxParse = require('../../wxParse/wxParse.js');
-const txvContext = requirePlugin("tencentvideo");
-//mike dev
-var baseurl = 'https://mathoj.liyuanye.club'
-
+// const txvContext = requirePlugin("tencentvideo");
+var network = require('../../utils/network.js')
+var console = require('../../utils/console.js')
+var config = require('../../config.js')
 Page({
 
   data: {
@@ -27,32 +27,26 @@ Page({
     this.setData({
       storyid : options.id
     })
-    
-    wx.request({
-      url: baseurl+'/problem/getstory',
-      data:{'storyid':storyid},
-      method:'POST',
-      success:function(res){
+    network.post('/problem/getstory',{'storyid':storyid},function(res){
         that.setData({
-          authorid:res.data.authorid,
-          title:res.data.title,
-          author:res.data.author,
-          content:res.data.content,
-          loadok:true
+            authorid:res.authorid,
+            title:res.title,
+            author:res.author,
+            content:res.content,
+            loadok:true
         })
         var title = that.data.title;
         var article = that.data.content;
         WxParse.wxParse('title', 'html', title, that, 5);
         WxParse.wxParse('article', 'html', article, that, 5);
-        let player4 = txvContext.getTxvContext('txv4');
-      }
+        // let player4 = txvContext.getTxvContext('txv4');
     })
   },
   onShareAppMessage: function () {
     return {
       title: '[有人@我]小学奥数，分享给你~',
       path: '/pages/storydetail/storydetail?id=' + this.data.storyid,
-      imageUrl: app.globalData.baseurl + '/static/sharepic.jpg',
+      imageUrl: config.host + '/static/sharepic.jpg',
       success: function (res) {
         wx.showToast({
           title: '分享成功~',
