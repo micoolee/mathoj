@@ -1,5 +1,5 @@
 var network = require("./network.js")
-// var console = require("./console.js")
+var console = require("./console.js")
 var config = require('../config.js')
 var storedid = new Map();
 const app = getApp()
@@ -39,6 +39,7 @@ function get_or_create_avatar(userid, that = 'null') {
     wx.downloadFile({
       url: config.host + '/swagger/avatar-' + userid + '.jpg',
       success: function(res) {
+        console.log('aaa')
         wx.setStorageSync(userid, res.tempFilePath)
         storedid.set(userid, 'downloaded')
         var avatarimgcache = wx.getStorageSync(userid)

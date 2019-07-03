@@ -1,11 +1,11 @@
 App({
   globalData: {
     userInfo: null,
-    // baseurl: 'https://mathoj.liyuanye.club',
-    // wssurl: 'wss://mathoj.liyuanye.club/user/createwss',
+    baseurl: 'https://mathoj.liyuanye.club',
+    wssurl: 'wss://mathoj.liyuanye.club/user/createwss',
 
-    baseurl: 'http://192.168.43.153:8080',
-    wssurl: 'ws://192.168.43.153:8080/user/createwss',
+    // baseurl: 'http://192.168.0.174:8080',
+    // wssurl: 'ws://192.168.0.174:8080/user/createwss',
 
     mapCtx: null,
     openid: null,
