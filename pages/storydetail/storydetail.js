@@ -1,7 +1,6 @@
 const app =getApp()
 
 const WxParse = require('../../wxParse/wxParse.js');
-// const txvContext = requirePlugin("tencentvideo");
 var network = require('../../utils/network.js')
 var console = require('../../utils/console.js')
 var config = require('../../config.js')
