@@ -1,11 +1,10 @@
-let console = require("./console.js")
+let console = require("console.js")
 let config = require("../config.js")
-var app = getApp()
 let network = {
   //post请求
-  post: (url, params, success, fail,complete) => {
+  post: (url, params, success, fail, complete) => {
     wx.request({
-      url: config.host+ url,
+      url: config.host + url,
       method: "POST",
       data: params,
       success: res => {
@@ -22,8 +21,8 @@ let network = {
           util.toast("服务器开小差了！")
         }
       },
-      complete:(e) =>{
-        if(complete){
+      complete: (e) => {
+        if (complete) {
           complete(e)
         }
       }
@@ -33,7 +32,7 @@ let network = {
   //post文件请求
   postfile: (url, params, filepath, filename, success, fail) => {
     wx.uploadFile({
-      url: `${config.host}` +`${url}`,
+      url: `${config.host}` + `${url}`,
       method: 'post',
       header: {
         "content-type": "application/form-data"

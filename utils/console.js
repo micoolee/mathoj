@@ -1,7 +1,7 @@
 const config = require("../config.js")
-function log(msg,prefix='') {
-  if (config.consoleflat) {
-    console.log(prefix,msg)
+function log(msg, prefix = '') {
+  if (config.consoleflag) {
+    console.log(prefix, msg)
   }
 }
 

@@ -1,5 +1,5 @@
-var network = require("./network.js")
-var console = require("./console.js")
+var network = require("network.js")
+var console = require("console.js")
 var config = require('../config.js')
 var storedid = new Map();
 const app = getApp()
@@ -38,7 +38,7 @@ function get_or_create_avatar(userid, that = 'null') {
     storedid.set(userid, 'downloading')
     wx.downloadFile({
       url: config.host + '/swagger/avatar-' + userid + '.jpg',
-      success: function(res) {
+      success: function (res) {
         console.log('aaa')
         wx.setStorageSync(userid, res.tempFilePath)
         storedid.set(userid, 'downloaded')
@@ -61,39 +61,39 @@ function getlastedprob(that, filter) {
   var utilthat = this
   console.log(filter)
   network.post('/problem/getten', {
-      'formerid': that.data.formerid,
-      'filter': filter || [],
-      'solved': '0'
-    }, function(res) {
-      wx.hideNavigationBarLoading()
-      var problemlist = res.problem
-      //加载缓存中的照片
-      for (var i in problemlist) {
-        if (storedid.get(problemlist[i].openid) == 'downloaded') {
-          problemlist[i].avatar = get_or_create_avatar(problemlist[i].openid)
-        } else if (storedid.get(problemlist[i].openid) == undefined) {
-          get_or_create_avatar(problemlist[i].openid)
-        }
+    'formerid': that.data.formerid,
+    'filter': filter || [],
+    'solved': '0'
+  }, function (res) {
+    wx.hideNavigationBarLoading()
+    var problemlist = res.problem
+    //加载缓存中的照片
+    for (var i in problemlist) {
+      if (storedid.get(problemlist[i].openid) == 'downloaded') {
+        problemlist[i].avatar = get_or_create_avatar(problemlist[i].openid)
+      } else if (storedid.get(problemlist[i].openid) == undefined) {
+        get_or_create_avatar(problemlist[i].openid)
       }
+    }
+    that.setData({
+      topStories: res.topstory,
+    })
+    if (!problemlist) {
       that.setData({
-        topStories: res.topstory,
+        problemlist: []
       })
-      if (!problemlist) {
-        that.setData({
-          problemlist: []
-        })
-        return
-      }
-      that.setData({
-        havenewbtn: false,
-        lastedid: problemlist[0].problemid,
-        problemlist: problemlist,
-        formerid: problemlist[problemlist['length'] - 1].problemid
-      })
-    }, function(e) {
-      console.log('fail')
-    },
-    function(e) {
+      return
+    }
+    that.setData({
+      havenewbtn: false,
+      lastedid: problemlist[0].problemid,
+      problemlist: problemlist,
+      formerid: problemlist[problemlist['length'] - 1].problemid
+    })
+  }, function (e) {
+    console.log('fail')
+  },
+    function (e) {
       wx.hideLoading()
     }
   )
@@ -109,7 +109,7 @@ function checklasted(that) {
     network.post('/problem/checklatest', {
       'formerid': that.data.lastedid,
       'grade': grade
-    }, function(res) {
+    }, function (res) {
       if (res.count) {
         that.setData({
           havenewbtn: true
@@ -127,7 +127,7 @@ function getlastedsolvedprob(that, filter) {
     'formerid': 0,
     'filter': filter || [],
     'solved': '1'
-  }, function(res) {
+  }, function (res) {
     wx.hideNavigationBarLoading()
 
     if (res.problem) {
@@ -155,9 +155,9 @@ function getlastedsolvedprob(that, filter) {
       })
     }
 
-  }, function() {
+  }, function () {
 
-  }, function() {
+  }, function () {
     wx.hideNavigationBarLoading() //完成停止加载
     wx.hideLoading()
   })
@@ -167,7 +167,7 @@ function pulldownmessage(that = null) {
   network.post('/message/getten', {
     'openid': app.globalData.openid,
     'statuscode': '1'
-  }, function(res) {
+  }, function (res) {
     var messagelist = res.message
     if (messagelist) {
       app.globalData.messagelist = messagelist
@@ -177,19 +177,19 @@ function pulldownmessage(that = null) {
         })
       }
     }
-  }, function() {
+  }, function () {
 
-  }, function() {
+  }, function () {
     wx.hideNavigationBarLoading() //完成停止加载
   })
 }
 
 
-function getsessions(app,that = null) {
+function getsessions(app, that = null) {
   console.log('app:', app)
   network.post('/message/getsessions', {
     'openid': app.globalData.openid
-  }, function(res) {
+  }, function (res) {
     var sessionlist = res.session
     console.log('sessions res:', res)
     if (!sessionlist) {
@@ -211,9 +211,9 @@ function getsessions(app,that = null) {
         })
       }
     }
-  }, function() {
+  }, function () {
 
-  }, function() {
+  }, function () {
     wx.hideNavigationBarLoading() //完成停止加载
   })
 }
@@ -223,7 +223,7 @@ function get10prob(that, searchparam = []) {
     'formerid': that.data.formerid,
     'filter': searchparam,
     'solved': '0'
-  }, function(res) {
+  }, function (res) {
     var problemlist = res.problem
     if (!problemlist) {
       that.setData({
@@ -256,7 +256,7 @@ function get10solvedprob(that, searchparam = []) {
     'formerid': that.data.solvedformerid,
     'filter': searchparam,
     'solved': '1'
-  }, function(res) {
+  }, function (res) {
 
     if (!res.json_data || res.json_data.length == 0) {
       wx.showToast({
@@ -286,7 +286,7 @@ function get10solvedprob(that, searchparam = []) {
 
 function checkuserinfo(that) {
   wx.getSetting({
-    success: function(res) {
+    success: function (res) {
       if (res.authSetting['scope.userInfo']) {
         wx.getUserInfo({
           success: res => {
@@ -299,7 +299,7 @@ function checkuserinfo(that) {
             }
             loading(that)
           },
-          complete: function(res) {}
+          complete: function (res) { }
         })
       } else {
         wx.navigateTo({
@@ -316,13 +316,13 @@ function loading(that) {
       title: '加载完成~',
     })
     wx.hideLoading()
-    if(!app.globalData.logged){
+    if (!app.globalData.logged) {
       uploadavatar()
     }
     pulldownmessage()
     that.onShow()
   } else {
-    setTimeout(function() {
+    setTimeout(function () {
       loading(that)
     }, 100)
   }
@@ -346,120 +346,120 @@ function uploadfile(url, filepath, name, formdata, success, fail) {
     filePath: filepath,
     name: name,
     formData: formdata,
-    success: function(e) {
+    success: function (e) {
       success(e)
     },
-    fail: function(e) {
+    fail: function (e) {
       fail(e)
     }
   })
 }
 
 var tabtxt = [{
-    'text': '年级',
-    'originalText': '不限',
-    'value': ['不限', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
-    'active': false,
-    'child': [{
-        'id': 0,
-        'text': '不限'
-      },
-      {
-        'id': 1,
-        'text': '一年级'
-      },
-      {
-        'id': 2,
-        'text': '二年级'
-      },
-      {
-        'id': 3,
-        'text': '三年级'
-      },
-      {
-        'id': 4,
-        'text': '四年级'
-      },
-      {
-        'id': 5,
-        'text': '五年级'
-      },
-      {
-        'id': 6,
-        'text': '六年级'
-      },
-      {
-        'id': 7,
-        'text': '初一'
-      },
-      {
-        'id': 8,
-        'text': '初二'
-      },
-      {
-        'id': 9,
-        'text': '初三'
-      },
-      {
-        'id': 10,
-        'text': '高一'
-      },
-      {
-        'id': 11,
-        'text': '高二'
-      },
-      {
-        'id': 12,
-        'text': '高三'
-      },
+  'text': '年级',
+  'originalText': '不限',
+  'value': ['不限', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
+  'active': false,
+  'child': [{
+    'id': 0,
+    'text': '不限'
+  },
+  {
+    'id': 1,
+    'text': '一年级'
+  },
+  {
+    'id': 2,
+    'text': '二年级'
+  },
+  {
+    'id': 3,
+    'text': '三年级'
+  },
+  {
+    'id': 4,
+    'text': '四年级'
+  },
+  {
+    'id': 5,
+    'text': '五年级'
+  },
+  {
+    'id': 6,
+    'text': '六年级'
+  },
+  {
+    'id': 7,
+    'text': '初一'
+  },
+  {
+    'id': 8,
+    'text': '初二'
+  },
+  {
+    'id': 9,
+    'text': '初三'
+  },
+  {
+    'id': 10,
+    'text': '高一'
+  },
+  {
+    'id': 11,
+    'text': '高二'
+  },
+  {
+    'id': 12,
+    'text': '高三'
+  },
 
-    ],
-    'type': 0
+  ],
+  'type': 0
+},
+{
+  'text': '难易',
+  'originalText': '不限',
+  'active': false,
+  'value': ['不限', '简单', '困难'],
+  'child': [{
+    'id': 0,
+    'text': '不限'
   },
   {
-    'text': '难易',
-    'originalText': '不限',
-    'active': false,
-    'value': ['不限', '简单', '困难'],
-    'child': [{
-        'id': 0,
-        'text': '不限'
-      },
-      {
-        'id': 1,
-        'text': '简单'
-      },
-      {
-        'id': 2,
-        'text': '困难'
-      }
-    ],
-    'type': 0
+    'id': 1,
+    'text': '简单'
   },
   {
-    'text': '奖励',
-    'originalText': '不限',
-    'value': ['不限', '1个奥币', '2个奥币', '3个奥币'],
-    'active': false,
-    'child': [{
-        'id': 0,
-        'text': '不限'
-      },
-      {
-        'id': 1,
-        'text': '1个奥币'
-      },
-      {
-        'id': 2,
-        'text': '2个奥币'
-      },
-      {
-        'id': 3,
-        'text': '3个奥币'
-      }
-    ],
-    'type': 0
+    'id': 2,
+    'text': '困难'
   }
+  ],
+  'type': 0
+},
+{
+  'text': '奖励',
+  'originalText': '不限',
+  'value': ['不限', '1个奥币', '2个奥币', '3个奥币'],
+  'active': false,
+  'child': [{
+    'id': 0,
+    'text': '不限'
+  },
+  {
+    'id': 1,
+    'text': '1个奥币'
+  },
+  {
+    'id': 2,
+    'text': '2个奥币'
+  },
+  {
+    'id': 3,
+    'text': '3个奥币'
+  }
+  ],
+  'type': 0
+}
 ]
 module.exports = {
   get10prob: get10prob,

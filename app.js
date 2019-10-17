@@ -1,7 +1,6 @@
 App({
   globalData: {
     userInfo: null,
-
     mapCtx: null,
     openid: null,
     audiopath: null,
@@ -32,15 +31,15 @@ App({
     onlysee: true,
     tosolvethat: null,
     getopenidok: false,
-    logged:true //今天是否登录了，用于upload头像
+    logged: true //今天是否登录了，用于upload头像
   },
 
-  getlastedinform: function(informthat = null) {
+  getlastedinform: function (informthat = null) {
     var network = require('./utils/network.js')
     var that = this;
     network.post('/message/getten', {
       'openid': this.globalData.openid
-    }, function(res) {
+    }, function (res) {
       var informlist = res.message
       that.globalData.informlist = informlist
       if (that.globalData.informthat) {
@@ -51,14 +50,14 @@ App({
     })
   },
 
-  connect: function() {
+  connect: function () {
     var config = require('./config.js')
     var that = this
     wx.connectSocket({
       url: config.wssurl + '/' + that.globalData.selfuserid,
     })
 
-    wx.onSocketOpen(function(res) {
+    wx.onSocketOpen(function (res) {
       that.globalData.closetime = 0
       console.log('socket connect')
       wx.sendSocketMessage({
@@ -66,7 +65,7 @@ App({
           'openid': that.globalData.openid
         },
       })
-      wx.onSocketMessage(function(res) {
+      wx.onSocketMessage(function (res) {
         var singlemessage = JSON.parse(res.data)
         var all = that.globalData.sessionlist
         var index = null
@@ -109,24 +108,24 @@ App({
 
       })
     });
-    wx.onSocketError(function(res) {
+    wx.onSocketError(function (res) {
       that.globalData.closetime = that.globalData.closetime + 1
     });
 
-    wx.onSocketClose(function(res) {
+    wx.onSocketClose(function (res) {
       console.log('socket close');
       setTimeout(that.connect, that.globalData.closetime * 1000)
     })
   },
 
 
-  login_getopenid: function(res) {
+  login_getopenid: function (res) {
     var util = require('utils/util.js')
     var network = require('./utils/network.js')
     var that = this
     network.post('/user/getopenid', {
       js_code: res.code
-    }, function(res) {
+    }, function (res) {
       that.globalData.openid = res.openid
       that.globalData.selfuserid = res.userid
       that.globalData.grade = res.grade || 0
@@ -151,17 +150,17 @@ App({
         })
       }
       that.connect()
-    }, function(e) {
-      console.log('login_getopenid:',e)
-      setTimeout(function(e) {
+    }, function (e) {
+      console.log('login_getopenid:', e)
+      setTimeout(function (e) {
         that.login_getopenid(res)
       }, 1000)
-    }, function(e) {
+    }, function (e) {
       wx.hideLoading()
     })
   },
 
-  onLaunch: function() {
+  onLaunch: function () {
     var that = this
     wx.showLoading({
       title: '加载中',
@@ -172,7 +171,6 @@ App({
       }
     })
     var a = wx.getSystemInfoSync()
-    console.log(a.windowHeight)
     that.globalData.screenwidth = a.windowWidth
     that.globalData.screenheight = a.windowHeight
   },

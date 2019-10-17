@@ -1,6 +1,4 @@
-<view class="page ">
-
-
+<view class="page">
   <view class="weui-uploader__title pad5px">问题描述(必填):</view>
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell">
@@ -37,19 +35,13 @@
       </view>
     </view>
   </view>
-
-
   <view class="weui-cells  page__bd_spacing">
-
     <picker bindchange="bindPickerChange" name="gradeindex" value="{{gradeindex}}" range="{{gradearray}}">
       <view class="weui-uploader__title" style='text-align:center;padding:5px'>
         年级(必填):{{gradearray[gradeindex]}}
       </view>
     </picker>
   </view>
-
-
-
   <view class="weui-cells  page__bd_spacing">
     <picker bindchange="bindPickerChangeCategory" data-category='{{categorys[gradeindex+1][categoryindex]}}' name="rewardindex" value="{{categoryindex}}" range="{{categorys[gradeindex]}}">
       <view class="weui-uploader__title" style='text-align:center;padding:5px'>
@@ -57,17 +49,16 @@
       </view>
     </picker>
   </view>
-
-
-
-
   <view class="weui-btn-area">
-        <form  report-submit='true' bindsubmit='ask'>
-          <button class="weui-btn" form-type='submit' class="weui-btn" type="primary" data-statu="close" disabled='{{disabledbut}}'>确定</button>
-        </form>
-        <form  report-submit='true' bindsubmit='cancelask'>
-          <button class="weui-btn" form-type='submit' class="weui-btn" type="default" data-statu="close">取消</button>
-        </form>
+    <form report-submit='true' bindsubmit='ask'>
+      <button class="weui-btn" form-type='submit' class="weui-btn" type="primary" data-statu="close" disabled='{{disabledbut}}'>
+        确定
+      </button>
+    </form>
+    <form report-submit='true' bindsubmit='cancelask'>
+      <button class="weui-btn" form-type='submit' class="weui-btn" type="default" data-statu="close">
+        取消
+      </button>
+    </form>
   </view>
-
 </view>

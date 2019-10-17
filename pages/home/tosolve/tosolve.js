@@ -1,73 +1,52 @@
 const app = getApp()
 var util = require('../../../utils/util.js')
 var sliderWidth = 96;
-var console = require('../../../utils/console.js')
 var network = require('../../../utils/network.js')
 var config = require('../../../config.js')
+var searchParam = []
+var formerid = 0
+var solvedformerid = 0
+var qdata = null
+var tabTxtbak = ''
 Page({
   data: {
-    userInfo: {},
     bottom: false,
-    hasUserInfo: false,
-    problempicsrc: 'null',
-    animationData: null,
-    door: true,
-    formerid: 0,
-    solvedformerid: 0,
-    lastedid: null,
-    topStories: [],
     havenewbtn: false,
-    searchcontent: null,
     inputvalue: null,
-    problemlist: [],
-    zindex: false,
-
     tabs: ["题库", "好题"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-    q: null,
     msg2: {
-      icon: '../../../images/empty.png',
+      icon: '/images/empty.png',
     },
-    easyarray: ['不限', '困难', '简单'],
-    rewardarray: ['不限', '1个奥币', '2个奥币', '3个奥币'],
-    gradearray: ['不限', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
-    tabTxtbak: '',
     tabTxt: '',
-    searchParam: [],
+    problemlist: [],
     solvedproblemlist: [],
-    solvedformerid: 0
   },
 
-
-
-
-  tabClick: function(e) {
+  tabClick: function (e) {
     var that = this
-    var a
     if (app.globalData.grade != 0 && app.globalData.onlysee) {
-      a = [util.gradearray[app.globalData.grade]]
+      searchParam = [util.gradearray[app.globalData.grade]]
     } else {
-      a = []
+      searchParam = []
     }
-    console.log(a)
-    this.setData({
-      searchParam: a,
-      tabTxt: that.data.tabTxtbak,
+    that.setData({
+      tabTxt: tabTxtbak,
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     })
     if (e.currentTarget.id == '1') {
       if (that.data.solvedproblemlist.length == 0) {
-        util.getlastedsolvedprob(that, that.data.searchParam)
+        util.getlastedsolvedprob(that, searchParam)
       }
     }
   },
 
 
 
-  onShareAppMessage: function(res) {
+  onShareAppMessage: function (res) {
     if (res.from === 'button') {
       var problemid = res.target.dataset.problemid
       return {
@@ -84,12 +63,8 @@ Page({
 
 
 
-  filterTabChild: function(e) {
-    this.setData({
-      zindex: false,
-      formerid: 0
-    })
-
+  filterTabChild: function (e) {
+    formerid = 0
     var that = this;
     var index = e.currentTarget.dataset.index;
     var data = JSON.parse(JSON.stringify(that.data.tabTxt));
@@ -101,17 +76,16 @@ Page({
     } else {
       data[index].text = data[index]['child'][paramindex].text
       that.data.searchParam[index] = data[index]['child'][paramindex].text
-
     }
     that.setData({
       tabTxt: data
     })
     if (that.data.activeIndex == '0') {
       network.post('/problem/getten', {
-        'formerid': that.data.formerid,
+        'formerid': formerid,
         'filter': that.data.searchParam,
         'solved': '0'
-      }, function(res) {
+      }, function (res) {
         var filterproblist = res.problem
         if (filterproblist == undefined) {
           that.setData({
@@ -121,8 +95,8 @@ Page({
         } else {
           that.setData({
             problemlist: filterproblist,
-            formerid: filterproblist[filterproblist.length - 1]['problemid'],
           })
+          formerid = filterproblist[filterproblist.length - 1]['problemid']
         }
       })
     } else {
@@ -130,7 +104,7 @@ Page({
         'formerid': 0,
         'filter': that.data.searchParam,
         'solved': '1'
-      }, function(res) {
+      }, function (res) {
         var filterproblist = res.problem
         if (filterproblist == undefined) {
           that.setData({
@@ -140,14 +114,14 @@ Page({
         } else {
           that.setData({
             solvedproblemlist: filterproblist,
-            solvedformerid: filterproblist[filterproblist.length - 1]['problemid'],
           })
+          solvedformerid = filterproblist[filterproblist.length - 1]['problemid']
         }
       })
     }
   },
 
-  toask: function() {
+  toask: function () {
     var that = this
     if (app.globalData.authorized == 'true' || app.globalData.avatar != 'stranger') {
       wx.navigateTo({
@@ -157,41 +131,37 @@ Page({
       util.checkuserinfo(that)
     }
   },
-  totop: function() {
+  totop: function () {
     wx.pageScrollTo({
       scrollTop: 0,
       duration: 300
     })
   },
-  bindQueTap: function(e) {
-    var problemid = e.currentTarget.dataset.id
+  bindQueTap: function (e) {
     wx.navigateTo({
-      url: `/pages/home/question/question?problemid=${problemid}`
+      url: `/pages/home/question/question?problemid=${e.currentTarget.dataset.id}`
     })
   },
 
   // 搜索框搜索
-  writesearch: function(e) {
-    this.setData({
-      q: e.detail.value
-    })
+  writesearch: function (e) {
+    qdata = e.detail.value
   },
-  search: function(e) {
+  search: function (e) {
     var that = this
-    var q = this.data.q
-    if (q == '' || q == undefined) {
+    if (qdata == '' || qdata == undefined) {
       wx.showModal({
         title: '提示',
         content: '关键词不能为空',
       })
     } else {
       network.post('/problem/search', {
-        'content': q
-      }, function(res) {
+        'content': qdata
+      }, function (res) {
         that.setData({
           inputvalue: '',
-          q: null
         })
+        qdata = null
         app.globalData.searchlist = res.problem
         wx.navigateTo({
           url: `/pages/home/searchres/searchres`,
@@ -201,9 +171,9 @@ Page({
   },
 
   //轮询直到getopenid加载完毕
-  load: function(e) {
+  load: function (e) {
     var that = this
-    setTimeout(function() {
+    setTimeout(function () {
       if (app.globalData.getopenidok) {
         if (app.globalData.onlysee && app.globalData.grade != 0 && app.globalData.grade) {
           util.getlastedprob(that, [util.gradearray[app.globalData.grade]])
@@ -219,18 +189,18 @@ Page({
     }, 500)
   },
 
-  onLoad: function() {
+  onLoad: function () {
     var that = this
     app.globalData.tosolvethat = that
     that.setData({
       tabTxt: util.tabtxt,
-      tabTxtbak: util.tabtxt,
     })
+    tabTxtbak = util.tabtxt
     that.load()
 
     app.globalData.mapCtx = wx.createMapContext('map')
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         that.setData({
           sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
@@ -238,15 +208,11 @@ Page({
       }
     });
   },
-  getUserInfo: function(e) {
+  getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
   },
 
-  showmore: function(e) {
+  showmore: function (e) {
     var askerid = e.currentTarget.dataset.askerid
     var avatar = e.currentTarget.dataset.avatar
     var username = e.currentTarget.dataset.username
@@ -263,7 +229,7 @@ Page({
     }
   },
 
-  onShow: function() {
+  onShow: function () {
     var that = this
     if (app.globalData.reddot) {
       wx.showTabBarRedDot({
@@ -273,31 +239,24 @@ Page({
     util.checklasted(that)
   },
 
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     var that = this
     wx.showNavigationBarLoading() //在标题栏中显示加载
-    console.log(that.data.searchParam)
     if (that.data.activeIndex == '0') {
-      that.setData({
-        formerid: 0
-      })
+      formerid = 0
       util.getlastedprob(that, that.data.searchParam)
     } else if (that.data.activeIndex == '1') {
-      that.setData({
-        solvedformerid: 0
-      })
+      solvedformerid = 0
       util.getlastedsolvedprob(that, that.data.searchParam)
     }
     wx.stopPullDownRefresh() //停止下拉刷新                
   },
-  onReachBottom: function() {
+  onReachBottom: function () {
     var that = this
-    var searchparam = that.data.searchParam
-    console.log(that.data.searchParam)
     if (that.data.activeIndex == '0') {
-      util.get10prob(that, searchparam)
+      util.get10prob(that, that.data.searchParam)
     } else if (that.data.activeIndex == '1') {
-      util.get10solvedprob(that, searchparam)
+      util.get10solvedprob(that, that.data.searchParam)
     }
   },
 })

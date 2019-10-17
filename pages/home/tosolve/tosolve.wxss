@@ -1,7 +1,4 @@
 /* pages/tosolve/tosolve.wxss */
-
-
-
 .wux-notice-bar {
   background-color: #fefcec;
   height: 72rpx;
@@ -13,22 +10,26 @@
   display: flex;
   padding: 0 20rpx
 }
+
 .wux-notice-bar__icon {
   width: 30rpx;
   height: 30rpx;
   margin-right: 20rpx
 }
+
 .wux-notice-bar__action {
   width: 30rpx;
   height: 30rpx;
   margin-left: 20rpx
 }
+
 .wux-notice-bar__hd {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
   align-items: center
 }
+
 .wux-notice-bar__bd {
   -ms-flex: 1;
   flex: 1;
@@ -38,15 +39,18 @@
   text-overflow: ellipsis;
   white-space: nowrap
 }
+
 .wux-notice-bar__marquee-container {
   overflow: hidden
 }
+
 .wux-notice-bar__marquee {
   position: relative;
-  transform: translate3d(0,0,0);
+  transform: translate3d(0, 0, 0);
   white-space: nowrap;
   display: inline-block
 }
+
 .wux-notice-bar__ft {
   display: -ms-flexbox;
   display: flex;
@@ -106,7 +110,8 @@
 
 .drawer_content {
   height: 100%;
-  overflow-y: scroll; /*超出父盒子高度可滚动*/
+  overflow-y: scroll;
+  /*超出父盒子高度可滚动*/
 }
 
 .input_h60 {
@@ -182,7 +187,7 @@ radio {
   display: inline-block;
   height: 65rpx;
   font-size: 26rpx;
-  width:500rpx
+  width: 500rpx
 }
 
 .search-placeholder {
@@ -220,7 +225,7 @@ radio {
 .swiper-boxs {
   height: 200px;
   background: #f2f2f2;
-  position:relative;
+  position: relative;
 }
 
 .swiper-boxs-img {
@@ -259,13 +264,16 @@ radio {
   flex-wrap: nowrap;
   font-size: 32rpx;
 }
+
 .cxj-menu .active image {
   transform: rotate(180deg);
   background: none;
 }
+
 .cxj-menu .active {
   background-color: #fff;
 }
+
 .flex-view {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
@@ -297,16 +305,16 @@ radio {
 .cxj-tab-layout {
   width: 750rpx;
   overflow: hidden;
-   position: fixed; 
+  position: fixed;
   /* position:absolute; */
-   top: 0rpx; 
-  
+  top: 0rpx;
+
   /* top:100rpx; */
   z-index: 501;
   border-bottom: solid 1px #eee;
   height: 100%;
-  background-color: rgba(000,000,000,.5);
-  
+  background-color: rgba(000, 000, 000, .5);
+
 }
 
 .cxj-tab-layout .active {
@@ -319,6 +327,6 @@ radio {
   height: 80rpx;
   line-height: 80rpx;
   border-top: 1rpx solid #e7e7e7;
-  background-color:#ffffff;
-  
+  background-color: #ffffff;
+
 }
