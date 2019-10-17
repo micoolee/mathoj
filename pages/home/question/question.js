@@ -1,9 +1,9 @@
 //answer.js
-var util = require('../../utils/util.js')
+var util = require('../../../utils/util.js')
 var app = getApp()
-var console = require('../../utils/console.js')
-var network = require('../../utils/network.js')
-var config = require('../../config.js')
+var console = require('../../../utils/console.js')
+var network = require('../../../utils/network.js')
+var config = require('../../../config.js')
 
 //inner audio
 const innerAudioContext = wx.createInnerAudioContext()
@@ -41,8 +41,6 @@ const options = {
   answerbox: false
 }
 
-
-
 var page = Page({
   data: {
     motto: '小程序版',
@@ -79,7 +77,7 @@ var page = Page({
     comments: ['notnull'],
     grade: null,
     inputnum: 0,
-    files: ["../../images/pic_160.png"],
+    files: ["/images/pic_160.png"],
     lookedtime: 0,
     hidecaina: true,
     showdetail: false,
@@ -186,7 +184,7 @@ var page = Page({
       problemid = res.target.dataset.problemid
       return {
         title: '[有人@我]数学题，考考你',
-        path: '/pages/question/question?problemid=' + problemid,
+        path: '/pages/home/question/question?problemid=' + problemid,
         imageUrl: config.host + '/static/sharepic.jpg',
         success: function(res) {}
       }
@@ -194,7 +192,7 @@ var page = Page({
     }
     return {
       title: '[有人@我]中小学数学题，考考你~',
-      path: '/pages/question/question?problemid=' + problemid,
+      path: '/pages/home/question/question?problemid=' + problemid,
       success: function(res) {
       },
 
@@ -218,7 +216,7 @@ var page = Page({
   showinvitebox: function(e) {
     var problemid = e.currentTarget.dataset.problemid
     wx.navigateTo({
-      url: `../invite/invite?problemid=${problemid}`,
+      url: `/pages/home/invite/invite?problemid=${problemid}`,
     })
   },
 
@@ -559,7 +557,7 @@ var page = Page({
       })
     } else {
       wx.navigateTo({
-        url: `../settings/profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+        url: `/pages/settings/profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
       })
     }
   },

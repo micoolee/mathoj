@@ -1,13 +1,13 @@
 // pages/ask/ask.js
 
 const app = getApp()
-var util = require('../../utils/util.js')
-var network = require('../../utils/network.js')
-var console = require('../../utils/console.js')
+var util = require('../../../utils/util.js')
+var network = require('../../../utils/network.js')
+var console = require('../../../utils/console.js')
 Page({
   data: {
     inputnum: 0,
-    files: ["../../images/pic_160.png"],
+    files: ["../../../images/pic_160.png"],
     gradearray: '',
     categorys: '',
     categoryindex: -1,
@@ -78,7 +78,7 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success(res) {
-        if (that.data.files[0] == "../../images/pic_160.png") {
+        if (that.data.files[0] == "../../../images/pic_160.png") {
           files = res.tempFilePaths
         } else {
           files = that.data.files.concat(res.tempFilePaths)

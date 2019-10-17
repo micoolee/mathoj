@@ -1,24 +1,23 @@
 {
   "pages": [
-    "pages/tosolve/tosolve",
+    "pages/home/tosolve/tosolve",
     "pages/settings/settings",
     "pages/settings/feedback/feedback",
     "pages/settings/help/help",
     "pages/settings/myques/myques",
-    "pages/question/question",
-    "pages/ask/ask",
+    "pages/home/question/question",
+    "pages/home/ask/ask",
     "pages/settings/mysubs/mysubs",
     "pages/settings/myhist/myhist",
-    "pages/storydetail/storydetail",
     "pages/settings/mycomm/mycomm",
     "pages/settings/profile/profile",
     "pages/inform/message/message",
     "pages/inform/inform",
-    "pages/searchres/searchres",
-    "pages/invite/invite",
+    "pages/home/searchres/searchres",
+    "pages/home/invite/invite",
     "pages/top/top",
     "pages/getuserinfo/getuserinfo",
-    "pages/howtouse/howtouse",
+    "pages/inform/howtouse/howtouse",
     "pages/map/map",
     "pages/inform/message/chat/chat",
     "pages/settings/config/config"
@@ -28,7 +27,7 @@
     "borderStyle": "white",
     "list": [
       {
-        "pagePath": "pages/tosolve/tosolve",
+        "pagePath": "pages/home/tosolve/tosolve",
         "text": "首页",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-selected.png"

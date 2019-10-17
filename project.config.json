@@ -12,6 +12,8 @@
 	"appid": "wx993a1ac03be0e1f4",
 	"projectname": "mathoj",
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -30,14 +32,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 13,
+			"current": 14,
 			"list": [
-				{
-					"id": 0,
-					"name": "story",
-					"pathName": "pages/storydetail/storydetail",
-					"query": "id=2"
-				},
 				{
 					"id": -1,
 					"name": "getuserinfo",
@@ -47,13 +43,13 @@
 				{
 					"id": 2,
 					"name": "question",
-					"pathName": "pages/question/question",
+					"pathName": "pages/home/question/question",
 					"query": "problemid=57"
 				},
 				{
 					"id": -1,
 					"name": "howtouse",
-					"pathName": "pages/howtouse/howtouse",
+					"pathName": "pages/inform/howtouse/howtouse",
 					"query": ""
 				},
 				{
@@ -83,7 +79,7 @@
 				{
 					"id": -1,
 					"name": "ser",
-					"pathName": "pages/searchres/searchres",
+					"pathName": "pages/home/searchres/searchres",
 					"query": ""
 				},
 				{
@@ -113,7 +109,13 @@
 				{
 					"id": -1,
 					"name": "try",
-					"pathName": "pages/try/try"
+					"pathName": "pages/try/try",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "config",
+					"pathName": "pages/settings/config/config"
 				}
 			]
 		}

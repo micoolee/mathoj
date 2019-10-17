@@ -73,7 +73,7 @@ Page({
         }
 
         wx.navigateTo({
-          url: `../question/question?problemid=${problemid}`
+          url: `/pages/home/question/question?problemid=${problemid}`
         })
 
       } else if (e.currentTarget.dataset.informtype == '2') {
@@ -102,7 +102,7 @@ Page({
             })
         }
         wx.navigateTo({
-          url: `/pages/howtouse/howtouse`,
+          url: `/pages/inform/howtouse/howtouse`,
         })
       }
 

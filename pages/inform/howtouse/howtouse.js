@@ -1,6 +1,6 @@
-const WxParse = require('../../wxParse/wxParse.js');
-var network = require('../../utils/network.js')
-var console = require('../../utils/console.js')
+const WxParse = require('../../../wxParse/wxParse.js');
+var network = require('../../../utils/network.js')
+var console = require('../../../utils/console.js')
 const app = getApp()
 Page({
   data: {

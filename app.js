@@ -1,11 +1,6 @@
 App({
   globalData: {
     userInfo: null,
-    baseurl: 'https://mathoj.liyuanye.club',
-    wssurl: 'wss://mathoj.liyuanye.club/user/createwss',
-
-    // baseurl: 'http://192.168.0.174:8080',
-    // wssurl: 'ws://192.168.0.174:8080/user/createwss',
 
     mapCtx: null,
     openid: null,
@@ -177,6 +172,7 @@ App({
       }
     })
     var a = wx.getSystemInfoSync()
+    console.log(a.windowHeight)
     that.globalData.screenwidth = a.windowWidth
     that.globalData.screenheight = a.windowHeight
   },

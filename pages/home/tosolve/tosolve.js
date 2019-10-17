@@ -1,9 +1,9 @@
 const app = getApp()
-var util = require('../../utils/util.js')
+var util = require('../../../utils/util.js')
 var sliderWidth = 96;
-var console = require('../../utils/console.js')
-var network = require('../../utils/network.js')
-var config = require('../../config.js')
+var console = require('../../../utils/console.js')
+var network = require('../../../utils/network.js')
+var config = require('../../../config.js')
 Page({
   data: {
     userInfo: {},
@@ -28,7 +28,7 @@ Page({
     sliderLeft: 0,
     q: null,
     msg2: {
-      icon: '../../images/empty.png',
+      icon: '../../../images/empty.png',
     },
     easyarray: ['不限', '困难', '简单'],
     rewardarray: ['不限', '1个奥币', '2个奥币', '3个奥币'],
@@ -72,13 +72,13 @@ Page({
       var problemid = res.target.dataset.problemid
       return {
         title: '[有人@我]发现一道智力题，考考你~',
-        path: '/pages/question/question?problemid=' + problemid,
+        path: '/pages/home/question/question?problemid=' + problemid,
         imageUrl: config.host + '/static/sharepic.jpg',
       }
     }
     return {
       title: '[有人@我]发现一道智力题，考考你~',
-      path: '/pages/tosolve/tosolve',
+      path: '/pages/home/tosolve/tosolve',
     }
   },
 
@@ -166,7 +166,7 @@ Page({
   bindQueTap: function(e) {
     var problemid = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: `../question/question?problemid=${problemid}`
+      url: `/pages/home/question/question?problemid=${problemid}`
     })
   },
 
@@ -194,7 +194,7 @@ Page({
         })
         app.globalData.searchlist = res.problem
         wx.navigateTo({
-          url: `../searchres/searchres`,
+          url: `/pages/home/searchres/searchres`,
         })
       })
     }
@@ -254,7 +254,7 @@ Page({
     //如果是自己
     if (openid == app.globalData.openid) {
       wx.switchTab({
-        url: '../settings/settings',
+        url: '/pages/settings/settings',
       })
     } else {
       wx.navigateTo({

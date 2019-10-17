@@ -15,18 +15,6 @@
     </view>
   </view>
   <view class="page">
-    <view>
-      <swiper class="swiper-boxs " indicator-dots autoplay duration="300" interval='8000'>
-        <swiper-item wx:for="{{topStories}}" wx:key="{{index}}">
-          <navigator url="../storydetail/storydetail?id={{topStories[index].storyid}}">
-            <image mode="aspectFill" class="swiper-boxs-img" src="{{topStories[index].storypic}}" />
-          </navigator>
-        </swiper-item>
-      </swiper>
-    </view>
-
-
-
     <view class="weui-tab ">
       <view class="weui-navbar ">
         <block wx:for="{{tabs}}" wx:key="*this">
@@ -225,5 +213,5 @@
       </view>
     </view>
   </view>
-  <image src='../../images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
+  <image src='/images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
 </view>

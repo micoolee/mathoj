@@ -1,8 +1,8 @@
 // pages/invite/invite.js
 const app = getApp()
-var network = require('../../utils/network.js')
-var console = require('../../utils/console.js')
-var config = require('../../config.js')
+var network = require('../../../utils/network.js')
+var console = require('../../../utils/console.js')
+var config = require('../../../config.js')
 Page({
 
   /**
@@ -12,7 +12,7 @@ Page({
     problemid: null,
     invitedsign: [false],
     noone: false,
-    icon: '../../images/empty.png',
+    icon: '/images/empty.png',
   },
 
   onShareAppMessage: function(res) {
@@ -22,7 +22,7 @@ Page({
       // 来自页面内转发按钮
       return {
         title: '[有人@我]数学题，你会做么',
-        path: '/pages/question/question?problemid=' + that.data.problemid,
+        path: '/pages/home/question/question?problemid=' + that.data.problemid,
         imageUrl: config.host + '/swagger/mobiwusi.jpg',
       }
     }
@@ -83,14 +83,11 @@ Page({
       })
     })
   },
-
-
   onLoad: function(options) {
     var that = this
     that.setData({
       problemid: options.problemid
     })
-
   },
 
 })

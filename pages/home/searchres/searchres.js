@@ -1,14 +1,14 @@
 // pages/searchres/searchres.js
 const app = getApp()
-var network = require('../../utils/network.js')
-var console = require('../../utils/console.js')
+var network = require('../../../utils/network.js')
+var console = require('../../../utils/console.js')
 Page({
 
   data: {
   searchlist:[],
   searchlistnull:0,
     msg2: {
-      icon: '../../images/empty.png',
+      icon: '/images/empty.png',
       buttons: [{
         text: '随便逛逛',
       }],
@@ -17,14 +17,14 @@ Page({
   pushformid:function(e){
     network.post('/user/pushformid',{ 'formid': e.detail.formId, 'openid': app.globalData.openid })
     wx.navigateBack({
-      url: '../tosolve/tosolve'
+      url: '/pages/home/tosolve/tosolve'
     })
   },
 
   bindQueTap: function (e) {
     var problemid = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: `../question/question?problemid=${problemid}`
+      url: `/pages/home/question/question?problemid=${problemid}`
     })
 
   },

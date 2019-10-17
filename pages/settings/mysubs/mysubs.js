@@ -69,7 +69,7 @@ Page({
     if (this.endTime - this.startTime < 350) {
       var problemid = e.currentTarget.dataset.id
       wx.navigateTo({
-        url: `../../question/question?problemid=${problemid}`
+        url: `/pages/home/question/question?problemid=${problemid}`
       })
     }
   },
@@ -80,7 +80,7 @@ Page({
       'openid': app.globalData.openid
     })
     wx.switchTab({
-      url: '../../tosolve/tosolve',
+      url: '/pages/home/tosolve/tosolve',
     })
   },
 
