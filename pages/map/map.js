@@ -3,96 +3,89 @@ var util = require('../../utils/util.js')
 const app = getApp()
 var network = require('../../utils/network.js')
 var console = require('../../utils/console.js')
+var userlatitude = 0
+var userlongitude = 0
+
 Page({
   data: {
     latitude: 0,
     longitude: 0,
-    userlatitude: 0,
-    userlongitude: 0,
-    centerX: 0,
-    centerY: 0,
     height: app.globalData.screenheight,
     scale: 5,
     markers: [],
     controls: [{
-        id: 1,
-        iconPath: '/images/location-control.png',
-        position: {
-          left: 0,
-          top: 10,
-          width: 40,
-          height: 40
-        },
-        clickable: true
+      id: 1,
+      iconPath: '/images/location-control.png',
+      position: {
+        left: 0,
+        top: 10,
+        width: 40,
+        height: 40
       },
-      {
-        id: 2,
-        iconPath: '/images/plus.png',
-        position: {
-          left: 0,
-          top: 60,
-          width: 40,
-          height: 40
-        },
-        clickable: true
-      }, {
-        id: 3,
-        iconPath: '/images/minus.png',
-        position: {
-          left: 0,
-          top: 110,
-          width: 40,
-          height: 40
-        },
-        clickable: true
-      }, {
-        id: 4,
-        iconPath: '/images/teacher.png',
-        position: {
-          left: 50,
-          top: 10,
-          width: 40,
-          height: 40
-        },
-        clickable: true
-      }, {
-        id: 5,
-        iconPath: '/images/student.png',
-        position: {
-          left: 100,
-          top: 10,
-          width: 40,
-          height: 40
-        },
-        clickable: true
-      }
+      clickable: true
+    },
+    {
+      id: 2,
+      iconPath: '/images/plus.png',
+      position: {
+        left: 0,
+        top: 60,
+        width: 40,
+        height: 40
+      },
+      clickable: true
+    }, {
+      id: 3,
+      iconPath: '/images/minus.png',
+      position: {
+        left: 0,
+        top: 110,
+        width: 40,
+        height: 40
+      },
+      clickable: true
+    }, {
+      id: 4,
+      iconPath: '/images/teacher.png',
+      position: {
+        left: 50,
+        top: 10,
+        width: 40,
+        height: 40
+      },
+      clickable: true
+    }, {
+      id: 5,
+      iconPath: '/images/student.png',
+      position: {
+        left: 100,
+        top: 10,
+        width: 40,
+        height: 40
+      },
+      clickable: true
+    }
     ],
     mapCtx: null
   },
-  onReady: function(e) {
+  onReady: function (e) {
     // 使用 wx.createMapContext 获取 map 上下文
     this.mapCtx = wx.createMapContext('map')
   },
-  onLoad: function() {
+  onLoad: function () {
     var that = this
     if (app.globalData.authorized == 'true' || app.globalData.avatar != 'stranger') {
       wx.getLocation({
         type: 'gcj02', //返回可以用于wx.openLocation的经纬度
         success: (res) => {
-          let latitude = res.latitude;
-          let longitude = res.longitude;
-          let marker = that.createMarker(res);
+          that.createMarker(res);
           that.setData({
-            centerX: longitude,
-            centerY: latitude,
             latitude: res.latitude,
             longitude: res.longitude,
-            userlatitude: res.latitude,
-            userlongitude: res.longitude,
             scale: 1
-
           })
-
+          userlatitude = res.latitude
+          userlongitude = res.longitude
           this.adduserlocation()
           this.getSchoolMarkers()
           this.enterLocation()
@@ -102,16 +95,14 @@ Page({
       util.checkuserinfo(that)
     }
   },
-  regionchange(e) {},
+  regionchange(e) { },
   markertap(e) {
-    var that = this
-    console.log(that.data.markers)
     console.log(e)
   },
 
   controltap(e) {
     var that = this
-    wx.vibrateShort({})
+    wx.vibrateShort()
     if (e.controlId === 1) {
       this.mapCtx.moveToLocation()
     } else if (e.controlId === 2) {
@@ -146,7 +137,7 @@ Page({
     var that = this
     network.post('/location/getteacher', {
       'openid': app.globalData.openid
-    }, function(res) {
+    }, function (res) {
       let markers = [];
       if (res.location) {
         for (let item of res.location) {
@@ -160,13 +151,11 @@ Page({
     })
   },
 
-  getCenterLocation: function() {
+  getCenterLocation: function () {
     var that = this
     this.mapCtx.getCenterLocation({
-      success: function(res) {
+      success: function (res) {
         that.setData({
-          centerX: res.longitude,
-          centerY: res.latitude,
           latitude: res.latitude,
           longitude: res.longitude,
         })
@@ -175,14 +164,12 @@ Page({
   },
 
   createMarker(point) {
-    let latitude = point.latitude;
-    let longitude = point.longitude;
     let marker = {
       iconPath: point.avatar,
       id: point.id || 0,
       name: point.username || '',
-      latitude: latitude,
-      longitude: longitude,
+      latitude: point.latitude,
+      longitude: point.longitude,
       width: 40,
       height: 40,
       istrue: true,
@@ -197,29 +184,28 @@ Page({
     return marker;
   },
 
-  moveToLocation: function() {
+  moveToLocation: function () {
     this.mapCtx.moveToLocation()
   },
-  enterLocation: function() {
+  enterLocation: function () {
     this.mapCtx.moveToLocation()
     this.setData({
       scale: 15,
     })
   },
 
-  adduserlocation: function() {
-    var that = this
+  adduserlocation: function () {
     network.post('/location/update', {
       'openid': app.globalData.openid,
-      'latitude': that.data.userlatitude,
-      'longitude': that.data.userlongitude
+      'latitude': userlatitude,
+      'longitude': userlongitude
     })
   },
-  formsubmitteacher: function(e) {
+  formsubmitteacher: function (e) {
     var that = this
     network.post('/location/getteacher', {
       'openid': app.globalData.openid
-    }, function(res) {
+    }, function (res) {
       var markers = [];
       if (res.location) {
         for (let item of res.location) {
@@ -227,19 +213,17 @@ Page({
           markers.push(marker)
         }
       }
-      console.log('teacher:', markers)
       that.setData({
         markers: markers
       })
-      console.log(that.data.markers)
     })
   },
 
-  formsubmitstudent: function(e) {
+  formsubmitstudent: function (e) {
     var that = this
     network.post('/location/getstudent', {
       'openid': app.globalData.openid
-    }, function(res) {
+    }, function (res) {
       var markers = [];
       if (res.location) {
         for (let item of res.location) {
@@ -252,27 +236,22 @@ Page({
       })
     })
   },
-  onShow: function() {
 
+  onShow: function () {
     var that = this
     if (app.globalData.fromgetuserinfo) {
       if (app.globalData.authorized == 'true' || app.globalData.avatar != 'stranger') {
         wx.getLocation({
           type: 'gcj02', //返回可以用于wx.openLocation的经纬度
           success: (res) => {
-            let latitude = res.latitude;
-            let longitude = res.longitude;
-            let marker = that.createMarker(res);
+            that.createMarker(res);
             that.setData({
-              centerX: longitude,
-              centerY: latitude,
               latitude: res.latitude,
               longitude: res.longitude,
-              userlatitude: res.latitude,
-              userlongitude: res.longitude,
               scale: 15
             })
-
+            userlatitude = res.latitude
+            userlongitude = res.longitude
             that.adduserlocation()
             that.getSchoolMarkers()
             that.enterLocation()
@@ -280,7 +259,5 @@ Page({
         });
       }
     }
-
   }
-
 })

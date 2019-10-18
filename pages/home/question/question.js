@@ -1,5 +1,4 @@
 //answer.js
-var util = require('../../../utils/util.js')
 var app = getApp()
 var console = require('../../../utils/console.js')
 var network = require('../../../utils/network.js')
@@ -8,16 +7,16 @@ var config = require('../../../config.js')
 //inner audio
 const innerAudioContext = wx.createInnerAudioContext()
 innerAudioContext.autoplay = false
-innerAudioContext.onPlay(() => {})
-innerAudioContext.onStop(() => {})
-innerAudioContext.onPause(() => {})
-innerAudioContext.onError((res) => {})
+innerAudioContext.onPlay(() => { })
+innerAudioContext.onStop(() => { })
+innerAudioContext.onPause(() => { })
+innerAudioContext.onError((res) => { })
 
 //record manager
 const recorderManager = wx.getRecorderManager()
-recorderManager.onStart(() => {})
-recorderManager.onResume(() => {})
-recorderManager.onPause(() => {})
+recorderManager.onStart(() => { })
+recorderManager.onResume(() => { })
+recorderManager.onPause(() => { })
 recorderManager.onStop((res) => {
   innerAudioContext.src = res.tempFilePath
   app.globalData.audiopath = res.tempFilePath
@@ -40,39 +39,28 @@ const options = {
   frameSize: 50,
   answerbox: false
 }
-
+var answerpicsrc = ''
+var haoti = 'false'
 var page = Page({
   data: {
-    motto: '小程序版',
-    userInfo: {},
     problemid: null,
-    showaudio: false,
     showyuansheng: false,
-    playstate: false,
     tingstate: true,
     recordstate: true,
     curTimeVal: 0,
     duration: 100,
-    audioSrc: '',
     answerbox: true,
-    audiopath: '',
     hidehuida: false,
     textsolu: '',
-    answerpicsrc: '',
     desc: '',
     answer: [],
     commentcontent: null,
     subscribe_door: true,
     answerdoor: '',
     problempic: 'noimages',
-    problempic1:'',
-    problempic2:'',
-    problempic3:'',
-    modalHidden: false,
-    shareShow: 'none',
-    shareOpacity: {},
-    shareBottom: {},
-    modalValue: null,
+    problempic1: '',
+    problempic2: '',
+    problempic3: '',
     showpic: true,
     comments: ['notnull'],
     grade: null,
@@ -81,78 +69,70 @@ var page = Page({
     lookedtime: 0,
     hidecaina: true,
     showdetail: false,
-    topicids: [],
-    haoti: 'false',
-    category:''
+    category: ''
   },
   switch2Change(e) {
-    var that = this
     if (e.detail.value) {
-      that.setData({
-        haoti: 'true'
-      })
+      haoti = 'true'
     } else {
-      that.setData({
-        haoti: 'false'
-      })
+      haoti = 'false'
     }
   },
-  caina: function(e) {
+  caina: function (e) {
     var that = this
     var solutionid = e.currentTarget.dataset.solutionid
     var all = that.data.answer;
-    network.post('/problem/createcaina',{
-        'solutionid': solutionid,
-        'openid': app.globalData.openid
-    },function() {
-        all[e.currentTarget.dataset.index].Cainastatus = '已采纳'
-        that.setData({
-            answer: all
-        })
-        wx.showToast({
-            title: '已采纳',
-        })
+    network.post('/problem/createcaina', {
+      'solutionid': solutionid,
+      'openid': app.globalData.openid
+    }, function () {
+      all[e.currentTarget.dataset.index].Cainastatus = '已采纳'
+      that.setData({
+        answer: all
+      })
+      wx.showToast({
+        title: '已采纳',
+      })
     });
   },
 
-  zansolution: function(e) {
+  zansolution: function (e) {
     var that = this
-    var solutionid = e.currentTarget.dataset.solutionid
     var all = that.data.answer
-      network.post('/problem/createzansolution',{
-          'solutionid': solutionid,
-          'openid': app.globalData.openid
-      },function(res) {
-          all[e.currentTarget.dataset.index].Zanstatus = '已赞'
-          that.setData({
-              answer: all
-          })
-          wx.showToast({
-              title: '已赞',
-          })
+    network.post('/problem/createzansolution', {
+      'solutionid': e.currentTarget.dataset.solutionid,
+      'openid': app.globalData.openid
+    }, function (res) {
+      all[e.currentTarget.dataset.index].Zanstatus = '已赞'
+      that.setData({
+        answer: all
       })
+      wx.showToast({
+        title: '已赞',
+      })
+    })
   },
 
 
 
-  viewimage: function(e) {
+  viewimage: function (e) {
     var that = this
     var image = e.currentTarget.dataset.image
     var images = []
-    if(that.data.problempic!=''){
-      images=images.concat([that.data.problempic])
+    if (that.data.problempic != '') {
+      images = images.concat([that.data.problempic])
     }
     if (that.data.problempic1 != '') {
-      images=images.concat([that.data.problempic1])
+      images = images.concat([that.data.problempic1])
     }
     if (that.data.problempic2 != '') {
-      images=images.concat([that.data.problempic2])
+      images = images.concat([that.data.problempic2])
     }
     if (that.data.problempic3 != '') {
-      images=images.concat([that.data.problempic3])
+      images = images.concat([that.data.problempic3])
     }
     console.log(e.currentTarget.dataset)
-    if(e.currentTarget.dataset.key){
+    if (e.currentTarget.dataset.key) {
       images = images.concat([image])
     }
     wx.previewImage({
@@ -160,24 +140,21 @@ var page = Page({
       urls: images,
     })
   },
-  dianzan: function(e) {
-    var commentid = e.target.dataset.id
+  dianzan: function (e) {
     var that = this
-      network.post('/problem/createzancomment',{
-          'openid': app.globalData.openid,
-          'commentid': commentid
-      },function(res) {
-          that.setData({
-              comments: res.comment
-          })
+    network.post('/problem/createzancomment', {
+      'openid': app.globalData.openid,
+      'commentid': e.target.dataset.id
+    }, function (res) {
+      that.setData({
+        comments: res.comment
       })
+    })
   },
 
 
 
-  onShareAppMessage: function(res) {
-    console.log(res)
-    console.log(this.data.problemid)
+  onShareAppMessage: function (res) {
     var problemid = this.data.problemid
     if (res.from === 'button') {
       // 来自页面内转发按钮
@@ -186,62 +163,49 @@ var page = Page({
         title: '[有人@我]数学题，考考你',
         path: '/pages/home/question/question?problemid=' + problemid,
         imageUrl: config.host + '/static/sharepic.jpg',
-        success: function(res) {}
       }
-
     }
     return {
       title: '[有人@我]中小学数学题，考考你~',
       path: '/pages/home/question/question?problemid=' + problemid,
-      success: function(res) {
+      success: function (res) {
       },
-
     }
   },
 
-  handlepic: function() {
+  handlepic: function () {
     this.setData({
       showpic: !this.data.showpic
     })
   },
 
-  modalChange: function(e) {
-    var that = this;
-    that.setData({
-      modalHidden: true
-    })
-  },
-
-
-  showinvitebox: function(e) {
-    var problemid = e.currentTarget.dataset.problemid
+  showinvitebox: function (e) {
     wx.navigateTo({
-      url: `/pages/home/invite/invite?problemid=${problemid}`,
+      url: `/pages/home/invite/invite?problemid=${e.currentTarget.dataset.problemid}`,
     })
   },
 
-
-  subscribe: function(e) {
+  subscribe: function (e) {
     var that = this
     if (e.target.dataset.id == true) {
-      network.post('/problem/subscribe',{
-          'problemid': JSON.parse(this.data.problemid),
-          'userid': app.globalData.selfuserid
-      },function() {
-          that.setData({
-              subscribe_door: false
-          })
+      network.post('/problem/subscribe', {
+        'problemid': JSON.parse(this.data.problemid),
+        'userid': app.globalData.selfuserid
+      }, function () {
+        that.setData({
+          subscribe_door: false
+        })
       })
     } else {
-      network.post( '/problem/desubscribe',{
-          'problemid': JSON.parse(this.data.problemid),
-          'userid': app.globalData.selfuserid
-      },function() {
-          that.setData({
-              subscribe_door: true
-          })
+      network.post('/problem/desubscribe', {
+        'problemid': JSON.parse(this.data.problemid),
+        'userid': app.globalData.selfuserid
+      }, function () {
+        that.setData({
+          subscribe_door: true
+        })
       })
-      this.setData({
+      that.setData({
         subscribe_door: true
       })
 
@@ -249,47 +213,43 @@ var page = Page({
 
   },
 
-  bindItemTap: function() {
+  bindItemTap: function () {
     wx.navigateTo({
       url: '../answer/answer'
     })
   },
 
-
-
-
-  writecomment: function(e) {
+  writecomment: function (e) {
     this.setData({
       commentcontent: e.detail.value
     })
   },
 
 
-  comment: function(event) {
-    var event = event
+  comment: function (event) {
     var that = this
-    if (this.data.commentcontent == null||this.data.commentcontent=='') {
+    if (this.data.commentcontent == null || this.data.commentcontent == '') {
       wx.showModal({
         title: '提示',
         content: '请输入评论',
       })
     } else {
-      network.post('/problem/createcomment',{
-          'openid': app.globalData.openid,
-          'desc': this.data.commentcontent,
-          'problemid': JSON.parse(this.data.problemid)
-      },function(res) {
-          wx.showToast({
-              title: '评论成功',
-          })
-          that.setData({
-              comments: res.comment,
-              commentcontent:''
-          })
-      },function(){
-          wx.showToast({
-              title: '评论失败',
-          })
+      network.post('/problem/createcomment', {
+        'openid': app.globalData.openid,
+        'desc': this.data.commentcontent,
+        'problemid': JSON.parse(this.data.problemid)
+      }, function (res) {
+        wx.showToast({
+          title: '评论成功',
+        })
+        that.setData({
+          comments: res.comment,
+          commentcontent: ''
+        })
+      }, function () {
+        wx.showToast({
+          title: '评论失败',
+        })
       })
     }
   },
@@ -297,23 +257,21 @@ var page = Page({
 
 
 
-  showanswerbox: function() {
+  showanswerbox: function () {
     this.setData({
       answerbox: false
     })
   },
 
 
-  start: function(event) {
+  start: function (event) {
     var that = this
     if (event.currentTarget.dataset.id) {
-
-
       if (app.globalData.audiopath != null) {
         wx.showModal({
           title: '提示',
           content: '你确定需要重录？',
-          success: function(res) {
+          success: function (res) {
             if (res.cancel) {
               return false;
             } else {
@@ -336,39 +294,32 @@ var page = Page({
       that.setData({
         recordstate: true,
         showyuansheng: true,
-        audioSrc: app.globalData.audiopath,
       })
     }
 
   },
 
-  submit: function() {
-    var that = this;
+  submit: function () {
     wx.uploadFile({
       url: config.host + '/upload/',
       filePath: app.globalData.audiopath,
       name: 'record',
-      success: function(res) {
-        app.globalData.returnaudiopath = res.data,
-          app.globalData.audiopath = null
-        that.setData({
-          showaudio: true
-        })
+      success: function (res) {
+        app.globalData.returnaudiopath = res.data
+        app.globalData.audiopath = null
       }
     })
   },
 
-  textsolu: function(e) {
-    var inputnum = e.detail.value.length
+  textsolu: function (e) {
     this.setData({
       textsolu: e.detail.value,
-      inputnum: inputnum
+      inputnum: e.detail.value.length
     })
   },
 
-  play: function(e) {
+  play: function (e) {
     var that = this;
-
     innerAudioContext.src = e.currentTarget.dataset.recordsrc
     innerAudioContext.play();
     innerAudioContext.onPlay((res) => that.updateTime(that)) //没有这个事件触发，无法执行updatatime
@@ -379,7 +330,7 @@ var page = Page({
 
 
 
-  play1: function(e) {
+  play1: function (e) {
     var that = this;
     innerAudioContext.src = app.globalData.audiopath;
     innerAudioContext.play();
@@ -388,18 +339,16 @@ var page = Page({
       tingstate: false
     })
   },
-  pause1: function() {
+  pause1: function () {
     innerAudioContext.pause();
     this.setData({
       tingstate: true
     })
   },
-  updateTime: function(that) {
+  updateTime: function (that) {
 
     innerAudioContext.onTimeUpdate((res) => {
       //更新时把当前的值给slide组件里的value值。slide的滑块就能实现同步更新
-
-
       that.setData({
         duration: innerAudioContext.duration.toFixed(2) * 100,
         curTimeVal: innerAudioContext.currentTime.toFixed(2) * 100,
@@ -411,18 +360,16 @@ var page = Page({
     })
   },
   //拖动滑块
-  slideBar: function(e) {
+  slideBar: function (e) {
     let that = this;
-    var curval = e.detail.value / 100; 
-
-
+    var curval = e.detail.value / 100;
     innerAudioContext.seek(curval); //让滑块跳转至指定位置
     innerAudioContext.onSeeked((res) => {
       this.updateTime(that) //注意这里要继续出发updataTime事件，
     })
   },
 
-  setStopState: function(that) {
+  setStopState: function (that) {
     that.setData({
       curTimeVal: 0,
       tingstate: true
@@ -431,7 +378,7 @@ var page = Page({
     innerAudioContext.stop()
   },
 
-  takephoto: function() {
+  takephoto: function () {
     var that = this;
     wx.chooseImage({
       count: 1, // 默认9
@@ -441,38 +388,39 @@ var page = Page({
         const src = res.tempFilePaths[0]
         that.setData({
           files: [src],
-          answerpicsrc: src,
+
         })
+        answerpicsrc = src
       }
     })
   },
 
-  uploadtext: function(that) {
+  uploadtext: function (that) {
     var stringArray = new Array();
-    network.post('/problem/createsolution',{
-        'desc': that.data.textsolu,
-        'haoti': that.data.haoti,
-        'topicids': stringArray,
-        'problemid': JSON.parse(that.data.problemid),
-        'openid': app.globalData.openid,
-        'pic': '',
-        'record': ''
-    },function() {
-        wx.showToast({
-            title: '回答成功',
-        })
+    network.post('/problem/createsolution', {
+      'desc': that.data.textsolu,
+      'haoti': haoti,
+      'topicids': stringArray,
+      'problemid': JSON.parse(that.data.problemid),
+      'openid': app.globalData.openid,
+      'pic': '',
+      'record': ''
+    }, function () {
+      wx.showToast({
+        title: '回答成功',
+      })
     })
   },
 
 
-  uploadimg: function(that) {
+  uploadimg: function (that) {
     var stringArray = new Array();
     wx.uploadFile({
       url: config.host + '/problem/createsolution',
-      filePath: that.data.answerpicsrc,
+      filePath: answerpicsrc,
       formData: {
         'desc': that.data.textsolu,
-        'haoti': that.data.haoti,
+        'haoti': haoti,
         'topicids': stringArray,
         'problemid': JSON.parse(that.data.problemid),
         'openid': app.globalData.openid,
@@ -480,7 +428,7 @@ var page = Page({
         'norecord': 'true'
       },
       name: 'image',
-      success: function(res) {
+      success: function (res) {
         wx.showToast({
           title: '回答成功',
         })
@@ -490,12 +438,12 @@ var page = Page({
 
 
 
-  uploadrecord: function(that) {
+  uploadrecord: function (that) {
     var stringArray = new Array();
     wx.uploadFile({
       formData: {
         'desc': that.data.textsolu,
-        'haoti': that.data.haoti,
+        'haoti': haoti,
         'topicids': stringArray,
         'problemid': JSON.parse(that.data.problemid),
         'openid': app.globalData.openid,
@@ -505,17 +453,17 @@ var page = Page({
       url: config.host + '/problem/createsolution',
       filePath: app.globalData.audiopath,
       name: 'record',
-      success: function(res) {
+      success: function (res) {
         wx.showToast({
           title: '回答成功',
         })
       },
     })
   },
-  submitanswer: function(e) {
-    network.post('/user/pushformid',{
-        'formid': e.detail.formId,
-        'openid': app.globalData.openid
+  submitanswer: function (e) {
+    network.post('/user/pushformid', {
+      'formid': e.detail.formId,
+      'openid': app.globalData.openid
     })
 
     var that = this;
@@ -531,10 +479,10 @@ var page = Page({
       if (app.globalData.audiopath) {
         that.uploadrecord(that)
       }
-      if (that.data.answerpicsrc) {
+      if (answerpicsrc) {
         that.uploadimg(that)
       }
-      if (!that.data.answerpicsrc & !app.globalData.audiopath) {
+      if (!answerpicsrc & !app.globalData.audiopath) {
         that.uploadtext(that)
       }
       app.globalData.audiopath = null
@@ -545,7 +493,7 @@ var page = Page({
 
 
 
-  showmore: function(e) {
+  showmore: function (e) {
     var userid = e.currentTarget.dataset.userid
     var avatar = e.currentTarget.dataset.avatar
     var username = e.currentTarget.dataset.username
@@ -562,7 +510,7 @@ var page = Page({
     }
   },
 
-  onLoad: function(option) {
+  onLoad: function (option) {
 
     this.setData({
       problemid: option.problemid
@@ -573,12 +521,12 @@ var page = Page({
     if (!app.globalData.openid || app.globalData.openid == undefined) {
       wx.login({
         success: res => {
-          network.post('/user/getopenid',{
-              js_code: res.code
-          },function(res) {
-              app.globalData.openid = res.openid
-              app.globalData.selfuserid = res.userid
-              getproblem(that)
+          network.post('/user/getopenid', {
+            js_code: res.code
+          }, function (res) {
+            app.globalData.openid = res.openid
+            app.globalData.selfuserid = res.userid
+            getproblem(that)
           })
         }
       })
@@ -588,27 +536,27 @@ var page = Page({
 
   },
 
-  onReady: function() {
+  onReady: function () {
     var that = this
 
     if (!app.globalData.openid) {
       wx.login({
         success: res => {
-          network.post('/user/getopenid',{
-              js_code: res.code
-          },function(res) {
-              app.globalData.openid = res.openid
-              app.globalData.selfuserid = res.userid
-              app.connect()
+          network.post('/user/getopenid', {
+            js_code: res.code
+          }, function (res) {
+            app.globalData.openid = res.openid
+            app.globalData.selfuserid = res.userid
+            app.connect()
           })
         }
       })
     }
   },
-  onShow: function() {
+  onShow: function () {
     wx.hideKeyboard()
   },
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     var that = this
     getproblem(that)
     wx.stopPullDownRefresh() //停止下拉刷新
@@ -617,32 +565,32 @@ var page = Page({
 
 function getproblem(that) {
   wx.showNavigationBarLoading()
-    network.post('/problem/detail',{
-        'problemid': that.data.problemid,
-        'openid': app.globalData.openid
-    },function(res) {
-        var problem = res.problem
-        if (!problem.problempic) {
-            problem.problempic = 'noimages'
-        }
-        that.setData({
-            subscribe_door: res.subscribe_door!='1',
-            grade: problem.grade,
-            category:problem.category||'',
-            desc: problem.description,
-            problempic: problem.problempic,
-            problempic1:problem.problempic1||'',
-            problempic2: problem.problempic2 || '',
-            problempic3: problem.problempic3 || '',
-            answer: res.answer||[],
-            hidehuida: res.hideanwserbox,
-            comments: res.comment||[],
-            lookedtime: res.lookedtime,
-            hidecaina: res.hidecaina != undefined,
-            showdetail: true,
-        })
-        app.globalData.answerlist = that
-    },function() {},function() {
-        wx.hideNavigationBarLoading()
+  network.post('/problem/detail', {
+    'problemid': that.data.problemid,
+    'openid': app.globalData.openid
+  }, function (res) {
+    var problem = res.problem
+    if (!problem.problempic) {
+      problem.problempic = 'noimages'
+    }
+    that.setData({
+      subscribe_door: res.subscribe_door != '1',
+      grade: problem.grade,
+      category: problem.category || '',
+      desc: problem.description,
+      problempic: problem.problempic,
+      problempic1: problem.problempic1 || '',
+      problempic2: problem.problempic2 || '',
+      problempic3: problem.problempic3 || '',
+      answer: res.answer || [],
+      hidehuida: res.hideanwserbox,
+      comments: res.comment || [],
+      lookedtime: res.lookedtime,
+      hidecaina: res.hidecaina != undefined,
+      showdetail: true,
     })
+    app.globalData.answerlist = that
+  }, function () { }, function () {
+    wx.hideNavigationBarLoading()
+  })
 }

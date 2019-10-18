@@ -1,12 +1,10 @@
 // pages/searchres/searchres.js
 const app = getApp()
 var network = require('../../../utils/network.js')
-var console = require('../../../utils/console.js')
 Page({
-
   data: {
-  searchlist:[],
-  searchlistnull:0,
+    searchlist: [],
+    searchlistnull: 0,
     msg2: {
       icon: '/images/empty.png',
       buttons: [{
@@ -14,8 +12,8 @@ Page({
       }],
     },
   },
-  pushformid:function(e){
-    network.post('/user/pushformid',{ 'formid': e.detail.formId, 'openid': app.globalData.openid })
+  pushformid: function (e) {
+    network.post('/user/pushformid', { 'formid': e.detail.formId, 'openid': app.globalData.openid })
     wx.navigateBack({
       url: '/pages/home/tosolve/tosolve'
     })
@@ -26,19 +24,16 @@ Page({
     wx.navigateTo({
       url: `/pages/home/question/question?problemid=${problemid}`
     })
-
   },
-
-
 
   onLoad: function (options) {
     var searchlist = app.globalData.searchlist
-    if (!searchlist){
+    if (!searchlist) {
       this.setData({
         searchlist: [],
         searchlistnull: 0
       })
-    }else{
+    } else {
       this.setData({
         searchlist: searchlist,
         searchlistnull: searchlist.length

@@ -11,10 +11,7 @@
     </form>
   </view>
 </view>
-
-
 <view wx:else>
-
   <scroll-view scroll-y="true" class="container">
     <block wx:for="{{subscriberlist}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
       <view class="feed-item">
@@ -22,10 +19,16 @@
           <view class="question line-reback" style='display:flex' data-username='{{item.nickname}}' data-avatar='{{item.avatar}}'>
             <image src='{{item.avatar}}' class='comments-avatar-img'></image>
             <view style='flex:6;text-align:left;padding-left:20px;align-self:center;'>
-              <text class='feed-content' style='font-size:30rpx;overflow:hidden;'>{{item.nickname}}</text>
+              <text class='feed-content' style='font-size:30rpx;overflow:hidden;'>
+                {{item.nickname}}
+              </text>
             </view>
-            <view style='flex:4' wx:if="{{item.invited=='true' || invitedsign[index]}}" class='right'>已邀请</view>
-            <view style='flex:4' wx:else class='right' bindtap='invite' data-index='{{index}}' data-beinviter='{{item.beinviterid}}'>邀请</view>
+            <view style='flex:4' wx:if="{{item.invited=='true' || invitedsign[index]}}" class='right'>
+              已邀请
+            </view>
+            <view style='flex:4' wx:else class='right' bindtap='invite' data-index='{{index}}' data-beinviter='{{item.beinviterid}}'>
+              邀请
+            </view>
           </view>
         </view>
       </view>

@@ -1,16 +1,17 @@
-  <text style='text-align:center;display:block'>答题之星</text>
-  <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}" style='border-bottom:0.1px solid #F0F0F0;'>
-    <view class="segment" >
-            <image class="bigavatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
-            <view style='display:flex'>
-                        <text class='textstyle test'>{{item.nickname}}</text>
-            <text class='centertext' style='position:absolute;margin-right:30rpx;margin-left:120rpx'>已答{{item.solutionum-1}}        被采纳{{item.cainanum-1}}</text>
-            </view>
-            <!-- <image class='icon' src='../../images/firstrank.png'></image> -->
-            <view style='position:absolute;font-size:30rpx;right:50rpx;align-items:center;'>
-            <icon class='mathoj mathojxunzhang' style="font-size:80rpx;color:{{index==0?'gold':index==1?'silver':index==2?'orange':''}}"></icon>
-            <text style=''>{{index+1}}</text>
-            </view>
-
+<text style='text-align:center;display:block'>答题之星</text>
+<scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}" style='border-bottom:0.1px solid #F0F0F0;'>
+  <view class="segment">
+    <image class="bigavatar" src="{{item.avatar}}" bindtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
+    <view style='display:flex'>
+      <text class='textstyle test'>{{item.nickname}}</text>
+      <text class='centertext' style='position:absolute;margin-right:30rpx;margin-left:120rpx'>
+        已答{{item.solutionum-1}}        被采纳{{item.cainanum-1}}
+      </text>
     </view>
-  </scroll-view>
+    <!-- <image class='icon' src='../../images/firstrank.png'></image> -->
+    <view style='position:absolute;font-size:30rpx;right:50rpx;align-items:center;'>
+      <icon class='mathoj mathojxunzhang' style="font-size:80rpx;color:{{index==0?'gold':index==1?'silver':index==2?'orange':''}}"></icon>
+      <text style=''>{{index+1}}</text>
+    </view>
+  </view>
+</scroll-view>

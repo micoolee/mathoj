@@ -4,9 +4,6 @@ var console = require('../../utils/console.js')
 var network = require('../../utils/network.js')
 Page({
 
-  /**
-   * 页面的初始数据# 0:xitong tongzhi; 1:your problem has answer;2:your guanzhu problem has answer; 3:your comment be thumbed up 4: someone invite you 5:someone subscribe you
-   */
   data: {
     informlist: [],
     sixindoor: false,
@@ -21,19 +18,19 @@ Page({
     }
   },
 
-  bindTouchStart: function(e) {
+  bindTouchStart: function (e) {
     this.startTime = e.timeStamp;
   },
-  bindTouchEnd: function(e) {
+  bindTouchEnd: function (e) {
     this.endTime = e.timeStamp;
   },
 
-  onLoad: function() {
+  onLoad: function () {
     var that = this
     app.globalData.informthat = that
     app.getlastedinform()
-    network.post('/message/checksession',{
-        'openid': app.globalData.openid
+    network.post('/message/checksession', {
+      'openid': app.globalData.openid
     }, function (res) {
       if (res.res) {
         that.setData({
@@ -46,14 +43,14 @@ Page({
   },
 
 
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     wx.showNavigationBarLoading() //在标题栏中显示加载
     app.getlastedinform()
     wx.stopPullDownRefresh() //停止下拉刷新    
     wx.hideNavigationBarLoading() //完成停止加载
   },
 
-  showinformdetail: function(e) {
+  showinformdetail: function (e) {
     var that = this
     var informid = e.currentTarget.dataset.informid
     if (this.endTime - this.startTime < 350) {
@@ -67,9 +64,9 @@ Page({
         if (readed == '0') {
           that.data.informlist[index].readed = '1'
           app.globalData.informlist = that.data.informlist
-          network.post('/message/read',{
-              'messageid': informid
-            })
+          network.post('/message/read', {
+            'messageid': informid
+          })
         }
 
         wx.navigateTo({
@@ -84,9 +81,9 @@ Page({
         if (readed == '0') {
           that.data.informlist[index].readed = '1'
           app.globalData.informlist = that.data.informlist
-          network.post('/message/read',{
-              'messageid': informid
-            })
+          network.post('/message/read', {
+            'messageid': informid
+          })
         }
         wx.navigateTo({
           url: `../settings/profile/profile?userid=${sourcerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
@@ -97,9 +94,9 @@ Page({
         if (readed == '0') {
           that.data.informlist[index].readed = '1'
           app.globalData.informlist = that.data.informlist
-          network.post('/message/read',{
-              'messageid': informid
-            })
+          network.post('/message/read', {
+            'messageid': informid
+          })
         }
         wx.navigateTo({
           url: `/pages/inform/howtouse/howtouse`,
@@ -110,11 +107,11 @@ Page({
       wx.showModal({
         title: '提示',
         content: '是否删除',
-        success: function(res) {
+        success: function (res) {
           if (res.confirm) {
-            network.post('/message/delete',{
-                'messageid': informid,
-                'openid': app.globalData.openid
+            network.post('/message/delete', {
+              'messageid': informid,
+              'openid': app.globalData.openid
             }, function () {
               app.getlastedinform(that)
               wx.showToast({
@@ -128,7 +125,7 @@ Page({
     }
   },
 
-  showmore: function(e) {
+  showmore: function (e) {
     var sourcerid = e.currentTarget.dataset.sourcerid
     var avatar = e.currentTarget.dataset.avatar
     var username = e.currentTarget.dataset.username
@@ -143,13 +140,11 @@ Page({
         url: `../settings/profile/profile?userid=${sourcerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
       })
     }
-
-
   },
 
 
 
-  showsixin: function() {
+  showsixin: function () {
     this.setData({
       sixindoor: false
     })
@@ -161,7 +156,7 @@ Page({
 
 
 
-  onShow: function() {
+  onShow: function () {
     var that = this
     if (app.globalData.sixindoor) {
       this.setData({
@@ -183,7 +178,7 @@ Page({
     })
   },
 
-  onHide: function() {
+  onHide: function () {
     app.globalData.reddot = false
     wx.hideTabBarRedDot({
       index: 2,

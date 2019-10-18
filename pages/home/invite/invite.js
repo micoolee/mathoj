@@ -3,43 +3,39 @@ const app = getApp()
 var network = require('../../../utils/network.js')
 var console = require('../../../utils/console.js')
 var config = require('../../../config.js')
+var problemid = null
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    problemid: null,
     invitedsign: [false],
     noone: false,
     icon: '/images/empty.png',
   },
 
-  onShareAppMessage: function(res) {
-    var that = this
-    console.log(res)
+  onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
       return {
         title: '[有人@我]数学题，你会做么',
-        path: '/pages/home/question/question?problemid=' + that.data.problemid,
+        path: '/pages/home/question/question?problemid=' + problemid,
         imageUrl: config.host + '/swagger/mobiwusi.jpg',
       }
     }
   },
 
-  invite: function(e) {
-    var beinviter = e.currentTarget.dataset.beinviter
+  invite: function (e) {
     var that = this
-    var index = e.currentTarget.dataset.index
     network.post('/problem/createinvite', {
       'inviterid': app.globalData.selfuserid,
-      'beinviterid': beinviter,
-      'problemid': JSON.parse(that.data.problemid)
-    }, function(res) {
+      'beinviterid': e.currentTarget.dataset.beinviter,
+      'problemid': JSON.parse(problemid)
+    }, function (res) {
       var tmp = that.data.invitedsign
       console.log('tmp:', tmp)
-      tmp[index] = true
+      tmp[e.currentTarget.dataset.index] = true
       that.setData({
         invitedsign: tmp
       })
@@ -47,22 +43,21 @@ Page({
 
   },
 
-  torank: function(e) {
+  torank: function (e) {
     network.post('/user/pushformid', {
       'formid': e.detail.formId,
       'openid': app.globalData.openid
     })
-    var that = this
     wx.switchTab({
       url: '/pages/top/top',
     })
   },
-  onShow: function() {
+  onShow: function () {
     var that = this
     network.post('/problem/getinvitelist', {
       'openid': app.globalData.openid,
-      'problemid': JSON.parse(that.data.problemid)
-    }, function(res) {
+      'problemid': JSON.parse(problemid)
+    }, function (res) {
       var subscriberlist = res.beinviter
       if (!subscriberlist) {
         that.setData({
@@ -83,11 +78,8 @@ Page({
       })
     })
   },
-  onLoad: function(options) {
-    var that = this
-    that.setData({
-      problemid: options.problemid
-    })
+  onLoad: function (options) {
+    problemid = options.problemid
   },
 
 })

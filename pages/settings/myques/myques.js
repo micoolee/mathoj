@@ -7,14 +7,13 @@ Page({
   data: {
     problemlist: null,
     problemlistnull: 0,
-    icon: '../../../images/empty.png',
+    icon: '/images/empty.png',
   },
-  deleteproblem: function(e) {
-    console.log(e)
+  deleteproblem: function (e) {
     wx.showModal({
       title: '提示',
       content: '确定要删除吗？',
-      success: function(sm) {
+      success: function (sm) {
         if (sm.confirm) {
           network.post('/problem/delete', {
             'problemid': e.currentTarget.dataset.pid
@@ -26,8 +25,7 @@ Page({
     })
 
   },
-  tosolve: function(e) {
-    var that = this
+  tosolve: function (e) {
     network.post('/user/pushformid', {
       'formid': e.detail.formId,
       'openid': app.globalData.openid
@@ -36,18 +34,17 @@ Page({
       url: '/pages/home/tosolve/tosolve',
     })
   },
-  bindQueTap: function(event) {
-    var problemid = event.currentTarget.dataset.id
+  bindQueTap: function (e) {
     wx.navigateTo({
-      url: `/pages/home/question/question?problemid=${problemid}`
+      url: `/pages/home/question/question?problemid=${e.currentTarget.dataset.id}`
     })
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this
     network.post('/problem/getmyproblem', {
       'openid': app.globalData.openid
-    }, function(res) {
+    }, function (res) {
       if (res.myproblem) {
         that.setData({
           problemlist: res.myproblem,

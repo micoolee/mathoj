@@ -8,11 +8,10 @@ Page({
     problemlist: null,
     problemlistnull: 0,
     loadok: false,
-    icon: '../../../images/empty.png',
+    icon: '/images/empty.png',
   },
 
-  tosolve: function(e) {
-    var that = this
+  tosolve: function (e) {
     network.post('/user/pushformid', {
       'formid': e.detail.formId,
       'openid': app.globalData.openid
@@ -23,32 +22,30 @@ Page({
   },
 
 
-  bindTouchStart: function(e) {
+  bindTouchStart: function (e) {
     this.startTime = e.timeStamp;
   },
-  bindTouchEnd: function(e) {
+  bindTouchEnd: function (e) {
     this.endTime = e.timeStamp;
   },
-  bindQueTap: function(e) {
+  bindQueTap: function (e) {
     if (this.endTime - this.startTime < 350) {
-      var problemid = e.currentTarget.dataset.id
       wx.navigateTo({
-        url: `/pages/home/question/question?problemid=${problemid}`
+        url: `/pages/home/question/question?problemid=${e.currentTarget.dataset.id}`
       })
     }
   },
-  bindLongTap: function(e) {
-    var problemid = e.currentTarget.dataset.id
+  bindLongTap: function (e) {
     var that = this
     wx.showModal({
       title: '提示',
       content: '是否删除',
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           network.post('/deletehist', {
-            'problemid': problemid,
+            'problemid': e.currentTarget.dataset.id,
             'userid': app.globalData.openid
-          }, function() {
+          }, function () {
             wx.showToast({
               title: 'delete success',
             })
@@ -58,11 +55,11 @@ Page({
       }
     })
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this
     network.post('/problem/getmyhistory', {
       'openid': app.globalData.openid
-    }, function(res) {
+    }, function (res) {
       if (res.history) {
         that.setData({
           loadok: true,

@@ -7,18 +7,15 @@
       <text>无评论记录</text>
     </view>
     <view>
-            <form  report-submit='true' bindsubmit='tosolve'>
-
-      <button class='wux-button--dark' form-type='submit' >随便逛逛</button>
+      <form report-submit='true' bindsubmit='tosolve'>
+        <button class='wux-button--dark' form-type='submit'>随便逛逛</button>
       </form>
     </view>
   </view>
-
   <view wx:else>
     <scroll-view class="container">
       <block wx:for="{{commentlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
         <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap'>
-
           <view class="feed-content">
             <view class="question line-reback" qid="{{question_id}}">
               <a class="question-link">
@@ -28,10 +25,9 @@
             <view class="answer-body">
               <view class="answer-actions" style='display:flex;justify-content:space-between;'>
                 <view class="like">
-                  <a wx:if="{{item.zanernum}}">{{item.zanernum}} 赞同 </a>
-                  <a wx:else>0 赞同 </a>
+                  <a wx:if="{{item.zanernum}}">{{item.zanernum}} 赞同</a>
+                  <a wx:else>0 赞同</a>
                 </view>
-
                 <view catchtap='deletecomment' data-cid='{{item.commentid}}' class="like" style='margin-right:20rpx'>
                   <a>删除</a>
                 </view>

@@ -10,24 +10,22 @@ Page({
   data: {
     userInfo: {},
     ziji: false,
-    profileropenid: null,
     subscribe_door: true,
     sessionid: 0
   },
 
-  sendsixin: function(e) {
+  sendsixin: function (e) {
     network.post('/user/pushformid', {
       'formid': e.detail.formId,
       'openid': app.globalData.openid
     })
-
     app.globalData.receiverid = e.currentTarget.dataset.askerid
     wx.navigateTo({
       url: `../../inform/message/chat/chat?receiverid=${e.currentTarget.dataset.askerid}&newsession=true&sessionid=${e.currentTarget.dataset.sessionid}`,
     })
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
 
     this.setData({
       userInfo: {
@@ -39,7 +37,7 @@ Page({
     })
   },
 
-  subscribe: function(e) {
+  subscribe: function (e) {
     network.post('/user/pushformid', {
       'formid': e.detail.formId,
       'openid': app.globalData.openid
@@ -49,7 +47,7 @@ Page({
       network.post('/user/subscribe', {
         'besubscriberid': e.currentTarget.dataset.askerid,
         'subscriberid': app.globalData.openid
-      }, function(res) {
+      }, function (res) {
         wx.showToast({
           title: '关注成功',
         })
@@ -61,7 +59,7 @@ Page({
       network.post('/user/desubscribe', {
         'besubscriberid': e.currentTarget.dataset.askerid,
         'subscriberid': app.globalData.openid
-      }, function() {
+      }, function () {
         wx.showToast({
           title: '已取消关注',
         })
@@ -72,12 +70,12 @@ Page({
     }
 
   },
-  onShow: function() {
+  onShow: function () {
     var that = this
     network.post('/message/getsessionid', {
       'receiveropenid': that.data.userInfo.profileropenid,
       'senderid': app.globalData.selfuserid
-    }, function(res) {
+    }, function (res) {
       if (res.subscribenum) {
         that.setData({
           subscribe_door: false

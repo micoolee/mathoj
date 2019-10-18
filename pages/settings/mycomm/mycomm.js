@@ -7,13 +7,13 @@ Page({
     commentlist: [],
     commentlistnull: 0,
     loadok: false,
-    icon: '../../../images/empty.png',
+    icon: '/images/empty.png',
   },
-  deletecomment: function(e) {
+  deletecomment: function (e) {
     wx.showModal({
       title: '提示',
       content: '确定要删除吗？',
-      success: function(sm) {
+      success: function (sm) {
         if (sm.confirm) {
           network.post('/problem/deletecomment', {
             'commentid': e.currentTarget.dataset.cid
@@ -25,8 +25,7 @@ Page({
     })
   },
 
-  tosolve: function(e) {
-    var that = this
+  tosolve: function (e) {
     network.post('/user/pushformid', {
       'formid': e.detail.formId,
       'openid': app.globalData.openid
@@ -36,11 +35,11 @@ Page({
     })
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this
     network.post('/problem/getmycomment', {
       'openid': app.globalData.openid
-    }, function(res) {
+    }, function (res) {
       if (res.mycomment) {
         that.setData({
           commentlist: res.mycomment,
@@ -57,13 +56,9 @@ Page({
     })
   },
 
-
-
-  bindQueTap: function(e) {
-    var problemid = e.currentTarget.dataset.id
+  bindQueTap: function (e) {
     wx.navigateTo({
-      url: `/pages/home/question/question?problemid=${problemid}`
+      url: `/pages/home/question/question?problemid=${e.currentTarget.dataset.id}`
     })
-
   },
 })

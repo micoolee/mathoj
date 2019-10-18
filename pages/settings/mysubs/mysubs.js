@@ -11,49 +11,43 @@ Page({
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-    icon: '../../../images/empty.png',
+    icon: '/images/empty.png',
   },
 
 
-  tabClick: function(e) {
+  tabClick: function (e) {
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
   },
 
-
-
-  showmore: function(e) {
-    var userid = e.currentTarget.dataset.userid
-    var avatar = e.currentTarget.dataset.avatar
-    var username = e.currentTarget.dataset.username
+  showmore: function (e) {
+    var dataset = e.currentTarget.dataset
     var openid = app.globalData.openid
     wx.navigateTo({
-      url: `../profile/profile?userid=${userid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+      url: `../profile/profile?userid=${dataset.userid}&avatar=${dataset.avatar}&username=${dataset.username}&openid=${openid}`,
     })
-
   },
 
-  bindTouchStart: function(e) {
+  bindTouchStart: function (e) {
     this.startTime = e.timeStamp;
   },
-  bindTouchEnd: function(e) {
+  bindTouchEnd: function (e) {
     this.endTime = e.timeStamp;
   },
 
-  bindLongTap: function(e) {
+  bindLongTap: function (e) {
     var that = this
-    var problemid = e.currentTarget.dataset.id
     wx.showModal({
       title: '提示',
       content: '是否删除',
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           network.post('/desubscribe', {
-            'problemid': problemid,
+            'problemid': e.currentTarget.dataset.id,
             'userid': app.globalData.openid
-          }, function() {
+          }, function () {
             wx.showToast({
               title: 'delete success',
             })
@@ -65,16 +59,15 @@ Page({
     })
   },
 
-  bindQueTap: function(e) {
+  bindQueTap: function (e) {
     if (this.endTime - this.startTime < 350) {
-      var problemid = e.currentTarget.dataset.id
       wx.navigateTo({
-        url: `/pages/home/question/question?problemid=${problemid}`
+        url: `/pages/home/question/question?problemid=${e.currentTarget.dataset.id}`
       })
     }
   },
 
-  tosolve: function(e) {
+  tosolve: function (e) {
     network.post('/user/pushformid', {
       'formid': e.detail.formId,
       'openid': app.globalData.openid
@@ -84,26 +77,24 @@ Page({
     })
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this
     network.post('/problem/getmysubscribeprob', {
       'openid': app.globalData.openid
-    }, function(res) {
-      var problemlist = res.problem
-      if (problemlist) {
+    }, function (res) {
+      if (res.problem) {
         that.setData({
-          problemlist: problemlist,
+          problemlist: res.problem,
         })
       }
-
     })
+
     network.post('/problem/getmysubscribeuser', {
       'openid': app.globalData.openid
-    }, function(res) {
-      var subscriberlist = res.user
-      if (subscriberlist) {
+    }, function (res) {
+      if (res.user) {
         that.setData({
-          subscriberlist: subscriberlist
+          subscriberlist: res.user
         })
       }
     })
@@ -114,7 +105,7 @@ Page({
     })
 
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         that.setData({
           sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
