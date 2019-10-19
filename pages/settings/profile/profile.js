@@ -71,26 +71,6 @@ Page({
 
   },
   onShow: function () {
-    var that = this
-    network.post('/message/getsessionid', {
-      'receiveropenid': that.data.userInfo.profileropenid,
-      'senderid': app.globalData.selfuserid
-    }, function (res) {
-      if (res.subscribenum) {
-        that.setData({
-          subscribe_door: false
-        })
-      }
-      if (res.sessionid) {
-        that.setData({
-          sessionid: res.sessionid,
-        })
-      } else {
-        that.setData({
-          sessionid: 0,
-        })
-      }
-    })
   }
 
 

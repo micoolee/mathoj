@@ -184,40 +184,6 @@ function pulldownmessage(that = null) {
   })
 }
 
-
-function getsessions(app, that = null) {
-  console.log('app:', app)
-  network.post('/message/getsessions', {
-    'openid': app.globalData.openid
-  }, function (res) {
-    var sessionlist = res.session
-    console.log('sessions res:', res)
-    if (!sessionlist) {
-      app.globalData.sessionlist = []
-      if (that != null) {
-        that.setData({
-          showdetail: true,
-          sessionlist: [],
-          sessionlistnull: 0
-        })
-      }
-    } else {
-      app.globalData.sessionlist = sessionlist
-      if (that != null) {
-        that.setData({
-          showdetail: true,
-          sessionlist: app.globalData.sessionlist,
-          sessionlistnull: app.globalData.sessionlist.length
-        })
-      }
-    }
-  }, function () {
-
-  }, function () {
-    wx.hideNavigationBarLoading() //完成停止加载
-  })
-}
-
 function get10prob(that, searchparam = []) {
   network.post('/problem/getten', {
     'formerid': that.data.formerid,
@@ -471,7 +437,6 @@ module.exports = {
   get_or_create_avatar: get_or_create_avatar,
   checkuserinfo: checkuserinfo,
   loading: loading,
-  getsessions: getsessions,
   storedid: storedid,
   uploadfile: uploadfile,
   categorys: categorys,

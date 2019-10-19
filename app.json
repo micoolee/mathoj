@@ -11,7 +11,6 @@
     "pages/settings/myhist/myhist",
     "pages/settings/mycomm/mycomm",
     "pages/settings/profile/profile",
-    "pages/inform/message/message",
     "pages/inform/inform",
     "pages/home/searchres/searchres",
     "pages/home/invite/invite",
@@ -19,14 +18,12 @@
     "pages/getuserinfo/getuserinfo",
     "pages/inform/howtouse/howtouse",
     "pages/map/map",
-    "pages/inform/message/chat/chat",
     "pages/settings/config/config"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",
     "borderStyle": "white",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/home/tosolve/tosolve",
         "text": "首页",
         "iconPath": "images/home.png",
@@ -61,13 +58,12 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "数学辅导君",
+    "navigationBarTitleText": "杭佳",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
   "debug": false,
-  "plugins": {
-  },
+  "plugins": {},
   "navigateToMiniProgramAppIdList": [
     "wxaf249daf125d652c"
   ],

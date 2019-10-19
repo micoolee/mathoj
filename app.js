@@ -16,7 +16,6 @@ App({
     informlist: [],
     messagethat: null,
     reddot: false,
-    sixindoor: false,
     chatroomthat: null,
     searchlist: [],
     placeholder: '',
@@ -50,74 +49,6 @@ App({
     })
   },
 
-  connect: function () {
-    var config = require('./config.js')
-    var that = this
-    wx.connectSocket({
-      url: config.wssurl + '/' + that.globalData.selfuserid,
-    })
-
-    wx.onSocketOpen(function (res) {
-      that.globalData.closetime = 0
-      console.log('socket connect')
-      wx.sendSocketMessage({
-        data: {
-          'openid': that.globalData.openid
-        },
-      })
-      wx.onSocketMessage(function (res) {
-        var singlemessage = JSON.parse(res.data)
-        var all = that.globalData.sessionlist
-        var index = null
-        for (var i in all) {
-          if (all[i].sessionid == singlemessage.sessionid) {
-            all[i].sixin.push(singlemessage.sixin);
-            index = i
-          }
-        }
-        if (all.length == 0 | index == null) {
-          all.unshift(singlemessage)
-        }
-        that.globalData.sessionlist = all
-        if (that.globalData.informthat) {
-          that.globalData.informthat.setData({
-            sixindoor: true,
-          })
-        } else {
-          that.globalData.sixindoor = true
-        }
-
-        if (that.globalData.messagethat) {
-          that.globalData.messagethat.setData({
-            sessionlist: all
-          })
-        }
-
-        if (that.globalData.chatroomthat && index != null) {
-          that.globalData.chatroomthat.setData({
-            sixinlist: all[index].sixin
-          })
-          that.globalData.chatroomthat.refresh()
-        }
-
-        that.globalData.reddot = true
-        wx.vibrateShort({})
-        wx.showTabBarRedDot({
-          index: 3,
-        })
-
-      })
-    });
-    wx.onSocketError(function (res) {
-      that.globalData.closetime = that.globalData.closetime + 1
-    });
-
-    wx.onSocketClose(function (res) {
-      console.log('socket close');
-      setTimeout(that.connect, that.globalData.closetime * 1000)
-    })
-  },
-
 
   login_getopenid: function (res) {
     var util = require('utils/util.js')
@@ -132,7 +63,6 @@ App({
       that.globalData.onlysee = res.onlysee || false
       that.globalData.getopenidok = true
       that.globalData.logged = res.logged
-      util.getsessions(that)
 
       wx.getUserInfo({
         success: res => {
@@ -149,7 +79,6 @@ App({
           url: '/pages/getuserinfo/getuserinfo?status=1',
         })
       }
-      that.connect()
     }, function (e) {
       console.log('login_getopenid:', e)
       setTimeout(function (e) {

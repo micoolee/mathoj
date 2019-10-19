@@ -6,7 +6,6 @@ Page({
 
   data: {
     informlist: [],
-    sixindoor: false,
     icons: {
       '1': 'mathojxixitongxiaoxi',
       '2': 'mathojdingyue',
@@ -29,17 +28,6 @@ Page({
     var that = this
     app.globalData.informthat = that
     app.getlastedinform()
-    network.post('/message/checksession', {
-      'openid': app.globalData.openid
-    }, function (res) {
-      if (res.res) {
-        that.setData({
-          sixindoor: true
-        })
-      }
-    })
-
-
   },
 
 
@@ -144,25 +132,11 @@ Page({
 
 
 
-  showsixin: function () {
-    this.setData({
-      sixindoor: false
-    })
-    app.globalData.sixindoor = false
-    wx.navigateTo({
-      url: '../inform/message/message',
-    })
-  },
-
 
 
   onShow: function () {
     var that = this
-    if (app.globalData.sixindoor) {
-      this.setData({
-        sixindoor: true
-      })
-    }
+
 
 
 

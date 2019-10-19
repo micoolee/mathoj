@@ -1,8 +1,4 @@
 <view class='container'>
-  <view class="feed-item" bindtap='showsixin' style='font-size:20px;text-align:center'>
-    私信
-    <image wx:if="{{sixindoor}}" class='reddot' src='../../images/reddot.png'></image>
-  </view>
   <view class='weui-cells_after-title tongzhiliebiao'>通知列表:</view>
   <scroll-view wx:for="{{informlist}}" wx:key="{{item.messageid}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
     <view class="segment" bindtap='showinformdetail' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.messageid}}' data-problemid='{{item.problemid}}' data-informtype='{{item.messagetype}}' data-sourcerid='{{item.sourcerid}}' data-readed='{{item.readed}}' data-index='{{index}}' data-avatar='{{item.senderavatar}}' data-openid='{{item.senderopenid}}' data-username='{{item.sendernickname}}'>
