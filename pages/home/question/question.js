@@ -305,7 +305,6 @@ var page = Page({
       filePath: app.globalData.audiopath,
       name: 'record',
       success: function (res) {
-        app.globalData.returnaudiopath = res.data
         app.globalData.audiopath = null
       }
     })
@@ -589,7 +588,6 @@ function getproblem(that) {
       hidecaina: res.hidecaina != undefined,
       showdetail: true,
     })
-    app.globalData.answerlist = that
   }, function () { }, function () {
     wx.hideNavigationBarLoading()
   })

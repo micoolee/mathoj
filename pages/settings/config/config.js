@@ -25,7 +25,11 @@ Page({
   },
   save: function (e) {
     var that = this
-    network.post('/user/updateconfig', { 'userid': app.globalData.selfuserid, 'onlysee': that.data.onlysee, 'grade': that.data.index * 1 }, function (e) {
+    network.post('/user/updateconfig', {
+      'userid': app.globalData.selfuserid,
+      'onlysee': that.data.onlysee,
+      'grade': that.data.index * 1
+    }, function (e) {
       wx.showToast({
         title: '更新成功',
         duration: 1000,

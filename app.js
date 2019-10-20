@@ -4,33 +4,39 @@ App({
     mapCtx: null,
     openid: null,
     audiopath: null,
-    audiopathbak: null,
-    returnaudiopath: '',
     screenwidth: 0,
     screenheight: 0,
     messagelist: [],
-    sessionlist: [],
     receiverid: null,
-    closetime: 0,
     informthat: null,
     informlist: [],
-    messagethat: null,
     reddot: false,
-    chatroomthat: null,
     searchlist: [],
     placeholder: '',
-    answerlist: [],
     nickname: '路人甲',
     avatar: 'stranger',
     authorized: 'false',
     fromgetuserinfo: false,
-    selfuserid: null,
-    sessionindex: null,
+    selfuserid: null, //user表的userid，time生成
     grade: null,
     onlysee: true,
     tosolvethat: null,
     getopenidok: false,
     logged: true //今天是否登录了，用于upload头像
+  },
+  onLaunch: function () {
+    var that = this
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.login({
+      success: res => {
+        that.login_getopenid(res)
+      }
+    })
+    var a = wx.getSystemInfoSync()
+    that.globalData.screenwidth = a.windowWidth
+    that.globalData.screenheight = a.windowHeight
   },
 
   getlastedinform: function (informthat = null) {
@@ -67,14 +73,14 @@ App({
       wx.getUserInfo({
         success: res => {
           util.loading(that)
-          that.globalData.userInfo = res.userInfo
           that.globalData.hasUserInfo = true
+          that.globalData.userInfo = res.userInfo
           that.globalData.nickname = res.userInfo.nickName
           that.globalData.avatar = res.userInfo.avatarUrl
         }
       })
 
-      if (res.punish && res.punish == '1') {
+      if (res.punish == '1') {
         wx.redirectTo({
           url: '/pages/getuserinfo/getuserinfo?status=1',
         })
@@ -88,20 +94,4 @@ App({
       wx.hideLoading()
     })
   },
-
-  onLaunch: function () {
-    var that = this
-    wx.showLoading({
-      title: '加载中',
-    })
-    wx.login({
-      success: res => {
-        that.login_getopenid(res)
-      }
-    })
-    var a = wx.getSystemInfoSync()
-    that.globalData.screenwidth = a.windowWidth
-    that.globalData.screenheight = a.windowHeight
-  },
-
 })

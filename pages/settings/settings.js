@@ -17,44 +17,45 @@ Page({
     grades: '',
     gradeindex: 0,
   },
-  modalChange: function(e) {
+  modalChange: function (e) {
     var that = this
     if (this.data.gradeindex != 0) {
       network.post('/user/setgrade', {
         'openid': app.globalData.openid,
         'grade': this.data.gradeindex
-      }, function(e) {
+      }, function (e) {
         app.globalData.grade = that.data.gradeindex * 1
         wx.showToast({
           title: '设置成功',
         })
-      }, function(e) {})
+      }, function (e) { })
 
       this.setData({
         modalHidden: true
       })
     }
   },
-  selectgrade: function(e) {
+  selectgrade: function (e) {
     console.log(e)
     this.setData({
       gradeindex: e.detail.value * 1
     })
   },
-  onShareAppMessage: function(res) {
+  onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
       return {
         title: '[有人@我]数学题，你会做么',
         path: '/pages/home/tosolve/tosolve',
         imageUrl: config.host + '/swagger/mobiwusi.jpg',
-        success: function(res) {}
+        success: function (res) { }
       }
 
     }
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
+    console.log(app.globalData.selfuserid)
     var that = this
     if (app.globalData.grade == 0) {
       that.setData({
@@ -70,14 +71,14 @@ Page({
     //获取瓶子数
     network.post('/user/getformidnum', {
       'userid': app.globalData.selfuserid
-    }, function(res) {
+    }, function (res) {
       setnum(that, res.count)
-    }, function() {}, function() {
+    }, function () { }, function () {
       wx.hideLoading()
     })
   },
 
-  onShow: function() {
+  onShow: function () {
     var that = this
     util.get_or_create_avatar(app.globalData.openid, that)
     if (app.globalData.reddot) {
@@ -87,35 +88,35 @@ Page({
     }
   },
 
-  showMyQues: function() {
+  showMyQues: function () {
     wx.navigateTo({
       url: './myques/myques',
     })
   },
 
-  showMyBrow: function() {
+  showMyBrow: function () {
     wx.navigateTo({
       url: './myhist/myhist',
     })
   },
 
-  showMySubs: function() {
+  showMySubs: function () {
     wx.navigateTo({
       url: './mysubs/mysubs',
     })
   },
 
-  showMyComm: function() {
+  showMyComm: function () {
     wx.navigateTo({
       url: './mycomm/mycomm',
     })
   },
-  
-  clearcache: function() {
+
+  clearcache: function () {
     wx.showModal({
       title: '提示',
       content: '清除后会重新加载，确定清除？',
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           wx.clearStorageSync()
           wx.showToast({
@@ -129,27 +130,27 @@ Page({
     })
   },
 
-  showHelp: function() {
+  showHelp: function () {
     wx.navigateTo({
       url: './help/help',
     })
   },
 
-  showFeedback: function() {
+  showFeedback: function () {
     wx.navigateTo({
       url: './feedback/feedback',
     })
   },
-  showConfig: function() {
+  showConfig: function () {
     wx.navigateTo({
       url: './config/config',
     })
   },
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
   },
 
-  toface: function() {
+  toface: function () {
     wx.navigateToMiniProgram({
       appId: 'wxaf249daf125d652c',
       path: 'pages/index/index',
@@ -160,7 +161,7 @@ Page({
     })
   },
   //尝试获取formid
-  pushformid: function(e) {
+  pushformid: function (e) {
     wx.vibrateShort({})
     var that = this
     setnum(that)

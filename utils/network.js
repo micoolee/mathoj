@@ -32,7 +32,7 @@ let network = {
   //post文件请求
   postfile: (url, params, filepath, filename, success, fail) => {
     wx.uploadFile({
-      url: `${config.host}` + `${url}`,
+      url: config.host + url,
       method: 'post',
       header: {
         "content-type": "application/form-data"

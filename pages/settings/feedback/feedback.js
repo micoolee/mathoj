@@ -55,7 +55,12 @@ Page({
         header: {
           "content-type": "application/form-data"
         },
-        formData: { 'userid': app.globalData.selfuserid, 'content': content, 'connection': connect, 'noimage': 'false' },
+        formData: {
+          'userid': app.globalData.selfuserid,
+          'content': content,
+          'connection': connect,
+          'noimage': 'false'
+        },
         success: function (res) {
           wx.showModal({
             title: '提示',
