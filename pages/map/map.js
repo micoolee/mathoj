@@ -86,6 +86,7 @@ Page({
           })
           userlatitude = res.latitude
           userlongitude = res.longitude
+          //上传用户地理位置
           this.adduserlocation()
           this.getSchoolMarkers()
           this.enterLocation()
@@ -252,6 +253,7 @@ Page({
             })
             userlatitude = res.latitude
             userlongitude = res.longitude
+            //上传用户地理位置
             that.adduserlocation()
             that.getSchoolMarkers()
             that.enterLocation()

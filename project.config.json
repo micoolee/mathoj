@@ -32,14 +32,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 4,
 			"list": [
-				{
-					"id": -1,
-					"name": "getuserinfo",
-					"pathName": "pages/getuserinfo/getuserinfo",
-					"query": ""
-				},
 				{
 					"id": 2,
 					"name": "question",
@@ -54,68 +48,23 @@
 				},
 				{
 					"id": -1,
-					"name": "multi",
-					"pathName": "pages/multi/multi",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "获取信息",
-					"pathName": "pages/getuserinfo/getuserinfo",
-					"query": ""
-				},
-				{
-					"id": 6,
-					"name": "chat",
-					"pathName": "pages/inform/message/chat/chat",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "setting",
 					"pathName": "pages/settings/settings",
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "ser",
-					"pathName": "pages/home/searchres/searchres",
-					"query": ""
+					"id": 3,
+					"name": "消息",
+					"pathName": "pages/inform/inform",
+					"query": "",
+					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "mycomment",
-					"pathName": "pages/settings/mycomm/mycomm",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "myhis",
-					"pathName": "pages/settings/myhist/myhist",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "myque",
-					"pathName": "pages/settings/myques/myques",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "mysub",
-					"pathName": "pages/settings/mysubs/mysubs",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "try",
-					"pathName": "pages/try/try",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "config",
-					"pathName": "pages/settings/config/config"
+					"name": "首页",
+					"pathName": "pages/home/tosolve/tosolve",
+					"query": "",
+					"scene": null
 				}
 			]
 		}
