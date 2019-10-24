@@ -5,6 +5,16 @@
     <view>排行榜</view>
   </view>
   <view class="page">
+    <view style="justify-content: space-around;display:flex;">
+      <view>
+        <icon class='mathoj mathojtiwen' style='color:gray;font-size:35rpx;'></icon>
+        <text>圈子成员</text>
+      </view>
+      <view>
+        <icon class='mathoj mathojtiwen' style='color:gray;font-size:35rpx;'></icon>
+        <text>其他资料</text>
+      </view>
+    </view>
     <view class="weui-tab ">
       <view class="weui-navbar ">
         <block wx:for="{{tabs}}" wx:key="*this">

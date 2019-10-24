@@ -21,7 +21,7 @@ Page({
     wx.showNavigationBarLoading()
     var that = this
     network.post('/problem/getrank', {
-      'openid': app.globalData.openid
+      'ranktype': 'teacher'
     }, function (res) {
       that.setData({
         ranklist: res.rankdetail

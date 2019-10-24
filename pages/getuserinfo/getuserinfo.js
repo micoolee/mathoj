@@ -1,4 +1,3 @@
-// pages/getuserinfo/getuserinfo.js
 var network = require('../../utils/network.js')
 var console = require('../../utils/console.js')
 const app = getApp()
@@ -8,7 +7,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     hidewarning: true
   },
-  bindGetUserInfo: function(e) {
+  bindGetUserInfo: function (e) {
     if (e.detail.userInfo) {
       app.globalData.authorized = 'true'
       app.globalData.nickname = e.detail.userInfo.nickName
@@ -23,11 +22,11 @@ Page({
     }
   },
 
-  nobindGetUserInfo: function(e) {
+  nobindGetUserInfo: function (e) {
     wx.navigateBack({})
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (options.status == '1') {
       this.setData({
         hidewarning: false

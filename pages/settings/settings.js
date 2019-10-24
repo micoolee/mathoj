@@ -3,44 +3,17 @@ var util = require('../../utils/util.js')
 var network = require('../../utils/network.js')
 var console = require('../../utils/console.js')
 var config = require('../../config.js')
-var ctx = null;
-
+var remainformidnum = 0
 Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
     hide: false,
-    coin: null,
     remainformidnumorstr: '',
-    remainformidnum: 0,
     modalHidden: true,
     grades: '',
-    gradeindex: 0,
   },
-  modalChange: function (e) {
-    var that = this
-    if (this.data.gradeindex != 0) {
-      network.post('/user/setgrade', {
-        'openid': app.globalData.openid,
-        'grade': this.data.gradeindex
-      }, function (e) {
-        app.globalData.grade = that.data.gradeindex * 1
-        wx.showToast({
-          title: '设置成功',
-        })
-      }, function (e) { })
 
-      this.setData({
-        modalHidden: true
-      })
-    }
-  },
-  selectgrade: function (e) {
-    console.log(e)
-    this.setData({
-      gradeindex: e.detail.value * 1
-    })
-  },
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
@@ -176,29 +149,28 @@ Page({
 
 function setnum(that, count = -1) {
   if (!count) {
+    remainformidnum = 0
     that.setData({
-      remainformidnum: 0,
       remainformidnumorstr: 0
     })
     return
   }
   if (count == -1) {
-    that.setData({
-      remainformidnum: that.data.remainformidnum + 1,
-    })
-    if (that.data.remainformidnum > 99) {
+
+    remainformidnum = remainformidnum + 1
+    if (remainformidnum > 99) {
       that.setData({
         remainformidnumorstr: ">99",
       })
     } else {
       that.setData({
-        remainformidnumorstr: that.data.remainformidnum,
+        remainformidnumorstr: remainformidnum,
       })
     }
     return
   }
+  remainformidnum = count
   that.setData({
-    remainformidnum: count,
     remainformidnumorstr: count
   })
 

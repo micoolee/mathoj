@@ -69,9 +69,4 @@
       <view bindtap="toface" class="weui-footer__link">小游戏</view>
     </view>
   </view>
-  <modal class="modal" hidden="{{modalHidden}}" bindconfirm="modalChange">
-    <picker bindchange="selectgrade" value="{{gradeindex}}" range="{{grades}}">
-      <view style='justify-content:center;display:flex;'>设置您的年级:{{grades[gradeindex]}}</view>
-    </picker>
-  </modal>
 </view>

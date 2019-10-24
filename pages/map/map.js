@@ -1,8 +1,8 @@
 // map.js
 var util = require('../../utils/util.js')
-const app = getApp()
 var network = require('../../utils/network.js')
 var console = require('../../utils/console.js')
+const app = getApp()
 var userlatitude = 0
 var userlongitude = 0
 
@@ -96,7 +96,9 @@ Page({
       util.checkuserinfo(that)
     }
   },
-  regionchange(e) { },
+  regionchange(e) {
+    console.log(e)
+  },
   markertap(e) {
     console.log(e)
   },
