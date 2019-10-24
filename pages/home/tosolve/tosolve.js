@@ -13,7 +13,7 @@ Page({
     bottom: false,
     havenewbtn: false,
     inputvalue: null,
-    tabs: ["题库", "好题"],
+    tabs: ["题库", "精选"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
@@ -72,10 +72,10 @@ Page({
 
     if (paramindex == '0') {
       data[index].text = that.data.tabTxt[index].originalText;
-      delete that.data.searchParam[index];
+      delete searchParam[index];
     } else {
       data[index].text = data[index]['child'][paramindex].text
-      that.data.searchParam[index] = data[index]['child'][paramindex].text
+      searchParam[index] = data[index]['child'][paramindex].text
     }
     that.setData({
       tabTxt: data
@@ -83,7 +83,7 @@ Page({
     if (that.data.activeIndex == '0') {
       network.post('/problem/getten', {
         'formerid': formerid,
-        'filter': that.data.searchParam,
+        'filter': searchParam,
         'solved': '0'
       }, function (res) {
         var filterproblist = res.problem
@@ -102,7 +102,7 @@ Page({
     } else {
       network.post('/problem/getten', {
         'formerid': 0,
-        'filter': that.data.searchParam,
+        'filter': searchParam,
         'solved': '1'
       }, function (res) {
         var filterproblist = res.problem
@@ -143,33 +143,6 @@ Page({
     })
   },
 
-  // 搜索框搜索
-  writesearch: function (e) {
-    qdata = e.detail.value
-  },
-  search: function (e) {
-    var that = this
-    if (qdata == '' || qdata == undefined) {
-      wx.showModal({
-        title: '提示',
-        content: '关键词不能为空',
-      })
-    } else {
-      network.post('/problem/search', {
-        'content': qdata
-      }, function (res) {
-        that.setData({
-          inputvalue: '',
-        })
-        qdata = null
-        app.globalData.searchlist = res.problem
-        wx.navigateTo({
-          url: `/pages/home/searchres/searchres`,
-        })
-      })
-    }
-  },
-
   //轮询直到getopenid加载完毕
   load: function (e) {
     var that = this
@@ -177,9 +150,8 @@ Page({
       if (app.globalData.getopenidok) {
         if (app.globalData.onlysee && app.globalData.grade != 0 && app.globalData.grade) {
           util.getlastedprob(that, [util.gradearray[app.globalData.grade]])
-          that.setData({
-            searchParam: [util.gradearray[app.globalData.grade]]
-          })
+
+          searchParam = [util.gradearray[app.globalData.grade]]
         } else {
           util.getlastedprob(that)
         }
@@ -244,19 +216,20 @@ Page({
     wx.showNavigationBarLoading() //在标题栏中显示加载
     if (that.data.activeIndex == '0') {
       formerid = 0
-      util.getlastedprob(that, that.data.searchParam)
+      util.getlastedprob(that, searchParam)
     } else if (that.data.activeIndex == '1') {
       solvedformerid = 0
-      util.getlastedsolvedprob(that, that.data.searchParam)
+      util.getlastedsolvedprob(that, searchParam)
     }
     wx.stopPullDownRefresh() //停止下拉刷新                
   },
+
   onReachBottom: function () {
     var that = this
     if (that.data.activeIndex == '0') {
-      util.get10prob(that, that.data.searchParam)
+      util.get10prob(that, searchParam)
     } else if (that.data.activeIndex == '1') {
-      util.get10solvedprob(that, that.data.searchParam)
+      util.get10solvedprob(that, searchParam)
     }
   },
 })

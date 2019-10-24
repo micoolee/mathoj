@@ -28,6 +28,39 @@
 }
 
 
+/* 首页提问 */
+.tiwenbutton {
+  position: fixed;
+  bottom: 10px;
+  right: auto;
+  left: auto;
+  width: 70px;
+  height: 70px;
+  background-color: black;
+  color: white;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.spleft {
+  display: flex;
+  margin-right: auto;
+  padding: 10px;
+  font-size: 15px;
+  justify-content: space-around;
+  width: 50%;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 .container {
@@ -41,27 +74,10 @@
   /* background: #F0F4F3; */
 }
 
-.line-username {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  word-break: break-all;
-  overflow: hidden;
-}
 
-.container.withtab {
-  margin: 105rpx 0 0 0;
-  /*top: 105rpx;*/
-}
 
 .flex-wrp {
   display: flex;
-}
-
-.flex-tab {
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  align-items: stretch;
 }
 
 .flex-item {

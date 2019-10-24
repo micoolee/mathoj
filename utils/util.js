@@ -147,7 +147,7 @@ function getlastedsolvedprob(that, filter) {
       })
     } else {
       wx.showToast({
-        title: '暂无好题',
+        title: '暂无精选',
       })
       that.setData({
         solvedproblemlist: [],
@@ -379,50 +379,6 @@ var tabtxt = [{
     'text': '高三'
   },
 
-  ],
-  'type': 0
-},
-{
-  'text': '难易',
-  'originalText': '不限',
-  'active': false,
-  'value': ['不限', '简单', '困难'],
-  'child': [{
-    'id': 0,
-    'text': '不限'
-  },
-  {
-    'id': 1,
-    'text': '简单'
-  },
-  {
-    'id': 2,
-    'text': '困难'
-  }
-  ],
-  'type': 0
-},
-{
-  'text': '奖励',
-  'originalText': '不限',
-  'value': ['不限', '1个奥币', '2个奥币', '3个奥币'],
-  'active': false,
-  'child': [{
-    'id': 0,
-    'text': '不限'
-  },
-  {
-    'id': 1,
-    'text': '1个奥币'
-  },
-  {
-    'id': 2,
-    'text': '2个奥币'
-  },
-  {
-    'id': 3,
-    'text': '3个奥币'
-  }
   ],
   'type': 0
 }

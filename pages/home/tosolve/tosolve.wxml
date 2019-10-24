@@ -1,14 +1,8 @@
 <view class="container">
-  <!-- <scroll-view> -->
-  <view class="search flex-wrp ">
-    <view class="search-left flex-item" style='display:flex'>
-      <icon bindtap='search' class='mathoj mathojsoushuo' style='color:white;font-size:40rpx;padding:0 20rpx;'></icon>
-      <input placeholder-class="search-placeholder" bindinput='writesearch' bindconfirm='search' value='{{inputvalue}}' />
-    </view>
-    <view class="search-right flex-item" bindtap="toask">
-      <icon class='mathoj mathojxiehuida' style='color:white;font-size:40rpx;padding:0 20rpx;'></icon>
-    </view>
-    <view class="search-center flex-item" bindtap="toask">提问</view>
+  <view class="spleft">
+    <view>圈子</view>
+    <view>发现</view>
+    <view>排行榜</view>
   </view>
   <view class="page">
     <view class="weui-tab ">
@@ -107,7 +101,7 @@
               <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
             </view>
             <view>
-              <text>暂无好题</text>
+              <text>暂无精选</text>
             </view>
           </view>
           <view wx:else>
@@ -161,6 +155,10 @@
         </view>
       </view>
     </view>
+  </view>
+  <view class="tiwenbutton">
+    <icon class='mathoj mathojxiehuida' style='color:white;font-size:40rpx;padding:0 20rpx;'></icon>
+    <view bindtap="toask">提问</view>
   </view>
   <image src='/images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
 </view>
