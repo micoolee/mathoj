@@ -86,9 +86,7 @@ Page({
             'messageid': informid
           })
         }
-        wx.navigateTo({
-          url: `/pages/inform/howtouse/howtouse`,
-        })
+        console.log('帮助页面')
       }
 
     } else {

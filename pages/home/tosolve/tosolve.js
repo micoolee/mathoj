@@ -23,8 +23,31 @@ Page({
     tabTxt: '',
     problemlist: [],
     solvedproblemlist: [],
+    show: 'quanzi',
+    ranklist: []
   },
-
+  showrank: function (e) {
+    wx.showNavigationBarLoading()
+    var that = this
+    network.post('/problem/getrank', {}, function (res) {
+      that.setData({
+        ranklist: res.rankdetail,
+        show: 'rank'
+      })
+    }, function () { }, function () {
+      wx.hideNavigationBarLoading()
+    })
+  },
+  showdiscovery: function (e) {
+    this.setData({
+      show: 'discovery'
+    })
+  },
+  showquanzi: function (e) {
+    this.setData({
+      show: 'quanzi'
+    })
+  },
   tabClick: function (e) {
     var that = this
     if (app.globalData.grade != 0 && app.globalData.onlysee) {
@@ -200,6 +223,18 @@ Page({
       })
     }
   },
+  rankshowmore: function (e) {
+    var dataset = e.currentTarget.dataset
+    if (openid == app.globalData.openid) {
+      wx.switchTab({
+        url: '../settings/settings',
+      })
+    } else {
+      wx.navigateTo({
+        url: `../settings/profile/profile?userid=${dataset.userid}&avatar=${dataset.avatar}&username=${dataset.username}&openid=${dataset.openid}`,
+      })
+    }
+  },
 
   onShow: function () {
     var that = this
@@ -221,7 +256,8 @@ Page({
       solvedformerid = 0
       util.getlastedsolvedprob(that, searchParam)
     }
-    wx.stopPullDownRefresh() //停止下拉刷新                
+    wx.stopPullDownRefresh() //停止下拉刷新
+    wx.hideNavigationBarLoading()
   },
 
   onReachBottom: function () {

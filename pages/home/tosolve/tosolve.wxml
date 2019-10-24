@@ -1,174 +1,202 @@
 <view class="container">
   <view class="spleft">
-    <view>圈子</view>
-    <view>发现</view>
-    <view>排行榜</view>
-  </view>
-  <view class="page">
-    <view style="justify-content: space-around;display:flex;">
-      <view>
-        <icon class='mathoj mathojtiwen' style='color:gray;font-size:35rpx;'></icon>
-        <text>圈子成员</text>
-      </view>
-      <view>
-        <icon class='mathoj mathojtiwen' style='color:gray;font-size:35rpx;'></icon>
-        <text>其他资料</text>
-      </view>
+    <view class="circleborder" style="{{show=='quanzi'?'background-color:lightblue':''}}" bindtap="showquanzi">
+      圈子
     </view>
-    <view class="weui-tab ">
-      <view class="weui-navbar ">
-        <block wx:for="{{tabs}}" wx:key="*this">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-            <view class="weui-navbar__title">{{item}}</view>
-          </view>
-        </block>
-        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+    <view class="circleborder" style="{{show=='discovery'?'background-color:lightblue':''}}" bindtap="showdiscovery">
+      发现
+    </view>
+    <view class="circleborder" style="{{show=='rank'?'background-color:lightblue':''}}" bindtap="showrank">
+      排行榜
+    </view>
+  </view>
+  <view wx:if="{{show=='quanzi'}}">
+    <view class="page">
+      <view style="justify-content: space-around;display:flex;">
+        <view class="czlist">
+          <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>
+          <text>圈子成员</text>
+        </view>
+        <view class="czlist">
+          <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>
+          <text>其他资料</text>
+        </view>
       </view>
-      <view class="weui-tab__panel">
-        <view class="weui-tab__content" style='background-color:white;' hidden="{{activeIndex != 0}}">
-          <view class="cxj-menu">
-            <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="this">
-              <picker bindchange="filterTabChild" name="gradeindex" value="{{item.value}}" range="{{item.value}}" data-index='{{index}}'>
-                {{item.text}}
-                <image src="/images/arrow.png" class="cxj-icon"></image>
-              </picker>
+      <view class="weui-tab ">
+        <view class="weui-navbar ">
+          <block wx:for="{{tabs}}" wx:key="*this">
+            <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+              <view class="weui-navbar__title">{{item}}</view>
+            </view>
+          </block>
+          <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+        <view class="weui-tab__panel">
+          <view class="weui-tab__content" style='background-color:white;' hidden="{{activeIndex != 0}}">
+            <view class="cxj-menu">
+              <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="this">
+                <picker bindchange="filterTabChild" name="gradeindex" value="{{item.value}}" range="{{item.value}}" data-index='{{index}}'>
+                  {{item.text}}
+                  <image src="/images/arrow.png" class="cxj-icon"></image>
+                </picker>
+              </view>
+            </view>
+            <!-- 正文  体现一下遮罩效果的 -->
+            <view class="cxj-content">
+              <view wx:if='{{havenewbtn}}'>
+                <wux-notice-bar mode="closable" content="有人提问啦~" />
+              </view>
+              <view wx:if="{{problemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
+                <view>
+                  <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
+                </view>
+                <view>
+                  <text>无待处理</text>
+                </view>
+              </view>
+              <view wx:else>
+                <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+                  <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                    <view class="feed-source" style='display:flex'>
+                      <view class="avatar" catchtap='showmore' data-avatar='{{item.avatar}}' data-askerid='{{item.askerid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'>
+                        <image src="{{item.avatar}}"></image>
+                      </view>
+                      <text>{{item.nickname}}</text>
+                      <text style='margin-right:auto'>{{item.grade}}</text>
+                      <view style='display:flex;margin-right:0'>
+                        <text style='margin-right:auto'>{{item.asktime}}</text>
+                      </view>
+                    </view>
+                    <view class="feed-content">
+                      <view class="question" qid="{{question_id}}">
+                        <a class="question-link">
+                          <text class='line-3'>{{item.description}}</text>
+                        </a>
+                      </view>
+                      <view class="answer-body">
+                        <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                          <view class="comments ">
+                            <view wx:if="{{item.solutionnum != null}}">
+                              {{item.solutionnum}} 回答
+                            </view>
+                            <view wx:else>0 回答</view>
+                          </view>
+                          <view class="comments ">
+                            <view wx:if="{{item.commentnum != null}}">{{item.commentnum}} 评论</view>
+                            <view wx:else>0 评论</view>
+                          </view>
+                          <view class="follow-it">
+                            <view wx:if="{{item.subscribernum != null}}">
+                              {{item.subscribernum}} 关注
+                            </view>
+                            <view wx:else>0 关注</view>
+                          </view>
+                          <view class="comments ">
+                            <view wx:if="{{item.browsernum != null}}">{{item.browsernum}} 浏览</view>
+                            <view wx:else>0 浏览</view>
+                          </view>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+            </view>
+            <view class="weui-loadmore weui-loadmore_line" wx:if="{{bottom}}">
+              <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
             </view>
           </view>
-          <!-- 正文  体现一下遮罩效果的 -->
-          <view class="cxj-content">
-            <view wx:if='{{havenewbtn}}'>
-              <wux-notice-bar mode="closable" content="有人提问啦~" />
+          <view class="weui-tab__content" style='background-color:white;' hidden="{{activeIndex != 1}}">
+            <view class="cxj-menu">
+              <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="this">
+                <picker bindchange="filterTabChild" name="gradeindex" value="{{item.value}}" range="{{item.value}}" data-index='{{index}}'>
+                  {{item.text}}
+                  <image src="/images/arrow.png" class="cxj-icon"></image>
+                </picker>
+              </view>
             </view>
-            <view wx:if="{{problemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
+            <view wx:if="{{solvedproblemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
               <view>
                 <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
               </view>
               <view>
-                <text>无待处理</text>
+                <text>暂无精选</text>
               </view>
             </view>
             <view wx:else>
-              <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+              <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="this">
                 <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
-                  <view class="feed-source" style='display:flex'>
-                    <view class="avatar" catchtap='showmore' data-avatar='{{item.avatar}}' data-askerid='{{item.askerid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'>
-                      <image src="{{item.avatar}}"></image>
-                    </view>
-                    <text>{{item.nickname}}</text>
-                    <text style='margin-right:auto'>{{item.grade}}</text>
-                    <view style='display:flex;margin-right:0'>
-                      <text style='margin-right:auto'>{{item.asktime}}</text>
-                    </view>
+                  <view class="feed-source">
+                    <a style='display:flex;align-items:center;'>
+                      <view class="avatar">
+                        <image src="{{item.avatar}}" catchtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
+                      </view>
+                      <text>{{item.nickname}}</text>
+                      <text>{{item.grade}}</text>
+                      <view style='display:flex;flex:2'></view>
+                      <view style='display:flex;align-items:center;'>
+                        <text>推荐人</text>
+                        <image style='height:60rpx;width:60rpx;border-radius:50%;' catchtap='showmore' src='{{item.recommenderavatar}}' data-avatar='{{item.recommenderavatar}}' data-username='{{item.recommendername}}' data-userid='{{item.recommenderid}}'></image>
+                      </view>
+                    </a>
                   </view>
                   <view class="feed-content">
-                    <view class="question" qid="{{question_id}}">
-                      <a class="question-link">
-                        <text class='line-3'>{{item.description}}</text>
-                      </a>
+                    <view class="question" style='display:flex;' qid="{{question_id}}">
+                      <view style='display:flex;align-items:center;'>
+                        <a class="question-link">
+                          <text class='line-3'>{{item.description}}</text>
+                        </a>
+                      </view>
                     </view>
                     <view class="answer-body">
-                      <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
-                        <view class="comments ">
-                          <view wx:if="{{item.solutionnum != null}}">{{item.solutionnum}} 回答</view>
-                          <view wx:else>0 回答</view>
-                        </view>
-                        <view class="comments ">
-                          <view wx:if="{{item.commentnum != null}}">{{item.commentnum}} 评论</view>
-                          <view wx:else>0 评论</view>
-                        </view>
-                        <view class="follow-it">
-                          <view wx:if="{{item.subscribernum != null}}">
-                            {{item.subscribernum}} 关注
-                          </view>
-                          <view wx:else>0 关注</view>
-                        </view>
-                        <view class="comments ">
-                          <view wx:if="{{item.browsernum != null}}">{{item.browsernum}} 浏览</view>
+                      <view>
+                        <text class="answer-txt" aid="{{answer_id}}">{{item.solver}}</text>
+                      </view>
+                      <view class="answer-actions">
+                        <view class="comments dot">
+                          <view wx:if="{{item.browsernum != null}}">{{item.browsernum}}浏览</view>
                           <view wx:else>0 浏览</view>
                         </view>
+                        <view class="follow-it">
+                          <view wx:if="{{item.solutionnum != null}}">{{item.solutionnum}}答案</view>
+                          <view wx:else>0 答案</view>
+                        </view>
+                        <text>{{item.asktime}}</text>
                       </view>
                     </view>
                   </view>
                 </view>
               </block>
             </view>
-          </view>
-          <view class="weui-loadmore weui-loadmore_line" wx:if="{{bottom}}">
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
-          </view>
-        </view>
-        <view class="weui-tab__content" style='background-color:white;' hidden="{{activeIndex != 1}}">
-          <view class="cxj-menu">
-            <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="this">
-              <picker bindchange="filterTabChild" name="gradeindex" value="{{item.value}}" range="{{item.value}}" data-index='{{index}}'>
-                {{item.text}}
-                <image src="/images/arrow.png" class="cxj-icon"></image>
-              </picker>
+            <view class="weui-loadmore weui-loadmore_line" wx:if="{{bottom}}">
+              <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
             </view>
-          </view>
-          <view wx:if="{{solvedproblemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
-            <view>
-              <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
-            </view>
-            <view>
-              <text>暂无精选</text>
-            </view>
-          </view>
-          <view wx:else>
-            <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="this">
-              <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
-                <view class="feed-source">
-                  <a style='display:flex;align-items:center;'>
-                    <view class="avatar">
-                      <image src="{{item.avatar}}" catchtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
-                    </view>
-                    <text>{{item.nickname}}</text>
-                    <text>{{item.grade}}</text>
-                    <view style='display:flex;flex:2'></view>
-                    <view style='display:flex;align-items:center;'>
-                      <text>推荐人</text>
-                      <image style='height:60rpx;width:60rpx;border-radius:50%;' catchtap='showmore' src='{{item.recommenderavatar}}' data-avatar='{{item.recommenderavatar}}' data-username='{{item.recommendername}}' data-userid='{{item.recommenderid}}'></image>
-                    </view>
-                  </a>
-                </view>
-                <view class="feed-content">
-                  <view class="question" style='display:flex;' qid="{{question_id}}">
-                    <view style='display:flex;align-items:center;'>
-                      <a class="question-link">
-                        <text class='line-3'>{{item.description}}</text>
-                      </a>
-                    </view>
-                  </view>
-                  <view class="answer-body">
-                    <view>
-                      <text class="answer-txt" aid="{{answer_id}}">{{item.solver}}</text>
-                    </view>
-                    <view class="answer-actions">
-                      <view class="comments dot">
-                        <view wx:if="{{item.browsernum != null}}">{{item.browsernum}}浏览</view>
-                        <view wx:else>0 浏览</view>
-                      </view>
-                      <view class="follow-it">
-                        <view wx:if="{{item.solutionnum != null}}">{{item.solutionnum}}答案</view>
-                        <view wx:else>0 答案</view>
-                      </view>
-                      <text>{{item.asktime}}</text>
-                    </view>
-                  </view>
-                </view>
-              </view>
-            </block>
-          </view>
-          <view class="weui-loadmore weui-loadmore_line" wx:if="{{bottom}}">
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
           </view>
         </view>
       </view>
     </view>
+    <view class="spcenter">
+      <view class="tiwenbutton">
+        <icon class='mathoj mathojxiehuida' style='color:white;font-size:40rpx;padding:20rpx 0 0 0;'></icon>
+        <view bindtap="toask">提问</view>
+      </view>
+    </view>
+    <image src='/images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
   </view>
-  <view class="tiwenbutton">
-    <icon class='mathoj mathojxiehuida' style='color:white;font-size:40rpx;padding:0 20rpx;'></icon>
-    <view bindtap="toask">提问</view>
+  <view wx:elif="{{show=='discovery'}}">发现</view>
+  <view wx:else style="width:100%">
+    <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}">
+      <view style="display:flex">
+        <image class="bigavatar" src="{{item.avatar}}" bindtap='rankshowmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
+        <view class="bottomline" style='display:flex;flex-direction:column;flex:1;'>
+          <text class='textstyle test'>{{item.nickname}}</text>
+          <text class='centertext'>已答{{item.solutionum-1}}    被采纳{{item.cainanum-1}}</text>
+        </view>
+        <view class="bottomline" style='font-size:30rpx;margin-right:50rpx;align-items:center;'>
+          <icon class='mathoj mathojxunzhang' style="font-size:80rpx;color:{{index==0?'gold':index==1?'silver':index==2?'orange':''}}"></icon>
+          <text style=''>{{index+1}}</text>
+        </view>
+      </view>
+    </scroll-view>
   </view>
-  <image src='/images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
 </view>

@@ -58,7 +58,6 @@ function get_or_create_avatar(userid, that = 'null') {
 }
 
 function getlastedprob(that, filter) {
-  console.log(filter)
   network.post('/problem/getten', {
     'formerid': that.data.formerid,
     'filter': filter || [],
@@ -74,9 +73,6 @@ function getlastedprob(that, filter) {
         get_or_create_avatar(problemlist[i].openid)
       }
     }
-    that.setData({
-      topStories: res.topstory,
-    })
     if (!problemlist) {
       that.setData({
         problemlist: []

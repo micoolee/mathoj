@@ -13,9 +13,7 @@
     "pages/settings/profile/profile",
     "pages/inform/inform",
     "pages/home/invite/invite",
-    "pages/top/top",
     "pages/getuserinfo/getuserinfo",
-    "pages/inform/howtouse/howtouse",
     "pages/map/map",
     "pages/settings/config/config"
   ],
@@ -33,12 +31,6 @@
         "text": "附近",
         "iconPath": "images/map.png",
         "selectedIconPath": "images/map-selected.png"
-      },
-      {
-        "pagePath": "pages/top/top",
-        "text": "星榜",
-        "iconPath": "images/rank.png",
-        "selectedIconPath": "images/rank-selected.png"
       },
       {
         "pagePath": "pages/inform/inform",

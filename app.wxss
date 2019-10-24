@@ -43,6 +43,7 @@
   border-radius: 50%;
 }
 
+/* 水平靠左 */
 .spleft {
   display: flex;
   margin-right: auto;
@@ -51,6 +52,49 @@
   justify-content: space-around;
   width: 50%;
 }
+
+/* 圆形边框 */
+.circleborder {
+  border: solid 1px gray;
+  border-radius: 20rpx;
+  padding: 1px 5px;
+}
+
+.circleborder.active {
+  background-color: #48C23D
+}
+
+/* 水平居中 */
+.spcenter {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+/* 排行榜头像 */
+.bigavatar {
+  width: 100rpx;
+  height: 100rpx;
+  padding: 10px;
+}
+
+
+/* 文字超出折叠 */
+.test {
+  width: 200rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 下划线  */
+.bottomline {
+  border-bottom: 0.1px solid gray;
+}
+
+
+
+
 
 
 
@@ -71,7 +115,6 @@
   justify-content: space-between;
   /*padding: 200rpx 0;*/
   box-sizing: border-box;
-  /* background: #F0F4F3; */
 }
 
 

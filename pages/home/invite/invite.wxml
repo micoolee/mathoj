@@ -5,11 +5,11 @@
   <view>
     <text>暂无可以邀请的答主，关注后再来</text>
   </view>
-  <view>
+  <!-- <view>
     <form report-submit='true' bindsubmit='torank'>
       <button class='wux-button--dark' form-type="submit">去关注</button>
     </form>
-  </view>
+  </view> -->
 </view>
 <view wx:else>
   <scroll-view scroll-y="true" class="container">

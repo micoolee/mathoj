@@ -43,9 +43,3 @@
   width: 88%;
   font-size: 38rpx;
 }
-
-page{
-    background: #F0F4F3
-}
-
-
