@@ -34,8 +34,8 @@
   bottom: 10px;
   right: auto;
   left: auto;
-  width: 70px;
-  height: 70px;
+  width: 120rpx;
+  height: 120rpx;
   background-color: black;
   color: white;
   font-size: 13px;

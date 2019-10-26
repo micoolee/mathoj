@@ -42,7 +42,7 @@
       <image class="list-icon" src="/images/chevron.png"></image>
     </view>
     <view class="list-item" bindtap="showMyQues">
-      <text class="list-name">野派老师中心</text>
+      <text class="list-name">独立老师中心</text>
       <image class="list-icon" src="/images/chevron.png"></image>
     </view>
     <view class="list-item" bindtap="showConfig">

@@ -1,1 +1,15 @@
-<map id="map" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{height}}px;"></map>
+<view bindtap="mapclick">
+  <map id="map" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{mapheightratio*height}}px;"></map>
+</view>
+<view wx:if="{{mapheightratio!=1}}" style="height:{{1-mapheightratio}}">
+  <view class="bottomline" style="padding: 40rpx;display: flex;width: 80%;margin-left: 5%;">
+    <image style="height: 80rpx;width: 80rpx;border-radius: 50%;" src="{{profile.avatar}}" />
+    <text style="margin-left: 20rpx;">{{profile.nickname}}</text>
+    <text style="margin-left: 20rpx;">{{profile.phone}}</text>
+  </view>
+  <view class="czlist" style="padding: 0 40rpx;">
+    <view class="bottomline" wx:for="{{problems}}" wx:for-item="item">
+      {{item.description}} {{item.asktime}}
+    </view>
+  </view>
+</view>
