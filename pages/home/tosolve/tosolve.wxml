@@ -1,17 +1,66 @@
-<view class="container">
+<view class="container" catchtap='conceal'>
+  <!-- 筛选页 -->
+  <view class="zhezao" hidden="{{flag}}">
+    <view class="t_w" catchtap="drop">
+      <view class="tanchu_view">
+        <view class="filterbutton" style="display: flex;">
+          <view style="flex:1">
+            <text>题型</text>
+          </view>
+          <view style="flex:6;display: flex;">
+            <view bindtap="switchactiveIndex" data-id="0" class="circleborder margin510 {{filteractiveIndex=='0'?'bluewhite':''}}">
+              题库
+            </view>
+            <view bindtap="switchactiveIndex" data-id="1" class="circleborder margin510 {{filteractiveIndex=='0'?'':'bluewhite'}}">
+              精选
+            </view>
+          </view>
+        </view>
+        <view class="filterbutton" style="display: flex;">
+          <view style="flex:1">
+            <text>年级</text>
+          </view>
+          <view style="flex:6;display: flex;flex-wrap: wrap;">
+            <view bindtap="switchgrade" data-id="1" class="circleborder margin510 {{filtergrade==1?'bluewhite':''}}">
+              不限
+            </view>
+            <view bindtap="switchgrade" data-id="2" class="circleborder margin510 {{filtergrade==2?'bluewhite':''}}">
+              二年级
+            </view>
+            <view bindtap="switchgrade" data-id="3" class="circleborder margin510 {{filtergrade==3?'bluewhite':''}}">
+              三年级
+            </view>
+            <view bindtap="switchgrade" data-id="4" class="circleborder margin510 {{filtergrade==4?'bluewhite':''}}">
+              四年级
+            </view>
+            <view bindtap="switchgrade" data-id="5" class="circleborder margin510 {{filtergrade==5?'bluewhite':''}}">
+              五年级
+            </view>
+            <view bindtap="switchgrade" data-id="6" class="circleborder margin510 {{filtergrade==6?'bluewhite':''}}">
+              六年级
+            </view>
+          </view>
+        </view>
+        <view style="display: flex;padding: 10px;height: 60rpx">
+          <button size="mini" catchtap="conceal">取消</button>
+          <button type="primary" size="mini" catchtap="confirmfilter">确认</button>
+        </view>
+      </view>
+    </view>
+  </view>
   <view class="spleft">
-    <view class="circleborder" style="{{show=='quanzi'?'background-color:lightblue':''}}" bindtap="showquanzi">
+    <view class="circleborder" style="{{show=='quanzi'?'background-color:lightblue':''}}" catchtap="showquanzi">
       圈子
     </view>
-    <view class="circleborder" style="{{show=='discovery'?'background-color:lightblue':''}}" bindtap="showdiscovery">
+    <view class="circleborder" style="{{show=='discovery'?'background-color:lightblue':''}}" catchtap="showdiscovery">
       发现
     </view>
-    <view class="circleborder" style="{{show=='rank'?'background-color:lightblue':''}}" bindtap="showrank">
+    <view class="circleborder" style="{{show=='rank'?'background-color:lightblue':''}}" catchtap="showrank">
       排行榜
     </view>
   </view>
-  <view wx:if="{{show=='quanzi'}}">
-    <view class="page">
+  <view catchtap="drop" wx:if="{{show=='quanzi'}}" style="{{!flag?'position:fixed;':''}}">
+    <view class="page" style="width: 750rpx;">
       <view style="justify-content: space-around;display:flex;">
         <view class="czlist">
           <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>
@@ -21,32 +70,36 @@
           <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>
           <text>其他资料</text>
         </view>
+        <view class="czlist">
+          <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>
+          <text>其他资料</text>
+        </view>
+        <view class="czlist">
+          <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>
+          <text>其他资料</text>
+        </view>
       </view>
       <view class="weui-tab ">
-        <view class="weui-navbar ">
-          <block wx:for="{{tabs}}" wx:key="*this">
-            <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-              <view class="weui-navbar__title">{{item}}</view>
-            </view>
-          </block>
-          <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        <view style="display: flex;margin: 20px 0 10rpx 0;">
+          <view style="margin: 0px 20px;" class="czcenter">
+            <icon class='mathoj mathojshaixuan' style='color:black;font-size:40rpx;padding:10rpx 0 0 0;'></icon>
+            <text>筛选</text>
+          </view>
+          <view class="circleborder czcenter" bindtap="showfilter">
+            <text style="margin:5rpx 10rpx;">{{activeIndexStr}}</text>
+            <text style="margin:5rpx 10rpx;">{{gradeStr}}</text>
+          </view>
         </view>
-        <view class="weui-tab__panel">
+        <view>
+          <!-- 题库 -->
           <view class="weui-tab__content" style='background-color:white;' hidden="{{activeIndex != 0}}">
-            <view class="cxj-menu">
-              <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="this">
-                <picker bindchange="filterTabChild" name="gradeindex" value="{{item.value}}" range="{{item.value}}" data-index='{{index}}'>
-                  {{item.text}}
-                  <image src="/images/arrow.png" class="cxj-icon"></image>
-                </picker>
-              </view>
-            </view>
             <!-- 正文  体现一下遮罩效果的 -->
             <view class="cxj-content">
               <view wx:if='{{havenewbtn}}'>
                 <wux-notice-bar mode="closable" content="有人提问啦~" />
               </view>
               <view wx:if="{{problemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
+                <!-- 搜索空集 -->
                 <view>
                   <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
                 </view>
@@ -106,16 +159,10 @@
               <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
             </view>
           </view>
+          <!-- 以下是精选 -->
           <view class="weui-tab__content" style='background-color:white;' hidden="{{activeIndex != 1}}">
-            <view class="cxj-menu">
-              <view class="flex-view{{item.active?' active':''}}" wx:for="{{tabTxt}}" wx:key="this">
-                <picker bindchange="filterTabChild" name="gradeindex" value="{{item.value}}" range="{{item.value}}" data-index='{{index}}'>
-                  {{item.text}}
-                  <image src="/images/arrow.png" class="cxj-icon"></image>
-                </picker>
-              </view>
-            </view>
             <view wx:if="{{solvedproblemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
+              <!-- 搜索空集 -->
               <view>
                 <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
               </view>
@@ -176,15 +223,15 @@
       </view>
     </view>
     <view class="spcenter">
-      <view class="tiwenbutton">
-        <icon class='mathoj mathojxiehuida' style='color:white;font-size:40rpx;padding:20rpx 0 0 0;'></icon>
-        <view bindtap="toask">提问</view>
+      <view class="tiwenbutton" bindtap="toask">
+        <icon class='mathoj mathojxiehuida' style='color:white;font-size:40rpx;padding:10rpx 0 0 0;'></icon>
+        <view>提问</view>
       </view>
     </view>
     <image src='/images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
   </view>
-  <view wx:elif="{{show=='discovery'}}">发现</view>
-  <view wx:else style="width:100%">
+  <view catchtap="drop" wx:elif="{{show=='discovery'}}">发现页</view>
+  <view catchtap="drop" wx:else style="width:100%">
     <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}">
       <view style="display:flex">
         <image class="bigavatar" src="{{item.avatar}}" bindtap='rankshowmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>

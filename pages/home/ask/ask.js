@@ -5,8 +5,6 @@ var util = require('../../../utils/util.js')
 var network = require('../../../utils/network.js')
 var console = require('../../../utils/console.js')
 var grade = '未选择'
-var easy = 'noeasy'
-var reward = '1个奥币'
 var desc = ''
 var imgs = 'noimage'
 Page({
@@ -113,12 +111,13 @@ Page({
 
 
   ask: function (e) {
-
     var that = this
+    //收集formid
     network.post('/user/pushformid', {
       'formid': e.detail.formId,
       'openid': app.globalData.openid
     })
+    //验证提问是否合法
     if (desc == '') {
       wx.showModal({
         title: '提示',
@@ -136,19 +135,16 @@ Page({
       this.setData({
         hide: false,
         disabledbut: true,
-        userid: app.globalData.openid,
       })
       if (imgs != 'noimage') {
-        var pid = 0
+        //带图片的提问
         var formdata = {
           "openid": app.globalData.openid,
           'categoryid': that.data.categoryindex,
-          "easy": easy,
           "grade": grade,
           "desc": desc,
-          "reward": reward,
           "noimage": "false",
-          'problemid': pid,
+          'problemid': 0,
           'imgindex': 0
         }
         that.uploadimgs(formdata, imgs, 0)
@@ -156,10 +152,8 @@ Page({
         var formdata = {
           "openid": app.globalData.openid,
           'categoryid': that.data.categoryindex,
-          "easy": easy,
           "grade": grade,
           "desc": desc,
-          "reward": reward,
           "noimage": "true"
         }
         network.post('/problem/create', formdata, function (res) {

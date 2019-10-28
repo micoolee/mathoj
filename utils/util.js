@@ -18,7 +18,7 @@ var categorys = {
   12: ["集合", "基本初等函数", "平面解析几何", "算法初步", "统计", "概率", "平面向量", "三角恒等变换", "解三角形", "数列", "不等式", "圆锥曲线与方程", "空间向量与立体几何", "导数", "推理与证明", "复数", "坐标系与参数方程", "其它"],
 }
 
-var gradearray = ['未选择', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三']
+var gradearray = ['', '不限', '二年级', '三年级', '四年级', '五年级', '六年级']
 
 
 function get_or_create_avatar(userid, that = 'null') {
@@ -59,7 +59,7 @@ function get_or_create_avatar(userid, that = 'null') {
 
 function getlastedprob(that, filter) {
   network.post('/problem/getten', {
-    'formerid': that.data.formerid,
+    'formerid': that.formerid,
     'filter': filter || [],
     'solved': '0'
   }, function (res) {
@@ -83,8 +83,9 @@ function getlastedprob(that, filter) {
       havenewbtn: false,
       lastedid: problemlist[0].problemid,
       problemlist: problemlist,
-      formerid: problemlist[problemlist['length'] - 1].problemid
+
     })
+    that.formerid = problemlist[problemlist['length'] - 1].problemid
   }, function (e) {
     console.log('fail')
   },
@@ -316,68 +317,8 @@ function uploadfile(url, filepath, name, formdata, success, fail) {
   })
 }
 
-var tabtxt = [{
-  'text': '年级',
-  'originalText': '不限',
-  'value': ['不限', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三'],
-  'active': false,
-  'child': [{
-    'id': 0,
-    'text': '不限'
-  },
-  {
-    'id': 1,
-    'text': '一年级'
-  },
-  {
-    'id': 2,
-    'text': '二年级'
-  },
-  {
-    'id': 3,
-    'text': '三年级'
-  },
-  {
-    'id': 4,
-    'text': '四年级'
-  },
-  {
-    'id': 5,
-    'text': '五年级'
-  },
-  {
-    'id': 6,
-    'text': '六年级'
-  },
-  {
-    'id': 7,
-    'text': '初一'
-  },
-  {
-    'id': 8,
-    'text': '初二'
-  },
-  {
-    'id': 9,
-    'text': '初三'
-  },
-  {
-    'id': 10,
-    'text': '高一'
-  },
-  {
-    'id': 11,
-    'text': '高二'
-  },
-  {
-    'id': 12,
-    'text': '高三'
-  },
-
-  ],
-  'type': 0
-}
-]
+var tijis = ['题库', '精选']
+var grades = ['', '不限', '二年级', '三年级', '四年级', '五年级', '六年级']
 module.exports = {
   get10prob: get10prob,
   getlastedprob: getlastedprob,
@@ -392,5 +333,6 @@ module.exports = {
   uploadfile: uploadfile,
   categorys: categorys,
   gradearray: gradearray,
-  tabtxt: tabtxt
+  tijis: tijis,
+  grades: grades
 }

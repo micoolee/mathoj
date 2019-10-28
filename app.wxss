@@ -60,10 +60,6 @@
   padding: 1px 5px;
 }
 
-.circleborder.active {
-  background-color: #48C23D
-}
-
 /* 水平居中 */
 .spcenter {
   display: flex;
@@ -92,6 +88,62 @@
   border-bottom: 0.1px solid gray;
 }
 
+/* 筛选页遮罩 */
+.zhezao {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  background: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  z-index: 100;
+}
+
+.t_w {
+  position: relative;
+  height: 300rpx;
+}
+
+.tanchu_view {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 0 0 10rpx 10rpx;
+
+}
+
+.bg_view {
+  margin: 30rpx auto 30rpx auto;
+  color: #fcb712;
+  font-size: 50rpx;
+  background-color: white;
+  padding: 0rpx 30rpx;
+  text-align: center;
+}
+
+.filterbutton {
+  font-size: 30rpx;
+  margin: 20px;
+}
+
+.margin510 {
+  margin: 5rpx 10rpx;
+}
+
+/* 蓝底白字 */
+.bluewhite {
+  background-color: lightblue;
+  color: white;
+
+}
+
+/* 垂直居中 */
+.czcenter {
+  display: flex;
+  align-items: center;
+
+}
 
 
 
@@ -295,7 +347,7 @@
 }
 
 .page {
-  background-color: #F8F8F8;
+  /* background-color: #F8F8F8; */
   font-size: 16px;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
 }

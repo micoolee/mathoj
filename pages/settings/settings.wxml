@@ -1,5 +1,5 @@
 <view>
-  <view bindtap="bindViewTap" class="splist" style='padding-top:50rpx;padding-left:50rpx;background-color:black;height:250rpx;'>
+  <view bindtap="bindViewTap" class="splist" style='padding-top:50rpx;padding-left:50rpx;background-color:lightblue;height:250rpx;'>
     <view>
       <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
     </view>

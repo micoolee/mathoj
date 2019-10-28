@@ -43,7 +43,7 @@
     </picker>
   </view>
   <view class="weui-cells  page__bd_spacing">
-    <picker bindchange="bindPickerChangeCategory" data-category='{{categorys[gradeindex+1][categoryindex]}}' name="rewardindex" value="{{categoryindex}}" range="{{categorys[gradeindex]}}">
+    <picker bindchange="bindPickerChangeCategory" data-category='{{categorys[gradeindex+1][categoryindex]}}' value="{{categoryindex}}" range="{{categorys[gradeindex]}}">
       <view class="weui-uploader__title" style='text-align:center;padding:5px'>
         知识点(选填):{{categorys[gradeindex][categoryindex]}}
       </view>

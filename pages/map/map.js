@@ -5,7 +5,7 @@ var console = require('../../utils/console.js')
 const app = getApp()
 var userlatitude = 0
 var userlongitude = 0
-var teacherorstudent = 'teacher'
+var teacherorstudent = 'student'
 
 Page({
   data: {
@@ -15,6 +15,7 @@ Page({
     height: app.globalData.screenheight,
     scale: 5,
     markers: [],
+    circles: [],
     controls: [{
       id: 1,
       iconPath: '/images/location-control.png',
@@ -76,6 +77,25 @@ Page({
     // 使用 wx.createMapContext 获取 map 上下文
     this.mapCtx = wx.createMapContext('map')
   },
+  callphone: function (e) {
+    var that = this
+    wx.makePhoneCall({
+      phoneNumber: that.data.profile.phone //仅为示例，并非真实的电话号码
+    })
+  },
+  copyphone: function (e) {
+    var that = this
+    wx.setClipboardData({
+      data: that.data.profile.phone,
+      success(res) {
+        wx.getClipboardData({
+          success(res) {
+            console.log(res.data) // data
+          }
+        })
+      }
+    })
+  },
   onLoad: function () {
     var that = this
     if (app.globalData.authorized == 'true' || app.globalData.avatar != 'stranger') {
@@ -84,6 +104,13 @@ Page({
         success: (res) => {
           that.createMarker(res);
           that.setData({
+            circles: [{
+              latitude: res.latitude,
+              longitude: res.longitude,
+              radius: 3000,
+              color: "#ffffff",
+              fillColor: "#00000030"
+            }],
             latitude: res.latitude,
             longitude: res.longitude,
             scale: 1
@@ -103,6 +130,11 @@ Page({
   regionchange(e) {
     console.log(e)
   },
+  bindQueTap: function (e) {
+    wx.navigateTo({
+      url: `/pages/home/question/question?problemid=${e.currentTarget.dataset.id}`
+    })
+  },
   mapclick(e) {
     this.setData({
       mapheightratio: 1
@@ -117,6 +149,7 @@ Page({
       }, function (res) {
         that.setData({
           profile: res.profile || {},
+          problems: res.problems || [],
           mapheightratio: 0.3
         })
       })
@@ -167,8 +200,6 @@ Page({
       teacherorstudent = 'student'
       that.formsubmitstudent()
     }
-
-
   },
   getSchoolMarkers() {
     var that = this
@@ -178,7 +209,6 @@ Page({
       let markers = [];
       if (res.location) {
         for (let item of res.location) {
-          console.log('item: ', item)
           let marker = that.createMarker(item);
           markers.push(marker)
         }

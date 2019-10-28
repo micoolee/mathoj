@@ -5,8 +5,8 @@
       <view>
         <image style="width:100rpx;height:100rpx;padding:5px;" src="{{item.senderavatar}}" catchtap='showmore' data-avatar='{{item.senderavatar}}' data-userid='{{item.askid}}' data-sourcerid='{{item.sourcerid}}' data-username='{{item.sendernickname}}' data-openid='{{item.senderopenid}}'></image>
       </view>
-      <view style="border-bottom:solid 1px gray;width:100%;">
-        <view class="segment" bindtap='showinformdetail' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.messageid}}' data-problemid='{{item.problemid}}' data-informtype='{{item.messagetype}}' data-sourcerid='{{item.sourcerid}}' data-readed='{{item.readed}}' data-index='{{index}}' data-avatar='{{item.senderavatar}}' data-openid='{{item.senderopenid}}' data-username='{{item.sendernickname}}'>
+      <view bindtap='showinformdetail' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.messageid}}' data-problemid='{{item.problemid}}' data-informtype='{{item.messagetype}}' data-sourcerid='{{item.sourcerid}}' data-readed='{{item.readed}}' data-index='{{index}}' data-avatar='{{item.senderavatar}}' data-openid='{{item.senderopenid}}' data-username='{{item.sendernickname}}' style="border-bottom:solid 1px gray;width:100%;">
+        <view class="segment">
           <text class='textstyle textcenter' style='margin-left:20rpx;'>{{item.sendtime}}</text>
           <icon class='icon mathoj {{icons[item.messagetype]}}' style='font-size:70rpx'></icon>
           <icon wx:if="{{item.readed=='0'}}" class='mathoj mathojhongdian' style='color:red;font-size:35rpx;'></icon>

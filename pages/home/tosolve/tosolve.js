@@ -7,105 +7,101 @@ var searchParam = []
 var formerid = 0
 var solvedformerid = 0
 var qdata = null
-var tabTxtbak = ''
+var tmpactiveIndex = 0
+var tmpgrade = 1 //1是不限
 Page({
   data: {
     bottom: false,
     havenewbtn: false,
     inputvalue: null,
-    tabs: ["题库", "精选"],
+    //点击确认筛选后传给后端的值
     activeIndex: 0,
+    grade: 1,
+    //点击确认筛选后展示的结果
+    activeIndexStr: '题库',
+    gradeStr: '二年级',
+    //点击筛选中的值，实时展示
+    filteractiveIndex: 0,
+    filtergrade: 1,
+
     sliderOffset: 0,
     sliderLeft: 0,
     msg2: {
       icon: '/images/empty.png',
     },
-    tabTxt: '',
     problemlist: [],
     solvedproblemlist: [],
     show: 'quanzi',
-    ranklist: []
+    ranklist: [],
+    flag: true,//筛选页,true为无开屏
   },
+  // 显示排行页
   showrank: function (e) {
     wx.showNavigationBarLoading()
     var that = this
     network.post('/problem/getrank', {}, function (res) {
-      that.setData({
-        ranklist: res.rankdetail,
-        show: 'rank'
-      })
+      if (res.rankdetail) {
+        that.setData({
+          ranklist: res.rankdetail,
+          show: 'rank'
+        })
+      } else {
+        that.setData({
+          ranklist: [],
+          show: 'rank'
+        })
+      }
+
     }, function () { }, function () {
       wx.hideNavigationBarLoading()
     })
   },
-  showdiscovery: function (e) {
+  // 设置题集或者精选
+  switchactiveIndex: function (e) {
+    console.log('switchactiveIndex: ', e)
+    tmpactiveIndex = e.currentTarget.dataset.id
     this.setData({
-      show: 'discovery'
+      filteractiveIndex: e.currentTarget.dataset.id
     })
   },
-  showquanzi: function (e) {
+  // 设置年级
+  switchgrade: function (e) {
+    tmpgrade = e.currentTarget.dataset.id
     this.setData({
-      show: 'quanzi'
+      filtergrade: e.currentTarget.dataset.id
     })
   },
-  tabClick: function (e) {
-    var that = this
-    if (app.globalData.grade != 0 && app.globalData.onlysee) {
-      searchParam = [util.gradearray[app.globalData.grade]]
-    } else {
-      searchParam = []
-    }
-    that.setData({
-      tabTxt: tabTxtbak,
-      sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+  // 显示筛选
+  showfilter: function (e) {
+    this.setData({
+      flag: false,
+      filteractiveIndex: tmpactiveIndex,
+      filtergrade: tmpgrade
     })
-    if (e.currentTarget.id == '1') {
-      if (that.data.solvedproblemlist.length == 0) {
-        util.getlastedsolvedprob(that, searchParam)
-      }
-    }
   },
 
-
-
-  onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      var problemid = res.target.dataset.problemid
-      return {
-        title: '[有人@我]发现一道智力题，考考你~',
-        path: '/pages/home/question/question?problemid=' + problemid,
-        imageUrl: config.host + '/static/sharepic.jpg',
-      }
-    }
-    return {
-      title: '[有人@我]发现一道智力题，考考你~',
-      path: '/pages/home/tosolve/tosolve',
-    }
-  },
-
-
-
-  filterTabChild: function (e) {
+  confirmfilter: function (e) {
+    console.log('tmpgrade: ', tmpgrade)
+    this.setData({
+      flag: true,
+      activeIndex: tmpactiveIndex,
+      grade: tmpgrade,
+      activeIndexStr: util.tijis[tmpactiveIndex],
+      gradeStr: util.grades[tmpgrade]
+    })
     formerid = 0
     var that = this;
-    var index = e.currentTarget.dataset.index;
-    var data = JSON.parse(JSON.stringify(that.data.tabTxt));
-    var paramindex = e.detail.value
 
-    if (paramindex == '0') {
-      data[index].text = that.data.tabTxt[index].originalText;
-      delete searchParam[index];
+    if (tmpgrade == 1) {
+      searchParam = []
     } else {
-      data[index].text = data[index]['child'][paramindex].text
-      searchParam[index] = data[index]['child'][paramindex].text
+      console.log('tmpgrade: ', tmpgrade)
+      searchParam = [util.gradearray[tmpgrade]]
     }
-    that.setData({
-      tabTxt: data
-    })
-    if (that.data.activeIndex == '0') {
+
+    if (tmpactiveIndex == '0') {
       network.post('/problem/getten', {
-        'formerid': formerid,
+        'formerid': 0,
         'filter': searchParam,
         'solved': '0'
       }, function (res) {
@@ -128,6 +124,7 @@ Page({
         'filter': searchParam,
         'solved': '1'
       }, function (res) {
+        console.log('res: ', res)
         var filterproblist = res.problem
         if (filterproblist == undefined) {
           that.setData({
@@ -142,6 +139,38 @@ Page({
         }
       })
     }
+  },
+
+  // 转换为发现页
+  showdiscovery: function (e) {
+    this.setData({
+      show: 'discovery'
+    })
+  },
+  // 转换为圈子页
+  showquanzi: function (e) {
+    this.setData({
+      show: 'quanzi'
+    })
+  },
+
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      var problemid = res.target.dataset.problemid
+      return {
+        title: '[有人@我]发现一道智力题，考考你~',
+        path: '/pages/home/question/question?problemid=' + problemid,
+        imageUrl: config.host + '/static/sharepic.jpg',
+      }
+    }
+    return {
+      title: '[有人@我]发现一道智力题，考考你~',
+      path: '/pages/home/tosolve/tosolve',
+    }
+  },
+  //放弃冒泡
+  drop: function (e) {
+    console.log('drop tap')
   },
 
   toask: function () {
@@ -171,7 +200,7 @@ Page({
     var that = this
     setTimeout(function () {
       if (app.globalData.getopenidok) {
-        if (app.globalData.onlysee && app.globalData.grade != 0 && app.globalData.grade) {
+        if (app.globalData.onlysee && app.globalData.grade && app.globalData.grade != 0) {
           util.getlastedprob(that, [util.gradearray[app.globalData.grade]])
 
           searchParam = [util.gradearray[app.globalData.grade]]
@@ -187,21 +216,8 @@ Page({
   onLoad: function () {
     var that = this
     app.globalData.tosolvethat = that
-    that.setData({
-      tabTxt: util.tabtxt,
-    })
-    tabTxtbak = util.tabtxt
     that.load()
-
     app.globalData.mapCtx = wx.createMapContext('map')
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
-        });
-      }
-    });
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
@@ -223,6 +239,11 @@ Page({
       })
     }
   },
+
+  conceal: function (e) {
+    this.setData({ flag: true })
+  },
+
   rankshowmore: function (e) {
     var dataset = e.currentTarget.dataset
     if (openid == app.globalData.openid) {
@@ -262,7 +283,7 @@ Page({
 
   onReachBottom: function () {
     var that = this
-    if (that.data.activeIndex == '0') {
+    if (tmpactiveIndex == '0') {
       util.get10prob(that, searchParam)
     } else if (that.data.activeIndex == '1') {
       util.get10solvedprob(that, searchParam)
