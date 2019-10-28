@@ -1,7 +1,6 @@
 App({
   globalData: {
     userInfo: null,
-    mapCtx: null,
     openid: null,
     audiopath: null,
     screenwidth: 0,

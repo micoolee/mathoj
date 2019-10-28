@@ -217,7 +217,6 @@ Page({
     var that = this
     app.globalData.tosolvethat = that
     that.load()
-    app.globalData.mapCtx = wx.createMapContext('map')
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo

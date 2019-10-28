@@ -1,4 +1,4 @@
-<view bindtap="mapclick">
+<view>
   <map bindtap="mapclick" id="map" circles="{{circles}}" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{mapheightratio*height}}px;"></map>
   <cover-view wx:if="{{showchangecircle}}" class="t_w" style="position: fixed;top: 0px;width: 100%;">
     <cover-view class="tanchu_view">

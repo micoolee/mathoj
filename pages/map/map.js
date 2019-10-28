@@ -6,13 +6,7 @@ const app = getApp()
 var userlatitude = 0
 var userlongitude = 0
 var teacherorstudent = 'student'
-var oldcircle = [{
-  latitude: 0,
-  longitude: 0,
-  radius: 0,
-  color: "#FF0000",
-  fillColor: "#FF000000",
-}]
+var oldcircle = ''
 Page({
   data: {
     mapheightratio: 1,
@@ -73,8 +67,7 @@ Page({
         height: 40
       },
       clickable: true
-    },
-    {
+    }, {
       id: 6,
       iconPath: '/images/juli.png',
       position: {
@@ -84,8 +77,7 @@ Page({
         height: 40
       },
       clickable: true
-    }
-    ],
+    }],
     mapCtx: null,
     profile: '',
     problems: [],
@@ -158,28 +150,23 @@ Page({
       wx.getLocation({
         type: 'gcj02', //返回可以用于wx.openLocation的经纬度
         success: (res) => {
-          that.createMarker(res);
-          that.setData({
-            //画一个三公里的圈
-            circles: [{
-              latitude: res.latitude,
-              longitude: res.longitude,
-              radius: 3000,
-              color: "#FF0000",
-              fillColor: "#FF000000",
-              strokeWidth: 1
-            }],
-            latitude: res.latitude,
-            longitude: res.longitude,
-            scale: 1
-          })
-          oldcircle = [{
+          var tmpcircle = [{
             latitude: res.latitude,
             longitude: res.longitude,
             radius: 3000,
             color: "#FF0000",
-            fillColor: "#FF000000",
+            fillColor: "#FF000020",
+            strokeWidth: 1
           }]
+          that.createMarker(res);
+          that.setData({
+            //画一个三公里的圈
+            circles: tmpcircle,
+            latitude: res.latitude,
+            longitude: res.longitude,
+            scale: 1
+          })
+          oldcircle = tmpcircle
           userlatitude = res.latitude
           userlongitude = res.longitude
           //上传用户地理位置
