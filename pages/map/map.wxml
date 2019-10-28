@@ -1,5 +1,27 @@
 <view bindtap="mapclick">
-  <map id="map" circles="{{circles}}" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{mapheightratio*height}}px;"></map>
+  <map bindtap="mapclick" id="map" circles="{{circles}}" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{mapheightratio*height}}px;"></map>
+  <cover-view wx:if="{{showchangecircle}}" class="t_w" style="position: fixed;top: 0px;width: 100%;">
+    <cover-view class="tanchu_view">
+      <cover-view class="filterbutton" style="display: flex;">
+        <cover-view style="flex:1;text-align: center;align-self: center;">距离</cover-view>
+        <cover-view style="flex:6;display: flex;">
+          <cover-view bindtap="switchmargin" data-id="3" class="circleborder margin510 {{filtermargin==3?'bluewhite':''}}">
+            三公里
+          </cover-view>
+          <cover-view bindtap="switchmargin" data-id="5" class="circleborder margin510 {{filtermargin==5?'bluewhite':''}}">
+            五公里
+          </cover-view>
+          <cover-view bindtap="switchmargin" data-id="0" class="circleborder margin510 {{filtermargin==0?'bluewhite':''}}">
+            不限
+          </cover-view>
+        </cover-view>
+      </cover-view>
+      <cover-view style="display: flex;padding: 10px;height: 60rpx">
+        <button style="width: 100px;" size="mini" bindtap="conceal">取消</button>
+        <button style="width: 100px;" type="primary" size="mini" bindtap="confirmfilter">确认</button>
+      </cover-view>
+    </cover-view>
+  </cover-view>
 </view>
 <view wx:if="{{mapheightratio!=1}}" style="height:{{1-mapheightratio}}">
   <view class="bottomline" style="padding: 40rpx;display: flex;width: 80%;margin-left: 5%;">

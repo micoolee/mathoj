@@ -6,7 +6,13 @@ const app = getApp()
 var userlatitude = 0
 var userlongitude = 0
 var teacherorstudent = 'student'
-
+var oldcircle = [{
+  latitude: 0,
+  longitude: 0,
+  radius: 0,
+  color: "#FF0000",
+  fillColor: "#FF000000",
+}]
 Page({
   data: {
     mapheightratio: 1,
@@ -67,11 +73,61 @@ Page({
         height: 40
       },
       clickable: true
+    },
+    {
+      id: 6,
+      iconPath: '/images/juli.png',
+      position: {
+        left: 150,
+        top: 10,
+        width: 40,
+        height: 40
+      },
+      clickable: true
     }
     ],
     mapCtx: null,
     profile: '',
-    problems: []
+    problems: [],
+    showchangecircle: false,
+    filtermargin: 3
+  },
+  confirmfilter: function (e) {
+    if (this.data.filtermargin * 1 == 3) {
+      oldcircle[0].radius = 3000
+      this.setData({
+        //画一个三公里的圈
+        circles: oldcircle,
+        showchangecircle: false,
+      })
+    } else if (this.data.filtermargin * 1 == 5) {
+      oldcircle[0].radius = 5000
+      this.setData({
+        //画一个五公里的圈
+        circles: oldcircle,
+        showchangecircle: false,
+      })
+    } else if (this.data.filtermargin * 1 == 0) {
+      this.setData({
+        //不画圈
+        circles: [],
+        showchangecircle: false,
+      })
+    }
+
+  },
+  conceal: function (e) {
+    this.setData({
+      showchangecircle: false,
+    })
+  },
+  switchmargin: function (e) {
+    this.setData({
+      filtermargin: e.currentTarget.dataset.id
+    })
+  },
+  drop: function (e) {
+    console.log('drop')
   },
   onReady: function (e) {
     // 使用 wx.createMapContext 获取 map 上下文
@@ -87,13 +143,13 @@ Page({
     var that = this
     wx.setClipboardData({
       data: that.data.profile.phone,
-      success(res) {
-        wx.getClipboardData({
-          success(res) {
-            console.log(res.data) // data
-          }
-        })
-      }
+      // success(res) {
+      //   wx.getClipboardData({
+      //     success(res) {
+      //       console.log(res.data) // data
+      //     }
+      //   })
+      // }
     })
   },
   onLoad: function () {
@@ -104,17 +160,26 @@ Page({
         success: (res) => {
           that.createMarker(res);
           that.setData({
+            //画一个三公里的圈
             circles: [{
               latitude: res.latitude,
               longitude: res.longitude,
               radius: 3000,
-              color: "#ffffff",
-              fillColor: "#00000030"
+              color: "#FF0000",
+              fillColor: "#FF000000",
+              strokeWidth: 1
             }],
             latitude: res.latitude,
             longitude: res.longitude,
             scale: 1
           })
+          oldcircle = [{
+            latitude: res.latitude,
+            longitude: res.longitude,
+            radius: 3000,
+            color: "#FF0000",
+            fillColor: "#FF000000",
+          }]
           userlatitude = res.latitude
           userlongitude = res.longitude
           //上传用户地理位置
@@ -199,6 +264,12 @@ Page({
       //student
       teacherorstudent = 'student'
       that.formsubmitstudent()
+    } else if (e.controlId === 6) {
+      //修改圆半径
+      that.setData({
+        showchangecircle: true
+      })
+
     }
   },
   getSchoolMarkers() {
@@ -243,9 +314,9 @@ Page({
       istrue: true,
       callout: {
         content: point.username,
-        color: '#000000',
+        color: '#00ffff',
         fontSize: 15,
-        borderRadius: 10,
+        borderRadius: 20,
         display: 'ALWAYS',
       }
     };
