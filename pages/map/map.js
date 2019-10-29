@@ -5,8 +5,9 @@ var console = require('../../utils/console.js')
 const app = getApp()
 var userlatitude = 0
 var userlongitude = 0
-var teacherorstudent = 'student'
+var teacherorstudent = 'teacher'
 var oldcircle = ''
+var margin = 3
 Page({
   data: {
     mapheightratio: 1,
@@ -85,6 +86,7 @@ Page({
     filtermargin: 3
   },
   confirmfilter: function (e) {
+    var that = this
     if (this.data.filtermargin * 1 == 3) {
       oldcircle[0].radius = 3000
       this.setData({
@@ -92,6 +94,8 @@ Page({
         circles: oldcircle,
         showchangecircle: false,
       })
+      margin = 3
+
     } else if (this.data.filtermargin * 1 == 5) {
       oldcircle[0].radius = 5000
       this.setData({
@@ -99,13 +103,21 @@ Page({
         circles: oldcircle,
         showchangecircle: false,
       })
+      margin = 5
     } else if (this.data.filtermargin * 1 == 0) {
       this.setData({
         //不画圈
         circles: [],
         showchangecircle: false,
       })
+      margin = 0
     }
+    if (teacherorstudent == 'teacher') {
+      that.formsubmitteacher()
+    } else if (teacherorstudent == 'student') {
+      that.formsubmitstudent()
+    }
+
 
   },
   conceal: function (e) {
@@ -171,7 +183,7 @@ Page({
           userlongitude = res.longitude
           //上传用户地理位置
           this.adduserlocation()
-          this.getSchoolMarkers()
+          this.formsubmitteacher()
           this.enterLocation()
         }
       });
@@ -259,23 +271,7 @@ Page({
 
     }
   },
-  getSchoolMarkers() {
-    var that = this
-    network.post('/location/getteacher', {
-      'openid': app.globalData.openid
-    }, function (res) {
-      let markers = [];
-      if (res.location) {
-        for (let item of res.location) {
-          let marker = that.createMarker(item);
-          markers.push(marker)
-        }
-      }
-      that.setData({
-        markers: markers
-      })
-    })
-  },
+
 
   getCenterLocation: function () {
     var that = this
@@ -293,18 +289,19 @@ Page({
     let marker = {
       iconPath: point.avatar,
       id: point.userid || 0,
-      name: point.username || '',
+      name: point.nickname || '',
       latitude: point.latitude,
       longitude: point.longitude,
       width: 40,
       height: 40,
       istrue: true,
       callout: {
-        content: point.username,
-        color: '#00ffff',
-        fontSize: 15,
+        content: point.nickname,
+        color: '#ff000050',
+        fontSize: 12,
         borderRadius: 20,
         display: 'ALWAYS',
+        padding: 5
       }
     };
     return marker;
@@ -329,8 +326,9 @@ Page({
   },
   formsubmitteacher: function (e) {
     var that = this
-    network.post('/location/getteacher', {
-      'openid': app.globalData.openid
+    network.post('/location/getprincipal', {
+      'openid': app.globalData.openid,
+      'margin': margin,
     }, function (res) {
       var markers = [];
       if (res.location) {
@@ -348,7 +346,8 @@ Page({
   formsubmitstudent: function (e) {
     var that = this
     network.post('/location/getstudent', {
-      'openid': app.globalData.openid
+      'openid': app.globalData.openid,
+      'margin': margin,
     }, function (res) {
       var markers = [];
       if (res.location) {
@@ -380,7 +379,7 @@ Page({
             userlongitude = res.longitude
             //上传用户地理位置
             that.adduserlocation()
-            that.getSchoolMarkers()
+            that.formsubmitteacher()
             that.enterLocation()
           }
         });
