@@ -1,11 +1,11 @@
 /* pages/ask/ask.wxss */
-.section{
+.section {
   display: flex;
   padding: 10px;
   justify-content: center
 }
 
 
-.pad5px{
-padding:5px;
+.pad5px {
+  padding: 5px;
 }

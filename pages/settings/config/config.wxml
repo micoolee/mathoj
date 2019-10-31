@@ -1,4 +1,4 @@
-<!--pages/settings/config/config.wxml-->
+<!-- pages/settings/config/config.wxml -->
 <view style='margin-top:50rpx;'>
   <view class='line'>
     <text style='margin-left:10px'>我的年级</text>
@@ -9,6 +9,6 @@
     <switch checked="{{onlysee}}" bindchange="switch1Change" />
   </view>
   <view style='margin-top:50rpx;'>
-    <button type='primary' style='width:80%' bindtap='save'>保存</button>
+    <button type='primary' style='width:50%' bindtap='save'>保存</button>
   </view>
 </view>

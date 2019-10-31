@@ -25,7 +25,7 @@ Page({
   },
   save: function (e) {
     var that = this
-    network.post('/user/updateconfig', {
+    network.post('/user/updateprofile', {
       'userid': app.globalData.selfuserid,
       'onlysee': that.data.onlysee,
       'grade': that.data.index * 1
@@ -48,14 +48,12 @@ Page({
         util.getlastedprob(app.globalData.tosolvethat)
         util.getlastedsolvedprob(app.globalData.tosolvethat)
       }
-      wx.navigateBack({
-      })
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
     if (app.globalData.onlysee) {
       this.setData({
         grades: util.gradearray,

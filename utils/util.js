@@ -58,6 +58,7 @@ function get_or_create_avatar(userid, that = 'null') {
 }
 
 function getlastedprob(that, filter) {
+  console.log(that.formerid, 'formerid: ')
   network.post('/problem/getten', {
     'formerid': that.formerid,
     'filter': filter || [],
@@ -85,7 +86,9 @@ function getlastedprob(that, filter) {
       problemlist: problemlist,
 
     })
+
     that.formerid = problemlist[problemlist['length'] - 1].problemid
+    console.log(that.formerid, 'formerid: ')
   }, function (e) {
     console.log('fail')
   },
@@ -139,16 +142,16 @@ function getlastedsolvedprob(that, filter) {
       }
       that.setData({
         solvedproblemlist: solvedproblemlist,
-        solvedformerid: solvedproblemlist[solvedproblemlist.length - 1].problemid
       })
+      that.solvedformerid = solvedproblemlist[solvedproblemlist.length - 1].problemid
     } else {
       wx.showToast({
         title: '暂无精选',
       })
       that.setData({
         solvedproblemlist: [],
-        solvedformerid: 0
       })
+      that.solvedformerid = 0
     }
 
   }, function () {
@@ -182,7 +185,7 @@ function pulldownmessage(that = null) {
 
 function get10prob(that, searchparam = []) {
   network.post('/problem/getten', {
-    'formerid': that.data.formerid,
+    'formerid': that.formerid,
     'filter': searchparam,
     'solved': '0'
   }, function (res) {
@@ -207,15 +210,16 @@ function get10prob(that, searchparam = []) {
       }
       that.setData({
         problemlist: problemlist,
-        formerid: problemlist[problemlist['length'] - 1].problemid
+
       })
+      that.formerid = problemlist[problemlist['length'] - 1].problemid
     }
   })
 }
 
 function get10solvedprob(that, searchparam = []) {
   network.post('/problem/getten', {
-    'formerid': that.data.solvedformerid,
+    'formerid': that.solvedformerid,
     'filter': searchparam,
     'solved': '1'
   }, function (res) {
@@ -240,8 +244,9 @@ function get10solvedprob(that, searchparam = []) {
 
       that.setData({
         problemlist: problemlist,
-        solvedformerid: problemlist[problemlist['length'] - 1].problemid
+
       })
+      that.solvedformerid = problemlist[problemlist['length'] - 1].problemid
     }
   })
 }

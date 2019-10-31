@@ -1,5 +1,9 @@
 <view class="page">
-  <view class="weui-uploader__title pad5px">问题描述(必填):</view>
+  <view class="weui-uploader__title pad5px">
+    <icon class='mathoj mathojwentimiaoshu' style='color:gray;font-size:40rpx;text-align:center;'></icon>
+    <span style="color:red;">*</span>
+    <text>问题描述:</text>
+  </view>
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell">
       <view class="weui-cell__bd">
@@ -14,7 +18,10 @@
         <view class="weui-cell__bd">
           <view class="weui-uploader">
             <view class="weui-uploader__hd">
-              <view class="weui-uploader__title">图片上传(可选)</view>
+              <view class="weui-uploader__title">
+                <icon class='mathoj mathojweimingming-' style='color:gray;font-size:40rpx;text-align:center;'></icon>
+                图片上传
+              </view>
               <view class="weui-uploader__info">{{imagelength>4?4:imagelength}}/4</view>
             </view>
             <view class="weui-uploader__bd">
@@ -37,15 +44,18 @@
   </view>
   <view class="weui-cells  page__bd_spacing">
     <picker bindchange="bindPickerChange" name="gradeindex" value="{{gradeindex}}" range="{{gradearray}}">
-      <view class="weui-uploader__title" style='text-align:center;padding:5px'>
-        年级(必填):{{gradearray[gradeindex]}}
+      <view class="weui-uploader__title czspcenter" style='padding:5px'>
+        <icon class='mathoj mathojnianji' style='color:gray;font-size:40rpx;'></icon>
+        <span style="color:red;">*</span>
+        年级:{{gradearray[gradeindex]}}
       </view>
     </picker>
   </view>
   <view class="weui-cells  page__bd_spacing">
     <picker bindchange="bindPickerChangeCategory" data-category='{{categorys[gradeindex+1][categoryindex]}}' value="{{categoryindex}}" range="{{categorys[gradeindex]}}">
-      <view class="weui-uploader__title" style='text-align:center;padding:5px'>
-        知识点(选填):{{categorys[gradeindex][categoryindex]}}
+      <view class="weui-uploader__title czspcenter" style='padding:5px'>
+        <icon class='mathoj mathojzhishidian' style='color:gray;font-size:40rpx;'></icon>
+        知识点:{{categorys[gradeindex][categoryindex]}}
       </view>
     </picker>
   </view>

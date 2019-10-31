@@ -74,7 +74,7 @@ Page({
           })
         }
         wx.navigateTo({
-          url: `../settings/profile/profile?userid=${sourcerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+          url: `/pages/settings/profile/profile?userid=${sourcerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
         })
 
 
@@ -119,11 +119,11 @@ Page({
 
     if (openid == app.globalData.openid) {
       wx.switchTab({
-        url: '../settings/settings',
+        url: '/pages/settings/settings',
       })
     } else {
       wx.navigateTo({
-        url: `../settings/profile/profile?userid=${sourcerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+        url: `/pages/settings/profile/profile?userid=${sourcerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
       })
     }
   },

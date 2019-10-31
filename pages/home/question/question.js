@@ -30,15 +30,15 @@ recorderManager.onFrameRecorded((res) => {
     frameBuffer
   } = res
 })
-const options = {
-  duration: 60000,
-  sampleRate: 44100,
-  numberOfChannels: 1,
-  encodeBitRate: 192000,
-  format: 'wav',
-  frameSize: 50,
-  answerbox: false
-}
+// const options = {
+//   duration: 60000,
+//   sampleRate: 44100,
+//   numberOfChannels: 1,
+//   encodeBitRate: 192000,
+//   format: 'wav',
+//   frameSize: 50,
+//   answerbox: false
+// }
 var answerpicsrc = ''
 var haoti = 'false'
 var page = Page({
@@ -486,8 +486,6 @@ var page = Page({
       }
       app.globalData.audiopath = null
     }
-
-
   },
 
 
@@ -500,7 +498,7 @@ var page = Page({
 
     if (openid == app.globalData.openid) {
       wx.switchTab({
-        url: '../settings/settings',
+        url: '/pages/settings/settings',
       })
     } else {
       wx.navigateTo({
@@ -536,8 +534,6 @@ var page = Page({
   },
 
   onReady: function () {
-    var that = this
-
     if (!app.globalData.openid) {
       wx.login({
         success: res => {

@@ -48,6 +48,42 @@
       </view>
     </view>
   </view>
+  <!-- 发现的筛选 -->
+  <view class="zhezao" hidden="{{flag1}}">
+    <view class="t_w" catchtap="drop">
+      <view class="tanchu_view">
+        <view class="filterbutton" style="display: flex;">
+          <view style="flex:1">
+            <text>年级</text>
+          </view>
+          <view style="flex:6;display: flex;flex-wrap: wrap;">
+            <view bindtap="switchgrade1" data-id="1" class="circleborder margin510 {{filtergrade1==1?'bluewhite':''}}">
+              不限
+            </view>
+            <view bindtap="switchgrade1" data-id="2" class="circleborder margin510 {{filtergrade1==2?'bluewhite':''}}">
+              二年级
+            </view>
+            <view bindtap="switchgrade1" data-id="3" class="circleborder margin510 {{filtergrade1==3?'bluewhite':''}}">
+              三年级
+            </view>
+            <view bindtap="switchgrade1" data-id="4" class="circleborder margin510 {{filtergrade1==4?'bluewhite':''}}">
+              四年级
+            </view>
+            <view bindtap="switchgrade1" data-id="5" class="circleborder margin510 {{filtergrade1==5?'bluewhite':''}}">
+              五年级
+            </view>
+            <view bindtap="switchgrade1" data-id="6" class="circleborder margin510 {{filtergrade1==6?'bluewhite':''}}">
+              六年级
+            </view>
+          </view>
+        </view>
+        <view style="display: flex;padding: 10px;height: 60rpx">
+          <button size="mini" catchtap="conceal1">取消</button>
+          <button type="primary" size="mini" catchtap="confirmfilter1">确认</button>
+        </view>
+      </view>
+    </view>
+  </view>
   <view class="spleft">
     <view class="circleborder" style="{{show=='quanzi'?'background-color:lightblue':''}}" catchtap="showquanzi">
       圈子
@@ -62,8 +98,8 @@
   <view catchtap="drop" wx:if="{{show=='quanzi'}}" style="{{!flag?'position:fixed;':''}}">
     <view class="page" style="width: 750rpx;">
       <view style="justify-content: space-around;display:flex;">
-        <view class="czlist">
-          <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>
+        <view catchtap="toschoolmate" class="czlist">
+          <icon class='mathoj mathojchengyuan' style='color:gray;font-size:80rpx;text-align:center;'></icon>
           <text>圈子成员</text>
         </view>
         <view class="czlist">
@@ -104,7 +140,7 @@
                   <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
                 </view>
                 <view>
-                  <text>无待处理</text>
+                  <text>无相关结果</text>
                 </view>
               </view>
               <view wx:else>
@@ -230,7 +266,88 @@
     </view>
     <image src='/images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
   </view>
-  <view catchtap="drop" wx:elif="{{show=='discovery'}}">发现页</view>
+  <!-- 发现页 -->
+  <view class="page" catchtap="drop" wx:elif="{{show=='discovery'}}">
+    <view class="weui-tab ">
+      <view style="display: flex;margin: 20px 0 10rpx 0;">
+        <view style="margin: 0px 20px;" class="czcenter">
+          <icon class='mathoj mathojshaixuan' style='color:black;font-size:40rpx;padding:10rpx 0 0 0;'></icon>
+          <text>筛选</text>
+        </view>
+        <view class="circleborder czcenter" bindtap="showfilter1">
+          <text style="margin:5rpx 10rpx;">{{gradeStr1}}</text>
+        </view>
+      </view>
+      <view>
+        <!-- 题库 -->
+        <view class="weui-tab__content" style='background-color:white;'>
+          <!-- 正文  体现一下遮罩效果的 -->
+          <view class="cxj-content">
+            <view wx:if='{{havenewbtn}}'>
+              <wux-notice-bar mode="closable" content="有人提问啦~" />
+            </view>
+            <view wx:if="{{problemlist1.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
+              <!-- 搜索空集 -->
+              <view>
+                <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
+              </view>
+              <view>
+                <text>无相关结果</text>
+              </view>
+            </view>
+            <view wx:else>
+              <block wx:for="{{problemlist1}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+                <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                  <view class="feed-source" style='display:flex'>
+                    <view class="avatar" catchtap='showmore' data-avatar='{{item.avatar}}' data-askerid='{{item.askerid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'>
+                      <image src="{{item.avatar}}"></image>
+                    </view>
+                    <text>{{item.nickname}}</text>
+                    <text style='margin-right:auto'>{{item.grade}}</text>
+                    <view style='display:flex;margin-right:0'>
+                      <text style='margin-right:auto'>{{item.asktime}}</text>
+                    </view>
+                  </view>
+                  <view class="feed-content">
+                    <view class="question" qid="{{question_id}}">
+                      <a class="question-link">
+                        <text class='line-3'>{{item.description}}</text>
+                      </a>
+                    </view>
+                    <view class="answer-body">
+                      <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                        <view class="comments ">
+                          <view wx:if="{{item.solutionnum != null}}">{{item.solutionnum}} 回答</view>
+                          <view wx:else>0 回答</view>
+                        </view>
+                        <view class="comments ">
+                          <view wx:if="{{item.commentnum != null}}">{{item.commentnum}} 评论</view>
+                          <view wx:else>0 评论</view>
+                        </view>
+                        <view class="follow-it">
+                          <view wx:if="{{item.subscribernum != null}}">
+                            {{item.subscribernum}} 关注
+                          </view>
+                          <view wx:else>0 关注</view>
+                        </view>
+                        <view class="comments ">
+                          <view wx:if="{{item.browsernum != null}}">{{item.browsernum}} 浏览</view>
+                          <view wx:else>0 浏览</view>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </view>
+          <view class="weui-loadmore weui-loadmore_line" wx:if="{{bottom}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
   <view catchtap="drop" wx:else style="width:100%">
     <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}">
       <view style="display:flex">

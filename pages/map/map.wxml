@@ -32,7 +32,7 @@
     <icon wx:if="{{profile.phone}}" bindtap="copyphone" class='mathoj mathojfuzhi' style='color:gray;font-size:60rpx;'></icon>
   </view>
   <view class="czlist" style="padding: 0 40rpx;">
-    <view data-id='{{item.problemid}}' bindtap="bindQueTap" class="bottomline" wx:for="{{problems}}" wx:for-item="item">
+    <view style="padding: 10px 0;" data-id='{{item.problemid}}' bindtap="bindQueTap" class="bottomline" wx:for="{{problems}}" wx:for-item="item">
       {{item.description}} {{item.asktime}}
     </view>
   </view>

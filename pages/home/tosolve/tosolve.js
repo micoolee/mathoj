@@ -9,6 +9,9 @@ var solvedformerid = 0
 var qdata = null
 var tmpactiveIndex = 0
 var tmpgrade = 1 //1是不限
+
+var formerid1 = 0
+var tmpgrade1 = 1
 Page({
   data: {
     bottom: false,
@@ -23,6 +26,12 @@ Page({
     //点击筛选中的值，实时展示
     filteractiveIndex: 0,
     filtergrade: 1,
+
+    flag1: true,//筛选页,true为无开屏
+    problemlist1: [],
+    grade1: 1,
+    gradeStr1: '二年级',
+    filtergrade1: 1,
 
     sliderOffset: 0,
     sliderLeft: 0,
@@ -71,6 +80,14 @@ Page({
       filtergrade: e.currentTarget.dataset.id
     })
   },
+  // 发现里面设置年级
+  switchgrade1: function (e) {
+    tmpgrade1 = e.currentTarget.dataset.id
+    this.setData({
+      filtergrade1: tmpgrade1
+    })
+  },
+
   // 显示筛选
   showfilter: function (e) {
     this.setData({
@@ -80,6 +97,12 @@ Page({
     })
   },
 
+  showfilter1: function (e) {
+    this.setData({
+      flag1: false,
+      filtergrade1: tmpgrade1
+    })
+  },
   confirmfilter: function (e) {
     console.log('tmpgrade: ', tmpgrade)
     this.setData({
@@ -89,9 +112,9 @@ Page({
       activeIndexStr: util.tijis[tmpactiveIndex],
       gradeStr: util.grades[tmpgrade]
     })
-    formerid = 0
-    var that = this;
 
+    var that = this;
+    that.formerid = 0
     if (tmpgrade == 1) {
       searchParam = []
     } else {
@@ -115,7 +138,7 @@ Page({
           that.setData({
             problemlist: filterproblist,
           })
-          formerid = filterproblist[filterproblist.length - 1]['problemid']
+          that.formerid = filterproblist[filterproblist.length - 1]['problemid']
         }
       })
     } else {
@@ -135,11 +158,43 @@ Page({
           that.setData({
             solvedproblemlist: filterproblist,
           })
-          solvedformerid = filterproblist[filterproblist.length - 1]['problemid']
+          that.solvedformerid = filterproblist[filterproblist.length - 1]['problemid']
         }
       })
     }
   },
+
+  confirmfilter1: function (e) {
+    this.setData({
+      flag1: true,
+      grade1: tmpgrade1,
+      gradeStr1: util.grades[tmpgrade1]
+    })
+
+    var that = this;
+    that.formerid1 = 0
+    network.post('/problem/getnearbytenproblem', {
+      'openid': app.globalData.openid,
+      'formerid': 0,
+      'scope': 'all',
+      'grade': util.gradearray[tmpgrade1] || '',
+    }, function (res) {
+      var filterproblist = res.problems
+      if (filterproblist == undefined) {
+        that.setData({
+          bottom: true,
+          problemlist1: []
+        })
+      } else {
+        that.setData({
+          problemlist1: filterproblist,
+        })
+        that.formerid1 = filterproblist[filterproblist.length - 1]['problemid']
+      }
+    })
+
+  },
+
 
   // 转换为发现页
   showdiscovery: function (e) {
@@ -151,6 +206,12 @@ Page({
   showquanzi: function (e) {
     this.setData({
       show: 'quanzi'
+    })
+  },
+
+  toschoolmate: function (e) {
+    wx.navigateTo({
+      url: '/pages/home/schoolmate/schoolmate',
     })
   },
 
@@ -201,9 +262,8 @@ Page({
     setTimeout(function () {
       if (app.globalData.getopenidok) {
         if (app.globalData.onlysee && app.globalData.grade && app.globalData.grade != 0) {
-          util.getlastedprob(that, [util.gradearray[app.globalData.grade]])
-
           searchParam = [util.gradearray[app.globalData.grade]]
+          util.getlastedprob(that, searchParam)
         } else {
           util.getlastedprob(that)
         }
@@ -214,12 +274,8 @@ Page({
   },
 
   onLoad: function () {
-    var that = this
-    app.globalData.tosolvethat = that
-    that.load()
-  },
-  getUserInfo: function (e) {
-    app.globalData.userInfo = e.detail.userInfo
+    app.globalData.tosolvethat = this
+    this.load()
   },
 
   showmore: function (e) {
@@ -234,7 +290,7 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: `../settings/profile/profile?userid=${askerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
+        url: `/pages/settings/profile/profile?userid=${askerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
       })
     }
   },
@@ -247,11 +303,11 @@ Page({
     var dataset = e.currentTarget.dataset
     if (openid == app.globalData.openid) {
       wx.switchTab({
-        url: '../settings/settings',
+        url: '/pages/settings/settings',
       })
     } else {
       wx.navigateTo({
-        url: `../settings/profile/profile?userid=${dataset.userid}&avatar=${dataset.avatar}&username=${dataset.username}&openid=${dataset.openid}`,
+        url: `/pages/settings/profile/profile?userid=${dataset.userid}&avatar=${dataset.avatar}&username=${dataset.username}&openid=${dataset.openid}`,
       })
     }
   },
@@ -270,10 +326,10 @@ Page({
     var that = this
     wx.showNavigationBarLoading() //在标题栏中显示加载
     if (that.data.activeIndex == '0') {
-      formerid = 0
+      that.formerid = 0
       util.getlastedprob(that, searchParam)
     } else if (that.data.activeIndex == '1') {
-      solvedformerid = 0
+      that.solvedformerid = 0
       util.getlastedsolvedprob(that, searchParam)
     }
     wx.stopPullDownRefresh() //停止下拉刷新

@@ -1,20 +1,25 @@
 {
   "pages": [
     "pages/home/tosolve/tosolve",
+    "pages/home/question/question",
+    "pages/home/ask/ask",
+    "pages/home/invite/invite",
+    "pages/home/schoolmate/schoolmate",
+
+    "pages/getuserinfo/getuserinfo",
+
+    "pages/map/map",
+
+    "pages/inform/inform",
+
     "pages/settings/settings",
     "pages/settings/feedback/feedback",
     "pages/settings/help/help",
     "pages/settings/myques/myques",
-    "pages/home/question/question",
-    "pages/home/ask/ask",
     "pages/settings/mysubs/mysubs",
     "pages/settings/myhist/myhist",
     "pages/settings/mycomm/mycomm",
     "pages/settings/profile/profile",
-    "pages/inform/inform",
-    "pages/home/invite/invite",
-    "pages/getuserinfo/getuserinfo",
-    "pages/map/map",
     "pages/settings/config/config"
   ],
   "tabBar": {
