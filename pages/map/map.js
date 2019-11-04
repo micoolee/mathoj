@@ -193,8 +193,6 @@ Page({
     } else if (teacherorstudent == 'student') {
       that.formsubmitstudent()
     }
-
-
   },
   conceal: function (e) {
     this.setData({

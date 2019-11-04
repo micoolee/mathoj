@@ -20,8 +20,10 @@ Page({
     var that = this
     network.post('/user/updateprofile', {
       'userid': app.globalData.selfuserid,
-      'onlysee': that.data.onlysee,
-      'grade': that.data.index * 1
+      'realname': that.data.realname,
+      'phone': that.data.phone,
+      'selfdesc': that.data.selfdesc,
+      'jigoudesc': that.data.jigoudesc,
     }, function (e) {
       wx.showToast({
         title: '更新成功',

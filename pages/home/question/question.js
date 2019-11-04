@@ -528,7 +528,7 @@ var page = Page({
             that.globalData.getopenidok = true
             that.globalData.logged = res.logged
             that.globalData.role = res.role
-            that.globalData.school = res.schoolid
+            that.globalData.school = res.schoolid || ''
 
             getproblem(that)
           })
@@ -554,7 +554,7 @@ var page = Page({
             that.globalData.getopenidok = true
             that.globalData.logged = res.logged
             that.globalData.role = res.role
-            that.globalData.school = res.schoolid
+            that.globalData.school = res.schoolid || ''
             app.connect()
           })
         }

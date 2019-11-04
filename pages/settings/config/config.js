@@ -25,7 +25,7 @@ Page({
   },
   save: function (e) {
     var that = this
-    network.post('/user/updateprofile', {
+    network.post('/user/updateconfig', {
       'userid': app.globalData.selfuserid,
       'onlysee': that.data.onlysee,
       'grade': that.data.index * 1

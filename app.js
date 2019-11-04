@@ -71,7 +71,7 @@ App({
       that.globalData.getopenidok = true
       that.globalData.logged = res.logged
       that.globalData.role = res.role
-      that.globalData.school = res.schoolid
+      that.globalData.school = res.schoolid || ''
 
       wx.getUserInfo({
         success: res => {
