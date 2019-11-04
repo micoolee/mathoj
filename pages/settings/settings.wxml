@@ -29,7 +29,7 @@
     </view>
   </view>
   <view class="list-container">
-    <view class="list-item" bindtap="showMyQues">
+    <view class="list-item" bindtap="showMyProf">
       <text class="list-name">资料</text>
       <image class="list-icon" src="/images/chevron.png"></image>
     </view>

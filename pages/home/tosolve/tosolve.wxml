@@ -85,8 +85,8 @@
     </view>
   </view>
   <view class="spleft">
-    <view class="circleborder" style="{{show=='quanzi'?'background-color:lightblue':''}}" catchtap="showquanzi">
-      圈子
+    <view class="circleborder" style="{{show=='jigou'?'background-color:lightblue':''}}" catchtap="showjigou">
+      机构
     </view>
     <view class="circleborder" style="{{show=='discovery'?'background-color:lightblue':''}}" catchtap="showdiscovery">
       发现
@@ -95,12 +95,12 @@
       排行榜
     </view>
   </view>
-  <view catchtap="drop" wx:if="{{show=='quanzi'}}" style="{{!flag?'position:fixed;':''}}">
+  <view catchtap="drop" wx:if="{{show=='jigou'}}" style="{{!flag?'position:fixed;':''}}">
     <view class="page" style="width: 750rpx;">
       <view style="justify-content: space-around;display:flex;">
         <view catchtap="toschoolmate" class="czlist">
           <icon class='mathoj mathojchengyuan' style='color:gray;font-size:80rpx;text-align:center;'></icon>
-          <text>圈子成员</text>
+          <text>机构成员</text>
         </view>
         <view class="czlist">
           <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>

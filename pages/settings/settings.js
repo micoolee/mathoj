@@ -60,7 +60,11 @@ Page({
       })
     }
   },
-
+  showMyProf: function () {
+    wx.navigateTo({
+      url: './myprof/myprof',
+    })
+  },
   showMyQues: function () {
     wx.navigateTo({
       url: './myques/myques',

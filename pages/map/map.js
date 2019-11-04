@@ -17,6 +17,7 @@ Page({
     scale: 5,
     markers: [],
     circles: [],
+    role: '',
     controls: [{
       id: 1,
       iconPath: '/images/location-control.png',
@@ -50,7 +51,7 @@ Page({
       clickable: true
     }, {
       id: 4,
-      iconPath: '/images/teacher.png',
+      iconPath: '/images/juli.png',
       position: {
         left: 50,
         top: 10,
@@ -60,7 +61,7 @@ Page({
       clickable: true
     }, {
       id: 5,
-      iconPath: '/images/student.png',
+      iconPath: '/images/teacher.png',
       position: {
         left: 100,
         top: 10,
@@ -70,9 +71,61 @@ Page({
       clickable: true
     }, {
       id: 6,
-      iconPath: '/images/juli.png',
+      iconPath: '/images/student.png',
       position: {
         left: 150,
+        top: 10,
+        width: 40,
+        height: 40
+      },
+      clickable: true
+    }],
+    stucontrols: [{
+      id: 1,
+      iconPath: '/images/location-control.png',
+      position: {
+        left: 0,
+        top: 10,
+        width: 40,
+        height: 40
+      },
+      clickable: true
+    },
+    {
+      id: 2,
+      iconPath: '/images/plus.png',
+      position: {
+        left: 0,
+        top: 60,
+        width: 40,
+        height: 40
+      },
+      clickable: true
+    }, {
+      id: 3,
+      iconPath: '/images/minus.png',
+      position: {
+        left: 0,
+        top: 110,
+        width: 40,
+        height: 40
+      },
+      clickable: true
+    }, {
+      id: 4,
+      iconPath: '/images/juli.png',
+      position: {
+        left: 50,
+        top: 10,
+        width: 40,
+        height: 40
+      },
+      clickable: true
+    }, {
+      id: 5,
+      iconPath: '/images/teacher.png',
+      position: {
+        left: 100,
         top: 10,
         width: 40,
         height: 40
@@ -85,6 +138,30 @@ Page({
     showchangecircle: false,
     filtermargin: 3
   },
+  //学生申请加入机构
+  joinschool: function (e) {
+    if (app.globalData.school != '') {
+      wx.showToast({
+        title: '不能加入多机构',
+      })
+      return
+    }
+    network.post('/user/applytojoinschool', {
+      'userid': app.globalData.selfuserid,
+      'schoolid': e.currentTarget.dataset.schoolid * 1
+    }, function (res) {
+      if (!res.resultCode) {
+        app.globalData.school = 'schoolid'
+        wx.showToast({
+          title: '已申请',
+        })
+      } else {
+        wx.showToast({
+          title: '加入失败',
+        })
+      }
+    })
+  },
   confirmfilter: function (e) {
     var that = this
     if (this.data.filtermargin * 1 == 3) {
@@ -95,7 +172,6 @@ Page({
         showchangecircle: false,
       })
       margin = 3
-
     } else if (this.data.filtermargin * 1 == 5) {
       oldcircle[0].radius = 5000
       this.setData({
@@ -147,13 +223,6 @@ Page({
     var that = this
     wx.setClipboardData({
       data: that.data.profile.phone,
-      // success(res) {
-      //   wx.getClipboardData({
-      //     success(res) {
-      //       console.log(res.data) // data
-      //     }
-      //   })
-      // }
     })
   },
   onLoad: function () {
@@ -173,11 +242,13 @@ Page({
           that.createMarker(res);
           that.setData({
             //画一个三公里的圈
+            role: app.globalData.role,
             circles: tmpcircle,
             latitude: res.latitude,
             longitude: res.longitude,
             scale: 1
           })
+
           oldcircle = tmpcircle
           userlatitude = res.latitude
           userlongitude = res.longitude
@@ -256,19 +327,18 @@ Page({
         scale: tmpscale
       })
     } else if (e.controlId === 4) {
-      //teacher
-      teacherorstudent = 'teacher'
-      that.formsubmitteacher()
-    } else if (e.controlId === 5) {
-      //student
-      teacherorstudent = 'student'
-      that.formsubmitstudent()
-    } else if (e.controlId === 6) {
       //修改圆半径
       that.setData({
         showchangecircle: true
       })
-
+    } else if (e.controlId === 5) {
+      //teacher
+      teacherorstudent = 'teacher'
+      that.formsubmitteacher()
+    } else if (e.controlId === 6) {
+      //student
+      teacherorstudent = 'student'
+      that.formsubmitstudent()
     }
   },
 

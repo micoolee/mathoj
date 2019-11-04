@@ -1,5 +1,5 @@
 <view>
-  <map bindtap="mapclick" id="map" circles="{{circles}}" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{mapheightratio*height}}px;"></map>
+  <map bindtap="mapclick" id="map" circles="{{circles}}" scale="{{scale}}" controls="{{role=='student'?stucontrols:controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{mapheightratio*height}}px;"></map>
   <cover-view wx:if="{{showchangecircle}}" class="t_w" style="position: fixed;top: 0px;width: 100%;">
     <cover-view class="tanchu_view">
       <cover-view class="filterbutton" style="display: flex;">
@@ -27,9 +27,16 @@
   <view class="bottomline" style="padding: 40rpx;display: flex;width: 80%;margin-left: 5%;">
     <image style="height: 80rpx;width: 80rpx;border-radius: 50%;" src="{{profile.avatar}}" />
     <text style="margin-left: 20rpx;">{{profile.nickname}}</text>
-    <text style="margin-left: 20rpx;align-self: center;">{{profile.phone}}</text>
-    <icon wx:if="{{profile.phone}}" bindtap="callphone" class='mathoj mathojdianhua' style='color:gray;font-size:60rpx;'></icon>
-    <icon wx:if="{{profile.phone}}" bindtap="copyphone" class='mathoj mathojfuzhi' style='color:gray;font-size:60rpx;'></icon>
+    <view wx:if="{{profile.role=='principal'||profile.role=='pre-principal'}}">
+      <text style="margin-left: 20rpx;align-self: center;">{{profile.phone}}</text>
+      <icon bindtap="callphone" class='mathoj mathojdianhua' style='color:gray;font-size:60rpx;'></icon>
+      <icon bindtap="copyphone" class='mathoj mathojfuzhi' style='color:gray;font-size:60rpx;'></icon>
+    </view>
+  </view>
+  <view wx:if="{{role=='student'}}">
+    <text data-schoolid="{{profile.schoolid}}" style="margin-left: 20rpx;align-self: center;" bindtap="joinschool">
+      申请加入
+    </text>
   </view>
   <view class="czlist" style="padding: 0 40rpx;">
     <view style="padding: 10px 0;" data-id='{{item.problemid}}' bindtap="bindQueTap" class="bottomline" wx:for="{{problems}}" wx:for-item="item">

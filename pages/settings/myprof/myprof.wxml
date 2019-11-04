@@ -1,0 +1,37 @@
+<view style='margin-top:50rpx;'>
+  <view class='line' style="display:flex">
+    <view style="flex:1;font-size: 15px;">
+      <text>姓名</text>
+    </view>
+    <view style="flex:3">
+      <input type="text" maxlength="255" placeholder="张三" bindinput='writerealname' placeholder-class="extra-placeholder" value='{{realname}}' />
+    </view>
+  </view>
+  <view class='line' style="display:flex">
+    <view style="flex:1;font-size: 15px;">
+      <text>手机号</text>
+    </view>
+    <view style="flex:3">
+      <input type="text" maxlength="255" placeholder="187xxxxxxxx" bindinput='writephone' placeholder-class="extra-placeholder" value='{{phone}}' />
+    </view>
+  </view>
+  <view class='line' style="display:flex">
+    <view style="flex:1;font-size: 15px;">
+      <text>自我简介</text>
+    </view>
+    <view style="flex:3">
+      <input type="text" maxlength="255" placeholder="写自我简介" bindinput='writeselfdesc' placeholder-class="extra-placeholder" value='{{selfdesc}}' />
+    </view>
+  </view>
+  <view class='line' style="display:flex" wx:if="{{role=='principal' || role=='pre-principal'}}">
+    <view style="flex:1;font-size: 15px;">
+      <text>机构简介</text>
+    </view>
+    <view style="flex:3">
+      <input type="text" maxlength="255" placeholder="写机构简介" bindinput='writejigoudesc' placeholder-class="extra-placeholder" value='{{jigoudesc}}' />
+    </view>
+  </view>
+  <view style='margin-top:50rpx;'>
+    <button type='primary' style='width:50%' bindtap='save'>保存</button>
+  </view>
+</view>

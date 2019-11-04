@@ -40,7 +40,7 @@ Page({
     },
     problemlist: [],
     solvedproblemlist: [],
-    show: 'quanzi',
+    show: 'jigou',
     ranklist: [],
     flag: true,//筛选页,true为无开屏
   },
@@ -202,10 +202,10 @@ Page({
       show: 'discovery'
     })
   },
-  // 转换为圈子页
-  showquanzi: function (e) {
+  // 转换为机构页
+  showjigou: function (e) {
     this.setData({
-      show: 'quanzi'
+      show: 'jigou'
     })
   },
 

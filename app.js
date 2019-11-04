@@ -1,5 +1,7 @@
 App({
   globalData: {
+    role: '',//登陆人的角色
+    school: '',//登陆人的学校（如果有的话）
     userInfo: null,
     openid: null,
     audiopath: null,
@@ -56,7 +58,7 @@ App({
 
 
   login_getopenid: function (res) {
-    var util = require('utils/util.js')
+    var util = require('./utils/util.js')
     var network = require('./utils/network.js')
     var that = this
     network.post('/user/getopenid', {
@@ -68,6 +70,8 @@ App({
       that.globalData.onlysee = res.onlysee || false
       that.globalData.getopenidok = true
       that.globalData.logged = res.logged
+      that.globalData.role = res.role
+      that.globalData.school = res.schoolid
 
       wx.getUserInfo({
         success: res => {
@@ -78,14 +82,13 @@ App({
           that.globalData.avatar = res.userInfo.avatarUrl
         }
       })
-
+      //是否关小黑屋
       if (res.punish == '1') {
         wx.redirectTo({
           url: '/pages/getuserinfo/getuserinfo?status=1',
         })
       }
     }, function (e) {
-      console.log('login_getopenid:', e)
       setTimeout(function (e) {
         that.login_getopenid(res)
       }, 1000)

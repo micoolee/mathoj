@@ -521,8 +521,15 @@ var page = Page({
           network.post('/user/getopenid', {
             js_code: res.code
           }, function (res) {
-            app.globalData.openid = res.openid
-            app.globalData.selfuserid = res.userid
+            that.globalData.openid = res.openid
+            that.globalData.selfuserid = res.userid
+            that.globalData.grade = res.grade || 0
+            that.globalData.onlysee = res.onlysee || false
+            that.globalData.getopenidok = true
+            that.globalData.logged = res.logged
+            that.globalData.role = res.role
+            that.globalData.school = res.schoolid
+
             getproblem(that)
           })
         }
@@ -540,8 +547,14 @@ var page = Page({
           network.post('/user/getopenid', {
             js_code: res.code
           }, function (res) {
-            app.globalData.openid = res.openid
-            app.globalData.selfuserid = res.userid
+            that.globalData.openid = res.openid
+            that.globalData.selfuserid = res.userid
+            that.globalData.grade = res.grade || 0
+            that.globalData.onlysee = res.onlysee || false
+            that.globalData.getopenidok = true
+            that.globalData.logged = res.logged
+            that.globalData.role = res.role
+            that.globalData.school = res.schoolid
             app.connect()
           })
         }
