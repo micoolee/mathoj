@@ -89,6 +89,22 @@ Page({
     })
   },
 
+  showAllApplys: function () {
+    wx.navigateTo({
+      url: './allapplys/allapplys',
+    })
+  },
+  showMyStudents: function () {
+    wx.navigateTo({
+      url: './mystudents/mystudents',
+    })
+  },
+  showMyTeachers: function () {
+    wx.navigateTo({
+      url: './myteachers/myteachers',
+    })
+  },
+
   clearcache: function () {
     wx.showModal({
       title: '提示',

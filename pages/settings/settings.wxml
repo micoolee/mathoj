@@ -33,16 +33,20 @@
       <text class="list-name">资料</text>
       <image class="list-icon" src="/images/chevron.png"></image>
     </view>
-    <view class="list-item" bindtap="showMyQues">
+    <view class="list-item" bindtap="">
       <text class="list-name">身份</text>
       <image class="list-icon" src="/images/chevron.png"></image>
     </view>
-    <view class="list-item" bindtap="showMyQues">
-      <text class="list-name">校长中心</text>
+    <view class="list-item" bindtap="showAllApplys">
+      <text class="list-name">处理申请</text>
       <image class="list-icon" src="/images/chevron.png"></image>
     </view>
-    <view class="list-item" bindtap="showMyQues">
-      <text class="list-name">独立老师中心</text>
+    <view class="list-item" bindtap="showMyStudents">
+      <text class="list-name">我的学生们</text>
+      <image class="list-icon" src="/images/chevron.png"></image>
+    </view>
+    <view class="list-item" bindtap="showMyTeachers">
+      <text class="list-name">我的老师们</text>
       <image class="list-icon" src="/images/chevron.png"></image>
     </view>
     <view class="list-item" bindtap="showConfig">

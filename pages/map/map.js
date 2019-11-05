@@ -17,6 +17,7 @@ Page({
     scale: 5,
     markers: [],
     circles: [],
+    joinedschoolid: 0,
     role: '',
     controls: [{
       id: 1,
@@ -162,6 +163,23 @@ Page({
       }
     })
   },
+  exitschool: function (e) {
+    network.post('/user/applytoexitschool', {
+      'userid': app.globalData.selfuserid,
+      'schoolid': e.currentTarget.dataset.schoolid * 1
+    }, function (res) {
+      if (!res.resultCode) {
+        app.globalData.school = 'schoolid'
+        wx.showToast({
+          title: '已申请',
+        })
+      } else {
+        wx.showToast({
+          title: '申请失败',
+        })
+      }
+    })
+  },
   confirmfilter: function (e) {
     var that = this
     if (this.data.filtermargin * 1 == 3) {
@@ -244,7 +262,8 @@ Page({
             circles: tmpcircle,
             latitude: res.latitude,
             longitude: res.longitude,
-            scale: 1
+            scale: 1,
+            joinedschoolid: app.globalData.school || 0
           })
 
           oldcircle = tmpcircle

@@ -124,6 +124,7 @@ Page({
 
     if (tmpactiveIndex == '0') {
       network.post('/problem/getten', {
+        'openid': app.globalData.openid,
         'formerid': 0,
         'filter': searchParam,
         'solved': '0'
@@ -143,6 +144,7 @@ Page({
       })
     } else {
       network.post('/problem/getten', {
+        'openid': app.globalData.openid,
         'formerid': 0,
         'filter': searchParam,
         'solved': '1'

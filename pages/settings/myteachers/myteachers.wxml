@@ -1,0 +1,6 @@
+<view>
+  <view class="czcenter" wx:for="{{teachers}}" wx:for-item="item">
+    <image class="bigavatar" src="{{item.avatar}}" />
+    <text>{{item.realname}}  {{item.role}}</text>
+  </view>
+</view>

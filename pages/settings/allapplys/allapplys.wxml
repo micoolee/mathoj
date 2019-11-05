@@ -1,0 +1,6 @@
+<view>
+  <view class="czcenter" wx:for="{{applys}}" wx:for-item="item">
+    <image class="bigavatar" src="{{item.applyeravatar}}" />
+    <text>{{item.applyerrealname}}  {{item.applystate}} {{item.applytime}} {{item.applyid}}</text>
+  </view>
+</view>

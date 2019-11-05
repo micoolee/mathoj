@@ -60,6 +60,7 @@ function get_or_create_avatar(userid, that = 'null') {
 function getlastedprob(that, filter) {
   console.log(that.formerid, 'formerid: ')
   network.post('/problem/getten', {
+    'openid': app.globalData.openid,
     'formerid': that.formerid,
     'filter': filter || [],
     'solved': '0'
@@ -123,6 +124,7 @@ function getlastedsolvedprob(that, filter) {
     title: '加载中',
   })
   network.post('/problem/getten', {
+    'openid': app.globalData.openid,
     'formerid': 0,
     'filter': filter || [],
     'solved': '1'
@@ -185,6 +187,7 @@ function pulldownmessage(that = null) {
 
 function get10prob(that, searchparam = []) {
   network.post('/problem/getten', {
+    'openid': app.globalData.openid,
     'formerid': that.formerid,
     'filter': searchparam,
     'solved': '0'
@@ -219,6 +222,7 @@ function get10prob(that, searchparam = []) {
 
 function get10solvedprob(that, searchparam = []) {
   network.post('/problem/getten', {
+    'openid': app.globalData.openid,
     'formerid': that.solvedformerid,
     'filter': searchparam,
     'solved': '1'

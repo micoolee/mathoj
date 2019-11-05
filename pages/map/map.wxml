@@ -34,8 +34,11 @@
     </view>
   </view>
   <view wx:if="{{role=='student'}}">
-    <text data-schoolid="{{profile.schoolid}}" style="margin-left: 20rpx;align-self: center;" bindtap="joinschool">
+    <text wx:if="{{profile.schoolid != joinedschoolid}}" data-schoolid="{{profile.schoolid}}" style="margin-left: 20rpx;align-self: center;" bindtap="joinschool">
       申请加入
+    </text>
+    <text wx:else data-schoolid="{{profile.schoolid}}" style="margin-left: 20rpx;align-self: center;" bindtap="exitschool">
+      申请退出
     </text>
   </view>
   <view class="czlist" style="padding: 0 40rpx;">
