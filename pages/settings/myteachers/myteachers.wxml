@@ -1,6 +1,11 @@
 <view>
   <view class="czcenter" wx:for="{{teachers}}" wx:for-item="item">
-    <image class="bigavatar" src="{{item.avatar}}" />
-    <text>{{item.realname}}  {{item.role}}</text>
+    <view class="czcenter" style="flex:4">
+      <image class="bigavatar" src="{{item.avatar}}" />
+      <text>{{item.realname}}  {{item.role}}</text>
+    </view>
+    <view data-teacherid="{{item.teacherid}}" bindtap="deleteteacher" style="flex:2;font-size: 30rpx;">
+      <text class="solidborder" style="border-radius: 10px;padding: 10rpx;">退出机构</text>
+    </view>
   </view>
 </view>

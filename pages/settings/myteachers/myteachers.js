@@ -17,4 +17,37 @@ Page({
       })
     })
   },
+
+  deleteteacher: function (e) {
+    console.log(e, "e: ")
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '确认删除？',
+      success: function (res) {
+        if (res.confirm) {
+          network.post('/user/deleteteacher', {
+            'userid': app.globalData.selfuserid,
+            'teacherid': e.currentTarget.dataset.teacherid,
+          }, function (res) {
+            console.log('res:', res)
+            if (!res.resultCode) {
+              wx.showToast({
+                title: '删除成功'
+              })
+            } else {
+              wx.showToast({
+                title: '删除失败'
+              })
+            }
+          }, function (e) {
+            wx.showToast({
+              title: '删除失败'
+            })
+          })
+        }
+      }
+    })
+
+  }
 })

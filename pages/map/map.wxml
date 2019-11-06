@@ -41,6 +41,9 @@
       申请退出
     </text>
   </view>
+  <view wx:if="{{profile.role=='principal'||profile.role=='pre-principal'}}">
+    <text style="margin-left: 20rpx;align-self: center;">{{profile.schooldesc}}</text>
+  </view>
   <view class="czlist" style="padding: 0 40rpx;">
     <view style="padding: 10px 0;" data-id='{{item.problemid}}' bindtap="bindQueTap" class="bottomline" wx:for="{{problems}}" wx:for-item="item">
       {{item.description}} {{item.asktime}}

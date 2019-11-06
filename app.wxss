@@ -21,6 +21,7 @@
   color: gray;
 }
 
+/* 水平居中 */
 .spcenter {
   display: flex;
   justify-content: center;
@@ -152,14 +153,18 @@
 .czcenter {
   display: flex;
   align-items: center;
-
 }
 
+/* 水平垂直居中 */
 .czspcenter {
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
+/* 周围边框 */
+.solidborder {
+  border: solid 1px;
 }
 
 
