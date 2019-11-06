@@ -167,6 +167,11 @@
   border: solid 1px;
 }
 
+/* 平均分布 */
+.pingjun {
+  justify-content: space-between;
+  display: flex;
+}
 
 
 

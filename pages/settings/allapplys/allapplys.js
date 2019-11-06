@@ -16,4 +16,63 @@ Page({
       })
     })
   },
+  passapply: function (e) {
+    wx.showModal({
+      title: '提示',
+      content: '确认通过？',
+      success: function (res) {
+        if (res.confirm) {
+          network.post('/user/handleapply', {
+            'applyid': e.currentTarget.dataset.applyid,
+            'action': 'pass',
+          }, function (res) {
+            console.log('res:', res)
+            if (!res.resultCode) {
+              wx.showToast({
+                title: '加入成功'
+              })
+            } else {
+              wx.showToast({
+                title: '加入失败'
+              })
+            }
+          }, function (e) {
+            wx.showToast({
+              title: '加入失败'
+            })
+          })
+        }
+      }
+    })
+  },
+
+  rejectapply: function (e) {
+    wx.showModal({
+      title: '提示',
+      content: '确认拒绝？',
+      success: function (res) {
+        if (res.confirm) {
+          network.post('/user/handleapply', {
+            'applyid': e.currentTarget.dataset.applyid,
+            'action': 'reject',
+          }, function (res) {
+            console.log('res:', res)
+            if (!res.resultCode) {
+              wx.showToast({
+                title: '已拒绝'
+              })
+            } else {
+              wx.showToast({
+                title: '拒绝失败'
+              })
+            }
+          }, function (e) {
+            wx.showToast({
+              title: '拒绝失败'
+            })
+          })
+        }
+      }
+    })
+  },
 })
