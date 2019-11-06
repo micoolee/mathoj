@@ -31,7 +31,7 @@
       <input type="text" maxlength="255" placeholder="写机构简介" bindinput='writejigoudesc' placeholder-class="extra-placeholder" value='{{jigoudesc}}' />
     </view>
   </view>
-  <view style='margin-top:50rpx;'>
-    <button type='primary' style='width:50%' bindtap='save'>保存</button>
+  <view class="spcenter" style='margin-top:50rpx;'>
+    <text class="textcenter whitebackblueword" style='padding: 10px 0;' bindtap='save'>保存</text>
   </view>
 </view>

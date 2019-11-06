@@ -26,6 +26,17 @@
   justify-content: center;
 }
 
+/* 居中的文字 */
+.textcenter {
+  width: 100%;
+  text-align: center;
+}
+
+/* 白底蓝字  */
+.whitebackblueword {
+  color: #0066FF;
+  background-color: #F8F8F8;
+}
 
 /* 首页提问 */
 .tiwenbutton {
@@ -466,7 +477,7 @@
 }
 
 .userinfo-nickname {
-  margin-top: 30rpx;
+  /* margin-top: 30rpx; */
   color: #585858;
   font-family: Songti SC;
   font-size: 32rpx;

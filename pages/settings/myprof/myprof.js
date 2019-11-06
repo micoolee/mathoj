@@ -30,19 +30,6 @@ Page({
         duration: 1000,
         mask: true,
       })
-      app.globalData.onlysee = that.data.onlysee
-      app.globalData.grade = that.data.index * 1
-      app.globalData.tosolvethat.setData({
-        formerid: 0,
-        solvedformerid: 0
-      })
-      if (that.data.onlysee) {
-        util.getlastedprob(app.globalData.tosolvethat, [util.gradearray[that.data.index]])
-        util.getlastedsolvedprob(app.globalData.tosolvethat, [util.gradearray[that.data.index]])
-      } else {
-        util.getlastedprob(app.globalData.tosolvethat)
-        util.getlastedsolvedprob(app.globalData.tosolvethat)
-      }
     })
   },
   writerealname: function (e) {
@@ -50,36 +37,45 @@ Page({
     that.setData({
       realname: e.detail.value
     })
-    console.log(that.data.realname)
   },
   writephone: function (e) {
     var that = this
     that.setData({
       phone: e.detail.value
     })
-    console.log(that.data.phone)
   },
   writejigoudesc: function (e) {
     var that = this
     that.setData({
       jigoudesc: e.detail.value
     })
-    console.log(that.data.jigoudesc)
   },
   writeselfdesc: function (e) {
     var that = this
     that.setData({
       selfdesc: e.detail.value
     })
-    console.log(that.data.selfdesc)
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    this.setData({
-      role: app.globalData.role
+    var that = this
+    network.post('/user/getmyprofile', {
+      'userid': app.globalData.selfuserid,
+    }, function (e) {
+      console.log(e, 'e:')
+      that.setData({
+        realname: e.profile.realname,
+        phone: e.profile.phone,
+        selfdesc: e.profile.selfdesc,
+        jigoudesc: e.profile.jigoudesc,
+        role: app.globalData.role
+      })
+    }, function (e) {
+      that.setData({
+        role: app.globalData.role
+      })
     })
   },
-
 })
