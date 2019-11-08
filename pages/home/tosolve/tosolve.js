@@ -25,13 +25,13 @@ Page({
     gradeStr: '二年级',
     //点击筛选中的值，实时展示
     filteractiveIndex: 0,
-    filtergrade: 1,
+    filtergrade: 0,
 
     flag1: true,//筛选页,true为无开屏
     problemlist1: [],
     grade1: 1,
     gradeStr1: '二年级',
-    filtergrade1: 1,
+    filtergrade1: 0,
 
     sliderOffset: 0,
     sliderLeft: 0,
@@ -75,9 +75,9 @@ Page({
   },
   // 设置年级
   switchgrade: function (e) {
-    tmpgrade = e.currentTarget.dataset.id
+    tmpgrade = e.currentTarget.dataset.id * 1
     this.setData({
-      filtergrade: e.currentTarget.dataset.id
+      filtergrade: e.currentTarget.dataset.id * 1
     })
   },
   // 发现里面设置年级
@@ -110,15 +110,15 @@ Page({
       activeIndex: tmpactiveIndex,
       grade: tmpgrade,
       activeIndexStr: util.tijis[tmpactiveIndex],
-      gradeStr: util.grades[tmpgrade]
+      gradeStr: util.filtergradearray[tmpgrade]
     })
 
     var that = this;
     that.formerid = 0
-    if (tmpgrade == 1) {
+    if (tmpgrade == 0) {
       searchParam = []
     } else {
-      searchParam = [util.gradearray[tmpgrade]]
+      searchParam = [util.filtergradearray[tmpgrade]]
     }
 
     if (tmpactiveIndex == '0') {
@@ -168,7 +168,7 @@ Page({
     this.setData({
       flag1: true,
       grade1: tmpgrade1,
-      gradeStr1: util.grades[tmpgrade1]
+      gradeStr1: util.filtergradearray[tmpgrade1]
     })
 
     var that = this;
@@ -177,7 +177,7 @@ Page({
       'openid': app.globalData.openid,
       'formerid': 0,
       'scope': 'all',
-      'grade': util.gradearray[tmpgrade1] || '',
+      'grade': util.filtergradearray[tmpgrade1] || '',
     }, function (res) {
       var filterproblist = res.problems
       if (filterproblist == undefined) {

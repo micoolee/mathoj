@@ -21,22 +21,22 @@
             <text>年级</text>
           </view>
           <view style="flex:6;display: flex;flex-wrap: wrap;">
-            <view bindtap="switchgrade" data-id="1" class="circleborder margin510 {{filtergrade==1?'bluewhite':''}}">
+            <view bindtap="switchgrade" data-id="0" class="circleborder margin510 {{filtergrade==0?'bluewhite':''}}">
               不限
             </view>
-            <view bindtap="switchgrade" data-id="2" class="circleborder margin510 {{filtergrade==2?'bluewhite':''}}">
+            <view bindtap="switchgrade" data-id="1" class="circleborder margin510 {{filtergrade==1?'bluewhite':''}}">
               二年级
             </view>
-            <view bindtap="switchgrade" data-id="3" class="circleborder margin510 {{filtergrade==3?'bluewhite':''}}">
+            <view bindtap="switchgrade" data-id="2" class="circleborder margin510 {{filtergrade==2?'bluewhite':''}}">
               三年级
             </view>
-            <view bindtap="switchgrade" data-id="4" class="circleborder margin510 {{filtergrade==4?'bluewhite':''}}">
+            <view bindtap="switchgrade" data-id="3" class="circleborder margin510 {{filtergrade==3?'bluewhite':''}}">
               四年级
             </view>
-            <view bindtap="switchgrade" data-id="5" class="circleborder margin510 {{filtergrade==5?'bluewhite':''}}">
+            <view bindtap="switchgrade" data-id="4" class="circleborder margin510 {{filtergrade==4?'bluewhite':''}}">
               五年级
             </view>
-            <view bindtap="switchgrade" data-id="6" class="circleborder margin510 {{filtergrade==6?'bluewhite':''}}">
+            <view bindtap="switchgrade" data-id="5" class="circleborder margin510 {{filtergrade==5?'bluewhite':''}}">
               六年级
             </view>
           </view>
@@ -57,22 +57,22 @@
             <text>年级</text>
           </view>
           <view style="flex:6;display: flex;flex-wrap: wrap;">
-            <view bindtap="switchgrade1" data-id="1" class="circleborder margin510 {{filtergrade1==1?'bluewhite':''}}">
+            <view bindtap="switchgrade1" data-id="0" class="circleborder margin510 {{filtergrade1==0?'bluewhite':''}}">
               不限
             </view>
-            <view bindtap="switchgrade1" data-id="2" class="circleborder margin510 {{filtergrade1==2?'bluewhite':''}}">
+            <view bindtap="switchgrade1" data-id="1" class="circleborder margin510 {{filtergrade1==1?'bluewhite':''}}">
               二年级
             </view>
-            <view bindtap="switchgrade1" data-id="3" class="circleborder margin510 {{filtergrade1==3?'bluewhite':''}}">
+            <view bindtap="switchgrade1" data-id="2" class="circleborder margin510 {{filtergrade1==2?'bluewhite':''}}">
               三年级
             </view>
-            <view bindtap="switchgrade1" data-id="4" class="circleborder margin510 {{filtergrade1==4?'bluewhite':''}}">
+            <view bindtap="switchgrade1" data-id="3" class="circleborder margin510 {{filtergrade1==3?'bluewhite':''}}">
               四年级
             </view>
-            <view bindtap="switchgrade1" data-id="5" class="circleborder margin510 {{filtergrade1==5?'bluewhite':''}}">
+            <view bindtap="switchgrade1" data-id="4" class="circleborder margin510 {{filtergrade1==4?'bluewhite':''}}">
               五年级
             </view>
-            <view bindtap="switchgrade1" data-id="6" class="circleborder margin510 {{filtergrade1==6?'bluewhite':''}}">
+            <view bindtap="switchgrade1" data-id="5" class="circleborder margin510 {{filtergrade1==5?'bluewhite':''}}">
               六年级
             </view>
           </view>

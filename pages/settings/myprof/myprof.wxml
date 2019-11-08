@@ -20,9 +20,7 @@
       <text>我的年级</text>
     </view>
     <view style="flex:3">
-      <picker value="{{index}}" bindchange='changegrade' range="{{grades}}">
-        {{grades[index]}}
-      </picker>
+      <picker value="{{id}}" bindchange='changegrade' range="{{grades}}">{{grades[id]}}</picker>
     </view>
   </view>
   <view class='line' style="display:flex">

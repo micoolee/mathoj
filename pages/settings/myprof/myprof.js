@@ -1,7 +1,7 @@
 // pages/settings/config/config.js
 var network = require('../../../utils/network.js')
 var util = require('../../../utils/util.js')
-var console = require('../../../utils/console.js')
+// var console = require('../../../utils/console.js')
 const app = getApp()
 Page({
 
@@ -15,11 +15,11 @@ Page({
     selfdesc: '',
     jigoudesc: '',
     grades: [],
-    index: 0,
+    id: 0,
   },
   changegrade: function (e) {
     this.setData({
-      index: e.detail.value
+      id: e.detail.value
     })
   },
 
@@ -31,14 +31,14 @@ Page({
       'phone': that.data.phone,
       'selfdesc': that.data.selfdesc,
       'jigoudesc': that.data.jigoudesc,
-      'grade': that.data.index * 1
+      'grade': that.data.id * 1
     }, function (e) {
       wx.showToast({
         title: '更新成功',
         duration: 1000,
         mask: true,
       })
-      app.globalData.grade = that.data.index * 1
+      app.globalData.grade = that.data.id * 1
     })
   },
   writerealname: function (e) {
@@ -73,21 +73,25 @@ Page({
     network.post('/user/getmyprofile', {
       'userid': app.globalData.selfuserid,
     }, function (e) {
-      console.log(e, 'e:')
+      console.log(app.globalData.grade, 'app.globalData.grade:')
       that.setData({
-        realname: e.profile.realname,
-        phone: e.profile.phone,
-        selfdesc: e.profile.selfdesc,
-        jigoudesc: e.profile.jigoudesc,
-        role: app.globalData.role,
         grades: util.gradearray,
-        index: app.globalData.grade,
+        realname: e.profile.realname || '',
+        phone: e.profile.phone || '',
+        selfdesc: e.profile.selfdesc || '',
+        jigoudesc: e.profile.jigoudesc || '',
+        role: app.globalData.role || '',
+        id: app.globalData.grade * 1 || 0,
+
+
       })
+      console.log(that.data.grades[that.data.id])
     }, function (e) {
       that.setData({
-        role: app.globalData.role,
+        role: app.globalData.role || '',
+        id: app.globalData.grade * 1 || 0,
         grades: util.gradearray,
-        index: app.globalData.grade,
+
       })
     })
   },
