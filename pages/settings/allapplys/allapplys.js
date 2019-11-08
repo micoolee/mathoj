@@ -32,6 +32,12 @@ Page({
                 title: '加入成功'
               })
             } else {
+              if (res.resultMsg == 'ApplyHandled') {
+                wx.showToast({
+                  title: '不能重复操作'
+                })
+                return
+              }
               wx.showToast({
                 title: '加入失败'
               })
@@ -62,6 +68,12 @@ Page({
                 title: '已拒绝'
               })
             } else {
+              if (res.resultMsg == 'ApplyHandled') {
+                wx.showToast({
+                  title: '不能重复操作'
+                })
+                return
+              }
               wx.showToast({
                 title: '拒绝失败'
               })

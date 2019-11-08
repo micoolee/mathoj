@@ -27,12 +27,14 @@
   <view class="bottomline" style="padding: 40rpx;display: flex;width: 80%;margin-left: 5%;">
     <image style="height: 80rpx;width: 80rpx;border-radius: 50%;" src="{{profile.avatar}}" />
     <text style="margin-left: 20rpx;">{{profile.nickname}}</text>
-    <view wx:if="{{profile.role=='principal'||profile.role=='pre-principal'}}">
+    <!-- 如果看的是机构的资料 -->
+    <view wx:if="{{(profile.role=='principal'||profile.role=='pre-principal')&&profile.phone!=undefined}}">
       <text style="margin-left: 20rpx;align-self: center;">{{profile.phone}}</text>
       <icon bindtap="callphone" class='mathoj mathojdianhua' style='color:gray;font-size:60rpx;'></icon>
       <icon bindtap="copyphone" class='mathoj mathojfuzhi' style='color:gray;font-size:60rpx;'></icon>
     </view>
   </view>
+  <!-- 如果访问者是学生，增加申请加入退出的按钮 -->
   <view wx:if="{{role=='student'}}">
     <text wx:if="{{profile.schoolid != joinedschoolid}}" data-schoolid="{{profile.schoolid}}" style="margin-left: 20rpx;align-self: center;" bindtap="joinschool">
       申请加入
@@ -41,11 +43,12 @@
       申请退出
     </text>
   </view>
+  <!-- 如果看的是机构的资料 -->
   <view wx:if="{{profile.role=='principal'||profile.role=='pre-principal'}}">
-    <text style="margin-left: 20rpx;align-self: center;">{{profile.schooldesc}}</text>
+    <text style="margin-left: 20rpx;align-self: center;">机构简介：{{profile.schooldesc}}</text>
   </view>
   <view class="czlist" style="padding: 0 40rpx;">
-    <view style="padding: 10px 0;" data-id='{{item.problemid}}' bindtap="bindQueTap" class="bottomline" wx:for="{{problems}}" wx:for-item="item">
+    <view wx:for="{{problems}}" wx:for-item="item" data-id='{{item.problemid}}' bindtap="bindQueTap" class="bottomline" style="padding: 10px 0;">
       {{item.description}} {{item.asktime}}
     </view>
   </view>

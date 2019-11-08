@@ -152,6 +152,7 @@
                       </view>
                       <text>{{item.nickname}}</text>
                       <text style='margin-right:auto'>{{item.grade}}</text>
+                      <text style='margin-right:auto;color:red'>{{item.timeremain}}</text>
                       <view style='display:flex;margin-right:0'>
                         <text style='margin-right:auto'>{{item.asktime}}</text>
                       </view>
@@ -197,7 +198,7 @@
           </view>
           <!-- 以下是精选 -->
           <view class="weui-tab__content" style='background-color:white;' hidden="{{activeIndex != 1}}">
-            <view wx:if="{{solvedproblemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
+            <view wx:if="{{jinxuanproblemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
               <!-- 搜索空集 -->
               <view>
                 <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
@@ -207,7 +208,7 @@
               </view>
             </view>
             <view wx:else>
-              <block wx:for="{{solvedproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="this">
+              <block wx:for="{{jinxuanproblemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="this">
                 <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
                   <view class="feed-source">
                     <a style='display:flex;align-items:center;'>
@@ -304,6 +305,7 @@
                     </view>
                     <text>{{item.nickname}}</text>
                     <text style='margin-right:auto'>{{item.grade}}</text>
+                    <text style='margin-right:auto;color:red'>{{item.timeremain}}</text>
                     <view style='display:flex;margin-right:0'>
                       <text style='margin-right:auto'>{{item.asktime}}</text>
                     </view>

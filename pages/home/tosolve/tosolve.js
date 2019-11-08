@@ -5,7 +5,7 @@ var network = require('../../../utils/network.js')
 var config = require('../../../config.js')
 var searchParam = []
 var formerid = 0
-var solvedformerid = 0
+var jinxuanformerid = 0
 var qdata = null
 var tmpactiveIndex = 0
 var tmpgrade = 1 //1是不限
@@ -39,7 +39,7 @@ Page({
       icon: '/images/empty.png',
     },
     problemlist: [],
-    solvedproblemlist: [],
+    jinxuanproblemlist: [],
     show: 'jigou',
     ranklist: [],
     flag: true,//筛选页,true为无开屏
@@ -118,7 +118,6 @@ Page({
     if (tmpgrade == 1) {
       searchParam = []
     } else {
-      console.log('tmpgrade: ', tmpgrade)
       searchParam = [util.gradearray[tmpgrade]]
     }
 
@@ -127,7 +126,7 @@ Page({
         'openid': app.globalData.openid,
         'formerid': 0,
         'filter': searchParam,
-        'solved': '0'
+        'jinxuan': '0'
       }, function (res) {
         var filterproblist = res.problem
         if (filterproblist == undefined) {
@@ -147,20 +146,19 @@ Page({
         'openid': app.globalData.openid,
         'formerid': 0,
         'filter': searchParam,
-        'solved': '1'
+        'jinxuan': '1'
       }, function (res) {
-        console.log('res: ', res)
         var filterproblist = res.problem
         if (filterproblist == undefined) {
           that.setData({
             bottom: true,
-            solvedproblemlist: []
+            jinxuanproblemlist: []
           })
         } else {
           that.setData({
-            solvedproblemlist: filterproblist,
+            jinxuanproblemlist: filterproblist,
           })
-          that.solvedformerid = filterproblist[filterproblist.length - 1]['problemid']
+          that.jinxuanformerid = filterproblist[filterproblist.length - 1]['problemid']
         }
       })
     }
@@ -301,6 +299,10 @@ Page({
     this.setData({ flag: true })
   },
 
+  conceal1: function (e) {
+    this.setData({ flag1: true })
+  },
+
   rankshowmore: function (e) {
     var dataset = e.currentTarget.dataset
     if (openid == app.globalData.openid) {
@@ -331,8 +333,8 @@ Page({
       that.formerid = 0
       util.getlastedprob(that, searchParam)
     } else if (that.data.activeIndex == '1') {
-      that.solvedformerid = 0
-      util.getlastedsolvedprob(that, searchParam)
+      that.jinxuanformerid = 0
+      util.getlastedjinxuanprob(that, searchParam)
     }
     wx.stopPullDownRefresh() //停止下拉刷新
     wx.hideNavigationBarLoading()
@@ -343,7 +345,7 @@ Page({
     if (tmpactiveIndex == '0') {
       util.get10prob(that, searchParam)
     } else if (that.data.activeIndex == '1') {
-      util.get10solvedprob(that, searchParam)
+      util.get10jinxuanprob(that, searchParam)
     }
   },
 })

@@ -1,11 +1,7 @@
 <!-- pages/settings/config/config.wxml -->
 <view style='margin-top:50rpx;'>
   <view class='line'>
-    <text style='margin-left:10px'>我的年级</text>
-    <picker value="{{index}}" bindchange='changegrade' range="{{grades}}">{{grades[index]}}</picker>
-  </view>
-  <view class='line'>
-    <text style='margin-left:10px'>首页只显示本年级</text>
+    <text style='margin-left:10px'>默认显示本年级（{{grades[index]}}）</text>
     <switch checked="{{onlysee}}" bindchange="switch1Change" />
   </view>
   <view style='margin-top:50rpx;'>

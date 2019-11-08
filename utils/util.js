@@ -63,7 +63,7 @@ function getlastedprob(that, filter) {
     'openid': app.globalData.openid,
     'formerid': that.formerid,
     'filter': filter || [],
-    'solved': '0'
+    'jinxuan': '0'
   }, function (res) {
     wx.hideNavigationBarLoading()
     var problemlist = res.problem
@@ -119,7 +119,7 @@ function checklasted(that) {
   }
 }
 
-function getlastedsolvedprob(that, filter) {
+function getlastedjinxuanprob(that, filter) {
   wx.showLoading({
     title: '加载中',
   })
@@ -127,33 +127,33 @@ function getlastedsolvedprob(that, filter) {
     'openid': app.globalData.openid,
     'formerid': 0,
     'filter': filter || [],
-    'solved': '1'
+    'jinxuan': '1'
   }, function (res) {
     wx.hideNavigationBarLoading()
 
     if (res.problem) {
-      var solvedproblemlist = res.problem
-      console.log(solvedproblemlist)
+      var jinxuanproblemlist = res.problem
+      console.log(jinxuanproblemlist)
       //加载缓存中的照片
-      for (var i in solvedproblemlist) {
-        if (storedid.get(solvedproblemlist[i].openid) == 'downloaded') {
-          solvedproblemlist[i].avatar = get_or_create_avatar(solvedproblemlist[i].openid)
-        } else if (storedid.get(solvedproblemlist[i].openid) == undefined) {
-          get_or_create_avatar(solvedproblemlist[i].openid)
+      for (var i in jinxuanproblemlist) {
+        if (storedid.get(jinxuanproblemlist[i].openid) == 'downloaded') {
+          jinxuanproblemlist[i].avatar = get_or_create_avatar(jinxuanproblemlist[i].openid)
+        } else if (storedid.get(jinxuanproblemlist[i].openid) == undefined) {
+          get_or_create_avatar(jinxuanproblemlist[i].openid)
         }
       }
       that.setData({
-        solvedproblemlist: solvedproblemlist,
+        jinxuanproblemlist: jinxuanproblemlist,
       })
-      that.solvedformerid = solvedproblemlist[solvedproblemlist.length - 1].problemid
+      that.jinxuanformerid = jinxuanproblemlist[jinxuanproblemlist.length - 1].problemid
     } else {
       wx.showToast({
         title: '暂无精选',
       })
       that.setData({
-        solvedproblemlist: [],
+        jinxuanproblemlist: [],
       })
-      that.solvedformerid = 0
+      that.jinxuanformerid = 0
     }
 
   }, function () {
@@ -190,7 +190,7 @@ function get10prob(that, searchparam = []) {
     'openid': app.globalData.openid,
     'formerid': that.formerid,
     'filter': searchparam,
-    'solved': '0'
+    'jinxuan': '0'
   }, function (res) {
     var problemlist = res.problem
     if (!problemlist) {
@@ -220,12 +220,12 @@ function get10prob(that, searchparam = []) {
   })
 }
 
-function get10solvedprob(that, searchparam = []) {
+function get10jinxuanprob(that, searchparam = []) {
   network.post('/problem/getten', {
     'openid': app.globalData.openid,
-    'formerid': that.solvedformerid,
+    'formerid': that.jinxuanformerid,
     'filter': searchparam,
-    'solved': '1'
+    'jinxuan': '1'
   }, function (res) {
 
     if (!res.json_data || res.json_data.length == 0) {
@@ -250,7 +250,7 @@ function get10solvedprob(that, searchparam = []) {
         problemlist: problemlist,
 
       })
-      that.solvedformerid = problemlist[problemlist['length'] - 1].problemid
+      that.jinxuanformerid = problemlist[problemlist['length'] - 1].problemid
     }
   })
 }
@@ -332,8 +332,8 @@ module.exports = {
   get10prob: get10prob,
   getlastedprob: getlastedprob,
   checklasted: checklasted,
-  get10solvedprob: get10solvedprob,
-  getlastedsolvedprob: getlastedsolvedprob,
+  get10jinxuanprob: get10jinxuanprob,
+  getlastedjinxuanprob: getlastedjinxuanprob,
   pulldownmessage: pulldownmessage,
   get_or_create_avatar: get_or_create_avatar,
   checkuserinfo: checkuserinfo,

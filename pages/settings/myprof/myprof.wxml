@@ -17,6 +17,16 @@
   </view>
   <view class='line' style="display:flex">
     <view style="flex:1;font-size: 15px;">
+      <text>我的年级</text>
+    </view>
+    <view style="flex:3">
+      <picker value="{{index}}" bindchange='changegrade' range="{{grades}}">
+        {{grades[index]}}
+      </picker>
+    </view>
+  </view>
+  <view class='line' style="display:flex">
+    <view style="flex:1;font-size: 15px;">
       <text>自我简介</text>
     </view>
     <view style="flex:3">

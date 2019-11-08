@@ -11,7 +11,6 @@ Page({
     hide: false,
     remainformidnumorstr: '',
     modalHidden: true,
-    grades: '',
   },
 
   onShareAppMessage: function (res) {
@@ -23,7 +22,6 @@ Page({
         imageUrl: config.host + '/swagger/mobiwusi.jpg',
         success: function (res) { }
       }
-
     }
   },
 
@@ -35,9 +33,6 @@ Page({
         modalHidden: false
       })
     }
-    that.setData({
-      grades: util.gradearray
-    })
     wx.showLoading({
       title: '加载中',
     })

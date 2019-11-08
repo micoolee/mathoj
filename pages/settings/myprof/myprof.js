@@ -13,7 +13,14 @@ Page({
     realname: '',
     phone: '',
     selfdesc: '',
-    jigoudesc: ''
+    jigoudesc: '',
+    grades: [],
+    index: 0,
+  },
+  changegrade: function (e) {
+    this.setData({
+      index: e.detail.value
+    })
   },
 
   save: function (e) {
@@ -24,12 +31,14 @@ Page({
       'phone': that.data.phone,
       'selfdesc': that.data.selfdesc,
       'jigoudesc': that.data.jigoudesc,
+      'grade': that.data.index * 1
     }, function (e) {
       wx.showToast({
         title: '更新成功',
         duration: 1000,
         mask: true,
       })
+      app.globalData.grade = that.data.index * 1
     })
   },
   writerealname: function (e) {
@@ -70,11 +79,15 @@ Page({
         phone: e.profile.phone,
         selfdesc: e.profile.selfdesc,
         jigoudesc: e.profile.jigoudesc,
-        role: app.globalData.role
+        role: app.globalData.role,
+        grades: util.gradearray,
+        index: app.globalData.grade,
       })
     }, function (e) {
       that.setData({
-        role: app.globalData.role
+        role: app.globalData.role,
+        grades: util.gradearray,
+        index: app.globalData.grade,
       })
     })
   },
