@@ -152,10 +152,9 @@
                       </view>
                       <text>{{item.nickname}}</text>
                       <text style='margin-right:auto'>{{item.grade}}</text>
-                      <text style='margin-right:auto;color:red'>{{item.timeremain}}</text>
-                      <view style='display:flex;margin-right:0'>
-                        <text style='margin-right:auto'>{{item.asktime}}</text>
-                      </view>
+                      <text wx:if="{{item.timeremain=='已释放'}}">{{item.timeremain}}</text>
+                      <text wx:elif="{{ item.timeremain=='已解答'}}">{{item.timeremain}}</text>
+                      <text wx:else style="color:red">{{item.timeremain}}</text>
                     </view>
                     <view class="feed-content">
                       <view class="question" qid="{{question_id}}">
@@ -181,9 +180,12 @@
                             </view>
                             <view wx:else>0 关注</view>
                           </view>
-                          <view class="comments ">
+                          <view class="comments">
                             <view wx:if="{{item.browsernum != null}}">{{item.browsernum}} 浏览</view>
                             <view wx:else>0 浏览</view>
+                          </view>
+                          <view>
+                            <text>{{item.asktime}}提问</text>
                           </view>
                         </view>
                       </view>
@@ -245,7 +247,9 @@
                           <view wx:if="{{item.solutionnum != null}}">{{item.solutionnum}}答案</view>
                           <view wx:else>0 答案</view>
                         </view>
-                        <text>{{item.asktime}}</text>
+                        <view>
+                          <text>{{item.asktime}}提问</text>
+                        </view>
                       </view>
                     </view>
                   </view>
@@ -305,10 +309,8 @@
                     </view>
                     <text>{{item.nickname}}</text>
                     <text style='margin-right:auto'>{{item.grade}}</text>
-                    <text style='margin-right:auto;color:red'>{{item.timeremain}}</text>
-                    <view style='display:flex;margin-right:0'>
-                      <text style='margin-right:auto'>{{item.asktime}}</text>
-                    </view>
+                    <text wx:if="{{item.timeremain=='可回答'}}">{{item.timeremain}}</text>
+                    <text wx:else style="color:red">{{item.timeremain}}</text>
                   </view>
                   <view class="feed-content">
                     <view class="question" qid="{{question_id}}">
@@ -335,6 +337,9 @@
                         <view class="comments ">
                           <view wx:if="{{item.browsernum != null}}">{{item.browsernum}} 浏览</view>
                           <view wx:else>0 浏览</view>
+                        </view>
+                        <view>
+                          <text>{{item.asktime}}提问</text>
                         </view>
                       </view>
                     </view>

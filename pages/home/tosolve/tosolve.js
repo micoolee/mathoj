@@ -48,22 +48,10 @@ Page({
   showrank: function (e) {
     wx.showNavigationBarLoading()
     var that = this
-    network.post('/problem/getrank', {}, function (res) {
-      if (res.rankdetail) {
-        that.setData({
-          ranklist: res.rankdetail,
-          show: 'rank'
-        })
-      } else {
-        that.setData({
-          ranklist: [],
-          show: 'rank'
-        })
-      }
-
-    }, function () { }, function () {
-      wx.hideNavigationBarLoading()
+    that.setData({
+      show: 'rank'
     })
+    wx.hideNavigationBarLoading()
   },
   // 设置题集或者精选
   switchactiveIndex: function (e) {
@@ -262,10 +250,13 @@ Page({
     setTimeout(function () {
       if (app.globalData.getopenidok) {
         if (app.globalData.onlysee && app.globalData.grade && app.globalData.grade != 0) {
+          //设置了只看且设置了年级的
           searchParam = [util.gradearray[app.globalData.grade]]
           util.getlastedprob(that, searchParam)
+          util.getnearbytenproblem(that, util.gradearray[app.globalData.grade])
         } else {
           util.getlastedprob(that)
+          util.getnearbytenproblem(that)
         }
       } else {
         that.load()
@@ -274,8 +265,23 @@ Page({
   },
 
   onLoad: function () {
+    var that = this
     app.globalData.tosolvethat = this
     this.load()
+    //获取排行榜
+    network.post('/problem/getrank', {}, function (res) {
+      if (res.rankdetail) {
+        that.setData({
+          ranklist: res.rankdetail,
+        })
+      } else {
+        that.setData({
+          ranklist: [],
+        })
+      }
+
+    })
+
   },
 
   showmore: function (e) {
@@ -331,7 +337,15 @@ Page({
     wx.showNavigationBarLoading() //在标题栏中显示加载
     if (that.data.activeIndex == '0') {
       that.formerid = 0
-      util.getlastedprob(that, searchParam)
+      switch (that.data.show) {
+        case 'jigou':
+          util.getlastedprob(that, searchParam);
+          break;
+        case 'discovery':
+          util.getnearbytenproblem(that, util.filtergradearray[tmpgrade1])
+          break;
+      }
+
     } else if (that.data.activeIndex == '1') {
       that.jinxuanformerid = 0
       util.getlastedjinxuanprob(that, searchParam)

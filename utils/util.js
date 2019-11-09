@@ -101,6 +101,30 @@ function getlastedprob(that, filter) {
 }
 
 
+function getnearbytenproblem(that, filter) {
+  //获取附近的问题
+  network.post('/problem/getnearbytenproblem', {
+    'openid': app.globalData.openid,
+    'formerid': 0,
+    'scope': 'all',
+    'grade': filter || ''
+  }, function (res) {
+    var filterproblist = res.problems
+    if (filterproblist == undefined) {
+      that.setData({
+        bottom: true,
+        problemlist1: []
+      })
+    } else {
+      that.setData({
+        problemlist1: filterproblist,
+      })
+      that.formerid1 = filterproblist[filterproblist.length - 1]['problemid']
+    }
+  })
+}
+
+
 function checklasted(that) {
   if (that.data.lastedid != null) {
     var grade = 0
@@ -331,6 +355,7 @@ function uploadfile(url, filepath, name, formdata, success, fail) {
 module.exports = {
   get10prob: get10prob,
   getlastedprob: getlastedprob,
+  getnearbytenproblem: getnearbytenproblem,
   checklasted: checklasted,
   get10jinxuanprob: get10jinxuanprob,
   getlastedjinxuanprob: getlastedjinxuanprob,
