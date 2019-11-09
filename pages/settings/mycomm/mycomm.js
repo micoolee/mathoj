@@ -25,13 +25,13 @@ Page({
     })
   },
 
-  tosolve: function (e) {
+  homepage: function (e) {
     network.post('/user/pushformid', {
       'formid': e.detail.formId,
       'openid': app.globalData.openid
     })
     wx.switchTab({
-      url: '/pages/home/tosolve/tosolve',
+      url: '/pages/home/homepage/homepage',
     })
   },
 

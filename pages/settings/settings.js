@@ -19,7 +19,7 @@ Page({
       // 来自页面内转发按钮
       return {
         title: '[有人@我]数学题，你会做么',
-        path: '/pages/home/tosolve/tosolve',
+        path: '/pages/home/homepage/homepage',
         imageUrl: config.host + '/swagger/mobiwusi.jpg',
         success: function (res) { }
       }
@@ -115,7 +115,7 @@ Page({
             title: '成功清除',
           })
           wx.reLaunch({
-            url: '/pages/home/tosolve/tosolve',
+            url: '/pages/home/homepage/homepage',
           })
         }
       }

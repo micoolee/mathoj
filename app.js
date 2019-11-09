@@ -21,7 +21,7 @@ App({
     selfuserid: null, //user表的userid，time生成
     grade: null,
     onlysee: true,
-    tosolvethat: null,
+    homepagethat: null,
     getopenidok: false,
     logged: true //今天是否登录了，用于upload头像
   },

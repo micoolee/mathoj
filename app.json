@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/home/tosolve/tosolve",
+    "pages/home/homepage/homepage",
     "pages/home/question/question",
     "pages/home/ask/ask",
     "pages/home/invite/invite",
@@ -27,7 +27,7 @@
     "backgroundColor": "#F7F7FA",
     "borderStyle": "white",
     "list": [{
-        "pagePath": "pages/home/tosolve/tosolve",
+        "pagePath": "pages/home/homepage/homepage",
         "text": "首页",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-selected.png"

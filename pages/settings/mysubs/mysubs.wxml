@@ -18,7 +18,7 @@
             <text>无关注记录</text>
           </view>
           <view>
-            <form report-submit='true' bindsubmit='tosolve'>
+            <form report-submit='true' bindsubmit='homepage'>
               <button class='wux-button--dark' form-type='submit'>随便逛逛</button>
             </form>
           </view>
@@ -55,7 +55,7 @@
             <text>无关注记录</text>
           </view>
           <view>
-            <form report-submit='true' bindsubmit='tosolve'>
+            <form report-submit='true' bindsubmit='homepage'>
               <button class='wux-button--dark' form-type='submit'>随便逛逛</button>
             </form>
           </view>

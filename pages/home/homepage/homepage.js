@@ -214,7 +214,7 @@ Page({
     }
     return {
       title: '[有人@我]发现一道智力题，考考你~',
-      path: '/pages/home/tosolve/tosolve',
+      path: '/pages/home/homepage/homepage',
     }
   },
   //放弃冒泡
@@ -266,7 +266,7 @@ Page({
 
   onLoad: function () {
     var that = this
-    app.globalData.tosolvethat = this
+    app.globalData.homepagethat = this
     this.load()
     //获取排行榜
     network.post('/problem/getrank', {}, function (res) {

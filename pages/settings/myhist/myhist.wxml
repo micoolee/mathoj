@@ -1,29 +1,22 @@
 <view wx:if="{{loadok}}">
-
-<view wx:if="{{problemlistnull==0}}" class="wux-prompt__bd">
-  <view>
-    <image src="{{ icon }}" class="wux-prompt__icon" />
+  <view wx:if="{{problemlistnull==0}}" class="wux-prompt__bd">
+    <view>
+      <image src="{{ icon }}" class="wux-prompt__icon" />
+    </view>
+    <view>
+      <text>无浏览记录</text>
+    </view>
+    <view>
+      <form report-submit='true' bindsubmit='homepage'>
+        <button class='wux-button--dark' form-type='submit'>随便逛逛</button>
+      </form>
+    </view>
   </view>
-
-  <view>
-    <text>无浏览记录</text>
-  </view>
-  <view>
-   <form  report-submit='true' bindsubmit='tosolve'>
-    <button class='wux-button--dark' form-type='submit'>随便逛逛</button>
-    </form>
-  </view>
-</view>
-
   <view wx:else>
     <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-
-
-
       <block wx:for="{{problemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
         <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap'>
-
-          <view class="feed-content" >
+          <view class="feed-content">
             <view class="question line-reback">
               <a class="question-link">
                 <text>{{item.content}}</text>
@@ -32,10 +25,10 @@
             <view class="answer-body">
               <view class="answer-actions">
                 <view class="comments dot">
-                  <a>{{item.subscribernum}} 关注 </a>
+                  <a>{{item.subscribernum}} 关注</a>
                 </view>
                 <view class="comments dot">
-                  <a>{{item.commenternum}} 评论 </a>
+                  <a>{{item.commenternum}} 评论</a>
                 </view>
               </view>
             </view>
@@ -44,5 +37,4 @@
       </block>
     </scroll-view>
   </view>
-
 </view>

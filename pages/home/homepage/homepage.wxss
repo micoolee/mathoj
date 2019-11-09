@@ -1,4 +1,4 @@
-/* pages/tosolve/tosolve.wxss */
+/* pages/homepage/homepage.wxss */
 .wux-notice-bar {
   background-color: #fefcec;
   height: 72rpx;
