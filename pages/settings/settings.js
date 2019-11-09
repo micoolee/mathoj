@@ -11,6 +11,7 @@ Page({
     hide: false,
     remainformidnumorstr: '',
     modalHidden: true,
+    role: ''
   },
 
   onShareAppMessage: function (res) {
@@ -35,6 +36,9 @@ Page({
     }
     wx.showLoading({
       title: '加载中',
+    })
+    that.setData({
+      role: util.rolemaps[app.globalData.role]
     })
     //获取瓶子数
     network.post('/user/getformidnum', {

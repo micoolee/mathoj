@@ -56,7 +56,6 @@ var page = Page({
     answer: [],
     commentcontent: null,
     subscribe_door: true,
-    answerdoor: '',
     problempic: 'noimages',
     problempic1: '',
     problempic2: '',

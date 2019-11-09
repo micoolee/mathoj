@@ -21,6 +21,8 @@ var categorys = {
 var gradearray = ['二年级', '三年级', '四年级', '五年级', '六年级']
 var tijis = ['题库', '精选']
 var filtergradearray = ['不限', '二年级', '三年级', '四年级', '五年级', '六年级']
+var rolemaps = { 'principal': '校长', 'teacher': '老师', 'student': '学生' }
+var applymaps = { 'join': '申请加入', 'exit': '申请退出' }
 
 function get_or_create_avatar(userid, that = 'null') {
   var res = wx.getStorageInfoSync();
@@ -369,4 +371,6 @@ module.exports = {
   gradearray: gradearray,
   tijis: tijis,
   filtergradearray: filtergradearray,
+  rolemaps: rolemaps,
+  applymaps: applymaps
 }

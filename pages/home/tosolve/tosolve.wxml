@@ -100,19 +100,11 @@
       <view style="justify-content: space-around;display:flex;">
         <view catchtap="toschoolmate" class="czlist">
           <icon class='mathoj mathojchengyuan' style='color:gray;font-size:80rpx;text-align:center;'></icon>
-          <text>机构成员</text>
+          <text style="font-size:25rpx">机构成员</text>
         </view>
         <view class="czlist">
           <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>
-          <text>其他资料</text>
-        </view>
-        <view class="czlist">
-          <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>
-          <text>其他资料</text>
-        </view>
-        <view class="czlist">
-          <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>
-          <text>其他资料</text>
+          <text style="font-size:25rpx">其他资料</text>
         </view>
       </view>
       <view class="weui-tab ">
@@ -131,6 +123,7 @@
           <view class="weui-tab__content" style='background-color:white;' hidden="{{activeIndex != 0}}">
             <!-- 正文  体现一下遮罩效果的 -->
             <view class="cxj-content">
+              <!-- 有新提问 -->
               <view wx:if='{{havenewbtn}}'>
                 <wux-notice-bar mode="closable" content="有人提问啦~" />
               </view>

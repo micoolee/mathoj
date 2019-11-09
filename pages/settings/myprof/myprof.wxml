@@ -15,7 +15,7 @@
       <input type="text" maxlength="255" placeholder="187xxxxxxxx" bindinput='writephone' placeholder-class="extra-placeholder" value='{{phone}}' />
     </view>
   </view>
-  <view class='line' style="display:flex">
+  <view class='line' style="display:flex" wx:if="{{role!='principal' && role!='pre-principal'}}">
     <view style="flex:1;font-size: 15px;">
       <text>我的年级</text>
     </view>

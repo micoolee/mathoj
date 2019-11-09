@@ -2,9 +2,11 @@
 const app = getApp()
 var console = require('../../../utils/console.js')
 var network = require('../../../utils/network.js')
+var util = require('../../../utils/util.js')
 Page({
   data: {
     applys: [],
+    applytypes: {}
   },
   onLoad: function () {
     var that = this
@@ -12,7 +14,8 @@ Page({
       'userid': app.globalData.selfuserid,
     }, function (res) {
       that.setData({
-        applys: res.applys
+        applys: res.applys,
+        applytypes: util.applymaps
       })
     })
   },

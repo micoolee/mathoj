@@ -4,7 +4,10 @@
       <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
     </view>
     <view catchtap="showMyProf" class="czlist" style="margin-left:40rpx;">
-      <text class="userinfo-nickname" style="color:white;">{{userInfo.nickname}}</text>
+      <view class="userinfo-nickname" style="color:white">
+        <text>{{userInfo.nickname}}</text>
+        <text style="margin-left:10px;font-size: 12px;">{{role}}</text>
+      </view>
       <text class="userinfo-nickname" style="color:white;font-size: 25rpx;">查看并编辑个人资料</text>
     </view>
     <view style="margin-left:auto;margin-right:10px;">
@@ -30,10 +33,6 @@
     </view>
   </view>
   <view class="list-container">
-    <view class="list-item" bindtap="">
-      <text class="list-name">身份</text>
-      <image class="list-icon" src="/images/chevron.png"></image>
-    </view>
     <view class="list-item" bindtap="showAllApplys">
       <text class="list-name">处理申请</text>
       <image class="list-icon" src="/images/chevron.png"></image>

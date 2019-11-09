@@ -162,6 +162,14 @@
   justify-content: center;
 }
 
+/* 靠右垂直居中 */
+.czcenterright {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+
 /* 周围边框 */
 .solidborder {
   border: solid 1px;
@@ -173,6 +181,19 @@
   display: flex;
 }
 
+.centerbutton {
+  font-size: 30rpx;
+  padding-right: 32rpx;
+  float: right;
+  padding: 4px 10px;
+  background-color: lightblue;
+  border-radius: 10rpx;
+}
+
+.minigray {
+  font-size: 25rpx;
+  color: gray;
+}
 
 
 
@@ -447,7 +468,7 @@
 }
 
 .textstyle {
-  font-size: 34rpx;
+  font-size: 30rpx;
   margin-top: 5px;
 }
 

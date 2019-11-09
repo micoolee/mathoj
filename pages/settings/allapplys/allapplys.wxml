@@ -3,7 +3,7 @@
     <view class="czcenter" style="flex:5">
       <image class="bigavatar" src="{{item.applyeravatar}}" />
       <text>
-        {{item.applyerrealname}}    {{item.applytype}} {{item.applystate}}
+        {{item.applyerrealname}}    {{applytypes[item.applytype]}} {{item.applystate}}
         <!-- {{item.applytime}} -->
       </text>
     </view>

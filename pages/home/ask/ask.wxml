@@ -47,7 +47,7 @@
       <view class="weui-uploader__title czspcenter" style='padding:5px'>
         <icon class='mathoj mathojnianji' style='color:gray;font-size:40rpx;'></icon>
         <span style="color:red;">*</span>
-        年级{{gradeindex}}:{{gradearray[gradeindex]}}
+        年级:{{gradearray[gradeindex]}}
       </view>
     </picker>
   </view>

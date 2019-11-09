@@ -29,11 +29,11 @@
           <view class="left" style="display: flex;">
             <view style="display: flex;" class="watch">
               <icon class='mathoj mathojyuedushu' style='color:gray;font-size:35rpx;'></icon>
-              <text>{{lookedtime}}</text>
+              <text style="margin-left: 5px;">{{lookedtime}}</text>
             </view>
             <view class="comment" style='margin-left:10px;display: flex;'>
               <icon class='mathoj mathojliuyan' style='color:gray;font-size:35rpx;'></icon>
-              <text>{{comments.length}}</text>
+              <text style="margin-left: 5px;">{{comments.length}}</text>
             </view>
           </view>
           <view class="right" bindtap='subscribe' data-id='{{subscribe_door}}'>
@@ -48,14 +48,14 @@
           <view class='feed-item'>
             <view style='flex:2;display:flex;'>
               <image class='comments-avatar-img' style='width:70rpx;height:70rpx;' src='{{item.Avatar}}' bindtap='showmore' data-avatar='{{item.Avatar}}' data-userid='{{item.Solverid}}' data-username='{{item.Solvernickname}}' data-openid='{{item.Openid}}' />
-              <view style='flex-direction:row;display:flex'>
-                <text class='textstyle'>{{item.Solvernickname}}</text>
-                <text class='textstyle' style='margin-left:10rpx;'>{{item.Createtime}}</text>
+              <view class="minigray" style='flex-direction:row;display:flex'>
+                <text>{{item.Solvernickname}}</text>
+                <text style='margin-left:10rpx;'>{{item.Createtime}}</text>
               </view>
               <view style='flex:2'></view>
-              <view class="czcenter" style='font-size: 14px;'>
-                {{item.Zanernum}}
-                <icon wx:if="{{item.Zanstatus=='赞'}}" style='padding:10px 15px 0 2px;font-size:50rpx;' catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}' class='mathoj mathojdianzan_active'></icon>
+              <view class="comments-zan" style='display:flex;align-items:flex-end;font-size: 15px;padding-bottom: 20rpx;'>
+                <text>{{item.Zanernum}}</text>
+                <icon wx:if="{{item.Zanstatus=='赞'}}" style='font-size:50rpx;' catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}' class='mathoj mathojdianzan_active'></icon>
                 <icon wx:else class='mathoj mathojdianzan_inactive' style='font-size:50rpx;'></icon>
               </view>
               <view style='display:flex;margin-left:20rpx;' wx:if='{{!hidecaina}}'>
@@ -90,8 +90,8 @@
           </view>
         </view>
       </view>
-      <view wx:if="{{answerdoor != 'yes'}}" class="que-operate flex-wrp">
-        <view class="write flex-item" bindtap='showanswerbox' hidden='{{hidehuida=="true"}}'>
+      <view wx:if="{{hidehuida!='true'}}" class="que-operate flex-wrp">
+        <view class="write flex-item" bindtap='showanswerbox'>
           <icon class='mathoj mathojxiehuida' style='font-size:60rpx'></icon>
           <text>写回答</text>
         </view>
@@ -142,20 +142,21 @@
   </view>
   <view class="content-comments" style='margin-bottom:80rpx'>
     <view class="comments-box" wx:if="{{comments.length > 0}}">
-      <text class="comments-title">最新评论</text>
+      <text class="comments-title">评论区</text>
       <view wx:if="{{comments[0]!='notnull'}}">
-        <view class="comments-list" wx:for="{{comments}}" wx:key="{{item.Commentid}}" wx:for-item="item" wx:for-index="i">
+        <view class="comments-list" wx:for="{{comments}}" wx:key="{{item.Commentid}}" wx:for-item="item" wx:for-index="index">
           <view class="comments-avatar">
             <image class="comments-avatar-img" src="{{item.Avatar}}" />
           </view>
           <view class="comments-main">
             <view class="comments-author">
-              <view class="comments-zan" style='display:flex;align-items:center;'>
-                {{item.Zanernum}}
+              <view class="comments-zan" style='display:flex;align-items:flex-end;'>
+                <text>{{item.Zanernum}}</text>
                 <icon data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' bindtap='dianzan' class='mathoj mathojdianzan_inactive' style='font-size:50rpx;'></icon>
               </view>
               <text>{{item.Nickname}}</text>
-              <text>{{item.Createtime}}</text>
+              <text style="margin-left: 10px;">{{item.Createtime}}</text>
+              <text style="margin-left: 10px;">{{index+1}}楼</text>
             </view>
             <view class="comments-content breakline-small">{{item.Description}}</view>
           </view>
@@ -165,8 +166,8 @@
     <view class="not-comments" wx:else>暂时还没有评论喔!</view>
   </view>
   <view class="extra">
-    <view class="extra-share">
-      <icon bindtap='comment' style='font-size:50rpx;padding-right:32rpx;float:right' class='mathoj mathojliuyan'></icon>
+    <view class="extra-share czcenterright" style="width:20%;height:100%">
+      <text class="centerbutton" bindtap='comment'>评论</text>
     </view>
     <input class="extra-input" style='width:80%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" value='{{commentcontent}}' />
   </view>
