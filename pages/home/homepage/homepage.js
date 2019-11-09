@@ -43,6 +43,8 @@ Page({
     show: 'jigou',
     ranklist: [],
     flag: true,//筛选页,true为无开屏
+    schools: [],
+    hasjigou: true
   },
   // 显示排行页
   showrank: function (e) {
@@ -257,6 +259,17 @@ Page({
         } else {
           util.getlastedprob(that)
           util.getnearbytenproblem(that)
+          if (app.globalData.school == '') {
+            console.log('school is null', '-----')
+            network.post('/user/gettennearbyschools', {
+              'userid': app.globalData.selfuserid,
+            }, function (res) {
+              that.setData({
+                hasjigou: false,
+                schools: res.schools || [],
+              })
+            })
+          }
         }
       } else {
         that.load()

@@ -118,7 +118,7 @@
             <text style="margin:5rpx 10rpx;">{{gradeStr}}</text>
           </view>
         </view>
-        <view>
+        <view wx:if="{{hasjigou}}">
           <!-- 题库 -->
           <view class="weui-tab__content" style='background-color:white;' hidden="{{activeIndex != 0}}">
             <!-- 正文  体现一下遮罩效果的 -->
@@ -252,6 +252,14 @@
             <view class="weui-loadmore weui-loadmore_line" wx:if="{{bottom}}">
               <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
             </view>
+          </view>
+        </view>
+        <view wx:else>
+          <view wx:for="{{schools}}" wx:for-item="item" wx:for-index="index">
+            <view>
+              <image class="circleavatar" src="{{item.avatar}}"></image>
+            </view>
+            <view>{{item.nickname}} {{item.distance}}</view>
           </view>
         </view>
       </view>

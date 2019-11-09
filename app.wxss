@@ -85,6 +85,15 @@
   padding: 10px;
 }
 
+.circleavatar {
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 60rpx;
+  top: 10rpx;
+  vertical-align: middle;
+}
+
 
 /* 文字超出折叠 */
 .test {
