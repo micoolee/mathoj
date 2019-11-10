@@ -130,10 +130,7 @@
   color: #5b5b5b;
 }
 
-.answer-box {
-  font-size: 20px;
-  padding: 10px;
-}
+
 
 .record-controller {
   display: flex;

@@ -204,8 +204,18 @@
   color: gray;
 }
 
+/* 回答问题框 */
+.answer-box {
+  font-size: 20px;
+  padding: 10rpx;
+  width: 100%;
+}
 
-
+.iconclass {
+  color: gray;
+  font-size: 40rpx;
+  text-align: center;
+}
 
 
 

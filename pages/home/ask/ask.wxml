@@ -1,6 +1,6 @@
 <view class="page">
   <view class="weui-uploader__title pad5px">
-    <icon class='mathoj mathojwentimiaoshu' style='color:gray;font-size:40rpx;text-align:center;'></icon>
+    <icon class='mathoj mathojwentimiaoshu iconclass'></icon>
     <span style="color:red;">*</span>
     <text>问题描述:</text>
   </view>
@@ -19,7 +19,7 @@
           <view class="weui-uploader">
             <view class="weui-uploader__hd">
               <view class="weui-uploader__title">
-                <icon class='mathoj mathojweimingming-' style='color:gray;font-size:40rpx;text-align:center;'></icon>
+                <icon class='mathoj mathojweimingming- iconclass'></icon>
                 图片上传
               </view>
               <view class="weui-uploader__info">{{imagelength>4?4:imagelength}}/4</view>

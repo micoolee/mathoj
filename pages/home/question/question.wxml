@@ -42,7 +42,7 @@
           </view>
         </view>
       </view>
-      <view>
+      <view wx:if="{{!cananswer}}">
         <view class='page__teacheranswer'>指点迷津：</view>
         <view wx:for="{{answer}}" wx:key="{{item.SolutionID}}">
           <view class='feed-item'>
@@ -74,9 +74,13 @@
               <audio src="{{item.Record}}"></audio>
               <view class='record-controller'>
                 <view class='flex-wrp'>
-                  <view class="btns">
+                  <!-- <view class="btns">
                     <image bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.Record}}' src="/images/start.png" style='width:30px;height:30px'></image>
                     <image bindtap='pause1' wx:else src="/images/pause.png" style='width:30px;height:30px'></image>
+                  </view> -->
+                  <view class="spcenter">
+                    <icon bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.Record}}' class='mathoj mathojbofang1 iconclass'></icon>
+                    <icon bindtap='pause1' wx:else class='mathoj mathojzanting1 iconclass'></icon>
                   </view>
                   <view class="progresswrap">
                     <slider class="drag page__bd_spacing" style='width:500rpx' step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
@@ -91,19 +95,25 @@
         </view>
       </view>
       <view wx:if="{{hidehuida!='true'}}" class="que-operate flex-wrp">
-        <view class="write flex-item" bindtap='showanswerbox'>
+        <view class="write flex-item czspcenter" bindtap='showanswerbox'>
           <icon class='mathoj mathojxiehuida' style='font-size:60rpx'></icon>
           <text>写回答</text>
+          <view>
+            <icon class='mathoj mathojxiala1-copy iconclass' style="font-size:20rpx;margin-left:5px;display:flex;{{cananswer?'transform: rotate(180deg)':''}}"></icon>
+          </view>
         </view>
         <view class="invite flex-item" bindtap='showinvitebox' data-problemid='{{problemid}}'>
           <icon class='mathoj mathojyaoqing' style='font-size:60rpx'></icon>
           <text>邀请回答</text>
         </view>
       </view>
-      <view name='teacheranswer' hidden='{{answerbox}}' class='answer-box'>
-        <view class="weui-cell__bd">
-          <textarea class="weui-textarea" name="desc" placeholder="请回答" value='{{placeholder}}' maxlength="500" style="height: 5.3em" bindinput="textsolu" />
-          <view class="weui-textarea-counter">{{inputnum}}/500</view>
+      <!-- 回答区域 -->
+      <view name='teacheranswer' wx:if="{{cananswer}}" class='answer-box'>
+        <view style='width: 100%'>
+          <view style="width:100%;" class="spcenter">
+            <textarea name="desc" placeholder="请回答" value='{{placeholder}}' maxlength="500" style="font-size: 15px;border: solid 1px lightgray;width:90%" bindinput="textsolu" />
+          </view>
+          <view style="font-size: 10px;text-align: right;">{{inputnum}}/500</view>
         </view>
         <view style='display:flex;justify-content:center'>
           <view class="weui-uploader__files" id="uploaderFiles">
@@ -117,25 +127,32 @@
             <view class="weui-uploader__input" bindtap="takephoto"></view>
           </view>
         </view>
-        <view class="czcenter">
-          <text style="font-size:12px">加入精选</text>
-          <switch bindchange="switch2Change" />
-        </view>
-        <view wx:if="{{showyuansheng}}">
+        <!-- 音频条，暂时不显示 -->
+        <!-- <view wx:if="{{showyuansheng}}">
           <view class="progresswrap">
             <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
-            <image bindtap='play1' wx:if="{{tingstate}}" src="/images/start.png" class='recordstopimg'></image>
-            <image bindtap='pause1' wx:else src="/images/pause.png" class='recordstopimg'></image>
+          </view>
+        </view> -->
+        <view class="spcenter" style='margin-top:20rpx;margin-bottom:20rpx;'>
+          <view style="flex:1;display: flex;">
+            <view class="spcenter">
+              <icon wx:if="{{recordstate}}" bindtap='start' data-id='{{recordstate}}' class='mathoj mathojkaishiluyin iconclass'></icon>
+              <icon wx:else bindtap='start' type='primary' data-id='{{recordstate}}' class='mathoj mathojjieshuluyin iconclass'></icon>
+            </view>
+            <view class="spcenter" wx:if="{{showyuansheng}}" style="margin-left:30px">
+              <icon bindtap='play1' wx:if="{{tingstate}}" class='mathoj mathojbofang1 iconclass'></icon>
+              <icon bindtap='pause1' wx:else class='mathoj mathojzanting1 iconclass'></icon>
+            </view>
+          </view>
+          <view class="czspcenter" style="flex:1">
+            <text style="font-size:12px">加入精选</text>
+            <switch type="checkbox" bindchange="joinjinxuan" />
           </view>
         </view>
-        <view wx:if="{{recordstate}}" style='margin-top:20rpx;margin-bottom:20rpx;'>
-          <button bindtap='start' type='primary' data-id='{{recordstate}}'>开始录音</button>
-        </view>
-        <view wx:else style='margin-top:20rpx;margin-bottom:20rpx;'>
-          <button bindtap='start' type='primary' data-id='{{recordstate}}'>结束录音</button>
-        </view>
         <form report-submit='true' bindsubmit='submitanswer'>
-          <button bindtap='submitanswer' form-type="submit">提交回答</button>
+          <button bindtap='submitanswer' style="width: 50%;font-size: 15px;" form-type="submit">
+            提交回答
+          </button>
         </form>
       </view>
     </view>

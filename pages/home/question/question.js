@@ -30,15 +30,7 @@ recorderManager.onFrameRecorded((res) => {
     frameBuffer
   } = res
 })
-// const options = {
-//   duration: 60000,
-//   sampleRate: 44100,
-//   numberOfChannels: 1,
-//   encodeBitRate: 192000,
-//   format: 'wav',
-//   frameSize: 50,
-//   answerbox: false
-// }
+
 var answerpicsrc = ''
 var haoti = 'false'
 var page = Page({
@@ -49,7 +41,7 @@ var page = Page({
     recordstate: true,
     curTimeVal: 0,
     duration: 100,
-    answerbox: true,
+    cananswer: false,
     hidehuida: false,
     textsolu: '',
     desc: '',
@@ -70,7 +62,7 @@ var page = Page({
     showdetail: false,
     category: ''
   },
-  switch2Change(e) {
+  joinjinxuan(e) {
     if (e.detail.value) {
       haoti = 'true'
     } else {
@@ -258,7 +250,7 @@ var page = Page({
 
   showanswerbox: function () {
     this.setData({
-      answerbox: false
+      cananswer: !this.data.cananswer
     })
   },
 
@@ -472,7 +464,7 @@ var page = Page({
       })
     } else {
       this.setData({
-        answerbox: true
+        cananswer: false
       });
       if (app.globalData.audiopath) {
         that.uploadrecord(that)
