@@ -14,7 +14,7 @@ Page({
     gradearray: '',
     categorys: '',
     categoryindex: -1,
-    gradeindex: 0,
+    gradeindex: -1,
     placeholder: '',
     imagelength: 0,
     disabledbut: false

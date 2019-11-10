@@ -21,7 +21,7 @@ var categorys = {
 var gradearray = ['二年级', '三年级', '四年级', '五年级', '六年级']
 var tijis = ['题库', '精选']
 var filtergradearray = ['不限', '二年级', '三年级', '四年级', '五年级', '六年级']
-var rolemaps = { 'principal': '校长', 'teacher': '老师', 'student': '学生' }
+var rolemaps = { 'principal': '校长', 'pre-principal': '校长', 'teacher': '老师', 'student': '学生' }
 var applymaps = { 'join': '申请加入', 'exit': '申请退出', 'pass': '通过', 'reject': '未通过' }
 
 function get_or_create_avatar(userid, that = 'null') {

@@ -30,7 +30,7 @@
       <text style="margin-left: 20rpx;">{{profile.nickname}}</text>
     </view>
     <!-- 如果看的是机构的资料 -->
-    <view style="font-size:20rpx" wx:if="{{(profile.role=='principal'||profile.role=='pre-principal')&&profile.phone!=undefined}}">
+    <view style="font-size:20rpx" wx:if="{{(profile.role=='school')&&profile.phone!=undefined}}">
       <text style="margin-left: 20rpx;align-self: center;">{{profile.phone}}</text>
       <icon bindtap="callphone" class='mathoj mathojdianhua' style='color:gray;font-size:60rpx;'></icon>
       <icon bindtap="copyphone" class='mathoj mathojfuzhi' style='color:gray;font-size:60rpx;'></icon>
@@ -46,7 +46,10 @@
     </text>
   </view>
   <!-- 如果看的是机构的资料 -->
-  <view wx:if="{{profile.role=='principal'||profile.role=='pre-principal'}}">
+  <view wx:if="{{profile.role=='school'}}">
+    <text style="margin-left: 20rpx;align-self: center;">
+      校长：{{principal.nickname}} {{principal.phone}}
+    </text>
     <text style="margin-left: 20rpx;align-self: center;">机构简介：{{profile.schooldesc}}</text>
   </view>
   <view class="czlist" style="padding: 0 40rpx;">

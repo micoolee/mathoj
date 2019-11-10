@@ -7,7 +7,7 @@ var searchParam = []
 var formerid = 0
 var jinxuanformerid = 0
 var qdata = null
-var tmpactiveIndex = 0
+var choosejinxuan = 0
 var tmpgrade = 1 //1是不限
 
 var formerid1 = 0
@@ -18,7 +18,6 @@ Page({
     havenewbtn: false,
     inputvalue: null,
     //点击确认筛选后传给后端的值
-    activeIndex: 0,
     grade: 1,
     //点击确认筛选后展示的结果
     activeIndexStr: '题库',
@@ -44,7 +43,8 @@ Page({
     ranklist: [],
     flag: true,//筛选页,true为无开屏
     schools: [],
-    hasjigou: true
+    activeIndex: 0,
+    ifinschool: 'loding'//该用户是否已经加入了一个机构
   },
   // 显示排行页
   showrank: function (e) {
@@ -58,7 +58,7 @@ Page({
   // 设置题集或者精选
   switchactiveIndex: function (e) {
     console.log('switchactiveIndex: ', e)
-    tmpactiveIndex = e.currentTarget.dataset.id
+    choosejinxuan = e.currentTarget.dataset.id
     this.setData({
       filteractiveIndex: e.currentTarget.dataset.id
     })
@@ -82,7 +82,7 @@ Page({
   showfilter: function (e) {
     this.setData({
       flag: false,
-      filteractiveIndex: tmpactiveIndex,
+      filteractiveIndex: choosejinxuan,
       filtergrade: tmpgrade
     })
   },
@@ -94,12 +94,11 @@ Page({
     })
   },
   confirmfilter: function (e) {
-    console.log('tmpgrade: ', tmpgrade)
     this.setData({
       flag: true,
-      activeIndex: tmpactiveIndex,
       grade: tmpgrade,
-      activeIndexStr: util.tijis[tmpactiveIndex],
+      activeIndex: choosejinxuan,
+      activeIndexStr: util.tijis[choosejinxuan],
       gradeStr: util.filtergradearray[tmpgrade]
     })
 
@@ -111,7 +110,7 @@ Page({
       searchParam = [util.filtergradearray[tmpgrade]]
     }
 
-    if (tmpactiveIndex == '0') {
+    if (choosejinxuan == '0') {
       network.post('/problem/getten', {
         'openid': app.globalData.openid,
         'formerid': 0,
@@ -251,6 +250,20 @@ Page({
     var that = this
     setTimeout(function () {
       if (app.globalData.getopenidok) {
+        wx.getLocation({
+          type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+          success: (res) => {
+            app.globalData.authorized = 'true'
+            //上传用户地理位置
+            network.post('/location/update', {
+              'openid': app.globalData.openid,
+              'latitude': res.latitude,
+              'longitude': res.longitude
+            }, function (e) {
+
+            })
+          }
+        });
         if (app.globalData.onlysee && app.globalData.grade && app.globalData.grade != 0) {
           //设置了只看且设置了年级的
           searchParam = [util.gradearray[app.globalData.grade]]
@@ -260,14 +273,17 @@ Page({
           util.getlastedprob(that)
           util.getnearbytenproblem(that)
           if (app.globalData.school == '') {
-            console.log('school is null', '-----')
             network.post('/user/gettennearbyschools', {
               'userid': app.globalData.selfuserid,
             }, function (res) {
               that.setData({
-                hasjigou: false,
+                ifinschool: 'false',
                 schools: res.schools || [],
               })
+            })
+          } else {
+            that.setData({
+              ifinschool: 'true',
             })
           }
         }
@@ -296,6 +312,7 @@ Page({
     })
 
   },
+
 
   showmore: function (e) {
     var askerid = e.currentTarget.dataset.askerid
@@ -348,18 +365,20 @@ Page({
   onPullDownRefresh: function () {
     var that = this
     wx.showNavigationBarLoading() //在标题栏中显示加载
-    if (that.data.activeIndex == '0') {
+    if (choosejinxuan == '0') {
       that.formerid = 0
       switch (that.data.show) {
         case 'jigou':
-          util.getlastedprob(that, searchParam);
+          if (that.data.ifinschool == 'true') {
+            util.getlastedprob(that, searchParam);
+          }
           break;
         case 'discovery':
           util.getnearbytenproblem(that, util.filtergradearray[tmpgrade1])
           break;
       }
 
-    } else if (that.data.activeIndex == '1') {
+    } else if (choosejinxuan == '1') {
       that.jinxuanformerid = 0
       util.getlastedjinxuanprob(that, searchParam)
     }
@@ -369,9 +388,9 @@ Page({
 
   onReachBottom: function () {
     var that = this
-    if (tmpactiveIndex == '0') {
+    if (choosejinxuan == '0') {
       util.get10prob(that, searchParam)
-    } else if (that.data.activeIndex == '1') {
+    } else if (choosejinxuan == '1') {
       util.get10jinxuanprob(that, searchParam)
     }
   },

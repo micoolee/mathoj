@@ -195,7 +195,7 @@
   padding-right: 32rpx;
   float: right;
   padding: 4px 10px;
-  background-color: lightblue;
+  background-color: #52c980;
   border-radius: 10rpx;
 }
 

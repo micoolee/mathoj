@@ -21,7 +21,8 @@
     "pages/settings/myhist/myhist",
     "pages/settings/mycomm/mycomm",
     "pages/settings/profile/profile",
-    "pages/settings/config/config"
+    "pages/settings/config/config",
+    "pages/settings/schoolconfig/schoolconfig"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",

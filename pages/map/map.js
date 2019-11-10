@@ -297,10 +297,11 @@ Page({
     if (teacherorstudent == 'teacher') {
       network.post('/problem/getonenearbyprincipal', {
         'userid': app.globalData.selfuserid,
-        'principalid': e.markerId
+        'schoolid': e.markerId
       }, function (res) {
         that.setData({
           profile: res.profile || {},
+          principal: res.principal || {},
           problems: res.problems || [],
           mapheightratio: 0.3
         })

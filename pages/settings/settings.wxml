@@ -45,8 +45,12 @@
       <text class="list-name">我的老师们</text>
       <image class="list-icon" src="/images/chevron.png"></image>
     </view>
-    <view class="list-item" bindtap="showConfig">
+    <view wx:if="{{role!='校长'}}" class="list-item" bindtap="showConfig">
       <text class="list-name">设置</text>
+      <image class="list-icon" src="/images/chevron.png"></image>
+    </view>
+    <view class="list-item" bindtap="showSchoolConfig">
+      <text class="list-name">设置学校</text>
       <image class="list-icon" src="/images/chevron.png"></image>
     </view>
   </view>

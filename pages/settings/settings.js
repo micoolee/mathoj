@@ -138,6 +138,11 @@ Page({
       url: './config/config',
     })
   },
+  showSchoolConfig: function () {
+    wx.navigateTo({
+      url: './schoolconfig/schoolconfig',
+    })
+  },
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
   },

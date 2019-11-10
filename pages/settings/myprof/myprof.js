@@ -13,7 +13,6 @@ Page({
     realname: '',
     phone: '',
     selfdesc: '',
-    jigoudesc: '',
     grades: [],
     id: 0,
   },
@@ -53,12 +52,7 @@ Page({
       phone: e.detail.value
     })
   },
-  writejigoudesc: function (e) {
-    var that = this
-    that.setData({
-      jigoudesc: e.detail.value
-    })
-  },
+
   writeselfdesc: function (e) {
     var that = this
     that.setData({
@@ -79,7 +73,6 @@ Page({
         realname: e.profile.realname || '',
         phone: e.profile.phone || '',
         selfdesc: e.profile.selfdesc || '',
-        jigoudesc: e.profile.jigoudesc || '',
         role: app.globalData.role || '',
         id: app.globalData.grade * 1 || 0,
 
