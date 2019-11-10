@@ -217,6 +217,17 @@
   text-align: center;
 }
 
+/* 向右的箭头 */
+.rightarrow {
+  transform: rotate(-90deg);
+  margin-right: 10px;
+}
+
+/* 灰色35号字 */
+.gray35 {
+  color: gray;
+  font-size: 35rpx;
+}
 
 
 

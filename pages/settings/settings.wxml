@@ -6,7 +6,7 @@
     <view catchtap="showMyProf" class="czlist" style="margin-left:40rpx;">
       <view class="userinfo-nickname" style="color:white">
         <text>{{userInfo.nickname}}</text>
-        <text style="margin-left:10px;font-size: 12px;">{{role}}</text>
+        <text style="margin-left:10px;font-size:12px;">{{role}}</text>
       </view>
       <text class="userinfo-nickname" style="color:white;font-size: 25rpx;">查看并编辑个人资料</text>
     </view>
@@ -16,42 +16,42 @@
   </view>
   <view style="height:100rpx;margin-top:-50rpx;background-color:white;padding:10px;margin-left:12%;justify-content: space-around;display:flex;width:70%;border:solid 1px gray;border-radius:10px;">
     <view class="czlist" bindtap="showMyQues">
-      <icon class='mathoj mathojtiwen' style='color:gray;font-size:35rpx;'></icon>
+      <icon class='mathoj mathojtiwen gray35'></icon>
       <text class="text1">提问</text>
     </view>
     <view class="czlist" bindtap="showMyComm">
-      <icon class='mathoj mathojjieda' style='color:gray;font-size:35rpx;'></icon>
+      <icon class='mathoj mathojjieda gray35'></icon>
       <text class="text1">解答</text>
     </view>
     <view class="czlist" bindtap="showMyBrow">
-      <icon class='mathoj mathojliulan' style='color:gray;font-size:35rpx;'></icon>
+      <icon class='mathoj mathojliulan gray35'></icon>
       <text class="text1">浏览</text>
     </view>
     <view class="czlist" bindtap="showMySubs">
-      <icon class='mathoj mathojshoucang' style='color:gray;font-size:35rpx;'></icon>
+      <icon class='mathoj mathojshoucang gray35'></icon>
       <text class="text1">收藏</text>
     </view>
   </view>
   <view class="list-container">
     <view class="list-item" bindtap="showAllApplys">
       <text class="list-name">处理申请</text>
-      <image class="list-icon" src="/images/chevron.png"></image>
+      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
     </view>
     <view class="list-item" bindtap="showMyStudents">
       <text class="list-name">我的学生们</text>
-      <image class="list-icon" src="/images/chevron.png"></image>
+      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
     </view>
     <view class="list-item" bindtap="showMyTeachers">
       <text class="list-name">我的老师们</text>
-      <image class="list-icon" src="/images/chevron.png"></image>
+      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
     </view>
     <view wx:if="{{role!='校长'}}" class="list-item" bindtap="showConfig">
       <text class="list-name">设置</text>
-      <image class="list-icon" src="/images/chevron.png"></image>
+      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
     </view>
     <view class="list-item" bindtap="showSchoolConfig">
       <text class="list-name">设置学校</text>
-      <image class="list-icon" src="/images/chevron.png"></image>
+      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
     </view>
   </view>
   <view></view>
