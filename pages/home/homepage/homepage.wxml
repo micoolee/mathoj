@@ -96,8 +96,10 @@
     </view>
   </view>
   <view catchtap="drop" wx:if="{{show=='jigou'}}" style="{{!flag?'position:fixed;':''}}">
+    <!-- 第一页：机构 -->
     <view wx:if="{{ifinschool=='loading'}}">加载中</view>
     <view wx:elif="{{ifinschool=='true'}}" class="page" style="width: 750rpx;">
+      <!-- 机构中的题 -->
       <view style="justify-content: space-around;display:flex;">
         <view catchtap="toschoolmate" class="czlist">
           <icon class='mathoj mathojchengyuan' style='color:gray;font-size:80rpx;text-align:center;'></icon>
@@ -120,16 +122,15 @@
           </view>
         </view>
       </view>
-      <!-- 题库 -->
+      <!-- 机构的题库 -->
       <view class="weui-tab__content" wx:if="{{activeIndex==0}}" style='background-color:white;'>
-        <!-- 正文  体现一下遮罩效果的 -->
         <view class="cxj-content">
           <!-- 有新提问 -->
           <view wx:if='{{havenewbtn}}'>
             <wux-notice-bar mode="closable" content="有人提问啦~" />
           </view>
           <view wx:if="{{problemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
-            <!-- 搜索空集 -->
+            <!-- 空集 -->
             <view>
               <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
             </view>
@@ -159,22 +160,16 @@
                   <view class="answer-body">
                     <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
                       <view class="comments ">
-                        <view wx:if="{{item.solutionnum != null}}">{{item.solutionnum}} 回答</view>
-                        <view wx:else>0 回答</view>
+                        <view>{{item.solutionnum != null?item.solutionnum:0}} 回答</view>
                       </view>
                       <view class="comments ">
-                        <view wx:if="{{item.commentnum != null}}">{{item.commentnum}} 评论</view>
-                        <view wx:else>0 评论</view>
+                        <view>{{item.commentnum != null?item.commentnum:0}} 评论</view>
                       </view>
                       <view class="follow-it">
-                        <view wx:if="{{item.subscribernum != null}}">
-                          {{item.subscribernum}} 关注
-                        </view>
-                        <view wx:else>0 关注</view>
+                        <view>{{item.subscribernum != null?item.subscribernum:0}} 关注</view>
                       </view>
                       <view class="comments">
-                        <view wx:if="{{item.browsernum != null}}">{{item.browsernum}} 浏览</view>
-                        <view wx:else>0 浏览</view>
+                        <view>{{item.browsernum != null?item.browsernum:0}} 浏览</view>
                       </view>
                       <view>
                         <text>{{item.asktime}}提问</text>
@@ -190,10 +185,10 @@
           <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
         </view>
       </view>
-      <!-- 以下是精选 -->
-      <view class="weui-tab__content" style='background-color:white;' wx:if="{{activeIndex == 1}}">
+      <!-- 以下是机构中的精选 -->
+      <view wx:else class="weui-tab__content" style='background-color:white;'>
         <view wx:if="{{jinxuanproblemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
-          <!-- 搜索空集 -->
+          <!-- 空集 -->
           <view>
             <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
           </view>
@@ -232,12 +227,10 @@
                   </view>
                   <view class="answer-actions">
                     <view class="comments dot">
-                      <view wx:if="{{item.browsernum != null}}">{{item.browsernum}}浏览</view>
-                      <view wx:else>0 浏览</view>
+                      <view>{{item.browsernum != null?item.browsernum:0}} 浏览</view>
                     </view>
                     <view class="follow-it">
-                      <view wx:if="{{item.solutionnum != null}}">{{item.solutionnum}}答案</view>
-                      <view wx:else>0 答案</view>
+                      <view>{{item.solutionnum != null?item.solutionnum:0}} 答案</view>
                     </view>
                     <view>
                       <text>{{item.asktime}}提问</text>
@@ -254,6 +247,7 @@
       </view>
     </view>
     <view wx:elif="{{ifinschool=='false'}}" class="page" style="width: 750rpx;margin-top:10px">
+      <!-- 游客看到10个机构介绍 -->
       <text style="font-size:30rpx;padding: 10px">部分学校</text>
       <view wx:for="{{schools}}" wx:for-item="item" wx:for-index="index" style="padding: 10px;display:flex">
         <view>
@@ -265,15 +259,17 @@
         </view>
       </view>
     </view>
+    <!-- 提问按钮 -->
     <view class="spcenter">
       <view class="tiwenbutton" bindtap="toask">
         <icon class='mathoj mathojxiehuida' style='color:white;font-size:40rpx;'></icon>
         <view>提问</view>
       </view>
     </view>
+    <!-- 回到顶部按钮 -->
     <image src='/images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
   </view>
-  <!-- 发现页 -->
+  <!-- 第二页：发现页 -->
   <view class="page" catchtap="drop" wx:elif="{{show=='discovery'}}">
     <view class="weui-tab ">
       <view style="display: flex;margin: 20px 0 10rpx 0;">
@@ -286,15 +282,14 @@
         </view>
       </view>
       <view>
-        <!-- 题库 -->
+        <!-- 附近的题库 -->
         <view class="weui-tab__content" style='background-color:white;'>
-          <!-- 正文  体现一下遮罩效果的 -->
           <view class="cxj-content">
             <view wx:if='{{havenewbtn}}'>
               <wux-notice-bar mode="closable" content="有人提问啦~" />
             </view>
             <view wx:if="{{problemlist1.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
-              <!-- 搜索空集 -->
+              <!-- 空集 -->
               <view>
                 <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
               </view>
@@ -351,7 +346,8 @@
       </view>
     </view>
   </view>
-  <view catchtap="drop" wx:else style="width:100%">
+  <!-- 第三页：排行榜 -->
+  <view wx:else catchtap="drop" style="width:100%">
     <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}">
       <view style="display:flex">
         <image class="bigavatar" src="{{item.avatar}}" bindtap='rankshowmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>

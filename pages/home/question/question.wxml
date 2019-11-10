@@ -55,8 +55,8 @@
               <view style='flex:2'></view>
               <view class="comments-zan" style='display:flex;align-items:flex-end;font-size: 15px;padding-bottom: 20rpx;'>
                 <text>{{item.Zanernum}}</text>
-                <icon wx:if="{{item.Zanstatus=='赞'}}" style='font-size:50rpx;' catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}' class='mathoj mathojdianzan_active'></icon>
-                <icon wx:else class='mathoj mathojdianzan_inactive' style='font-size:50rpx;'></icon>
+                <icon wx:if="{{item.Zanstatus=='赞'}}" style='font-size:50rpx;color:lightgray' catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}' class='mathoj mathojqinziAPPtubiao-'></icon>
+                <icon wx:else class='mathoj mathojdianzan_inactive' style='font-size:50rpx;color:black'></icon>
               </view>
               <view style='display:flex;margin-left:20rpx;' wx:if='{{!hidecaina}}'>
                 <view bindtap='caina' class='textstyle' style='font-size:35rpx;' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>
@@ -152,7 +152,8 @@
             <view class="comments-author">
               <view class="comments-zan" style='display:flex;align-items:flex-end;'>
                 <text>{{item.Zanernum}}</text>
-                <icon data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' bindtap='dianzan' class='mathoj mathojdianzan_inactive' style='font-size:50rpx;'></icon>
+                <icon class='mathoj mathojqinziAPPtubiao-' style='font-size:50rpx;' wx:if="{{item.Zanstatus == '赞'}}" data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' bindtap='dianzan'></icon>
+                <icon class='mathoj mathojdianzan_inactive' style='font-size:50rpx;color:black' wx:else></icon>
               </view>
               <text>{{item.Nickname}}</text>
               <text style="margin-left: 10px;">{{item.Createtime}}</text>
@@ -167,7 +168,7 @@
   </view>
   <view class="extra">
     <view class="extra-share czcenterright" style="width:20%;height:100%">
-      <text class="centerbutton" bindtap='comment'>评论</text>
+      <text class="centerbutton" style="color:white" bindtap='comment'>评论</text>
     </view>
     <input class="extra-input" style='width:80%;' type="text" maxlength="255" placeholder="写评论" bindinput='writecomment' placeholder-class="extra-placeholder" value='{{commentcontent}}' />
   </view>

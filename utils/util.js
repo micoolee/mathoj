@@ -126,7 +126,7 @@ function getnearbytenproblem(that, filter) {
   })
 }
 
-
+//检查是否有更新的问题
 function checklasted(that) {
   if (that.data.lastedid != null) {
     var grade = 0
