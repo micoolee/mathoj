@@ -33,6 +33,10 @@
     </view>
   </view>
   <view class="list-container">
+    <view wx:if="{{role!='校长'}}" class="list-item" bindtap="showMyapply">
+      <text class="list-name">我的申请</text>
+      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
+    </view>
     <view class="list-item" bindtap="showAllApplys">
       <text class="list-name">处理申请</text>
       <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
@@ -54,7 +58,6 @@
       <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
     </view>
   </view>
-  <view></view>
   <view class="weui-footer">
     <view class="weui-footer__links" style='padding:10px 0;'>
       <view bindtap="clearcache" class="weui-footer__link">清除缓存</view>

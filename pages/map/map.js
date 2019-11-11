@@ -295,7 +295,7 @@ Page({
   markertap(e) {
     var that = this
     if (teacherorstudent == 'teacher') {
-      network.post('/problem/getonenearbyprincipal', {
+      network.post('/problem/getonenearbyschool', {
         'userid': app.globalData.selfuserid,
         'schoolid': e.markerId
       }, function (res) {

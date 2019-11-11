@@ -87,7 +87,11 @@ Page({
       url: './mycomm/mycomm',
     })
   },
-
+  showMyapply: function () {
+    wx.navigateTo({
+      url: './myapply/myapply',
+    })
+  },
   showAllApplys: function () {
     wx.navigateTo({
       url: './allapplys/allapplys',
