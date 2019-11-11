@@ -230,6 +230,13 @@
 }
 
 
+/* 平均  */
+.spacearound {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+
+}
 
 
 

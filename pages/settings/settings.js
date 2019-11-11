@@ -1,7 +1,7 @@
 var app = getApp()
 var util = require('../../utils/util.js')
 var network = require('../../utils/network.js')
-var console = require('../../utils/console.js')
+//var console = require('../../utils/console.js')
 var config = require('../../config.js')
 var remainformidnum = 0
 Page({
@@ -105,6 +105,11 @@ Page({
   showMyTeachers: function () {
     wx.navigateTo({
       url: './myteachers/myteachers',
+    })
+  },
+  showposter: function () {
+    wx.navigateTo({
+      url: './poster/poster',
     })
   },
 

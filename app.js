@@ -72,7 +72,6 @@ App({
       that.globalData.logged = res.logged
       that.globalData.role = res.role
       that.globalData.school = res.schoolid || ''
-
       wx.getUserInfo({
         success: res => {
           util.loading(that)
@@ -80,6 +79,11 @@ App({
           that.globalData.userInfo = res.userInfo
           that.globalData.nickname = res.userInfo.nickName
           that.globalData.avatar = res.userInfo.avatarUrl
+        },
+        fail: res => {
+          wx.navigateTo({
+            url: '/pages/getuserinfo/getuserinfo',
+          })
         }
       })
       //是否关小黑屋

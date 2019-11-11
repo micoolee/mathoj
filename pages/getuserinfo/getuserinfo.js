@@ -1,5 +1,5 @@
 var network = require('../../utils/network.js')
-var console = require('../../utils/console.js')
+//var console = require('../../utils/console.js')
 const app = getApp()
 Page({
 

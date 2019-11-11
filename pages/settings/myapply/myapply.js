@@ -1,6 +1,6 @@
 // pages/settings/myques/myques.js
 const app = getApp()
-var console = require('../../../utils/console.js')
+//var console = require('../../../utils/console.js')
 var network = require('../../../utils/network.js')
 var util = require('../../../utils/util.js')
 Page({

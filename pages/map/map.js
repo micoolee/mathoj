@@ -1,7 +1,7 @@
 // map.js
 var util = require('../../utils/util.js')
 var network = require('../../utils/network.js')
-var console = require('../../utils/console.js')
+//var console = require('../../utils/console.js')
 const app = getApp()
 var userlatitude = 0
 var userlongitude = 0

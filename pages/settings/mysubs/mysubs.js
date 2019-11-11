@@ -1,5 +1,5 @@
 const app = getApp()
-var console = require('../../../utils/console.js')
+//var console = require('../../../utils/console.js')
 var network = require('../../../utils/network.js')
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({

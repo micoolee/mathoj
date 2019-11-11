@@ -55,7 +55,7 @@
               <view style='flex:2'></view>
               <view class="comments-zan" style='display:flex;align-items:flex-end;font-size: 15px;padding-bottom: 20rpx;'>
                 <text>{{item.Zanernum}}</text>
-                <icon wx:if="{{item.Zanstatus=='赞'}}" style='font-size:50rpx;color:lightgray' catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}' class='mathoj mathojqinziAPPtubiao-'></icon>
+                <icon wx:if="{{item.Zanstatus=='赞'}}" style='font-size:50rpx;color:lightgray' catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}' class='mathoj mathojdianzan'></icon>
                 <icon wx:else class='mathoj mathojdianzan_inactive' style='font-size:50rpx;color:black'></icon>
               </view>
               <view style='display:flex;margin-left:20rpx;' wx:if='{{!hidecaina}}'>
@@ -79,11 +79,11 @@
                     <image bindtap='pause1' wx:else src="/images/pause.png" style='width:30px;height:30px'></image>
                   </view> -->
                   <view class="spcenter">
-                    <icon bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.Record}}' class='mathoj mathojbofang1 iconclass'></icon>
-                    <icon bindtap='pause1' wx:else class='mathoj mathojzanting1 iconclass'></icon>
+                    <icon bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.Record}}' class='mathoj mathojbofang iconclass'></icon>
+                    <icon bindtap='pause1' wx:else class='mathoj mathojzanting iconclass'></icon>
                   </view>
                   <view class="progresswrap">
-                    <slider class="drag page__bd_spacing" style='width:500rpx' step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
+                    <slider class="drag page__bd_spacing" style='width:500rpx' step="10" value="{{curTimeVal}}" max="{{duration}}" block-size="10" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
                   </view>
                 </view>
               </view>
@@ -140,8 +140,8 @@
               <icon wx:else bindtap='start' type='primary' data-id='{{recordstate}}' class='mathoj mathojjieshuluyin iconclass'></icon>
             </view>
             <view class="spcenter" wx:if="{{showyuansheng}}" style="margin-left:30px">
-              <icon bindtap='play1' wx:if="{{tingstate}}" class='mathoj mathojbofang1 iconclass'></icon>
-              <icon bindtap='pause1' wx:else class='mathoj mathojzanting1 iconclass'></icon>
+              <icon bindtap='play1' wx:if="{{tingstate}}" class='mathoj mathojbofang iconclass'></icon>
+              <icon bindtap='pause1' wx:else class='mathoj mathojzanting iconclass'></icon>
             </view>
           </view>
           <view class="czspcenter" style="flex:1">
@@ -169,7 +169,7 @@
             <view class="comments-author">
               <view class="comments-zan" style='display:flex;align-items:flex-end;'>
                 <text>{{item.Zanernum}}</text>
-                <icon class='mathoj mathojqinziAPPtubiao-' style='font-size:50rpx;' wx:if="{{item.Zanstatus == '赞'}}" data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' bindtap='dianzan'></icon>
+                <icon class='mathoj mathojdianzan' style='font-size:50rpx;' wx:if="{{item.Zanstatus == '赞'}}" data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' bindtap='dianzan'></icon>
                 <icon class='mathoj mathojdianzan_inactive' style='font-size:50rpx;color:black' wx:else></icon>
               </view>
               <text>{{item.Nickname}}</text>

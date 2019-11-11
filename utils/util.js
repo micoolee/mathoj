@@ -1,5 +1,5 @@
 var network = require("network.js")
-var console = require("console.js")
+//var console = require("console.js")
 var config = require('../config.js')
 var storedid = new Map();
 const app = getApp()
@@ -192,13 +192,13 @@ function getlastedjinxuanprob(that, filter) {
 }
 
 function pulldownmessage(that = null) {
+  console.log('pulldownmessage')
   network.post('/message/getten', {
     'openid': app.globalData.openid,
     'statuscode': '1'
   }, function (res) {
-    var messagelist = res.message
-    if (messagelist) {
-      app.globalData.messagelist = messagelist
+    if (res.message) {
+      app.globalData.messagelist = res.message
       if (that != null) {
         that.setData({
           showdetail: true

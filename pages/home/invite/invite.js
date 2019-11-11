@@ -1,7 +1,7 @@
 // pages/invite/invite.js
 const app = getApp()
 var network = require('../../../utils/network.js')
-var console = require('../../../utils/console.js')
+//var console = require('../../../utils/console.js')
 var config = require('../../../config.js')
 var problemid = null
 Page({

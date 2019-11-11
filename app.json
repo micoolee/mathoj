@@ -22,7 +22,8 @@
     "pages/settings/mycomm/mycomm",
     "pages/settings/profile/profile",
     "pages/settings/config/config",
-    "pages/settings/schoolconfig/schoolconfig"
+    "pages/settings/schoolconfig/schoolconfig",
+    "pages/settings/poster/poster"
   ],
   "tabBar": {
     "backgroundColor": "#F7F7FA",

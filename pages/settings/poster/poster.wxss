@@ -1,0 +1,42 @@
+page {
+  background-color: #EDEEF2;
+}
+
+.poste_box {
+  width: 85%;
+  margin: auto;
+  margin-top: 50rpx;
+  background-color: #fff;
+  border: 1rpx solid #ddd;
+  box-shadow: 0px 0px 10px 5px #D8D7DD;
+}
+
+.orangebtn {
+  margin-top: 20px;
+  width: 110px;
+  background-color: orange;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+  font-size: 30rpx;
+}
+
+.scroll-list-box {
+  height: 150rpx;
+  width: 100%;
+}
+
+.scroll-list {
+  height: 150rpx;
+  white-space: nowrap;
+}
+
+.scroll-item {
+  display: inline-block;
+  width: 200rpx;
+  height: 150rpx;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 170rpx;
+  background-color: #fff;
+}

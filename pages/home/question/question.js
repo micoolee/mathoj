@@ -1,6 +1,6 @@
 //answer.js
 var app = getApp()
-var console = require('../../../utils/console.js')
+//var console = require('../../../utils/console.js')
 var network = require('../../../utils/network.js')
 var config = require('../../../config.js')
 

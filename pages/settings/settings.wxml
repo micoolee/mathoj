@@ -12,6 +12,7 @@
     </view>
     <view style="margin-left:auto;margin-right:10px;">
       <button open-type="share" type='primary' style='padding:10rpx;font-size:20rpx;'>邀请加入</button>
+      <icon bindtap="showposter" class='mathoj mathojtuiguangma iconclass' style="color: black;"></icon>
     </view>
   </view>
   <view style="height:100rpx;margin-top:-50rpx;background-color:white;padding:10px;margin-left:12%;justify-content: space-around;display:flex;width:70%;border:solid 1px gray;border-radius:10px;">
@@ -33,29 +34,33 @@
     </view>
   </view>
   <view class="list-container">
-    <view wx:if="{{role!='校长'}}" class="list-item" bindtap="showMyapply">
-      <text class="list-name">我的申请</text>
-      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
+    <view wx:if="{{role!='校长'}}">
+      <view class="list-item" bindtap="showMyapply">
+        <text class="list-name">我的申请</text>
+        <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
+      </view>
+      <view class="list-item" bindtap="showConfig">
+        <text class="list-name">设置</text>
+        <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
+      </view>
     </view>
-    <view class="list-item" bindtap="showAllApplys">
-      <text class="list-name">处理申请</text>
-      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
-    </view>
-    <view class="list-item" bindtap="showMyStudents">
-      <text class="list-name">我的学生们</text>
-      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
-    </view>
-    <view class="list-item" bindtap="showMyTeachers">
-      <text class="list-name">我的老师们</text>
-      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
-    </view>
-    <view wx:if="{{role!='校长'}}" class="list-item" bindtap="showConfig">
-      <text class="list-name">设置</text>
-      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
-    </view>
-    <view class="list-item" bindtap="showSchoolConfig">
-      <text class="list-name">设置学校</text>
-      <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
+    <view wx:else>
+      <view class="list-item" bindtap="showAllApplys">
+        <text class="list-name">处理申请</text>
+        <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
+      </view>
+      <view class="list-item" bindtap="showMyStudents">
+        <text class="list-name">我的学生们</text>
+        <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
+      </view>
+      <view class="list-item" bindtap="showMyTeachers">
+        <text class="list-name">我的老师们</text>
+        <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
+      </view>
+      <view class="list-item" bindtap="showSchoolConfig">
+        <text class="list-name">设置学校</text>
+        <icon class='mathoj mathojxiala1-copy iconclass rightarrow'></icon>
+      </view>
     </view>
   </view>
   <view class="weui-footer">
