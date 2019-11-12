@@ -33,6 +33,7 @@ recorderManager.onFrameRecorded((res) => {
 
 var answerpicsrc = ''
 var haoti = 'false'
+var sid = 0
 var page = Page({
   data: {
     problemid: null,
@@ -60,7 +61,9 @@ var page = Page({
     lookedtime: 0,
     hidecaina: true,
     showdetail: false,
-    category: ''
+    category: '',
+    showreplysolution: false,//回复答案的输入框
+    solutioncommentcontent: '',
   },
   joinjinxuan(e) {
     if (e.detail.value) {
@@ -216,6 +219,38 @@ var page = Page({
     })
   },
 
+  writesolutioncomment: function (e) {
+    this.setData({
+      solutioncommentcontent: e.detail.value
+    })
+  },
+
+  commentsolution: function (e) {
+    var that = this
+    if (this.data.solutioncommentcontent == null || this.data.solutioncommentcontent == '') {
+      wx.showModal({
+        title: '提示',
+        content: '请输入评论',
+      })
+    } else {
+      network.post('/problem/createsolutioncomment', {
+        'userid': app.globalData.selfuserid,
+        'desc': this.data.solutioncommentcontent,
+        'solutionid': sid
+      }, function (res) {
+        wx.showToast({
+          title: '评论成功',
+        })
+        that.setData({
+          showreplysolution: false
+        })
+      }, function () {
+        wx.showToast({
+          title: '评论失败',
+        })
+      })
+    }
+  },
 
   comment: function (event) {
     var that = this
@@ -422,6 +457,21 @@ var page = Page({
         wx.showToast({
           title: '回答成功',
         })
+      }
+    })
+  },
+  showIfReply: function (e) {
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '回复ta？',
+      success: function (res) {
+        if (res.confirm) {
+          sid = e.currentTarget.dataset.sid
+          that.setData({
+            showreplysolution: true
+          })
+        }
       }
     })
   },
