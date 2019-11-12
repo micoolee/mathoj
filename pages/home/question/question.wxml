@@ -8,8 +8,14 @@
         </view>
         <view class="que-title breakline">{{desc}}</view>
         <view wx:if="{{problempic != 'noimages'}}" style='justify-content:center' class='page__text' bindtap='handlepic'>
-          <view wx:if='{{showpic}}' style='display:flex;flex-direction:column;'>收起图片</view>
-          <view wx:else>展开图片</view>
+          <view class="czcenter" wx:if='{{showpic}}'>
+            收起图片
+            <icon class='mathoj mathojxiala1-copy iconclass' style="font-size:20rpx;margin-left:5px;display:flex;transform: rotate(180deg)"></icon>
+          </view>
+          <view class="czcenter" wx:else>
+            展开图片
+            <icon class='mathoj mathojxiala1-copy iconclass' style="font-size:20rpx;margin-left:5px;display:flex;"></icon>
+          </view>
           <view class="spcenter" wx:if="{{problempic1==''}}">
             <!-- 只有一张图片 -->
             <image wx:if="{{problempic}}" src='{{problempic}}' mode='widthFix' hidden='{{!showpic}}' catchtap='viewimage' data-image='{{problempic}}'></image>
