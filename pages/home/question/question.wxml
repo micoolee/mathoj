@@ -95,6 +95,7 @@
             <view wx:if="{{item.Image != undefined}}" class='page__teacheranswerimage'>
               <image src='{{item.Image}}' data-key='pimg' bindtap='viewimage' data-image='{{item.Image}}' data-recordsrc='{{item.Record}}' mode='widthFix'></image>
             </view>
+            <!-- 对答案的评论 -->
             <view style="margin-left: 27px;background-color: lightgray;padding: 10px;" wx:for="{{item.solutioncomments}}" wx:for-item="scitem" wx:for-index="this" class="czcenter">
               <view style="display: flex;width: 100%;">
                 <view>
@@ -106,7 +107,7 @@
                     <text>{{scitem.Createtime}}</text>
                   </view>
                   <view style="font-size: 12px;">
-                    <text>{{scitem.Description}}:</text>
+                    <text>{{scitem.Description}}</text>
                   </view>
                 </view>
               </view>

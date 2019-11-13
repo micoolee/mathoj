@@ -48,6 +48,36 @@ Page({
         }
       }
     })
-
+  },
+  upgradeteacher: function (e) {
+    console.log(e, "e: ")
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '确认升级？',
+      success: function (res) {
+        if (res.confirm) {
+          network.post('/user/upgradetoteacher', {
+            'userid': app.globalData.selfuserid,
+            'studentid': e.currentTarget.dataset.studentid,
+          }, function (res) {
+            console.log('res:', res)
+            if (!res.resultCode) {
+              wx.showToast({
+                title: '升级成功'
+              })
+            } else {
+              wx.showToast({
+                title: '升级失败'
+              })
+            }
+          }, function (e) {
+            wx.showToast({
+              title: '升级失败'
+            })
+          })
+        }
+      }
+    })
   }
 })

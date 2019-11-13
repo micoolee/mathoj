@@ -242,8 +242,10 @@ var page = Page({
           title: '评论成功',
         })
         that.setData({
-          showreplysolution: false
+          showreplysolution: false,
+          solutioncommentcontent: ''
         })
+        getproblem(that)
       }, function () {
         wx.showToast({
           title: '评论失败',

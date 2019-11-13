@@ -11,7 +11,7 @@
       <text class="userinfo-nickname" style="color:white;font-size: 25rpx;">查看并编辑个人资料</text>
     </view>
     <view style="margin-left:auto;margin-right:10px;">
-      <button open-type="share" type='primary' style='padding:10rpx;font-size:20rpx;'>邀请加入</button>
+      <!-- <button open-type="share" type='primary' style='padding:10rpx;font-size:20rpx;'>邀请加入</button> -->
       <icon bindtap="showposter" class='mathoj mathojtuiguangma iconclass' style="color: black;"></icon>
     </view>
   </view>

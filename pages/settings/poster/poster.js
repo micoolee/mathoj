@@ -19,12 +19,10 @@ Page({
         config.host + "/swagger/qrcodeavatar1.jpg"
       ], //需要https图片路径
       qrCode: "", //需要https图片路径
-      TagText: "", //标签
       Useravatar: "", //用户的头像
-      Name: 'mike', //姓名
-      Position: "", //职位
-      Mobile: "这里有营养早餐", //手机
-      Company: "快来看看吧", //公司
+      Name: 'mike', //分享者的姓名
+      Slogan: "这是一个很有趣的小程序", //标语
+      TagText: '看斤斤计较'//图片里的标语
     },
     fromgame: false
   },
@@ -65,16 +63,16 @@ Page({
       success: function (res) {
         wx.hideLoading();
         if (res.statusCode === 200) {
-          var avaterSrc = res.tempFilePath; //下载成功返回结果
-          that.getQrCode(avaterSrc); //继续下载二维码图片
+          var headSrc = res.tempFilePath; //下载成功返回结果
+          that.getQrCode(headSrc); //继续下载二维码图片
         } else {
           wx.showToast({
             title: '头像下载失败！',
             icon: 'none',
             duration: 2000,
             success: function () {
-              var avaterSrc = "";
-              that.getQrCode(avaterSrc);
+              var headSrc = "";
+              that.getQrCode(headSrc);
             }
           })
         }
@@ -85,7 +83,7 @@ Page({
   /**
    * zai下载二维码图片
    */
-  getQrCode: function (avaterSrc) {
+  getQrCode: function (headSrc) {
     var that = this;
     wx.showLoading({
       title: '生成中...',
@@ -100,7 +98,7 @@ Page({
         wx.hideLoading();
         if (res.statusCode === 200) {
           var codeSrc = res.tempFilePath;
-          that.getUseravatar(avaterSrc, codeSrc);
+          that.getUseravatar(headSrc, codeSrc);
         } else {
           wx.showToast({
             title: '二维码下载失败！',
@@ -108,7 +106,7 @@ Page({
             duration: 2000,
             success: function () {
               var codeSrc = "";
-              that.sharePosteCanvas(avaterSrc, codeSrc);
+              that.sharePosteCanvas(headSrc, codeSrc);
             }
           })
         }
@@ -118,7 +116,7 @@ Page({
 
 
   // 最后下载用户头像
-  getUseravatar: function (avaterSrc, codeSrc) {
+  getUseravatar: function (headSrc, codeSrc) {
     var that = this;
     wx.showLoading({
       title: '生成中...',
@@ -133,7 +131,7 @@ Page({
         wx.hideLoading();
         if (res.statusCode === 200) {
           var Useravatar = res.tempFilePath;
-          that.sharePosteCanvas(avaterSrc, codeSrc, Useravatar);
+          that.sharePosteCanvas(headSrc, codeSrc, Useravatar);
         } else {
           wx.showToast({
             title: '二维码下载失败！',
@@ -141,7 +139,7 @@ Page({
             duration: 2000,
             success: function () {
               var Useravatar = "";
-              that.sharePosteCanvas(avaterSrc, codeSrc, Useravatar);
+              that.sharePosteCanvas(headSrc, codeSrc, Useravatar);
             }
           })
         }
@@ -151,11 +149,11 @@ Page({
 
   /**
    * 开始用canvas绘制分享海报
-   * @param avaterSrc 下载的头像图片路径
+   * @param headSrc 下载的头像图片路径
    * @param codeSrc   下载的二维码图片路径
    * @param useravatar   下载的用户头像图片路径
    */
-  sharePosteCanvas: function (avaterSrc, codeSrc, Useravatar) {
+  sharePosteCanvas: function (headSrc, codeSrc, Useravatar) {
     wx.showLoading({
       title: '生成中...',
       mask: true,
@@ -172,9 +170,9 @@ Page({
       ctx.setFillStyle('#fff');
       ctx.fillRect(0, 0, rect.width, height);
 
-      //头像为正方形
-      if (avaterSrc) {
-        ctx.drawImage(avaterSrc, left, 20, width, width);
+      //大图为正方形
+      if (headSrc) {
+        ctx.drawImage(headSrc, left, 20, width, width);
         ctx.setFontSize(14);
         ctx.setFillStyle('#fff');
         ctx.setTextAlign('left');
@@ -206,36 +204,25 @@ Page({
         ctx.fillText(cardInfo.Name, left + 30, width + 55);
       }
 
-      //职位
-      if (cardInfo.Position) {
-        ctx.setFontSize(12);
-        ctx.setFillStyle('#666');
+      //标语
+      if (cardInfo.Slogan) {
+        let [contentLeng, contentArray, contentRows] = that.textByteLength(cardInfo.Slogan, 14)
+        console.log(contentLeng, contentArray, contentRows)
         ctx.setTextAlign('left');
-        ctx.fillText(cardInfo.Position, left, width + 95);
-      }
-
-      //电话
-      if (cardInfo.Mobile) {
-        ctx.setFontSize(12);
         ctx.setFillStyle('#666');
-        ctx.setTextAlign('left');
-        ctx.fillText(cardInfo.Mobile, left, width + 115);
-      }
-
-      // 公司名称
-      if (cardInfo.Company) {
         ctx.setFontSize(12);
-        ctx.setFillStyle('#666');
-        ctx.setTextAlign('left');
-        ctx.fillText(cardInfo.Company, left, width + 145);
+        let contentHh = 22 * 1;
+        for (let m = 0; m < contentArray.length; m++) {
+          ctx.fillText(contentArray[m], left, width + 80 + contentHh * m);
+        }
       }
 
       //  绘制二维码
       if (codeSrc) {
-        ctx.drawImage(codeSrc, left + 160, width + 40, width / 3, width / 3)
+        ctx.drawImage(codeSrc, left + 150, width + 40, width / 3, width / 3)
         ctx.setFontSize(10);
         ctx.setFillStyle('#000');
-        ctx.fillText("微信扫码或长按识别", left + 155, width + 150);
+        ctx.fillText("微信扫码或长按识别", left + 140, width + 140);
       }
 
     }).exec()
