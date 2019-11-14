@@ -414,7 +414,7 @@ Page({
   },
   formsubmitteacher: function (e) {
     var that = this
-    network.post('/location/getprincipal', {
+    network.post('/location/getschool', {
       'openid': app.globalData.openid,
       'margin': margin,
     }, function (res) {

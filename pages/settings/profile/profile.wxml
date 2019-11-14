@@ -16,10 +16,10 @@
         </form>
       </view>
     </view>
-    <view style='margin-top:50rpx'>
+    <!-- <view style='margin-top:50rpx'>
       <form report-submit='true' bindsubmit='sendsixin' data-askerid='{{userInfo.askerid}}' data-sessionid='{{sessionid}}'>
         <button form-type="submit">发私信</button>
       </form>
-    </view>
+    </view> -->
   </view>
 </view>

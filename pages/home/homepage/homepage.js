@@ -341,7 +341,7 @@ Page({
 
   rankshowmore: function (e) {
     var dataset = e.currentTarget.dataset
-    if (openid == app.globalData.openid) {
+    if (dataset.openid == app.globalData.openid) {
       wx.switchTab({
         url: '/pages/settings/settings',
       })

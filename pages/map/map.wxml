@@ -25,9 +25,20 @@
 </view>
 <view wx:if="{{mapheightratio!=1}}" style="height:{{1-mapheightratio}}">
   <view class="bottomline pingjun" style="padding: 40rpx;width: 80%;margin-left: 5%;">
-    <view style="font-size:30rpx;display: flex;">
-      <image style="height: 80rpx;width: 80rpx;border-radius: 50%;" src="{{profile.avatar}}" />
+    <view style="font-size:30rpx;display: flex;align-items: center;">
+      <view wx:if="{{(profile.role!='school')}}">
+        <image style="height: 80rpx;width: 80rpx;border-radius: 50%;" src="{{profile.avatar}}" />
+      </view>
       <text style="margin-left: 20rpx;">{{profile.nickname}}</text>
+    </view>
+    <!-- 如果访问者是学生，增加申请加入退出的按钮 -->
+    <view wx:if="{{role=='student'}}">
+      <view wx:if="{{profile.schoolid != joinedschoolid}}" data-schoolid="{{profile.schoolid}}" style="margin-left: 20rpx;align-self: center;" bindtap="joinschool">
+        申请加入
+      </view>
+      <view wx:else data-schoolid="{{profile.schoolid}}" style="margin-left: 20rpx;align-self: center;" bindtap="exitschool">
+        申请退出
+      </view>
     </view>
     <!-- 如果看的是机构的资料 -->
     <view style="font-size:20rpx" wx:if="{{(profile.role=='school')&&profile.phone!=undefined}}">
@@ -36,25 +47,33 @@
       <icon bindtap="copyphone" class='mathoj mathojfuzhi' style='color:gray;font-size:60rpx;'></icon>
     </view>
   </view>
-  <!-- 如果访问者是学生，增加申请加入退出的按钮 -->
-  <view wx:if="{{role=='student'}}">
-    <text wx:if="{{profile.schoolid != joinedschoolid}}" data-schoolid="{{profile.schoolid}}" style="margin-left: 20rpx;align-self: center;" bindtap="joinschool">
-      申请加入
-    </text>
-    <text wx:else data-schoolid="{{profile.schoolid}}" style="margin-left: 20rpx;align-self: center;" bindtap="exitschool">
-      申请退出
-    </text>
-  </view>
   <!-- 如果看的是机构的资料 -->
-  <view wx:if="{{profile.role=='school'}}">
-    <text style="margin-left: 20rpx;align-self: center;">
-      校长：{{principal.nickname}} {{principal.phone}}
-    </text>
-    <text style="margin-left: 20rpx;align-self: center;">机构简介：{{profile.schooldesc}}</text>
+  <view class="czlist" style="padding: 40rpx;" wx:if="{{profile.role=='school'}}">
+    <text style="margin-left: 20rpx;">校长：{{principal.nickname}} {{principal.phone}}</text>
+    <text style="margin-left: 20rpx;">机构地址：{{profile.schooladdress}}</text>
+    <text style="margin-left: 20rpx;">机构简介：{{profile.schooldesc}}</text>
   </view>
+  <!-- 如果看的是学生的资料 -->
   <view class="czlist" style="padding: 0 40rpx;">
-    <view wx:for="{{problems}}" wx:for-item="item" data-id='{{item.problemid}}' bindtap="bindQueTap" class="bottomline" style="padding: 10px 0;">
-      {{item.description}} {{item.asktime}}
+    <view wx:for="{{problems}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item">
+      <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
+        <view class="feed-source" style='display:flex;justify-content: space-between;'>
+          <view class="answer-body">
+            <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
+              <text>{{item.asktime}}提问</text>
+            </view>
+          </view>
+          <text wx:if="{{item.timeremain=='可回答'}}">{{item.timeremain}}</text>
+          <text wx:else style="color:red">{{item.timeremain}}</text>
+        </view>
+        <view class="feed-content">
+          <view class="question">
+            <a class="question-link">
+              <text class='line-3'>{{item.description}}</text>
+            </a>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 </view>
