@@ -85,13 +85,13 @@
     </view>
   </view>
   <view class="spleft">
-    <view class="circleborder" style="{{show=='jigou'?'background-color:lightblue':''}}" catchtap="showjigou">
+    <view class="circleborder" style="{{show=='jigou'?'background-color:#1296db;color:white':''}}" catchtap="showjigou">
       机构
     </view>
-    <view class="circleborder" style="{{show=='discovery'?'background-color:lightblue':''}}" catchtap="showdiscovery">
+    <view class="circleborder" style="{{show=='discovery'?'background-color:#1296db;color:white':''}}" catchtap="showdiscovery">
       发现
     </view>
-    <view class="circleborder" style="{{show=='rank'?'background-color:lightblue':''}}" catchtap="showrank">
+    <view class="circleborder" style="{{show=='rank'?'background-color:#1296db;color:white':''}}" catchtap="showrank">
       排行榜
     </view>
   </view>
@@ -102,12 +102,12 @@
       <!-- 机构中的题 -->
       <view style="justify-content: space-around;display:flex;">
         <view catchtap="toschoolmate" class="czlist">
-          <icon class='mathoj mathojchengyuan' style='color:gray;font-size:80rpx;text-align:center;'></icon>
+          <icon class='mathoj mathojchengyuan' style='color:#1296db;font-size:80rpx;text-align:center;'></icon>
           <text style="font-size:25rpx">机构成员</text>
         </view>
-        <view class="czlist">
-          <icon class='mathoj mathojtiwen' style='color:gray;font-size:80rpx;text-align:center;'></icon>
-          <text style="font-size:25rpx">其他资料</text>
+        <view catchtap="topostnote" class="czlist">
+          <icon class='mathoj mathojicon-anonymous' style='color:#1296db;font-size:80rpx;text-align:center;'></icon>
+          <text style="font-size:25rpx">匿名留言</text>
         </view>
       </view>
       <view class="weui-tab ">
@@ -345,6 +345,15 @@
         </view>
       </view>
     </view>
+    <!-- 提问按钮 -->
+    <view class="spcenter">
+      <view class="tiwenbutton" bindtap="toask">
+        <icon class='mathoj mathojxiehuida' style='color:white;font-size:40rpx;'></icon>
+        <view>提问</view>
+      </view>
+    </view>
+    <!-- 回到顶部按钮 -->
+    <image src='/images/totop.png' bindtap='totop' style='position:fixed;bottom:20px;right:20px;width:40px;height:40px;'></image>
   </view>
   <!-- 第三页：排行榜 -->
   <view wx:else catchtap="drop" style="width:100%">

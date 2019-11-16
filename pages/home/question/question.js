@@ -64,6 +64,9 @@ var page = Page({
     category: '',
     showreplysolution: false,//回复答案的输入框
     solutioncommentcontent: '',
+    selfrole: '',//角色
+    selfschool: '',//学校
+    problemschool: ''
   },
   joinjinxuan(e) {
     if (e.detail.value) {
@@ -553,7 +556,9 @@ var page = Page({
   onLoad: function (option) {
 
     this.setData({
-      problemid: option.problemid
+      problemid: option.problemid,
+      selfrole: app.globalData.role,
+      selfschool: app.globalData.school
     })
     var that = this
 
@@ -639,6 +644,7 @@ function getproblem(that) {
       lookedtime: res.lookedtime,
       hidecaina: res.hidecaina != undefined,
       showdetail: true,
+      problemschool: res.problemschool
     })
   }, function () { }, function () {
     wx.hideNavigationBarLoading()

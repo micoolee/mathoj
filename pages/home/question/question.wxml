@@ -165,7 +165,8 @@
               <icon bindtap='pause1' wx:else class='mathoj mathojzanting iconclass'></icon>
             </view>
           </view>
-          <view class="czspcenter" style="flex:1">
+          <!-- 本机构老师才可以加为精选 -->
+          <view class="czspcenter" style="flex:1" wx:if="{{problemschool == selfschool && selfrole!='student'}}">
             <text style="font-size:12px">加入精选</text>
             <switch type="checkbox" bindchange="joinjinxuan" />
           </view>

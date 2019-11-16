@@ -203,6 +203,12 @@ Page({
       url: '/pages/home/schoolmate/schoolmate',
     })
   },
+  topostnote: function (e) {
+    wx.navigateTo({
+      url: '/pages/home/anonymousnote/anonymousnote',
+    })
+  },
+
 
   onShareAppMessage: function (res) {
     if (res.from === 'button') {

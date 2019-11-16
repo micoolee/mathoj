@@ -47,7 +47,7 @@
   left: auto;
   width: 120rpx;
   height: 120rpx;
-  background-color: black;
+  background-color: #1296db;
   color: white;
   font-size: 13px;
   text-align: center;
@@ -243,6 +243,7 @@
   border-radius: 5px;
 
 }
+
 
 
 

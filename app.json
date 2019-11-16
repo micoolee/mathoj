@@ -5,6 +5,7 @@
     "pages/home/ask/ask",
     "pages/home/invite/invite",
     "pages/home/schoolmate/schoolmate",
+    "pages/home/anonymousnote/anonymousnote",
 
     "pages/getuserinfo/getuserinfo",
 
