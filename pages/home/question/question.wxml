@@ -10,11 +10,11 @@
         <view wx:if="{{problempic != 'noimages'}}" style='justify-content:center' class='page__text' bindtap='handlepic'>
           <view class="czcenter" wx:if='{{showpic}}'>
             收起图片
-            <icon class='mathoj mathojxiala1-copy iconclass' style="font-size:20rpx;margin-left:5px;display:flex;transform: rotate(180deg)"></icon>
+            <iconfont name="mathojxiala1-copy" class="iconclass" size="10" style="margin-left:5px;display:flex;transform: rotate(180deg)" />
           </view>
           <view class="czcenter" wx:else>
             展开图片
-            <icon class='mathoj mathojxiala1-copy iconclass' style="font-size:20rpx;margin-left:5px;display:flex;"></icon>
+            <iconfont name="mathojxiala1-copy" class="iconclass" size="10" style="margin-left:5px;display:flex;" />
           </view>
           <view class="spcenter" wx:if="{{problempic1==''}}">
             <!-- 只有一张图片 -->
@@ -34,11 +34,11 @@
         <view class="que-follow">
           <view class="left" style="display: flex;">
             <view style="display: flex;" class="watch">
-              <icon class='mathoj mathojyuedushu' style='color:gray;font-size:35rpx;'></icon>
+              <iconfont name="mathojyuedushu" size="17" style="align-self: center;" />
               <text style="margin-left: 5px;">{{lookedtime}}</text>
             </view>
             <view class="comment" style='margin-left:10px;display: flex;'>
-              <icon class='mathoj mathojliuyan' style='color:gray;font-size:35rpx;'></icon>
+              <iconfont name="mathojliuyan" size="17" style="align-self: center;" />
               <text style="margin-left: 5px;">{{comments.length}}</text>
             </view>
           </view>
@@ -61,16 +61,16 @@
               <view style='flex:2'></view>
               <view class="comments-zan" style='display:flex;align-items:flex-end;font-size: 15px;padding-bottom: 20rpx;'>
                 <text>{{item.Zanernum}}</text>
-                <icon wx:if="{{item.Zanstatus=='赞'}}" style='font-size:50rpx;color:lightgray' catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}' class='mathoj mathojdianzan'></icon>
-                <icon wx:else class='mathoj mathojdianzan_inactive' style='font-size:50rpx;color:black'></icon>
+                <iconfont wx:if="{{item.Zanstatus=='赞'}}" name="mathojdianzan" size="25" catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}' />
+                <iconfont wx:else name="mathojdianzan_inactive" size="25" color="black" />
               </view>
               <view style='display:flex;margin-left:20rpx;' wx:if='{{!hidecaina}}'>
                 <view bindtap='caina' class='textstyle' style='font-size:35rpx;' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>
                   <view wx:if="{{item.Cainastatus=='采纳'}}">
-                    <icon class='mathoj mathojcaina' style='color:gray;font-size:40rpx;'></icon>
+                    <iconfont name="mathojcaina" size="20" />
                   </view>
                   <view wx:else>
-                    <icon class='mathoj mathojyicaina' style='color:gray;font-size:40rpx;'></icon>
+                    <iconfont name="mathojyicaina" size="20" color="gray" />
                   </view>
                 </view>
               </view>
@@ -83,8 +83,8 @@
               <view class='record-controller'>
                 <view class='flex-wrp'>
                   <view class="spcenter">
-                    <icon bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.Record}}' class='mathoj mathojbofang iconclass'></icon>
-                    <icon bindtap='pause1' wx:else class='mathoj mathojzanting iconclass'></icon>
+                    <iconfont name="mathojbofang" size="20" bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.Record}}' />
+                    <iconfont name="mathojzanting" size="20" bindtap='pause1' wx:else class="iconclass" />
                   </view>
                   <view class="progresswrap">
                     <slider class="drag page__bd_spacing" style='width:500rpx' step="10" value="{{curTimeVal}}" max="{{duration}}" block-size="10" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
@@ -115,16 +115,16 @@
           </view>
         </view>
       </view>
-      <view wx:if="{{hidehuida!='true'}}" class="que-operate flex-wrp">
+      <view wx:if="{{hidehuida!='true'}}" class="que-operate flex-wrp" style="padding: 10px 0;">
         <view class="write flex-item czspcenter" bindtap='showanswerbox'>
-          <icon class='mathoj mathojxiehuida' style='font-size:60rpx'></icon>
+          <iconfont name="mathojxiehuida" size="30" />
           <text>写回答</text>
           <view>
-            <icon class='mathoj mathojxiala1-copy iconclass' style="font-size:20rpx;margin-left:5px;display:flex;{{cananswer?'transform: rotate(180deg)':''}}"></icon>
+            <iconfont name="mathojxiala1-copy" size="10" style="margin-left:5px;display:flex;{{cananswer?'transform: rotate(180deg)':''}}" />
           </view>
         </view>
-        <view class="invite flex-item" bindtap='showinvitebox' data-problemid='{{problemid}}'>
-          <icon class='mathoj mathojyaoqing' style='font-size:60rpx'></icon>
+        <view class="invite flex-item czspcenter" bindtap='showinvitebox' data-problemid='{{problemid}}'>
+          <iconfont name="mathojyaoqing" size="30" />
           <text>邀请回答</text>
         </view>
       </view>
@@ -157,12 +157,12 @@
         <view class="spcenter" style='margin-top:20rpx;margin-bottom:20rpx;'>
           <view style="flex:1;display: flex;">
             <view class="spcenter">
-              <icon wx:if="{{recordstate}}" bindtap='start' data-id='{{recordstate}}' class='mathoj mathojkaishiluyin iconclass'></icon>
-              <icon wx:else bindtap='start' type='primary' data-id='{{recordstate}}' class='mathoj mathojjieshuluyin iconclass'></icon>
+              <iconfont name="mathojkaishiluyin" size="30" wx:if="{{recordstate}}" bindtap='start' data-id='{{recordstate}}' />
+              <iconfont name="mathojjieshuluyin" size="30" wx:else bindtap='start' type='primary' data-id='{{recordstate}}' />
             </view>
             <view class="spcenter" wx:if="{{showyuansheng}}" style="margin-left:30px">
-              <icon bindtap='play1' wx:if="{{tingstate}}" class='mathoj mathojbofang iconclass'></icon>
-              <icon bindtap='pause1' wx:else class='mathoj mathojzanting iconclass'></icon>
+              <iconfont bindtap='play1' wx:if="{{tingstate}}" name="mathojbofang" size="30" />
+              <iconfont name="mathojzanting" size="30" bindtap='pause1' wx:else />
             </view>
           </view>
           <!-- 本机构老师才可以加为精选 -->
@@ -191,8 +191,8 @@
             <view class="comments-author">
               <view class="comments-zan" style='display:flex;align-items:flex-end;'>
                 <text>{{item.Zanernum}}</text>
-                <icon class='mathoj mathojdianzan' style='font-size:50rpx;' wx:if="{{item.Zanstatus == '赞'}}" data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' bindtap='dianzan'></icon>
-                <icon class='mathoj mathojdianzan_inactive' style='font-size:50rpx;color:black' wx:else></icon>
+                <iconfont name="mathojdianzan" size="25" wx:if="{{item.Zanstatus == '赞'}}" data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' bindtap='dianzan' />
+                <iconfont name="mathojdianzan_inactive" size="25" style='color:black' bindtap='pause1' wx:else />
               </view>
               <text>{{item.Nickname}}</text>
               <text style="margin-left: 10px;">{{item.Createtime}}</text>

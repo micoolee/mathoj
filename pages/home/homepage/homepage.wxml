@@ -102,18 +102,18 @@
       <!-- 机构中的题 -->
       <view style="justify-content: space-around;display:flex;">
         <view catchtap="toschoolmate" class="czlist">
-          <icon class='mathoj mathojchengyuan' style='color:#1296db;font-size:80rpx;text-align:center;'></icon>
+          <iconfont name="mathojchengyuan" size="40" style='text-align:center;' />
           <text style="font-size:25rpx">机构成员</text>
         </view>
         <view catchtap="topostnote" class="czlist">
-          <icon class='mathoj mathojicon-anonymous' style='color:#1296db;font-size:80rpx;text-align:center;'></icon>
+          <iconfont name="mathojicon-anonymous" size="40" style='text-align:center;' />
           <text style="font-size:25rpx">匿名留言</text>
         </view>
       </view>
       <view class="weui-tab ">
         <view style="display: flex;margin: 20px 0 10rpx 0;">
           <view style="margin: 0px 20px;" class="czcenter">
-            <icon class='mathoj mathojshaixuan' style='color:black;font-size:40rpx;padding:10rpx 0 0 0;'></icon>
+            <iconfont name="mathojshaixuan" size="20" />
             <text>筛选</text>
           </view>
           <view class="circleborder czcenter" bindtap="showfilter">
@@ -262,7 +262,9 @@
     <!-- 提问按钮 -->
     <view class="spcenter">
       <view class="tiwenbutton" bindtap="toask">
-        <icon class='mathoj mathojxiehuida' style='color:white;font-size:40rpx;'></icon>
+        <view class="spcenter" style="margin-top:20rpx">
+          <iconfont name="mathojxiehuida" size="20" />
+        </view>
         <view>提问</view>
       </view>
     </view>
@@ -274,7 +276,7 @@
     <view class="weui-tab ">
       <view style="display: flex;margin: 20px 0 10rpx 0;">
         <view style="margin: 0px 20px;" class="czcenter">
-          <icon class='mathoj mathojshaixuan' style='color:black;font-size:40rpx;padding:10rpx 0 0 0;'></icon>
+          <iconfont name="mathojshaixuan" size="20" />
           <text>筛选</text>
         </view>
         <view class="circleborder czcenter" bindtap="showfilter1">
@@ -348,7 +350,9 @@
     <!-- 提问按钮 -->
     <view class="spcenter">
       <view class="tiwenbutton" bindtap="toask">
-        <icon class='mathoj mathojxiehuida' style='color:white;font-size:40rpx;'></icon>
+        <view class="spcenter" style="margin-top:20rpx">
+          <iconfont name="mathojxiehuida" size="20" />
+        </view>
         <view>提问</view>
       </view>
     </view>
@@ -364,8 +368,8 @@
           <text class='textstyle test'>{{item.nickname}}</text>
           <text class='centertext'>已答{{item.solutionum-1}}    被采纳{{item.cainanum-1}}</text>
         </view>
-        <view class="bottomline" style='font-size:30rpx;margin-right:50rpx;align-items:center;'>
-          <icon class='mathoj mathojxunzhang' style="font-size:80rpx;color:{{index==0?'gold':index==1?'silver':index==2?'orange':''}}"></icon>
+        <view class="bottomline" style='font-size:30rpx;margin-right:50rpx;align-items:center;display: flex;'>
+          <iconfont name="mathojxunzhang" size="40" color="{{index==0?'gold':index==1?'silver':index==2?'orange':''}}" />
           <text style=''>{{index+1}}</text>
         </view>
       </view>

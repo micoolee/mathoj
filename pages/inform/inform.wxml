@@ -8,7 +8,8 @@
       <view bindtap='showinformdetail' bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap' data-informid='{{item.messageid}}' data-problemid='{{item.problemid}}' data-informtype='{{item.messagetype}}' data-sourcerid='{{item.sourcerid}}' data-readed='{{item.readed}}' data-index='{{index}}' data-avatar='{{item.senderavatar}}' data-openid='{{item.senderopenid}}' data-username='{{item.sendernickname}}' style="border-bottom:solid 1px gray;width:100%;">
         <view class="segment">
           <text class='textstyle textcenter' style='margin-left:20rpx;'>{{item.sendtime}}</text>
-          <icon class='icon mathoj {{icons[item.messagetype]}}' style='font-size:70rpx'></icon>
+          <!-- <icon class='icon mathoj {{icons[item.messagetype]}}' style='font-size:70rpx'></icon> -->
+          <iconfont name="{{icons[item.messagetype]}}" size="35" />
           <span wx:if="{{item.readed=='0'}}" style="color:red;font-weight: 100;">•</span>
         </view>
         <view class="spcenter" style="font-size:25rpx;" qid="{{question_id}}">

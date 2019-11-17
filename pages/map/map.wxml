@@ -41,10 +41,12 @@
       </view>
     </view>
     <!-- 如果看的是机构的资料 -->
-    <view style="font-size:20rpx" wx:if="{{(profile.role=='school')&&profile.phone!=undefined}}">
+    <view style="font-size:20rpx;display: flex;" wx:if="{{(profile.role=='school')&&profile.phone!=undefined}}">
       <text style="margin-left: 20rpx;align-self: center;">{{profile.phone}}</text>
-      <icon bindtap="callphone" class='mathoj mathojdianhua' style='color:gray;font-size:60rpx;'></icon>
-      <icon bindtap="copyphone" class='mathoj mathojfuzhi' style='color:gray;font-size:60rpx;'></icon>
+      <!-- <icon bindtap="callphone" class='mathoj mathojdianhua' style='color:gray;font-size:60rpx;'></icon> -->
+      <iconfont name="mathojdianhua" size="30" bindtap="callphone" />
+      <!-- <icon bindtap="copyphone" class='mathoj mathojfuzhi' style='color:gray;font-size:60rpx;'></icon> -->
+      <iconfont name="mathojfuzhi" size="30" bindtap="copyphone" />
     </view>
   </view>
   <!-- 如果看的是机构的资料 -->

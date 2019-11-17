@@ -1,5 +1,4 @@
 @import 'style/wxui.wxss';
-@import 'iconfont.wxss';
 
 /* @import "colorui.wxss"; */
 /**app.wxss**/

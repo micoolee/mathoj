@@ -11,8 +11,10 @@
     </view>
     <view wx:if="{{item.applystate==undefined}}" class="pingjun" style="flex:2;font-size: 30rpx;">
       <view class="spacearound">
-        <icon bindtap="passapply" data-applyid="{{item.applyid}}" style="color: green;" class='mathoj mathojpass iconclass'></icon>
-        <icon data-applyid="{{item.applyid}}" bindtap="rejectapply" style="color: red;" class='mathoj mathojshanchu iconclass'></icon>
+        <!-- <icon bindtap="passapply" data-applyid="{{item.applyid}}" style="color: green;" class='mathoj mathojpass iconclass'></icon> -->
+        <iconfont name="mathojpass" size="30" data-applyid="{{item.applyid}}" style="color: green;" bindtap="passapply" />
+        <!-- <icon data-applyid="{{item.applyid}}" bindtap="rejectapply" style="color: red;" class='mathoj mathojshanchu iconclass'></icon> -->
+        <iconfont name="mathojshanchu" size="30" data-applyid="{{item.applyid}}" bindtap="rejectapply" style="color: red;" />
       </view>
     </view>
   </view>

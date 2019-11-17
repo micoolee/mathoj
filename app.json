@@ -72,5 +72,8 @@
       "desc": "你的位置信息将用于附近老师/学生的展示"
     }
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "iconfont": "/iconfont/iconfont"
+  }
 }

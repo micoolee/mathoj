@@ -1,6 +1,6 @@
 <view class="page">
-  <view class="weui-uploader__title pad5px">
-    <icon class='mathoj mathojwentimiaoshu iconclass'></icon>
+  <view class="weui-uploader__title pad5px" style="display: flex;">
+    <iconfont name="mathojwentimiaoshu" size="15" class="iconclass" style="align-self: center;" />
     <span style="color:red;">*</span>
     <text>问题描述:</text>
   </view>
@@ -18,8 +18,8 @@
         <view class="weui-cell__bd">
           <view class="weui-uploader">
             <view class="weui-uploader__hd">
-              <view class="weui-uploader__title">
-                <icon class='mathoj mathojtupian iconclass'></icon>
+              <view class="weui-uploader__title" style="display:flex">
+                <iconfont name="mathojtupian" size="15" class="iconclass" style="align-self: center;" />
                 图片上传
               </view>
               <view class="weui-uploader__info">{{imagelength>4?4:imagelength}}/4</view>
@@ -45,7 +45,7 @@
   <view class="weui-cells  page__bd_spacing">
     <picker bindchange="bindPickerChange" name="gradeindex" value="{{gradeindex}}" range="{{gradearray}}">
       <view class="weui-uploader__title czspcenter" style='padding:5px'>
-        <icon class='mathoj mathojnianji' style='color:gray;font-size:40rpx;'></icon>
+        <iconfont name="mathojnianji" size="20" />
         <span style="color:red;">*</span>
         年级:{{gradearray[gradeindex]}}
       </view>
@@ -54,7 +54,7 @@
   <view class="weui-cells  page__bd_spacing">
     <picker bindchange="bindPickerChangeCategory" data-category='{{categorys[gradeindex+1][categoryindex]}}' value="{{categoryindex}}" range="{{categorys[gradeindex]}}">
       <view class="weui-uploader__title czspcenter" style='padding:5px'>
-        <icon class='mathoj mathojzhishidian' style='color:gray;font-size:40rpx;'></icon>
+        <iconfont name="mathojzhishidian" size="20" />
         知识点:{{categorys[gradeindex][categoryindex]}}
       </view>
     </picker>
