@@ -192,7 +192,7 @@
               <view class="comments-zan" style='display:flex;align-items:flex-end;'>
                 <text>{{item.Zanernum}}</text>
                 <iconfont name="mathojdianzan" size="25" wx:if="{{item.Zanstatus == '赞'}}" data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' bindtap='dianzan' />
-                <iconfont name="mathojdianzan_inactive" size="25" style='color:black' bindtap='pause1' wx:else />
+                <iconfont name="mathojdianzan_inactive" size="25" color="black" bindtap='pause1' wx:else />
               </view>
               <text>{{item.Nickname}}</text>
               <text style="margin-left: 10px;">{{item.Createtime}}</text>

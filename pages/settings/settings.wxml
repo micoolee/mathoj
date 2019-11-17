@@ -2,6 +2,16 @@
   <view bindtap="bindViewTap" class="splist" style='padding-top:50rpx;padding-left:50rpx;background-color:#0066FF;height:250rpx;'>
     <view>
       <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
+      <view>
+        <form report-submit='true' bindsubmit='pushformid'>
+          <button class="czspcenter" form-type='submit' plain='true' style='padding:0;border:none;'>
+            <iconfont name="mathojshengyuduanxin" size="20" />
+            <view style="color:white;margin-left: 10rpx;font-size:25rpx">
+              {{remainformidnumorstr}}
+            </view>
+          </button>
+        </form>
+      </view>
     </view>
     <view catchtap="showMyProf" class="czlist" style="margin-left:40rpx;">
       <view class="userinfo-nickname" style="color:white">
@@ -67,16 +77,6 @@
     <view class="weui-footer__links" style='padding:10px 0;'>
       <view bindtap="clearcache" class="weui-footer__link">清除缓存</view>
       <view bindtap="showHelp" class="weui-footer__link">软件说明</view>
-      <view class="weui-footer__link">
-        <form report-submit='true' bindsubmit='pushformid'>
-          <button form-type='submit' plain='true' style='padding:0;border:none'>
-            <iconfont name="mathojshengyuduanxin" size="20" />
-            <text style='position:absolute;font-size:30rpx;bottom:20rpx;right:12rpx;left:12rpx;color:black'>
-              {{remainformidnumorstr}}
-            </text>
-          </button>
-        </form>
-      </view>
       <view bindtap="showFeedback" class="weui-footer__link">用户反馈</view>
       <view bindtap="toface" class="weui-footer__link">小游戏</view>
     </view>
