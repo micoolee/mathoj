@@ -18,11 +18,12 @@ var categorys = {
   10: ["集合", "基本初等函数", "平面解析几何", "算法初步", "统计", "概率", "平面向量", "三角恒等变换", "解三角形", "数列", "不等式", "圆锥曲线与方程", "空间向量与立体几何", "导数", "推理与证明", "复数", "坐标系与参数方程", "其它"],
 }
 
+var backgroundcolors = { 0: 'orange', 1: 'lightblue', 2: 'red', 3: 'green', 4: 'yellow' }
 var gradearray = ['二年级', '三年级', '四年级', '五年级', '六年级']
 var tijis = ['题库', '精选']
 var filtergradearray = ['不限', '二年级', '三年级', '四年级', '五年级', '六年级']
 var rolemaps = { 'principal': '校长', 'pre-principal': '校长', 'teacher': '老师', 'student': '学生' }
-var applymaps = { 'join': '申请加入', 'exit': '申请退出', 'pass': '通过', 'reject': '未通过', 'toteacher': '申请成为老师' }
+var applymaps = { 'join': '申请加入', 'exit': '申请退出', 'pass': 'mathojtongguo', 'reject': 'mathojjujue', 'toteacher': '申请成为老师' }
 
 function get_or_create_avatar(userid, that = 'null') {
   var res = wx.getStorageInfoSync();
@@ -372,5 +373,6 @@ module.exports = {
   tijis: tijis,
   filtergradearray: filtergradearray,
   rolemaps: rolemaps,
-  applymaps: applymaps
+  applymaps: applymaps,
+  backgroundcolors: backgroundcolors
 }

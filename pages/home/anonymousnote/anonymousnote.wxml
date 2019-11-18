@@ -1,12 +1,12 @@
 <view>
   <view class="section">
     <picker mode="date" value="{{date}}" start="2019-09-01" bindchange="bindDateChange">
-      <view class="picker">日期: {{date}}</view>
+      <view class="picker spcenter">{{date}}</view>
     </picker>
   </view>
-  <view class="czcenter" style="flex-direction: column;" wx:for="{{notes}}" wx:for-item="item">
+  <view class="czcenter" style="flex-direction: column;background-color: {{backgroundcolors[index]}};padding:10px" wx:for="{{notes}}" wx:for-item="item" wx:for-index="index">
     <view>{{item.desc}}</view>
-    <view>{{item.notetime}}</view>
+    <!-- <view>{{item.notetime}}</view> -->
   </view>
   <view class="extra">
     <view class="extra-share czcenterright" style="width:20%;height:100%">

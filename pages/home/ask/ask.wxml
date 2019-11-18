@@ -28,7 +28,7 @@
               <view class="weui-uploader__files" id="uploaderFiles">
                 <block wx:for="{{files}}" wx:for-index="id" wx:key="*this">
                   <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                    <image wx:if="{{item!='/images/pic_160.png'}}" style='width:20px;height:20px;position:fixed;' catchtap='deletethisimg' data-index='{{id}}' src="/images/delete.png" mode="aspectFill" />
+                    <image wx:if="{{item!='/images/pic_160.png'}}" style='width:20px;height:20px;position:absolute;' catchtap='deletethisimg' data-index='{{id}}' src="/images/delete.png" mode="aspectFill" />
                     <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
                   </view>
                 </block>

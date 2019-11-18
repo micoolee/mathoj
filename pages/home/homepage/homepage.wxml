@@ -100,7 +100,7 @@
     <view wx:if="{{ifinschool=='loading'}}">加载中</view>
     <view wx:elif="{{ifinschool=='true'}}" class="page" style="width: 750rpx;">
       <!-- 机构中的题 -->
-      <view style="justify-content: space-around;display:flex;">
+      <view style="justify-content: space-around;display:flex;padding: 30rpx 0 0;">
         <view catchtap="toschoolmate" class="czlist">
           <iconfont name="mathojchengyuan" size="40" style='text-align:center;' />
           <text style="font-size:25rpx">机构成员</text>

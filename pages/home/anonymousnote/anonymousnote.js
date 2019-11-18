@@ -1,6 +1,7 @@
 // pages/invite/invite.js
 const app = getApp()
 var network = require('../../../utils/network.js')
+var util = require('../../../utils/util.js')
 //var console = require('../../../utils/console.js')
 var formerid = 0
 var config = require('../../../config.js')
@@ -24,7 +25,8 @@ Page({
   data: {
     notes: [1, 2, 3],
     commentcontent: '',
-    date: '2016-09-01'
+    date: '2016-09-01',
+    backgroundcolors: {}
   },
   writecomment: function (e) {
     this.setData({
@@ -60,7 +62,7 @@ Page({
     }
   },
   bindDateChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var that = this
     this.setData({
       date: e.detail.value
     })
@@ -69,12 +71,16 @@ Page({
       'date': e.detail.value,
       'formerid': 0
     }, function (res) {
-      console.log('res:', res)
       if (res.notes && res.notes.length > 0) {
         that.setData({
           notes: res.notes,
         })
         formerid = res.notes[res.notes.length - 1].id
+      } else {
+        that.setData({
+          notes: []
+        })
+        formerid = 0
       }
 
     })
@@ -83,7 +89,8 @@ Page({
     var today = new Date().Format("yyyy-MM-dd");
     var that = this
     that.setData({
-      date: today
+      date: today,
+      backgroundcolors: util.backgroundcolors
     })
     network.post('/user/getwall', {
       'userid': app.globalData.selfuserid,

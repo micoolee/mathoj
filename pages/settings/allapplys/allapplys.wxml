@@ -5,7 +5,7 @@
       <view>
         <view style="font-size: 25rpx;">{{item.applytime}}</view>
         <view style="font-size: 30rpx;">
-          {{item.applyerrealname}}    {{applytypes[item.applytype]}} {{applytypes[item.applystate]}}
+          {{item.applyerrealname}}    {{applytypes[item.applytype]}}
         </view>
       </view>
     </view>
@@ -14,6 +14,9 @@
         <iconfont name="mathojpass" size="30" data-applyid="{{item.applyid}}" style="color: green;" bindtap="passapply" />
         <iconfont name="mathojshanchu" size="30" data-applyid="{{item.applyid}}" bindtap="rejectapply" style="color: red;" />
       </view>
+    </view>
+    <view wx:else class="spcenter" style="flex:2;">
+      <iconfont name="{{applytypes[item.applystate]}}" size="30" />
     </view>
   </view>
 </view>
