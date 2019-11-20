@@ -147,6 +147,9 @@ Page({
       url: './config/config',
     })
   },
+  tobePrincipal: function () {
+    console.log('tobeprincipal')
+  },
   showSchoolConfig: function () {
     wx.navigateTo({
       url: './schoolconfig/schoolconfig',

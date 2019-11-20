@@ -1,7 +1,11 @@
 <view>
   <view class="czcenter" wx:for="{{schoolmates}}" wx:for-item="item">
-    <image class="bigavatar" src="{{item.avatar}}" />
-    <text>{{item.realname}}  {{item.role}}</text>
-    <iconfont name="mathojteacher" size="30" />
+    <view style="flex:4;display: flex;">
+      <image class="bigavatar" src="{{item.avatar}}" />
+      <view style="align-self: center;">{{item.realname}}</view>
+    </view>
+    <view style="flex:1">
+      <iconfont name="{{item.role=='teacher'?'mathojteacher':(item.role=='student'?'mathojstudent':'mathojprincipal')}}" size="30" />
+    </view>
   </view>
 </view>

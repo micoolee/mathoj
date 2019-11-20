@@ -139,13 +139,24 @@ var page = Page({
   },
   dianzan: function (e) {
     var that = this
+    var all = that.data.comments
     network.post('/problem/createzancomment', {
       'openid': app.globalData.openid,
       'commentid': e.target.dataset.id
     }, function (res) {
+      // that.setData({
+      //   comments: res.comment
+      // })
+
+      all[e.currentTarget.dataset.index].Zanstatus = '已赞'
       that.setData({
-        comments: res.comment
+        comments: all
       })
+      wx.showToast({
+        title: '已赞',
+      })
+
+
     })
   },
 

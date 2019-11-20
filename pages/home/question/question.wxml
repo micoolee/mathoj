@@ -115,16 +115,16 @@
           </view>
         </view>
       </view>
-      <view wx:if="{{hidehuida!='true'}}" class="que-operate flex-wrp" style="padding: 10px 0;">
+      <view wx:if="{{hidehuida!='true'}}" class="que-operate flex-wrp" style="padding: 10rpx 0;">
         <view class="write flex-item czspcenter" bindtap='showanswerbox'>
-          <iconfont name="mathojxiehuida" size="30" />
+          <iconfont name="mathojxiehuida" color="black" size="25" />
           <text>写回答</text>
           <view>
             <iconfont name="mathojxiala1-copy" size="10" style="margin-left:5px;display:flex;{{cananswer?'transform: rotate(180deg)':''}}" />
           </view>
         </view>
         <view class="invite flex-item czspcenter" bindtap='showinvitebox' data-problemid='{{problemid}}'>
-          <iconfont name="mathojyaoqing" size="30" />
+          <iconfont name="mathojyaoqing" size="25" />
           <text>邀请回答</text>
         </view>
       </view>
@@ -191,7 +191,7 @@
             <view class="comments-author">
               <view class="comments-zan" style='display:flex;align-items:flex-end;'>
                 <text>{{item.Zanernum}}</text>
-                <iconfont name="mathojdianzan" size="25" wx:if="{{item.Zanstatus == '赞'}}" data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' bindtap='dianzan' />
+                <iconfont name="mathojdianzan" size="25" wx:if="{{item.Zanstatus == '赞'}}" data-index='{{index}}' data-id='{{item.CommentID}}' data-problemid='{{item.Problemid}}' data-commenter='{{item.Commenter}}' bindtap='dianzan' />
                 <iconfont name="mathojdianzan_inactive" size="25" color="black" bindtap='pause1' wx:else />
               </view>
               <text>{{item.Nickname}}</text>

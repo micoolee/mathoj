@@ -12,7 +12,8 @@ Page({
     usethislocation: false,
     schoolname: '',
     schoolphone: '',
-    schooladdress: ''
+    schooladdress: '',
+    schooldesc: ''
   },
   switchlocation: function (e) {
     this.setData({

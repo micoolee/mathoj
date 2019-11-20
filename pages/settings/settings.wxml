@@ -40,7 +40,7 @@
     </view>
     <view class="czlist" bindtap="showMySubs" style="justify-content: center;">
       <iconfont name="mathojshoucang" size="20" />
-      <text class="text1">收藏</text>
+      <text class="text1">关注</text>
     </view>
   </view>
   <view class="list-container">
@@ -51,6 +51,10 @@
       </view>
       <view class="list-item" bindtap="showConfig">
         <text class="list-name">设置</text>
+        <iconfont name="mathojxiala1-copy" class="rightarrow" size="15" />
+      </view>
+      <view class="list-item" bindtap="tobePrincipal">
+        <text class="list-name">成为校长</text>
         <iconfont name="mathojxiala1-copy" class="rightarrow" size="15" />
       </view>
     </view>
