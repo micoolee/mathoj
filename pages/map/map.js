@@ -62,7 +62,7 @@ Page({
       clickable: true
     }, {
       id: 5,
-      iconPath: '/images/teacher.png',
+      iconPath: '/images/school.png',
       position: {
         left: 100,
         top: 10,
@@ -124,7 +124,7 @@ Page({
       clickable: true
     }, {
       id: 5,
-      iconPath: '/images/teacher.png',
+      iconPath: '/images/school.png',
       position: {
         left: 100,
         top: 10,

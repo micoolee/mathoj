@@ -362,7 +362,7 @@ Page({
     var that = this
     if (app.globalData.reddot) {
       wx.showTabBarRedDot({
-        index: 3,
+        index: 2,
       })
     }
     util.checklasted(that)

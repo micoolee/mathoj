@@ -41,18 +41,17 @@ Page({
   showinformdetail: function (e) {
     var that = this
     var informid = e.currentTarget.dataset.informid
-    if (this.endTime - this.startTime < 350) {
+    if (this.endTime - this.startTime < 350) {//点击
       var readed = e.currentTarget.dataset.readed
       var index = e.currentTarget.dataset.index
-
-      if (e.currentTarget.dataset.informtype != '2' && e.currentTarget.dataset.informtype != '1') {
-
+      // [3,19]是关于题目的
+      if (e.currentTarget.dataset.informtype * 1 > 2 && e.currentTarget.dataset.informtype * 1 < 20) {
         var problemid = e.currentTarget.dataset.problemid
-
         if (readed == '0') {
           that.data.informlist[index].readed = '1'
           app.globalData.informlist = that.data.informlist
           network.post('/message/read', {
+            'userid': app.globalData.selfuserid,
             'messageid': informid
           })
         }
@@ -61,7 +60,7 @@ Page({
           url: `/pages/home/question/question?problemid=${problemid}`
         })
 
-      } else if (e.currentTarget.dataset.informtype == '2') {
+      } else if (e.currentTarget.dataset.informtype * 1 == 2) {
         var sourcerid = e.currentTarget.dataset.sourcerid
         var avatar = e.currentTarget.dataset.avatar
         var username = e.currentTarget.dataset.username
@@ -70,26 +69,49 @@ Page({
           that.data.informlist[index].readed = '1'
           app.globalData.informlist = that.data.informlist
           network.post('/message/read', {
+            'userid': app.globalData.selfuserid,
             'messageid': informid
           })
         }
         wx.navigateTo({
           url: `/pages/settings/profile/profile?userid=${sourcerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
         })
-
-
-      } else {
+      } else if (e.currentTarget.dataset.informtype * 1 == 1) {//系统通知
         if (readed == '0') {
           that.data.informlist[index].readed = '1'
           app.globalData.informlist = that.data.informlist
           network.post('/message/read', {
+            'userid': app.globalData.selfuserid,
             'messageid': informid
           })
         }
         console.log('帮助页面')
+      } else if (e.currentTarget.dataset.informtype * 1 == 20 || e.currentTarget.dataset.informtype * 1 == 21) {//申请的通知
+        if (readed == '0') {
+          that.data.informlist[index].readed = '1'
+          app.globalData.informlist = that.data.informlist
+          network.post('/message/read', {
+            'userid': app.globalData.selfuserid,
+            'messageid': informid
+          })
+        }
+        console.log('跳转申请页面')
+        wx.navigateTo({
+          url: `/pages/settings/allapplys/allapplys`,
+        })
+      } else {//申请结果的通知
+        if (readed == '0') {
+          that.data.informlist[index].readed = '1'
+          app.globalData.informlist = that.data.informlist
+          network.post('/message/read', {
+            'userid': app.globalData.selfuserid,
+            'messageid': informid
+          })
+        }
+
       }
 
-    } else {
+    } else {//删除操作
       wx.showModal({
         title: '提示',
         content: '是否删除',
@@ -104,7 +126,6 @@ Page({
                 title: '删除成功',
               })
             })
-
           }
         }
       })
@@ -133,11 +154,6 @@ Page({
 
 
   onShow: function () {
-    var that = this
-
-
-
-
     app.globalData.reddot = false
     if (app.globalData.informlist) {
       this.setData({

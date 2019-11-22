@@ -76,12 +76,12 @@
               </view>
             </view>
             <view style='margin-left:40rpx;font-size:30rpx;padding: 10px 0;' catchtap="showIfReply" data-sid="{{item.SolutionID}}">
-              解析:{{item.Description}}
+              解析：{{item.Description}}
             </view>
-            <view wx:if="{{item.Record != undefined}}">
+            <view wx:if="{{item.Record != undefined}}" style="display: flex;padding-left: 40rpx;">
               <audio src="{{item.Record}}"></audio>
               <view class='record-controller'>
-                <view class='flex-wrp'>
+                <view class='flex-wrp' style="align-items: center;">
                   <view class="spcenter">
                     <iconfont name="mathojbofang" size="20" bindtap='play' wx:if="{{tingstate}}" data-recordsrc='{{item.Record}}' />
                     <iconfont name="mathojzanting" size="20" bindtap='pause1' wx:else class="iconclass" />
@@ -96,8 +96,9 @@
               <image src='{{item.Image}}' data-key='pimg' bindtap='viewimage' data-image='{{item.Image}}' data-recordsrc='{{item.Record}}' mode='widthFix'></image>
             </view>
             <!-- 对答案的评论 -->
-            <view style="margin-left: 27px;background-color: lightgray;padding: 10px;" wx:for="{{item.solutioncomments}}" wx:for-item="scitem" wx:for-index="this" class="czcenter">
-              <view style="display: flex;width: 100%;">
+            <view style="margin-left: 27px;background-color: lightgray;padding: 10px;flex-direction: column;" class="czcenter">
+              <view style="display: flex;font-size: 10px;">追问区</view>
+              <view wx:for="{{item.solutioncomments}}" wx:for-item="scitem" wx:for-index="this" style="display: flex;width: 100%;margin-top: 15px;">
                 <view>
                   <image class='comments-avatar-img' style='width:70rpx;height:70rpx;' src='{{scitem.Commenteravatar}}' />
                 </view>
@@ -205,13 +206,13 @@
     </view>
     <view class="not-comments" wx:else>暂时还没有评论喔!</view>
   </view>
-  <view wx:if="{{showreplysolution}}" class="extra">
+  <view wx:if="{{showreplysolution}}" class="extra" style="z-index: 100;">
     <view class="extra-share czcenterright" style="width:20%;height:100%">
       <text class="centerbutton" style="color:white" bindtap='commentsolution'>评论</text>
     </view>
     <input focus="{{showreplysolution}}" class="extra-input" style='width:80%;' type="text" maxlength="255" placeholder="评论答案" bindinput='writesolutioncomment' placeholder-class="extra-placeholder" value='{{solutioncommentcontent}}' />
   </view>
-  <view wx:else class="extra">
+  <view wx:else class="extra" style="z-index: 100;">
     <view class="extra-share czcenterright" style="width:20%;height:100%">
       <text class="centerbutton" style="color:white" bindtap='comment'>评论</text>
     </view>

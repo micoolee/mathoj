@@ -55,7 +55,7 @@ Page({
     util.get_or_create_avatar(app.globalData.openid, that)
     if (app.globalData.reddot) {
       wx.showTabBarRedDot({
-        index: 3,
+        index: 2,
       })
     }
   },
