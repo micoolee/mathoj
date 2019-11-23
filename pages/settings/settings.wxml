@@ -1,8 +1,8 @@
 <view>
-  <view bindtap="bindViewTap" class="splist" style='padding-top:50rpx;padding-left:50rpx;background-color:#0066FF;height:250rpx;'>
+  <view bindtap="bindViewTap" class="splist" style='padding-top:50rpx;padding-left:50rpx;background-color:#0066FF;height:300rpx;'>
     <view>
       <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
-      <view>
+      <view style="margin-top: 10px;">
         <form report-submit='true' bindsubmit='pushformid'>
           <button class="czspcenter" form-type='submit' plain='true' style='padding:0;border:none;'>
             <iconfont name="mathojshengyuduanxin" size="20" />

@@ -65,6 +65,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
+    var that = this
+    network.post('/user/getschoolprofile', {
+      'userid': app.globalData.selfuserid,
+    }, function (e) {
+      that.setData({
+        schoolname: e.schoolname,
+        schoolphone: e.schoolphone,
+        schooldesc: e.schooldesc,
+        schooladdress: e.schooladdress,
+      })
+    })
+
+
     if (app.globalData.onlysee) {
       this.setData({
         onlysee: true

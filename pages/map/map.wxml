@@ -5,13 +5,13 @@
       <cover-view class="filterbutton" style="display: flex;">
         <cover-view style="flex:1;text-align: center;align-self: center;">距离</cover-view>
         <cover-view style="flex:6;display: flex;">
-          <cover-view bindtap="switchmargin" data-id="3" class="circleborder margin510 {{filtermargin==3?'bluewhite':''}}">
+          <cover-view style="padding: 5px 8px;" bindtap="switchmargin" data-id="3" class="circleborder margin510 {{filtermargin==3?'bluewhite':''}}">
             三公里
           </cover-view>
-          <cover-view bindtap="switchmargin" data-id="5" class="circleborder margin510 {{filtermargin==5?'bluewhite':''}}">
+          <cover-view style="padding: 5px 8px;" bindtap="switchmargin" data-id="5" class="circleborder margin510 {{filtermargin==5?'bluewhite':''}}">
             五公里
           </cover-view>
-          <cover-view bindtap="switchmargin" data-id="0" class="circleborder margin510 {{filtermargin==0?'bluewhite':''}}">
+          <cover-view style="padding: 5px 8px;" bindtap="switchmargin" data-id="0" class="circleborder margin510 {{filtermargin==0?'bluewhite':''}}">
             不限
           </cover-view>
         </cover-view>
