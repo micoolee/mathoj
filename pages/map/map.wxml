@@ -31,7 +31,7 @@
         <cover-view>备注(选填)</cover-view>
         <cover-view class='cover-input circleborder' bindtap='tapInput' style="margin-right: 10%;">
           <cover-view class='text'>{{inputInfo}}</cover-view>
-          <input class='input' value='{{inputModel}}' focus='{{inputFocus}}' bindblur='blurInput'></input>
+          <input class='input' value='{{inputModel}}' focus='{{inputFocus}}' bindinput="writeremark" bindblur='blurInput'></input>
         </cover-view>
         <cover-view style="display:flex">
           <cover-view catchtap="cancel" class="circleborder" style="margin:10px">取消</cover-view>
@@ -46,7 +46,7 @@
         <cover-view>备注(选填)</cover-view>
         <cover-view class='cover-input circleborder' bindtap='tapInput' style="margin-right: 10%;">
           <cover-view class='text'>{{inputInfo}}</cover-view>
-          <input class='input' value='{{inputModel}}' focus='{{inputFocus}}' bindblur='blurInput'></input>
+          <input class='input' value='{{inputModel}}' focus='{{inputFocus}}' bindinput="writeremark" bindblur='blurInput'></input>
         </cover-view>
         <cover-view style="display:flex">
           <cover-view catchtap="cancel" class="circleborder" style="margin:10px">取消</cover-view>

@@ -146,7 +146,7 @@
                   </view>
                   <text>{{item.nickname}}</text>
                   <text style='margin-right:auto'>{{item.grade}}</text>
-                  <view>
+                  <view wx:if="{{item.timeremain!='已解答' && item.timeremain!='已释放'}}">
                     <iconfont name="mathojshalou" size="15" style="align-self: center;" />
                   </view>
                   <text wx:if="{{item.timeremain=='已释放'}}">{{item.timeremain}}</text>

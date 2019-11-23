@@ -8,6 +8,7 @@ var userlongitude = 0
 var teacherorstudent = 'teacher'
 var oldcircle = ''
 var margin = 3
+var remark = ''
 Page({
   data: {
     showjoinremark: false,
@@ -145,13 +146,13 @@ Page({
   },
   tojoinschool: function (e) {
     this.setData({
-      remark: '',
+      inputInfo: '',
       showjoinremark: true
     })
   },
   toexitschool: function (e) {
     this.setData({
-      remark: '',
+      inputInfo: '',
       showexitremark: true
     })
   },
@@ -171,12 +172,13 @@ Page({
     network.post('/user/applytojoinschool', {
       'userid': app.globalData.selfuserid,
       'schoolid': e.currentTarget.dataset.schoolid * 1,
-      'remark': that.data.remark,
+      'remark': remark,
     }, function (res) {
       that.setData({
         showjoinremark: false,
         inputInfo: ''
       })
+      remark = ''
       if (!res.resultCode) {
         app.globalData.school = 'schoolid'
         wx.showToast({
@@ -193,24 +195,20 @@ Page({
       }
     })
   },
-  writeremark: function (e) {
-    this.setData({
-      remark: e.detail.value
-    })
 
-  },
   exitschool: function (e) {
     var that = this
 
     network.post('/user/applytoexitschool', {
       'userid': app.globalData.selfuserid,
       'schoolid': e.currentTarget.dataset.schoolid * 1,
-      'remark': that.data.remark,
+      'remark': remark,
     }, function (res) {
       that.setData({
         showexitremark: false,
         inputInfo: ''
       })
+      remark = ''
       if (!res.resultCode) {
         app.globalData.school = 'schoolid'
         wx.showToast({
@@ -363,13 +361,15 @@ Page({
       inputInfo: ''
     });
   },
-
+  writeremark: function (e) {
+    remark = e.detail.value || ''
+  },
   /**
    * input 失去焦点后将 input 的输入内容给到cover-view
    */
   blurInput(e) {
     this.setData({
-      inputInfo: e.detail.value || '输入'
+      inputInfo: e.detail.value || ''
     });
   },
   markertap(e) {
