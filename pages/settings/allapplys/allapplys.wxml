@@ -16,8 +16,8 @@
     </view>
     <view wx:if="{{item.applystate==undefined}}" class="pingjun" style="flex:2;font-size: 30rpx;">
       <view class="spacearound">
-        <iconfont name="mathojpass" size="30" data-applyid="{{item.applyid}}" style="color: green;" bindtap="passapply" />
-        <iconfont name="mathojshanchu" size="30" data-applyid="{{item.applyid}}" bindtap="rejectapply" style="color: red;" />
+        <iconfont name="mathojpass" size="30" data-applytype="{{item.applytype}}" data-applyid="{{item.applyid}}" style="color: green;" bindtap="passapply" />
+        <iconfont name="mathojshanchu" size="30" data-applytype="{{item.applytype}}" data-applyid="{{item.applyid}}" bindtap="rejectapply" style="color: red;" />
       </view>
     </view>
     <view wx:else class="spcenter" style="flex:2;">

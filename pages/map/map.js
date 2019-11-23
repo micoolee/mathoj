@@ -139,7 +139,9 @@ Page({
     profile: '',
     problems: [],
     showchangecircle: false,
-    filtermargin: 3
+    filtermargin: 3,
+    inputInfo: '',
+    inputFocus: ''
   },
   tojoinschool: function (e) {
     this.setData({
@@ -161,7 +163,8 @@ Page({
         title: '不能加入多机构',
       })
       that.setData({
-        showjoinremark: false
+        showjoinremark: false,
+        inputInfo: ''
       })
       return
     }
@@ -171,7 +174,8 @@ Page({
       'remark': that.data.remark,
     }, function (res) {
       that.setData({
-        showjoinremark: false
+        showjoinremark: false,
+        inputInfo: ''
       })
       if (!res.resultCode) {
         app.globalData.school = 'schoolid'
@@ -204,7 +208,8 @@ Page({
       'remark': that.data.remark,
     }, function (res) {
       that.setData({
-        showexitremark: false
+        showexitremark: false,
+        inputInfo: ''
       })
       if (!res.resultCode) {
         app.globalData.school = 'schoolid'
@@ -254,9 +259,18 @@ Page({
       that.formsubmitstudent()
     }
   },
+  cancel: function (e) {
+    this.setData({
+      showjoinremark: false,
+      showexitremark: false,
+      inputInfo: ''
+    })
+  },
   conceal: function (e) {
     this.setData({
       showchangecircle: false,
+      showjoinremark: false,
+      showexitremark: false
     })
   },
   switchmargin: function (e) {
@@ -269,7 +283,7 @@ Page({
   },
   onReady: function (e) {
     // 使用 wx.createMapContext 获取 map 上下文
-    this.mapCtx = wx.createMapContext('map')
+    this.mapCtx = wx.createMapContext('myMap')
   },
   callphone: function (e) {
     var that = this
@@ -317,6 +331,7 @@ Page({
           this.enterLocation()
         }
       });
+      this.mapCtx = wx.createMapContext('myMap')
     } else {
       util.checkuserinfo(that)
     }
@@ -339,6 +354,23 @@ Page({
       showjoinremark: false,
       showexitremark: false,
     })
+  },
+  tapInput() {
+    this.setData({
+      //在真机上将焦点给input
+      inputFocus: true,
+      //初始占位清空
+      inputInfo: ''
+    });
+  },
+
+  /**
+   * input 失去焦点后将 input 的输入内容给到cover-view
+   */
+  blurInput(e) {
+    this.setData({
+      inputInfo: e.detail.value || '输入'
+    });
   },
   markertap(e) {
     var that = this
@@ -447,6 +479,8 @@ Page({
     this.mapCtx.moveToLocation()
   },
   enterLocation: function () {
+    console.log('this.mapctx:', this.mapCtx)
+
     this.mapCtx.moveToLocation()
     this.setData({
       scale: 15,

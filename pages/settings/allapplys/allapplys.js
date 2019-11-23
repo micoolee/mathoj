@@ -20,6 +20,12 @@ Page({
     })
   },
   passapply: function (e) {
+    var succ = '加入成功'
+    var fail = '加入失败'
+    if (e.currentTarget.dataset.applytype == 'exit') {
+      succ = '退出成功'
+      fail = '退出失败'
+    }
     wx.showModal({
       title: '提示',
       content: '确认通过？',
@@ -30,24 +36,25 @@ Page({
             'action': 'pass',
           }, function (res) {
             console.log('res:', res)
+
             if (!res.resultCode) {
               wx.showToast({
-                title: '加入成功'
+                title: succ
               })
             } else {
               if (res.resultMsg == 'ApplyHandled') {
                 wx.showToast({
-                  title: '不能重复操作'
+                  title: succ
                 })
                 return
               }
               wx.showToast({
-                title: '加入失败'
+                title: fail
               })
             }
           }, function (e) {
             wx.showToast({
-              title: '加入失败'
+              title: fail
             })
           })
         }

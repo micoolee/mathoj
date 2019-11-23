@@ -1,6 +1,6 @@
 <view catchtap="conceal">
   <view>
-    <map bindtap="mapclick" id="map" circles="{{circles}}" scale="{{scale}}" controls="{{role=='student'?stucontrols:controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{mapheightratio*height}}px;"></map>
+    <map bindtap="mapclick" id="myMap" circles="{{circles}}" scale="{{scale}}" controls="{{role=='student'?stucontrols:controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{mapheightratio*height}}px;"></map>
     <cover-view wx:if="{{showchangecircle}}" class="t_w" style="position: fixed;top: 0px;width: 100%;">
       <cover-view class="tanchu_view">
         <cover-view class="filterbutton" style="display: flex;">
@@ -25,6 +25,37 @@
         </cover-view>
       </cover-view>
     </cover-view>
+    <!-- 遮罩填写申请的备注信息 -->
+    <cover-view class="zhezao" style="padding-top: 30%;" catchtap="drop" wx:if="{{showjoinremark}}">
+      <cover-view class="tanchu_view czspcenter" style="width: 80%;flex-direction: column;border-radius: 10px;min-height: 300rpx;">
+        <cover-view>备注(选填)</cover-view>
+        <cover-view class='cover-input circleborder' bindtap='tapInput' style="margin-right: 10%;">
+          <cover-view class='text'>{{inputInfo}}</cover-view>
+          <input class='input' value='{{inputModel}}' focus='{{inputFocus}}' bindblur='blurInput'></input>
+        </cover-view>
+        <cover-view style="display:flex">
+          <cover-view catchtap="cancel" class="circleborder" style="margin:10px">取消</cover-view>
+          <cover-view catchtap="joinschool" class="circleborder" style="margin:10px" data-schoolid="{{profile.schoolid}}">
+            提交
+          </cover-view>
+        </cover-view>
+      </cover-view>
+    </cover-view>
+    <cover-view class="zhezao" style="padding-top: 30%;" catchtap="drop" wx:if="{{showexitremark}}">
+      <cover-view class="tanchu_view czspcenter" style="width: 80%;flex-direction: column;border-radius: 10px;min-height: 300rpx;">
+        <cover-view>备注(选填)</cover-view>
+        <cover-view class='cover-input circleborder' bindtap='tapInput' style="margin-right: 10%;">
+          <cover-view class='text'>{{inputInfo}}</cover-view>
+          <input class='input' value='{{inputModel}}' focus='{{inputFocus}}' bindblur='blurInput'></input>
+        </cover-view>
+        <cover-view style="display:flex">
+          <cover-view catchtap="cancel" class="circleborder" style="margin:10px">取消</cover-view>
+          <cover-view catchtap="exitschool" class="circleborder" style="margin:10px" data-schoolid="{{profile.schoolid}}">
+            提交
+          </cover-view>
+        </cover-view>
+      </cover-view>
+    </cover-view>
   </view>
   <view wx:if="{{mapheightratio!=1}}" style="height:{{1-mapheightratio}}">
     <view class="bottomline pingjun">
@@ -45,28 +76,9 @@
           申请退出
         </view>
       </view>
-      <!-- 遮罩填写申请的备注信息 -->
-      <view class="zhezao" style="padding-top: 30%;" catchtap="drop" wx:if="{{showjoinremark}}">
-        <view class="tanchu_view czspcenter" style="width: 80%;flex-direction: column;border-radius: 10px;min-height: 300rpx;">
-          <view>备注(选填)</view>
-          <input placeholder="加入备注" class="circleborder" style="border-radius: 0px;" value="{{remark}}" bindinput="writeremark" />
-          <view catchtap="joinschool" class="circleborder" style="margin:10px" data-schoolid="{{profile.schoolid}}">
-            提交
-          </view>
-        </view>
-      </view>
-      <view class="zhezao" style="padding-top: 30%;" catchtap="drop" wx:if="{{showexitremark}}">
-        <view class="tanchu_view czspcenter" style="width: 80%;flex-direction: column;border-radius: 10px;min-height: 300rpx;">
-          <view>备注(选填)</view>
-          <input placeholder="退出备注" class="circleborder" style="border-radius: 0px;" value="{{remark}}" bindinput="writeremark" />
-          <view catchtap="exitschool" class="circleborder" style="margin:10px" data-schoolid="{{profile.schoolid}}">
-            提交
-          </view>
-        </view>
-      </view>
       <!-- 如果看的是机构的资料 -->
-      <view style="font-size:20rpx;display: flex;" wx:if="{{(profile.role=='school')&&profile.phone!=undefined}}">
-        <text style="margin-left: 20rpx;align-self: center;">{{profile.phone}}</text>
+      <view style="font-size:20rpx;" class="czcenter" wx:if="{{(profile.role=='school')&&profile.phone!=undefined}}">
+        <text>{{profile.phone}}</text>
         <iconfont name="mathojdianhua" size="30" bindtap="callphone" />
         <iconfont name="mathojfuzhi" size="30" bindtap="copyphone" />
       </view>
