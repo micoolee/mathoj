@@ -37,7 +37,7 @@ Page({
     msg2: {
       icon: '/images/empty.png',
     },
-    problemlist: [],
+    problemlist: undefined,
     jinxuanproblemlist: [],
     show: 'jigou',
     ranklist: [],

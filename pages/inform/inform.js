@@ -5,7 +5,7 @@ var network = require('../../utils/network.js')
 Page({
 
   data: {
-    informlist: [],
+    informlist: undefined,
     icons: {
       '1': 'mathojxixitongxiaoxi',
       '2': 'mathojdingyue',
@@ -86,6 +86,9 @@ Page({
           })
         }
         console.log('帮助页面')
+        wx.navigateTo({
+          url: `/pages/inform/help/help`,
+        })
       } else if (e.currentTarget.dataset.informtype * 1 == 20 || e.currentTarget.dataset.informtype * 1 == 21) {//申请的通知
         if (readed == '0') {
           that.data.informlist[index].readed = '1'
@@ -155,6 +158,7 @@ Page({
 
   onShow: function () {
     app.globalData.reddot = false
+    console.log('app.globalData.informlist: ', app.globalData.informlist)
     if (app.globalData.informlist) {
       this.setData({
         informlist: app.globalData.informlist

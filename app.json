@@ -12,6 +12,7 @@
     "pages/map/map",
 
     "pages/inform/inform",
+    "pages/inform/help/help",
 
     "pages/settings/settings",
     "pages/settings/feedback/feedback",

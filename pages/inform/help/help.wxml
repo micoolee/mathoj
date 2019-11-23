@@ -1,0 +1,10 @@
+<!-- <view class='container'>
+
+  <view>{{content}}</view>
+</view> -->
+<import src="../../../wxParse/wxParse.wxml" />
+<view class="container">
+  <view class='uinn' style="padding: 0 10px;">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+  </view>
+</view>

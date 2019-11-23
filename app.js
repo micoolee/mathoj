@@ -10,7 +10,7 @@ App({
     messagelist: [],
     receiverid: null,
     informthat: null,
-    informlist: [],
+    informlist: undefined,
     reddot: false,
     searchlist: [],
     placeholder: '',

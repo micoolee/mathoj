@@ -23,10 +23,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    notes: [1, 2, 3],
+    notes: [],
     commentcontent: '',
     date: '2016-09-01',
-    backgroundcolors: {}
   },
   writecomment: function (e) {
     this.setData({
@@ -90,7 +89,6 @@ Page({
     var that = this
     that.setData({
       date: today,
-      backgroundcolors: util.backgroundcolors
     })
     network.post('/user/getwall', {
       'userid': app.globalData.selfuserid,
