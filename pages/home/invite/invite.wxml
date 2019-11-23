@@ -1,40 +1,39 @@
-<view wx:if="{{noone}}" class="wux-prompt__bd">
-  <view>
-    <image src="{{ icon }}" class="wux-prompt__icon" />
+<view style="height: 100%;">
+  <view wx:if="{{subscriberlist.length==0}}" class="czspcenter" style="flex-direction: column;min-height: 80%;">
+    <view style="width:80%">
+      <image src="/images/no_result.png" style="width: 100%;" />
+    </view>
+    <view>
+      <text>暂无可以邀请的答主，关注后再来</text>
+    </view>
   </view>
-  <view>
-    <text>暂无可以邀请的答主，关注后再来</text>
-  </view>
-  <!-- <view>
-    <form report-submit='true' bindsubmit='torank'>
-      <button class='wux-button--dark' form-type="submit">去关注</button>
-    </form>
-  </view> -->
-</view>
-<view wx:else>
-  <scroll-view scroll-y="true" class="container">
-    <block wx:for="{{subscriberlist}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
-      <view class="feed-item">
-        <view class="feed-content">
+  <view wx:else style="min-height: 80%;">
+    <scroll-view scroll-y="true" class="container">
+      <block wx:for="{{subscriberlist}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
+        <view class="feed-item">
           <view class="question line-reback" style='display:flex' data-username='{{item.nickname}}' data-avatar='{{item.avatar}}'>
             <image src='{{item.avatar}}' class='comments-avatar-img'></image>
-            <view style='flex:6;text-align:left;padding-left:20px;align-self:center;'>
-              <text class='feed-content' style='font-size:30rpx;overflow:hidden;'>
-                {{item.nickname}}
-              </text>
+            <view style='flex:6;text-align:left;padding-left:20px;align-self:center;font-size:30rpx;'>
+              {{item.nickname}}
             </view>
-            <view style='flex:4' wx:if="{{item.invited=='true' || invitedsign[index]}}" class='right'>
-              已邀请
+            <view class="czcenterright right" style='flex:4' wx:if="{{item.invited=='true' || invitedsign[index]}}">
+              <iconfont name="mathojyiyaoqing" size="35" />
             </view>
-            <view style='flex:4' wx:else class='right' bindtap='invite' data-index='{{index}}' data-beinviter='{{item.beinviterid}}'>
+            <view class="czcenterright right" style='flex:4' wx:else bindtap='invite' data-index='{{index}}' data-beinviter='{{item.beinviterid}}'>
+              <iconfont name="mathojtijiao" size="35" />
               邀请
             </view>
           </view>
         </view>
-      </view>
-    </block>
-    <view style='display:flex;background-color:white;'>
-      <button type='primary' style='width:80%;margin-top:40rpx;' open-type='share'>求助同学</button>
+      </block>
+    </scroll-view>
+  </view>
+  <view style='display:flex;background-color:white;flex-direction: column;'>
+    <view style="justify-content: center;width: 100%;display: flex;color: gray;margin: 10px 0;">
+      <iconfont name="mathojhuozhe" size="30" />
     </view>
-  </scroll-view>
+    <button type='primary' style='width:80%;color:white;background-color:#1296db' open-type='share'>
+      求助同学
+    </button>
+  </view>
 </view>

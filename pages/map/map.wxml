@@ -33,10 +33,12 @@
     </view>
     <!-- 如果访问者是学生，增加申请加入退出的按钮 -->
     <view wx:if="{{role=='student'}}">
-      <view wx:if="{{profile.schoolid != joinedschoolid}}" data-schoolid="{{profile.schoolid}}" style="margin-left: 20rpx;align-self: center;" bindtap="joinschool">
+      <view class="czspcenter" wx:if="{{profile.schoolid != joinedschoolid}}" data-schoolid="{{profile.schoolid}}" style="flex-direction: column;margin-left: 20rpx;font-size: 10px;" bindtap="joinschool">
+        <iconfont name="mathojjiaru" size="30" />
         申请加入
       </view>
-      <view wx:else data-schoolid="{{profile.schoolid}}" style="margin-left: 20rpx;align-self: center;" bindtap="exitschool">
+      <view class="czspcenter" wx:else data-schoolid="{{profile.schoolid}}" style="flex-direction: column;margin-left: 20rpx;font-size: 10px;" bindtap="exitschool">
+        <iconfont name="mathojtuichu" size="30" />
         申请退出
       </view>
     </view>

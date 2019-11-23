@@ -96,7 +96,7 @@
               <image src='{{item.Image}}' data-key='pimg' bindtap='viewimage' data-image='{{item.Image}}' data-recordsrc='{{item.Record}}' mode='widthFix'></image>
             </view>
             <!-- 对答案的评论 -->
-            <view style="margin-left: 27px;background-color: lightgray;padding: 10px;flex-direction: column;" class="czcenter">
+            <view wx:if="{{item.solutioncomments.length>0}}" style="margin-left: 27px;background-color: lightgray;padding: 10px;flex-direction: column;" class="czcenter">
               <view style="display: flex;font-size: 10px;">追问区</view>
               <view wx:for="{{item.solutioncomments}}" wx:for-item="scitem" wx:for-index="this" style="display: flex;width: 100%;margin-top: 15px;">
                 <view>
@@ -116,7 +116,7 @@
           </view>
         </view>
       </view>
-      <view wx:if="{{hidehuida!='true'}}" class="que-operate flex-wrp" style="padding: 10rpx 0;">
+      <view wx:if="{{hidehuida!='true'}}" class="que-operate flex-wrp" style="padding: 10px 0;">
         <view class="write flex-item czspcenter" bindtap='showanswerbox'>
           <iconfont name="mathojxiehuida" color="black" size="25" />
           <text>写回答</text>

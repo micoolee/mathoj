@@ -129,13 +129,12 @@
           <view wx:if='{{havenewbtn}}'>
             <wux-notice-bar mode="closable" content="有人提问啦~" />
           </view>
-          <view wx:if="{{problemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
+          <view wx:if="{{problemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;'>
             <!-- 空集 -->
-            <view>
-              <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
-            </view>
-            <view>
-              <text>无相关结果</text>
+            <view class="spcenter">
+              <view style="width:80%" class="spcenter">
+                <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+              </view>
             </view>
           </view>
           <view wx:else>
@@ -147,6 +146,9 @@
                   </view>
                   <text>{{item.nickname}}</text>
                   <text style='margin-right:auto'>{{item.grade}}</text>
+                  <view>
+                    <iconfont name="mathojshalou" size="15" style="align-self: center;" />
+                  </view>
                   <text wx:if="{{item.timeremain=='已释放'}}">{{item.timeremain}}</text>
                   <text wx:elif="{{ item.timeremain=='已解答'}}">{{item.timeremain}}</text>
                   <text wx:else style="color:red">{{item.timeremain}}</text>
@@ -187,13 +189,12 @@
       </view>
       <!-- 以下是机构中的精选 -->
       <view wx:else class="weui-tab__content" style='background-color:white;'>
-        <view wx:if="{{jinxuanproblemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
+        <view wx:if="{{jinxuanproblemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;'>
           <!-- 空集 -->
-          <view>
-            <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
-          </view>
-          <view>
-            <text>暂无精选</text>
+          <view class="spcenter">
+            <view style="width:80%" class="spcenter">
+              <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+            </view>
           </view>
         </view>
         <view wx:else>
@@ -290,13 +291,12 @@
             <view wx:if='{{havenewbtn}}'>
               <wux-notice-bar mode="closable" content="有人提问啦~" />
             </view>
-            <view wx:if="{{problemlist1.length==0}}" style=';display:flex;flex-direction:column;align-items:center;margin-top:80rpx;'>
+            <view wx:if="{{problemlist1.length==0}}" style=';display:flex;flex-direction:column;align-items:center;'>
               <!-- 空集 -->
-              <view>
-                <image src="{{ msg2.icon }}" class="wux-prompt__icon" />
-              </view>
-              <view>
-                <text>无相关结果</text>
+              <view class="spcenter">
+                <view style="width:80%" class="spcenter">
+                  <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+                </view>
               </view>
             </view>
             <view wx:else>

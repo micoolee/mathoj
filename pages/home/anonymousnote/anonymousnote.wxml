@@ -1,9 +1,12 @@
 <view>
-  <view class="section" style="padding: 10px 0;">
-    <picker mode="date" value="{{date}}" start="2019-09-01" bindchange="bindDateChange">
-      <view class="picker spcenter">
-        <iconfont name="mathojrili" size="20" style="align-self: center;margin-right:10px" />
-        {{date}}
+  <view class="section" style="padding: 10px 0;display: flex;">
+    <picker mode="date" class="czspcenter" style="flex-direction: column;width: 100%;" value="{{date}}" start="2019-09-01" bindchange="bindDateChange">
+      <view class="picker" style="display: flex;">
+        <view class="spcenter" style="border: solid 1px lightgray;padding: 10px;border-radius: 10px;">
+          <iconfont name="mathojrili" size="20" style="align-self: center;margin-right:10px" />
+          {{date}}
+        </view>
+        <iconfont catchtap="totoday" name="mathojjintian" size="30" style="align-self: center;" />
       </view>
     </picker>
   </view>

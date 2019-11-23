@@ -106,6 +106,11 @@ Page({
     })
   },
 
+  totoday: function (e) {
+    var that = this
+    that.onLoad()
+  },
+
   onPullDownRefresh: function () {
     wx.showNavigationBarLoading()
     var that = this
@@ -124,6 +129,7 @@ Page({
 
     })
     wx.stopPullDownRefresh() //停止下拉刷新
+    wx.hideNavigationBarLoading()
   }
 
 })

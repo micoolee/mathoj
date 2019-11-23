@@ -11,8 +11,9 @@ Page({
    */
   data: {
     invitedsign: [false],
-    noone: false,
-    icon: '/images/empty.png',
+    // noone: false,
+    // icon: '/images/empty.png',
+    subscriberlist: undefined,
   },
 
   onShareAppMessage: function (res) {
@@ -58,17 +59,24 @@ Page({
       'openid': app.globalData.openid,
       'problemid': JSON.parse(problemid)
     }, function (res) {
-      var subscriberlist = res.beinviter
-      if (!subscriberlist) {
-        that.setData({
-          noone: true
-        })
-        wx.showToast({
-          title: '请关注后再邀请',
-        })
-        return
+      var subscriberlist
+      if (res.beinviter) {
+        subscriberlist = res.beinviter
+      } else {
+        subscriberlist = []
       }
+
+      // if (!subscriberlist) {
+      //   that.setData({
+      //     noone: true
+      //   })
+      //   wx.showToast({
+      //     title: '请关注后再邀请',
+      //   })
+      //   return
+      // }
       var tmplist = new Array();
+
       for (var i = 0; i < subscriberlist.length; i++) {
         tmplist.push(false)
       }

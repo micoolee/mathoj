@@ -34,9 +34,6 @@ Page({
 
     sliderOffset: 0,
     sliderLeft: 0,
-    msg2: {
-      icon: '/images/empty.png',
-    },
     problemlist: undefined,
     jinxuanproblemlist: [],
     show: 'jigou',

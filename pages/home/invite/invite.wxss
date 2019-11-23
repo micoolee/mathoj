@@ -1,5 +1,9 @@
 /* pages/invite/invite.wxss */
-.right{
+.right {
   text-align: right;
-  font-size:40rpx
+  font-size: 40rpx
+}
+
+page {
+  height: 100%;
 }

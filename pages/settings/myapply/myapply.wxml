@@ -1,16 +1,25 @@
 <view>
-  <view class="czcenter" wx:for="{{applys}}" wx:for-item="item">
-    <view class="czcenter" style="flex:5">
-      <image class="bigavatar" src="{{item.applyeravatar}}" />
-      <text>
-        {{item.applyerrealname}}    {{applytypes[item.applytype]}} {{item.applyschool}}
-        <!-- {{item.applytime}} -->
-      </text>
-    </view>
-    <view wx:if="{{item.applystate==undefined}}" class="pingjun" style="flex:2;font-size: 30rpx;">
-      <button bindtap="withdrawapply" data-applyid="{{item.applyid}}" class="solidborder" style="border-radius: 10px;padding: 10rpx;">
+  <view wx:if="{{applys.length>0}}">
+    <view class="czcenter" wx:for="{{applys}}" wx:for-item="item">
+      <view class="czcenter" style="flex:5">
+        <image class="bigavatar" src="{{item.applyeravatar}}" />
+        <view style="font-size: 30rpx;">
+          {{item.applyerrealname}}    {{applytypes[item.applytype]}} {{item.applyschool}}
+        </view>
+      </view>
+      <view wx:if="{{item.applystate==undefined}}" class="pingjun" style="flex:2;font-size: 30rpx;">
+        <!-- <button bindtap="withdrawapply" data-applyid="{{item.applyid}}" class="solidborder" style="border-radius: 10px;padding: 10rpx;">
         撤销
-      </button>
+      </button> -->
+        <view class="spacearound">
+          <iconfont name="mathojshanchu" size="30" bindtap="withdrawapply" data-applyid="{{item.applyid}}" style="color: red;" />
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:elif="{{applys.length==0}}" class="spcenter">
+    <view style="width:80%">
+      <image src="/images/no_result.png" style="width: 100%;" />
     </view>
   </view>
 </view>
