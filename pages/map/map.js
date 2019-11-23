@@ -10,6 +10,8 @@ var oldcircle = ''
 var margin = 3
 Page({
   data: {
+    showjoinremark: false,
+    showexitremark: false,
     mapheightratio: 1,
     latitude: 0,
     longitude: 0,
@@ -139,39 +141,79 @@ Page({
     showchangecircle: false,
     filtermargin: 3
   },
+  tojoinschool: function (e) {
+    this.setData({
+      remark: '',
+      showjoinremark: true
+    })
+  },
+  toexitschool: function (e) {
+    this.setData({
+      remark: '',
+      showexitremark: true
+    })
+  },
   //学生申请加入机构
   joinschool: function (e) {
+    var that = this
     if (app.globalData.school != '') {
       wx.showToast({
         title: '不能加入多机构',
+      })
+      that.setData({
+        showjoinremark: false
       })
       return
     }
     network.post('/user/applytojoinschool', {
       'userid': app.globalData.selfuserid,
-      'schoolid': e.currentTarget.dataset.schoolid * 1
+      'schoolid': e.currentTarget.dataset.schoolid * 1,
+      'remark': that.data.remark,
     }, function (res) {
+      that.setData({
+        showjoinremark: false
+      })
       if (!res.resultCode) {
         app.globalData.school = 'schoolid'
         wx.showToast({
           title: '已申请',
         })
+      } else if (res.resultMsg == "HaveApplyHandling") {
+        wx.showToast({
+          title: '勿重复申请',
+        })
       } else {
         wx.showToast({
-          title: '加入失败',
+          title: '申请失败',
         })
       }
     })
   },
+  writeremark: function (e) {
+    this.setData({
+      remark: e.detail.value
+    })
+
+  },
   exitschool: function (e) {
+    var that = this
+
     network.post('/user/applytoexitschool', {
       'userid': app.globalData.selfuserid,
-      'schoolid': e.currentTarget.dataset.schoolid * 1
+      'schoolid': e.currentTarget.dataset.schoolid * 1,
+      'remark': that.data.remark,
     }, function (res) {
+      that.setData({
+        showexitremark: false
+      })
       if (!res.resultCode) {
         app.globalData.school = 'schoolid'
         wx.showToast({
           title: '已申请',
+        })
+      } else if (res.resultMsg == "HaveApplyHandling") {
+        wx.showToast({
+          title: '勿重复申请',
         })
       } else {
         wx.showToast({
@@ -290,6 +332,12 @@ Page({
   mapclick(e) {
     this.setData({
       mapheightratio: 1
+    })
+  },
+  conceal: function (e) {
+    this.setData({
+      showjoinremark: false,
+      showexitremark: false,
     })
   },
   markertap(e) {

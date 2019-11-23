@@ -1,78 +1,101 @@
-<view>
-  <map bindtap="mapclick" id="map" circles="{{circles}}" scale="{{scale}}" controls="{{role=='student'?stucontrols:controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{mapheightratio*height}}px;"></map>
-  <cover-view wx:if="{{showchangecircle}}" class="t_w" style="position: fixed;top: 0px;width: 100%;">
-    <cover-view class="tanchu_view">
-      <cover-view class="filterbutton" style="display: flex;">
-        <cover-view style="flex:1;text-align: center;align-self: center;">距离</cover-view>
-        <cover-view style="flex:6;display: flex;">
-          <cover-view style="padding: 5px 8px;" bindtap="switchmargin" data-id="3" class="circleborder margin510 {{filtermargin==3?'bluewhite':''}}">
-            三公里
-          </cover-view>
-          <cover-view style="padding: 5px 8px;" bindtap="switchmargin" data-id="5" class="circleborder margin510 {{filtermargin==5?'bluewhite':''}}">
-            五公里
-          </cover-view>
-          <cover-view style="padding: 5px 8px;" bindtap="switchmargin" data-id="0" class="circleborder margin510 {{filtermargin==0?'bluewhite':''}}">
-            不限
+<view catchtap="conceal">
+  <view>
+    <map bindtap="mapclick" id="map" circles="{{circles}}" scale="{{scale}}" controls="{{role=='student'?stucontrols:controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{mapheightratio*height}}px;"></map>
+    <cover-view wx:if="{{showchangecircle}}" class="t_w" style="position: fixed;top: 0px;width: 100%;">
+      <cover-view class="tanchu_view">
+        <cover-view class="filterbutton" style="display: flex;">
+          <cover-view style="flex:1;text-align: center;align-self: center;">距离</cover-view>
+          <cover-view style="flex:6;display: flex;">
+            <cover-view style="padding: 5px 8px;" bindtap="switchmargin" data-id="3" class="circleborder margin510 {{filtermargin==3?'bluewhite':''}}">
+              三公里
+            </cover-view>
+            <cover-view style="padding: 5px 8px;" bindtap="switchmargin" data-id="5" class="circleborder margin510 {{filtermargin==5?'bluewhite':''}}">
+              五公里
+            </cover-view>
+            <cover-view style="padding: 5px 8px;" bindtap="switchmargin" data-id="0" class="circleborder margin510 {{filtermargin==0?'bluewhite':''}}">
+              不限
+            </cover-view>
           </cover-view>
         </cover-view>
-      </cover-view>
-      <cover-view style="display: flex;padding: 10px;height: 60rpx">
-        <button style="width: 100px;" size="mini" bindtap="conceal">取消</button>
-        <button style="width: 100px;" type="primary" size="mini" bindtap="confirmfilter">确认</button>
+        <cover-view style="display: flex;padding: 10px;height: 60rpx">
+          <button style="width: 100px;" size="mini" bindtap="conceal">取消</button>
+          <button style="width: 100px;" type="primary" size="mini" bindtap="confirmfilter">
+            确认
+          </button>
+        </cover-view>
       </cover-view>
     </cover-view>
-  </cover-view>
-</view>
-<view wx:if="{{mapheightratio!=1}}" style="height:{{1-mapheightratio}}">
-  <view class="bottomline pingjun" style="padding: 40rpx;width: 80%;margin-left: 5%;">
-    <view style="font-size:30rpx;display: flex;align-items: center;">
-      <view wx:if="{{(profile.role!='school')}}">
-        <image style="height: 80rpx;width: 80rpx;border-radius: 50%;" src="{{profile.avatar}}" />
+  </view>
+  <view wx:if="{{mapheightratio!=1}}" style="height:{{1-mapheightratio}}">
+    <view class="bottomline pingjun">
+      <view style="font-size:30rpx;display: flex;align-items: center;margin: 20rpx 0 20rpx 30rpx;">
+        <view wx:if="{{(profile.role!='school')}}">
+          <image style="height: 80rpx;width: 80rpx;border-radius: 50%;" src="{{profile.avatar}}" />
+        </view>
+        <text style="margin-left: 20rpx;">{{profile.nickname}}</text>
       </view>
-      <text style="margin-left: 20rpx;">{{profile.nickname}}</text>
-    </view>
-    <!-- 如果访问者是学生，增加申请加入退出的按钮 -->
-    <view wx:if="{{role=='student'}}">
-      <view class="czspcenter" wx:if="{{profile.schoolid != joinedschoolid}}" data-schoolid="{{profile.schoolid}}" style="flex-direction: column;margin-left: 20rpx;font-size: 10px;" bindtap="joinschool">
-        <iconfont name="mathojjiaru" size="30" />
-        申请加入
+      <!-- 如果访问者是学生，增加申请加入退出的按钮 -->
+      <view wx:if="{{role=='student'}}" style="margin: 20rpx 30rpx 20rpx 0;">
+        <view class="czspcenter" wx:if="{{profile.schoolid != joinedschoolid}}" style="flex-direction: column;margin-left: 20rpx;font-size: 10px;" catchtap="tojoinschool">
+          <iconfont name="mathojjiaru" size="30" />
+          申请加入
+        </view>
+        <view class="czspcenter" wx:else style="flex-direction: column;margin-left: 20rpx;font-size: 10px;" catchtap="toexitschool">
+          <iconfont name="mathojtuichu" size="30" />
+          申请退出
+        </view>
       </view>
-      <view class="czspcenter" wx:else data-schoolid="{{profile.schoolid}}" style="flex-direction: column;margin-left: 20rpx;font-size: 10px;" bindtap="exitschool">
-        <iconfont name="mathojtuichu" size="30" />
-        申请退出
+      <!-- 遮罩填写申请的备注信息 -->
+      <view class="zhezao" style="padding-top: 30%;" catchtap="drop" wx:if="{{showjoinremark}}">
+        <view class="tanchu_view czspcenter" style="width: 80%;flex-direction: column;border-radius: 10px;min-height: 300rpx;">
+          <view>备注(选填)</view>
+          <input placeholder="加入备注" class="circleborder" style="border-radius: 0px;" value="{{remark}}" bindinput="writeremark" />
+          <view catchtap="joinschool" class="circleborder" style="margin:10px" data-schoolid="{{profile.schoolid}}">
+            提交
+          </view>
+        </view>
+      </view>
+      <view class="zhezao" style="padding-top: 30%;" catchtap="drop" wx:if="{{showexitremark}}">
+        <view class="tanchu_view czspcenter" style="width: 80%;flex-direction: column;border-radius: 10px;min-height: 300rpx;">
+          <view>备注(选填)</view>
+          <input placeholder="退出备注" class="circleborder" style="border-radius: 0px;" value="{{remark}}" bindinput="writeremark" />
+          <view catchtap="exitschool" class="circleborder" style="margin:10px" data-schoolid="{{profile.schoolid}}">
+            提交
+          </view>
+        </view>
+      </view>
+      <!-- 如果看的是机构的资料 -->
+      <view style="font-size:20rpx;display: flex;" wx:if="{{(profile.role=='school')&&profile.phone!=undefined}}">
+        <text style="margin-left: 20rpx;align-self: center;">{{profile.phone}}</text>
+        <iconfont name="mathojdianhua" size="30" bindtap="callphone" />
+        <iconfont name="mathojfuzhi" size="30" bindtap="copyphone" />
       </view>
     </view>
     <!-- 如果看的是机构的资料 -->
-    <view style="font-size:20rpx;display: flex;" wx:if="{{(profile.role=='school')&&profile.phone!=undefined}}">
-      <text style="margin-left: 20rpx;align-self: center;">{{profile.phone}}</text>
-      <iconfont name="mathojdianhua" size="30" bindtap="callphone" />
-      <iconfont name="mathojfuzhi" size="30" bindtap="copyphone" />
+    <view class="czlist" style="padding: 40rpx;" wx:if="{{profile.role=='school'}}">
+      <text style="margin-left: 20rpx;">校长：{{principal.nickname}} {{principal.phone}}</text>
+      <text style="margin-left: 20rpx;">机构地址：{{profile.schooladdress}}</text>
+      <text style="margin-left: 20rpx;">机构简介：{{profile.schooldesc}}</text>
     </view>
-  </view>
-  <!-- 如果看的是机构的资料 -->
-  <view class="czlist" style="padding: 40rpx;" wx:if="{{profile.role=='school'}}">
-    <text style="margin-left: 20rpx;">校长：{{principal.nickname}} {{principal.phone}}</text>
-    <text style="margin-left: 20rpx;">机构地址：{{profile.schooladdress}}</text>
-    <text style="margin-left: 20rpx;">机构简介：{{profile.schooldesc}}</text>
-  </view>
-  <!-- 如果看的是学生的资料 -->
-  <view class="czlist" style="padding: 0 40rpx;">
-    <view wx:for="{{problems}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item">
-      <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
-        <view class="feed-source" style='display:flex;justify-content: space-between;'>
-          <view class="answer-body">
-            <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
-              <text>{{item.asktime}}提问</text>
+    <!-- 如果看的是学生的资料 -->
+    <view class="czlist" style="padding: 0 40rpx;">
+      <view wx:for="{{problems}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item">
+        <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
+          <view class="feed-source" style='display:flex;justify-content: space-between;'>
+            <view class="answer-body">
+              <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                <text>{{item.asktime}}提问</text>
+              </view>
             </view>
+            <text wx:if="{{item.timeremain=='可回答'}}">{{item.timeremain}}</text>
+            <text wx:else style="color:red">{{item.timeremain}}</text>
           </view>
-          <text wx:if="{{item.timeremain=='可回答'}}">{{item.timeremain}}</text>
-          <text wx:else style="color:red">{{item.timeremain}}</text>
-        </view>
-        <view class="feed-content">
-          <view class="question">
-            <a class="question-link">
-              <text class='line-3'>{{item.description}}</text>
-            </a>
+          <view class="feed-content">
+            <view class="question">
+              <a class="question-link">
+                <text class='line-3'>{{item.description}}</text>
+              </a>
+            </view>
           </view>
         </view>
       </view>

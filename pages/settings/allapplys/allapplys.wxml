@@ -1,11 +1,16 @@
 <view>
   <view class="czcenter" wx:for="{{applys}}" wx:for-item="item">
     <view class="czcenter" style="flex:5">
-      <image class="bigavatar" src="{{item.applyeravatar}}" />
+      <view>
+        <image class="bigavatar" src="{{item.applyeravatar}}" />
+      </view>
       <view>
         <view style="font-size: 25rpx;">{{item.applytime}}</view>
         <view style="font-size: 30rpx;">
           {{item.applyerrealname}}    {{applytypes[item.applytype]}}
+        </view>
+        <view wx:if="{{item.applyremark}}" style="font-size: 25rpx;color: gray;">
+          备注：{{item.applyremark}}
         </view>
       </view>
     </view>
