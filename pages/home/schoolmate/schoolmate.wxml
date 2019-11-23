@@ -1,4 +1,4 @@
-<view>
+<view wx:if="{{schoolmates.length>0}}">
   <view class="czcenter" wx:for="{{schoolmates}}" wx:for-item="item">
     <view style="flex:4;display: flex;">
       <image class="bigavatar" src="{{item.avatar}}" />
@@ -6,6 +6,14 @@
     </view>
     <view style="flex:1">
       <iconfont name="{{item.role=='teacher'?'mathojteacher':(item.role=='student'?'mathojstudent':'mathojprincipal')}}" size="30" />
+    </view>
+  </view>
+</view>
+<view wx:else style=';display:flex;flex-direction:column;align-items:center;'>
+  <!-- 空集 -->
+  <view class="spcenter">
+    <view style="width:80%" class="spcenter">
+      <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
     </view>
   </view>
 </view>

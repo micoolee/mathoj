@@ -8,7 +8,6 @@ Page({
     problemlist: null,
     problemlistnull: 0,
     loadok: false,
-    icon: '/images/empty.png',
   },
 
   homepage: function (e) {

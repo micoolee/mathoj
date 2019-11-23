@@ -7,7 +7,6 @@ Page({
   data: {
     problemlist: null,
     problemlistnull: 0,
-    icon: '/images/empty.png',
   },
   deleteproblem: function (e) {
     wx.showModal({

@@ -7,7 +7,6 @@ Page({
     commentlist: [],
     commentlistnull: 0,
     loadok: false,
-    icon: '/images/empty.png',
   },
   deletecomment: function (e) {
     wx.showModal({

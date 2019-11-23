@@ -1,10 +1,12 @@
 <view wx:if="{{loadok}}">
   <view wx:if="{{commentlistnull==0}}" class="wux-prompt__bd">
-    <view>
-      <image src="{{ icon }}" class="wux-prompt__icon" />
-    </view>
-    <view>
-      <text>无评论记录</text>
+    <view style=';display:flex;flex-direction:column;align-items:center;'>
+      <!-- 空集 -->
+      <view class="spcenter">
+        <view style="width:80%" class="spcenter">
+          <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+        </view>
+      </view>
     </view>
     <view>
       <form report-submit='true' bindsubmit='homepage'>
