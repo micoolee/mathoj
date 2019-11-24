@@ -21,6 +21,7 @@ Page({
   },
   passapply: function (e) {
     var succ = '加入成功'
+    var forbidden = '不能重复操作'
     var fail = '加入失败'
     if (e.currentTarget.dataset.applytype == 'exit') {
       succ = '退出成功'
@@ -44,7 +45,7 @@ Page({
             } else {
               if (res.resultMsg == 'ApplyHandled') {
                 wx.showToast({
-                  title: succ
+                  title: forbidden
                 })
                 return
               }

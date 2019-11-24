@@ -7,13 +7,22 @@ Page({
   data: {
     informlist: undefined,
     icons: {
-      '1': 'mathojxixitongxiaoxi',
+      '1': 'mathojxitongxiaoxi',
       '2': 'mathojdingyue',
       '3': 'mathojdaanjiexi',
       '4': 'mathojdianzan_active',
       '5': 'mathojdianzan_active',
       '6': 'mathojyaoqing',
-      '7': 'mathojbeicaina'
+      '7': 'mathojbeicaina',
+      '9': 'mathojxinwenti',//xinwenti
+      '20': 'mathojjiaru',
+      '21': 'mathojtuichu',
+      '22': 'mathojtongguo',
+      '23': 'mathojjujue',
+      '24': 'mathojjinsheng',//laoshi
+      '25': 'mathojtongguo',
+      '27': 'mathojtichu',
+      '28': 'mathojtichu'
     }
   },
 

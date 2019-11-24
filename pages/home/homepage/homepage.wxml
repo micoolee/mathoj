@@ -97,7 +97,7 @@
   </view>
   <view catchtap="drop" wx:if="{{show=='jigou'}}" style="{{showmask?'position:fixed;':''}}">
     <!-- 第一页：机构 -->
-    <view wx:if="{{ifinschool=='loading'}}">加载中</view>
+    <view wx:if="{{ifinschool=='loading'}}"></view>
     <view wx:elif="{{ifinschool=='true'}}" class="page" style="width: 750rpx;">
       <!-- 机构中的题 -->
       <view style="justify-content: space-around;display:flex;padding: 30rpx 0 0;">
