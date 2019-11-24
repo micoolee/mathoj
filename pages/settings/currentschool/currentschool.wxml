@@ -1,0 +1,36 @@
+<view style="height:100%" catchtap="conceal" wx:if="{{school.schoolid}}">
+  <view class=" solid-bottom flex doc-box" style='width:90%;border:1px solid blue;margin:10px;border-radius:20rpx;margin-left:5%'>
+    <view class='flex2 czfenbu textspcenter flex-treble doc-box-sub p-sm m-xs text-truncate' style='margin-left:30rpx;flex:4'>
+      <view style="display:flex;justify-content: space-between;">
+        <view>{{school.schoolname}}</view>
+        <view style="font-size:13px;color:red">还可以加入{{school.schoolremain-1}}次</view>
+      </view>
+      <view class="gray13" wx:if="{{school.schooldesc}}">简介：{{school.schooldesc}}</view>
+      <view class="gray13" wx:if="{{school.schooladdress}}">地址：{{school.schooladdress}}</view>
+      <view class="gray13" wx:if="{{school.schoolphone}}">联系电话：{{school.schoolphone}}</view>
+      <view style='margin: 10px;'>
+        <button bindtap="toexitschool" style='color:black;background-color:white;text-align:center;font-size:26rpx;width:300rpx;'>
+          退出机构
+        </button>
+      </view>
+    </view>
+  </view>
+  <!-- 遮罩填写申请的备注信息 -->
+  <view class="zhezao" style="padding-top: 50%;" catchtap="drop" wx:if="{{showexitremark}}">
+    <view class="tanchu_view czspcenter" style="width: 80%;flex-direction: column;border-radius: 10px;min-height: 300rpx;">
+      <view>备注(选填)</view>
+      <input placeholder="退出备注" class="circleborder" style="border-radius: 0px;" value="{{remark}}" bindinput="writeremark" />
+      <view style="display: flex;">
+        <view catchtap="cancel" class="circleborder" style="margin:10px">取消</view>
+        <view catchtap="exitschool" class="circleborder" style="margin:10px" data-schoolid="{{school.schoolid}}">
+          提交
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view wx:else class="spcenter">
+  <view style="width:80%">
+    <image src="/images/no_result.png" style="width: 100%;" />
+  </view>
+</view>

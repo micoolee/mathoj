@@ -85,13 +85,13 @@
     </view>
     <!-- 如果看的是机构的资料 -->
     <view class="czlist" style="padding: 40rpx;" wx:if="{{profile.role=='school'}}">
-      <text style="margin-left: 20rpx;">校长：{{principal.nickname}} {{principal.phone}}</text>
+      <text style="margin-left: 20rpx;">校长：{{principal.nickname}}</text>
       <text style="margin-left: 20rpx;">机构地址：{{profile.schooladdress}}</text>
       <text style="margin-left: 20rpx;">机构简介：{{profile.schooldesc}}</text>
     </view>
     <!-- 如果看的是学生的资料 -->
     <view class="czlist" style="padding: 0 40rpx;">
-      <view wx:for="{{problems}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item">
+      <view wx:for="{{problems}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" style="background-color: lightgray;padding: 10px;margin: 5px 0;">
         <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
           <view class="feed-source" style='display:flex;justify-content: space-between;'>
             <view class="answer-body">

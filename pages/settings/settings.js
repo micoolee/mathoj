@@ -112,6 +112,11 @@ Page({
       url: './poster/poster',
     })
   },
+  showCurrentSchool: function () {
+    wx.navigateTo({
+      url: './currentschool/currentschool',
+    })
+  },
 
   clearcache: function () {
     wx.showModal({

@@ -211,13 +211,13 @@ Page({
     if (res.from === 'button') {
       var problemid = res.target.dataset.problemid
       return {
-        title: '[有人@我]发现一道智力题，考考你~',
+        title: '[有人@我]有题目不会，帮帮我~',
         path: '/pages/home/question/question?problemid=' + problemid,
         imageUrl: config.host + '/static/sharepic.jpg',
       }
     }
     return {
-      title: '[有人@我]发现一道智力题，考考你~',
+      title: '[有人@我]有题目不会，帮帮我~',
       path: '/pages/home/homepage/homepage',
     }
   },

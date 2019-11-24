@@ -146,7 +146,7 @@
                   </view>
                   <text>{{item.nickname}}</text>
                   <text style='margin-right:auto'>{{item.grade}}</text>
-                  <view wx:if="{{item.timeremain!='已解答' && item.timeremain!='已释放'}}">
+                  <view wx:if="{{item.timeremain && item.timeremain!='已解答' && item.timeremain!='已释放'}}">
                     <iconfont name="mathojshalou" size="15" style="align-self: center;" />
                   </view>
                   <text wx:if="{{item.timeremain=='已释放'}}">{{item.timeremain}}</text>
@@ -160,7 +160,7 @@
                     </a>
                   </view>
                   <view class="answer-body">
-                    <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                    <view class="answer-actions">
                       <view class="comments ">
                         <view>{{item.solutionnum != null?item.solutionnum:0}} 回答</view>
                       </view>
@@ -249,14 +249,27 @@
     </view>
     <view wx:elif="{{ifinschool=='false'}}" class="page" style="width: 750rpx;margin-top:10px">
       <!-- 游客看到10个机构介绍 -->
-      <text style="font-size:30rpx;padding: 10px">部分学校</text>
+      <text style="font-size:30rpx;padding: 10px">部分机构</text>
       <view wx:for="{{schools}}" wx:for-item="item" wx:for-index="index" style="padding: 10px;display:flex">
         <view>
           <image class="circleavatar" src="{{item.avatar}}"></image>
         </view>
-        <view style="margin-left: 10px;">{{item.nickname}}</view>
-        <view style="margin-left: 10px;" wx:if="{{item.distance!=undefined}}">
-          距你{{item.distance-1}}公里
+        <view class="czlist">
+          <view style="display:flex">
+            <view style="margin-left: 10px;">{{item.nickname}}</view>
+            <view style="margin-left: 10px;" wx:if="{{item.distance!=undefined}}">
+              距你{{item.distance-1}}公里
+            </view>
+          </view>
+          <view style="font-size:12px;color:gray;margin-left: 10px;" wx:if="{{item.schooldesc!=undefined}}">
+            简介：{{item.schooldesc}}
+          </view>
+          <view style="font-size:12px;color:gray;margin-left: 10px;" wx:if="{{item.schooladdress!=undefined}}">
+            地址：{{item.schooladdress}}
+          </view>
+          <view style="font-size:12px;color:gray;margin-left: 10px;" wx:if="{{item.phone!=undefined}}">
+            联系电话：{{item.phone}}
+          </view>
         </view>
       </view>
     </view>
@@ -318,7 +331,7 @@
                       </a>
                     </view>
                     <view class="answer-body">
-                      <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
+                      <view class="answer-actions">
                         <view class="comments">
                           <view>{{item.solutionnum != null?item.solutionnum:0}} 回答</view>
                         </view>

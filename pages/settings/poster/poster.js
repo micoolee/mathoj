@@ -6,7 +6,6 @@ let network = require("../../../utils/network.js")
 let console = require("../../../utils/console.js")
 Page({
   data: {
-    showpost: false,
     qrcodepath: config.host + "/swagger/qrcode.jpg",
     cardInfo: {
       avaters: [
@@ -55,9 +54,7 @@ Page({
       title: '生成中...',
       mask: true,
     });
-    that.setData({
-      showpost: true
-    })
+
     wx.downloadFile({
       url: that.data.cardInfo.avaters[Math.floor((Math.random() * 7) + 1) - 1], //头像图片路径
       success: function (res) {
@@ -89,9 +86,6 @@ Page({
       title: '生成中...',
       mask: true,
     });
-    that.setData({
-      showpost: true
-    })
     wx.downloadFile({
       url: that.data.cardInfo.qrCode, //二维码路径
       success: function (res) {
@@ -122,9 +116,7 @@ Page({
       title: '生成中...',
       mask: true,
     });
-    that.setData({
-      showpost: true
-    })
+
     wx.downloadFile({
       url: that.data.cardInfo.Useravatar, //用户头像路径
       success: function (res) {
@@ -265,11 +257,7 @@ Page({
     arr.push(text.slice(str, text.length));
     return [strLength, arr, rows] //  [处理文字的总字节长度，每行显示内容的数组，行数]
   },
-  closePost: function (e) {
-    this.setData({
-      showpost: false
-    })
-  },
+
   //点击保存到相册
   saveShareImg: function () {
     var that = this;

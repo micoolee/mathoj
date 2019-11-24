@@ -159,11 +159,10 @@ Page({
   onShow: function () {
     app.globalData.reddot = false
     console.log('app.globalData.informlist: ', app.globalData.informlist)
-    if (app.globalData.informlist) {
-      this.setData({
-        informlist: app.globalData.informlist
-      })
-    }
+    this.setData({
+      informlist: app.globalData.informlist || [],
+    })
+
 
     wx.hideTabBarRedDot({
       index: 2,

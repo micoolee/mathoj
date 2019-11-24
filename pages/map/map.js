@@ -5,7 +5,7 @@ var network = require('../../utils/network.js')
 const app = getApp()
 var userlatitude = 0
 var userlongitude = 0
-var teacherorstudent = 'teacher'
+var schoolorstudent = 'school'
 var oldcircle = ''
 var margin = 3
 var remark = ''
@@ -251,9 +251,9 @@ Page({
       })
       margin = 0
     }
-    if (teacherorstudent == 'teacher') {
-      that.formsubmitteacher()
-    } else if (teacherorstudent == 'student') {
+    if (schoolorstudent == 'school') {
+      that.formsubmitschool()
+    } else if (schoolorstudent == 'student') {
       that.formsubmitstudent()
     }
   },
@@ -325,7 +325,7 @@ Page({
           userlongitude = res.longitude
           //上传用户地理位置
           this.adduserlocation()
-          this.formsubmitteacher()
+          this.formsubmitschool()
           this.enterLocation()
         }
       });
@@ -374,7 +374,7 @@ Page({
   },
   markertap(e) {
     var that = this
-    if (teacherorstudent == 'teacher') {
+    if (schoolorstudent == 'school') {
       network.post('/problem/getonenearbyschool', {
         'userid': app.globalData.selfuserid,
         'schoolid': e.markerId
@@ -430,12 +430,12 @@ Page({
         showchangecircle: true
       })
     } else if (e.controlId === 5) {
-      //teacher
-      teacherorstudent = 'teacher'
-      that.formsubmitteacher()
+      //school
+      schoolorstudent = 'school'
+      that.formsubmitschool()
     } else if (e.controlId === 6) {
       //student
-      teacherorstudent = 'student'
+      schoolorstudent = 'student'
       that.formsubmitstudent()
     }
   },
@@ -494,7 +494,7 @@ Page({
       'longitude': userlongitude
     })
   },
-  formsubmitteacher: function (e) {
+  formsubmitschool: function (e) {
     var that = this
     network.post('/location/getschool', {
       'openid': app.globalData.openid,
@@ -549,7 +549,7 @@ Page({
             userlongitude = res.longitude
             //上传用户地理位置
             that.adduserlocation()
-            that.formsubmitteacher()
+            that.formsubmitschool()
             that.enterLocation()
           }
         });

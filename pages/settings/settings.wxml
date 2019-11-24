@@ -53,8 +53,8 @@
         <text class="list-name">设置</text>
         <iconfont name="mathojxiala1-copy" class="rightarrow" size="15" />
       </view>
-      <view class="list-item" bindtap="tobePrincipal">
-        <text class="list-name">成为校长</text>
+      <view class="list-item" bindtap="showCurrentSchool">
+        <text class="list-name">当前机构</text>
         <iconfont name="mathojxiala1-copy" class="rightarrow" size="15" />
       </view>
     </view>
@@ -78,7 +78,7 @@
     </view>
   </view>
   <view class="weui-footer">
-    <view class="weui-footer__links" style='padding:10px 0;'>
+    <view style='padding:10px 0;'>
       <view bindtap="clearcache" class="weui-footer__link">清除缓存</view>
       <view bindtap="showHelp" class="weui-footer__link">软件说明</view>
       <view bindtap="showFeedback" class="weui-footer__link">用户反馈</view>

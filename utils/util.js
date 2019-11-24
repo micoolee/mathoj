@@ -24,7 +24,7 @@ var tijis = ['题库', '精选']
 var filtergradearray = ['不限', '二年级', '三年级', '四年级', '五年级', '六年级']
 var rolemaps = { 'principal': '校长', 'pre-principal': '校长', 'teacher': '老师', 'student': '学生' }
 var applymaps = { 'join': '申请加入', 'exit': '申请退出', 'pass': 'mathojtongguo', 'reject': 'mathojjujue', 'toteacher': '申请成为老师' }
-
+var lastedid = ''
 function get_or_create_avatar(userid, that = 'null') {
   var res = wx.getStorageInfoSync();
   if (res.keys.indexOf(userid) > -1) {
@@ -87,10 +87,10 @@ function getlastedprob(that, filter) {
     }
     that.setData({
       havenewbtn: false,
-      lastedid: problemlist[0].problemid,
       problemlist: problemlist,
 
     })
+    lastedid = problemlist[0].problemid
 
     that.formerid = problemlist[problemlist['length'] - 1].problemid
     console.log(that.formerid, 'formerid: ')
@@ -129,13 +129,13 @@ function getnearbytenproblem(that, filter) {
 
 //检查是否有更新的问题
 function checklasted(that) {
-  if (that.data.lastedid != null) {
+  if (lastedid != null && lastedid != '') {
     var grade = 0
     if (app.globalData.onlysee) {
       grade = app.globalData.grade
     }
     network.post('/problem/checklatest', {
-      'formerid': that.data.lastedid,
+      'formerid': lastedid,
       'grade': grade
     }, function (res) {
       if (res.count) {
