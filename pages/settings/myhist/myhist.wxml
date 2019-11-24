@@ -26,11 +26,11 @@
             </view>
             <view class="answer-body">
               <view class="answer-actions">
-                <view class="comments dot">
-                  <a>{{item.subscribernum}} 关注</a>
+                <view class="comments">
+                  <a>{{item.subscribernum||0}} 关注</a>
                 </view>
-                <view class="comments dot">
-                  <a>{{item.commenternum}} 评论</a>
+                <view class="comments">
+                  <a>{{item.commenternum||0}} 评论</a>
                 </view>
               </view>
             </view>

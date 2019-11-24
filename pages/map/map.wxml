@@ -94,7 +94,7 @@
       <view wx:for="{{problems}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" style="background-color: lightgray;padding: 10px;margin: 5px 0;">
         <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
           <view class="feed-source pingjun">
-            <view class="answer-body" style="width: 100%;">
+            <view class="answer-body">
               <view class="answer-actions pingjun" data-id='{{item.problemid}}' bindtap="bindQueTap" style="width: 100%;font-size: 13px">
                 <view>{{item.asktime}}提问</view>
                 <view wx:if="{{item.solutionnum&&item.solutionnum>0}}">
@@ -102,8 +102,8 @@
                 </view>
               </view>
             </view>
-            <text wx:if="{{item.timeremain=='可回答'}}">{{item.timeremain}}</text>
-            <text wx:else style="color:red">{{item.timeremain}}</text>
+            <view wx:if="{{item.timeremain=='可回答'}}" style="font-size:13px">可回答</view>
+            <view wx:else style="color:red;font-size:13px">{{item.timeremain}}</view>
           </view>
           <view class="feed-content">
             <view class="question">

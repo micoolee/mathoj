@@ -4,24 +4,34 @@ const app = getApp()
 const config = require("../../../config.js")
 let network = require("../../../utils/network.js")
 let console = require("../../../utils/console.js")
+var randint
 Page({
   data: {
-    qrcodepath: config.host + "/swagger/qrcode.jpg",
+    qrcodepath: config.host + "/swagger/qrcode.png",
     cardInfo: {
       avaters: [
         config.host + "/swagger/qrcodeavatar1.jpg",
-        config.host + "/swagger/qrcodeavatar1.jpg",
-        config.host + "/swagger/qrcodeavatar1.jpg",
-        config.host + "/swagger/qrcodeavatar1.jpg",
-        config.host + "/swagger/qrcodeavatar1.jpg",
-        config.host + "/swagger/qrcodeavatar1.jpg",
-        config.host + "/swagger/qrcodeavatar1.jpg"
+        config.host + "/swagger/qrcodeavatar2.jpg",
+        config.host + "/swagger/qrcodeavatar3.jpg",
+        config.host + "/swagger/qrcodeavatar4.jpg",
+        config.host + "/swagger/qrcodeavatar5.jpg",
+        config.host + "/swagger/qrcodeavatar6.jpg",
+        config.host + "/swagger/qrcodeavatar7.jpg"
       ], //需要https图片路径
+      colors: [
+        "#fff",
+        "#fff",
+        "#fff",
+        "#000",
+        "#fff",
+        "#000",
+        "#fff",
+      ],
       qrCode: "", //需要https图片路径
       Useravatar: "", //用户的头像
       Name: 'mike', //分享者的姓名
-      Slogan: "这是一个很有趣的小程序", //标语
-      TagText: '看斤斤计较'//图片里的标语
+      Slogan: "来这里提问吧", //标语
+      TagText: ''//图片里的标语
     },
     fromgame: false
   },
@@ -54,9 +64,9 @@ Page({
       title: '生成中...',
       mask: true,
     });
-
+    randint = Math.floor((Math.random() * 7) + 1) - 1
     wx.downloadFile({
-      url: that.data.cardInfo.avaters[Math.floor((Math.random() * 7) + 1) - 1], //头像图片路径
+      url: that.data.cardInfo.avaters[randint], //头像图片路径
       success: function (res) {
         wx.hideLoading();
         if (res.statusCode === 200) {
@@ -164,9 +174,9 @@ Page({
 
       //大图为正方形
       if (headSrc) {
-        ctx.drawImage(headSrc, left, 20, width, width);
+        ctx.drawImage(headSrc, 0, 0, rect.width, height);
         ctx.setFontSize(14);
-        ctx.setFillStyle('#fff');
+        ctx.setFillStyle(that.data.cardInfo.colors[randint]);
         ctx.setTextAlign('left');
       }
 
@@ -182,7 +192,7 @@ Page({
 
       //头像
       if (Useravatar) {
-        ctx.drawImage(Useravatar, left, width + 45, width * 0.1, width * 0.1);
+        ctx.drawImage(Useravatar, left, width + 45, width * 0.15, width * 0.15);
         ctx.setFontSize(14);
         ctx.setFillStyle('#fff');
         ctx.setTextAlign('left');
@@ -191,9 +201,9 @@ Page({
       //姓名
       if (cardInfo.Name) {
         ctx.setFontSize(14);
-        ctx.setFillStyle('#000');
+        ctx.setFillStyle(that.data.cardInfo.colors[randint]);
         ctx.setTextAlign('left');
-        ctx.fillText(cardInfo.Name, left + 30, width + 55);
+        ctx.fillText(cardInfo.Name, left + 50, width + 60);
       }
 
       //标语
@@ -201,11 +211,11 @@ Page({
         let [contentLeng, contentArray, contentRows] = that.textByteLength(cardInfo.Slogan, 14)
         //console.log(contentLeng, contentArray, contentRows)
         ctx.setTextAlign('left');
-        ctx.setFillStyle('#666');
+        ctx.setFillStyle(that.data.cardInfo.colors[randint]);
         ctx.setFontSize(12);
         let contentHh = 22 * 1;
         for (let m = 0; m < contentArray.length; m++) {
-          ctx.fillText(contentArray[m], left, width + 80 + contentHh * m);
+          ctx.fillText(contentArray[m], left, width + 100 + contentHh * m);
         }
       }
 
@@ -214,7 +224,7 @@ Page({
         ctx.drawImage(codeSrc, left + 150, width + 40, width / 3, width / 3)
         ctx.setFontSize(10);
         ctx.setFillStyle('#000');
-        ctx.fillText("微信扫码或长按识别", left + 140, width + 140);
+        // ctx.fillText("微信扫码或长按识别", left + 140, width + 140);
       }
 
     }).exec()

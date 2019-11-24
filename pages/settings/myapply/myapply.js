@@ -6,7 +6,11 @@ var util = require('../../../utils/util.js')
 Page({
   data: {
     applys: undefined,
-    applytypes: {}
+    applytypes: {},
+    icons: {
+      'pass': 'mathojtongguo',
+      'reject': 'mathojjujue'
+    }
   },
   onLoad: function () {
     var that = this
