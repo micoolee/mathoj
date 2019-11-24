@@ -27,7 +27,7 @@ Page({
   },
 
   onLoad: function (options) {
-    console.log(app.globalData.selfuserid)
+    //console.log(app.globalData.selfuserid)
     var that = this
     if (app.globalData.grade == 0) {
       that.setData({
@@ -153,7 +153,7 @@ Page({
     })
   },
   tobePrincipal: function () {
-    console.log('tobeprincipal')
+    //console.log('tobeprincipal')
   },
   showSchoolConfig: function () {
     wx.navigateTo({

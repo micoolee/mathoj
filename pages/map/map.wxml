@@ -18,7 +18,7 @@
           </cover-view>
         </cover-view>
         <cover-view style="display: flex;padding: 10px;height: 60rpx">
-          <button style="width: 100px;" size="mini" bindtap="conceal">取消</button>
+          <button style="width: 100px;" size="mini" bindtap="closedistancechange">取消</button>
           <button style="width: 100px;" type="primary" size="mini" bindtap="confirmfilter">
             确认
           </button>
@@ -93,10 +93,13 @@
     <view class="czlist" style="padding: 0 40rpx;">
       <view wx:for="{{problems}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" style="background-color: lightgray;padding: 10px;margin: 5px 0;">
         <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
-          <view class="feed-source" style='display:flex;justify-content: space-between;'>
-            <view class="answer-body">
-              <view class="answer-actions" data-id='{{item.problemid}}' bindtap="bindQueTap">
-                <text>{{item.asktime}}提问</text>
+          <view class="feed-source pingjun">
+            <view class="answer-body" style="width: 100%;">
+              <view class="answer-actions pingjun" data-id='{{item.problemid}}' bindtap="bindQueTap" style="width: 100%;font-size: 13px">
+                <view>{{item.asktime}}提问</view>
+                <view wx:if="{{item.solutionnum&&item.solutionnum>0}}">
+                  {{item.solutionnum}}个回答
+                </view>
               </view>
             </view>
             <text wx:if="{{item.timeremain=='可回答'}}">{{item.timeremain}}</text>

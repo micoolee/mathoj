@@ -21,13 +21,13 @@ Page({
     network.post('/user/getcurrentschool', {
       'userid': app.globalData.selfuserid,
     }, function (e) {
-      console.log(e)
+      //console.log(e)
       that.setData({
         school: e.school || {}
       })
 
     }, function (e) {
-      console.log(e)
+      //console.log(e)
     })
   },
   toexitschool: function () {

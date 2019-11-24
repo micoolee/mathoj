@@ -95,7 +95,7 @@ Page({
       'date': today,
       'formerid': 0
     }, function (res) {
-      console.log('res:', res)
+      //console.log('res:', res)
       if (res.notes && res.notes.length > 0) {
         that.setData({
           notes: res.notes,
@@ -119,7 +119,7 @@ Page({
       'date': that.data.date,
       'formerid': formerid
     }, function (res) {
-      console.log('res:', res)
+      //console.log('res:', res)
       if (res.notes && res.notes.length > 0) {
         that.setData({
           notes: res.notes,

@@ -1,5 +1,6 @@
 let console = require("console.js")
 let config = require("../config.js")
+
 let network = {
   //post请求
   post: (url, params, success, fail, complete) => {
@@ -9,16 +10,18 @@ let network = {
       data: params,
       success: res => {
         if (success) {
-          console.log(res)
+          //console.log(res)
           success(res.data)
         }
       },
       fail: (error) => {
-        console.log(error)
+        //console.log(error)
         if (fail) {
           fail()
         } else {
-          util.toast("服务器开小差了！")
+          wx.showToast({
+            title: '服务器开小差了！',
+          })
         }
       },
       complete: (e) => {
@@ -41,11 +44,11 @@ let network = {
       name: filename,
       formData: params,
       success: function (e) {
-        console.log(e)
+        //console.log(e)
         success(e)
       },
       fail: function (e) {
-        console.log(e)
+        //console.log(e)
         fail(e)
       }
     })

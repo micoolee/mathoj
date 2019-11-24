@@ -12,14 +12,14 @@ Page({
     network.post('/user/getmystudents', {
       'userid': app.globalData.selfuserid,
     }, function (res) {
-      console.log('res:', res)
+      //console.log('res:', res)
       that.setData({
         students: res.students
       })
     })
   },
   deletestudent: function (e) {
-    console.log(e, "e: ")
+    //console.log(e, "e: ")
     var that = this
     wx.showModal({
       title: '提示',
@@ -30,7 +30,7 @@ Page({
             'userid': app.globalData.selfuserid,
             'studentid': e.currentTarget.dataset.studentid,
           }, function (res) {
-            console.log('res:', res)
+            //console.log('res:', res)
             if (!res.resultCode) {
               wx.showToast({
                 title: '删除成功'

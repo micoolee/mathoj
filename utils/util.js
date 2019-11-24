@@ -43,7 +43,7 @@ function get_or_create_avatar(userid, that = 'null') {
     wx.downloadFile({
       url: config.host + '/swagger/avatar-' + userid + '.jpg',
       success: function (res) {
-        console.log('aaa')
+        //console.log('aaa')
         wx.setStorageSync(userid, res.tempFilePath)
         storedid.set(userid, 'downloaded')
         var avatarimgcache = wx.getStorageSync(userid)
@@ -62,7 +62,7 @@ function get_or_create_avatar(userid, that = 'null') {
 }
 
 function getlastedprob(that, filter) {
-  console.log(that.formerid, 'formerid: ')
+  //console.log(that.formerid, 'formerid: ')
   network.post('/problem/getten', {
     'openid': app.globalData.openid,
     'formerid': that.formerid,
@@ -93,9 +93,9 @@ function getlastedprob(that, filter) {
     lastedid = problemlist[0].problemid
 
     that.formerid = problemlist[problemlist['length'] - 1].problemid
-    console.log(that.formerid, 'formerid: ')
+    //console.log(that.formerid, 'formerid: ')
   }, function (e) {
-    console.log('fail')
+    //console.log('fail')
   },
     function (e) {
       wx.hideLoading()
@@ -161,7 +161,7 @@ function getlastedjinxuanprob(that, filter) {
 
     if (res.problem) {
       var jinxuanproblemlist = res.problem
-      console.log(jinxuanproblemlist)
+      //console.log(jinxuanproblemlist)
       //加载缓存中的照片
       for (var i in jinxuanproblemlist) {
         if (storedid.get(jinxuanproblemlist[i].openid) == 'downloaded') {
@@ -193,7 +193,7 @@ function getlastedjinxuanprob(that, filter) {
 }
 
 function pulldownmessage(that = null) {
-  console.log('pulldownmessage')
+  //console.log('pulldownmessage')
   network.post('/message/getten', {
     'openid': app.globalData.openid,
     'statuscode': '1'
@@ -230,7 +230,7 @@ function get10prob(that, searchparam = []) {
       })
     } else {
       problemlist = that.data.problemlist.concat(problemlist)
-      console.log(problemlist)
+      //console.log(problemlist)
       //加载缓存中的照片
       for (var i in problemlist) {
         if (storedid.get(problemlist[i].openid) == 'downloaded') {
@@ -263,7 +263,7 @@ function get10jinxuanprob(that, searchparam = []) {
     } else {
       var problemlist = JSON.parse(res.json_data)
       problemlist = that.data.problemlist.concat(problemlist)
-      console.log(problemlist)
+      //console.log(problemlist)
 
       //加载缓存中的照片
       for (var i in problemlist) {

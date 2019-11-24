@@ -5,31 +5,30 @@ var network = require('../../../utils/network.js')
 var config = require('../../../config.js')
 var searchParam = []
 var formerid = 0
-var jinxuanformerid = 0
-var qdata = null
+// var jinxuanformerid = 0
 var choosejinxuan = 0
-var tmpgrade = 1 //1是不限
+var tmpgrade = 0 //0是不限
 
-var formerid1 = 0
-var tmpgrade1 = 1
+// var formerid1 = 0
+var tmpgrade1 = 0
 Page({
   data: {
     bottom: false,
     havenewbtn: false,
     inputvalue: null,
     //点击确认筛选后传给后端的值
-    grade: 1,
+    grade: 0,
     //点击确认筛选后展示的结果
     activeIndexStr: '题库',
-    gradeStr: '二年级',
+    gradeStr: '不限',
     //点击筛选中的值，实时展示
     filteractiveIndex: 0,
     filtergrade: 0,
 
     flag1: true,//筛选页,true为无开屏
     problemlist1: [],
-    grade1: 1,
-    gradeStr1: '二年级',
+    grade1: 0,
+    gradeStr1: '不限',
     filtergrade1: 0,
 
     sliderOffset: 0,
@@ -54,7 +53,7 @@ Page({
   },
   // 设置题集或者精选
   switchactiveIndex: function (e) {
-    console.log('switchactiveIndex: ', e)
+    //console.log('switchactiveIndex: ', e)
     choosejinxuan = e.currentTarget.dataset.id
     this.setData({
       filteractiveIndex: e.currentTarget.dataset.id
@@ -144,7 +143,7 @@ Page({
           that.setData({
             jinxuanproblemlist: filterproblist,
           })
-          that.jinxuanformerid = filterproblist[filterproblist.length - 1]['problemid']
+          // that.jinxuanformerid = filterproblist[filterproblist.length - 1]['problemid']
         }
       })
     }
@@ -158,7 +157,7 @@ Page({
     })
 
     var that = this;
-    that.formerid1 = 0
+    // that.formerid1 = 0
     network.post('/problem/getnearbytenproblem', {
       'openid': app.globalData.openid,
       'formerid': 0,
@@ -175,7 +174,7 @@ Page({
         that.setData({
           problemlist1: filterproblist,
         })
-        that.formerid1 = filterproblist[filterproblist.length - 1]['problemid']
+        // that.formerid1 = filterproblist[filterproblist.length - 1]['problemid']
       }
     })
 
@@ -223,7 +222,7 @@ Page({
   },
   //放弃冒泡
   drop: function (e) {
-    console.log('drop tap')
+    //console.log('drop tap')
   },
 
   toask: function () {
@@ -382,7 +381,7 @@ Page({
       }
 
     } else if (choosejinxuan == '1') {
-      that.jinxuanformerid = 0
+      // that.jinxuanformerid = 0
       util.getlastedjinxuanprob(that, searchParam)
     }
     wx.stopPullDownRefresh() //停止下拉刷新

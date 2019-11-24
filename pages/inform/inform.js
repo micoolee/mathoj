@@ -85,7 +85,7 @@ Page({
             'messageid': informid
           })
         }
-        console.log('帮助页面')
+        //console.log('帮助页面')
         wx.navigateTo({
           url: `/pages/inform/help/help`,
         })
@@ -98,7 +98,7 @@ Page({
             'messageid': informid
           })
         }
-        console.log('跳转申请页面')
+        //console.log('跳转申请页面')
         wx.navigateTo({
           url: `/pages/settings/allapplys/allapplys`,
         })
@@ -158,9 +158,9 @@ Page({
 
   onShow: function () {
     app.globalData.reddot = false
-    console.log('app.globalData.informlist: ', app.globalData.informlist)
+    //console.log('app.globalData.informlist: ', app.globalData.informlist)
     this.setData({
-      informlist: app.globalData.informlist || [],
+      informlist: app.globalData.informlist,
     })
 
 

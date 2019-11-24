@@ -34,7 +34,7 @@ Page({
   },
 
   onLoad: function (options) {
-    console.log(app.globalData.userInfo)
+    //console.log(app.globalData.userInfo)
     var that = this
     that.setData({
       ['cardInfo.qrCode']: that.data.qrcodepath || '',
@@ -199,7 +199,7 @@ Page({
       //标语
       if (cardInfo.Slogan) {
         let [contentLeng, contentArray, contentRows] = that.textByteLength(cardInfo.Slogan, 14)
-        console.log(contentLeng, contentArray, contentRows)
+        //console.log(contentLeng, contentArray, contentRows)
         ctx.setTextAlign('left');
         ctx.setFillStyle('#666');
         ctx.setFontSize(12);

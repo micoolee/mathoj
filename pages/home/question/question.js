@@ -128,7 +128,7 @@ var page = Page({
     if (that.data.problempic3 != '') {
       images = images.concat([that.data.problempic3])
     }
-    console.log(e.currentTarget.dataset)
+    //console.log(e.currentTarget.dataset)
     if (e.currentTarget.dataset.key) {
       images = images.concat([image])
     }
