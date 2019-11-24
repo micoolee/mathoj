@@ -5,16 +5,17 @@ var network = require('../../../utils/network.js')
 var config = require('../../../config.js')
 var searchParam = []
 var formerid = 0
-// var jinxuanformerid = 0
+var jinxuanformerid = 0
 var choosejinxuan = 0
 var tmpgrade = 0 //0是不限
 
-// var formerid1 = 0
+var formerid1 = 0
 var tmpgrade1 = 0
 Page({
   data: {
     bottom: false,
-    havenewbtn: false,
+    jigouhavenew: false,
+    discoveryhavenew: false,
     inputvalue: null,
     //点击确认筛选后传给后端的值
     grade: 0,
@@ -22,44 +23,68 @@ Page({
     activeIndexStr: '题库',
     gradeStr: '不限',
     //点击筛选中的值，实时展示
-    filteractiveIndex: 0,
+    filterjinxuan: 0,
     filtergrade: 0,
-
-    flag1: true,//筛选页,true为无开屏
+    showmask1: false,//筛选页,false为不显示
     problemlist1: [],
     grade1: 0,
     gradeStr1: '不限',
     filtergrade1: 0,
-
     sliderOffset: 0,
     sliderLeft: 0,
     problemlist: undefined,
     jinxuanproblemlist: [],
     show: 'jigou',
     ranklist: [],
-    flag: true,//筛选页,true为无开屏
+    showmask: false,//筛选页,false为无开屏
     schools: [],
     activeIndex: 0,
-    ifinschool: 'loding'//该用户是否已经加入了一个机构
+    ifinschool: 'loading'//该用户是否已经加入了一个机构
   },
-  // 显示排行页
+
+  // 转换为机构模式
+  showjigou: function (e) {
+    this.setData({
+      show: 'jigou'
+    })
+  },
+  // 转换为发现模式
+  showdiscovery: function (e) {
+    this.setData({
+      show: 'discovery'
+    })
+  },
+  // 转换为排行模式
   showrank: function (e) {
-    wx.showNavigationBarLoading()
-    var that = this
-    that.setData({
+    // wx.showNavigationBarLoading()
+    this.setData({
       show: 'rank'
     })
-    wx.hideNavigationBarLoading()
+    // wx.hideNavigationBarLoading()
   },
-  // 设置题集或者精选
+  // 去我的机构老师同学
+  toschoolmate: function (e) {
+    wx.navigateTo({
+      url: '/pages/home/schoolmate/schoolmate',
+    })
+  },
+  // 去匿名留言区
+  topostnote: function (e) {
+    wx.navigateTo({
+      url: '/pages/home/anonymousnote/anonymousnote',
+    })
+  },
+
+
+  // 机构里面设置题集或者精选
   switchactiveIndex: function (e) {
     //console.log('switchactiveIndex: ', e)
     choosejinxuan = e.currentTarget.dataset.id
     this.setData({
-      filteractiveIndex: e.currentTarget.dataset.id
+      filterjinxuan: e.currentTarget.dataset.id
     })
   },
-  // 设置年级
+  // 机构里面设置年级
   switchgrade: function (e) {
     tmpgrade = e.currentTarget.dataset.id * 1
     this.setData({
@@ -74,24 +99,26 @@ Page({
     })
   },
 
-  // 显示筛选
+  // 显示机构筛选
   showfilter: function (e) {
     this.setData({
-      flag: false,
-      filteractiveIndex: choosejinxuan,
+      showmask: true,
+      filterjinxuan: choosejinxuan,
       filtergrade: tmpgrade
     })
   },
-
+  //显示附近筛选
   showfilter1: function (e) {
     this.setData({
-      flag1: false,
+      showmask1: true,
       filtergrade1: tmpgrade1
     })
   },
+
+  // 筛选机构的题目
   confirmfilter: function (e) {
     this.setData({
-      flag: true,
+      showmask: false,
       grade: tmpgrade,
       activeIndex: choosejinxuan,
       activeIndexStr: util.tijis[choosejinxuan],
@@ -99,7 +126,7 @@ Page({
     })
 
     var that = this;
-    that.formerid = 0
+    formerid = 0
     if (tmpgrade == 0) {
       searchParam = []
     } else {
@@ -113,17 +140,16 @@ Page({
         'filter': searchParam,
         'jinxuan': '0'
       }, function (res) {
-        var filterproblist = res.problem
-        if (filterproblist == undefined) {
+        if (res.problem == undefined) {
           that.setData({
             bottom: true,
             problemlist: []
           })
         } else {
           that.setData({
-            problemlist: filterproblist,
+            problemlist: res.problem,
           })
-          that.formerid = filterproblist[filterproblist.length - 1]['problemid']
+          formerid = res.problem[res.problem.length - 1]['problemid']
         }
       })
     } else {
@@ -133,75 +159,48 @@ Page({
         'filter': searchParam,
         'jinxuan': '1'
       }, function (res) {
-        var filterproblist = res.problem
-        if (filterproblist == undefined) {
+        if (res.problem == undefined) {
           that.setData({
             bottom: true,
             jinxuanproblemlist: []
           })
         } else {
           that.setData({
-            jinxuanproblemlist: filterproblist,
+            jinxuanproblemlist: res.problem,
           })
-          // that.jinxuanformerid = filterproblist[filterproblist.length - 1]['problemid']
+          jinxuanformerid = res.problem[res.problem.length - 1]['problemid']
         }
       })
     }
   },
 
+  // 筛选附近十题
   confirmfilter1: function (e) {
     this.setData({
-      flag1: true,
+      showmask1: false,
       grade1: tmpgrade1,
       gradeStr1: util.filtergradearray[tmpgrade1]
     })
 
     var that = this;
-    // that.formerid1 = 0
+    formerid1 = 0
     network.post('/problem/getnearbytenproblem', {
       'openid': app.globalData.openid,
       'formerid': 0,
       'scope': 'all',
       'grade': util.filtergradearray[tmpgrade1] || '',
     }, function (res) {
-      var filterproblist = res.problems
-      if (filterproblist == undefined) {
+      if (res.problems == undefined) {
         that.setData({
           bottom: true,
           problemlist1: []
         })
       } else {
         that.setData({
-          problemlist1: filterproblist,
+          problemlist1: res.problems,
         })
-        // that.formerid1 = filterproblist[filterproblist.length - 1]['problemid']
+        formerid1 = res.problems[res.problems.length - 1]['problemid']
       }
-    })
-
-  },
-
-
-  // 转换为发现页
-  showdiscovery: function (e) {
-    this.setData({
-      show: 'discovery'
-    })
-  },
-  // 转换为机构页
-  showjigou: function (e) {
-    this.setData({
-      show: 'jigou'
-    })
-  },
-
-  toschoolmate: function (e) {
-    wx.navigateTo({
-      url: '/pages/home/schoolmate/schoolmate',
-    })
-  },
-  topostnote: function (e) {
-    wx.navigateTo({
-      url: '/pages/home/anonymousnote/anonymousnote',
     })
   },
 
@@ -224,9 +223,10 @@ Page({
   drop: function (e) {
     //console.log('drop tap')
   },
-
+  //发问
   toask: function () {
     var that = this
+    //验证是否合法
     if (app.globalData.authorized == 'true' || app.globalData.avatar != 'stranger') {
       wx.navigateTo({
         url: '../ask/ask',
@@ -235,12 +235,14 @@ Page({
       util.checkuserinfo(that)
     }
   },
+  //返回顶部
   totop: function () {
     wx.pageScrollTo({
       scrollTop: 0,
       duration: 300
     })
   },
+  //进入问题详情页
   bindQueTap: function (e) {
     wx.navigateTo({
       url: `/pages/home/question/question?problemid=${e.currentTarget.dataset.id}`
@@ -252,6 +254,7 @@ Page({
     var that = this
     setTimeout(function () {
       if (app.globalData.getopenidok) {
+        //如果用户允许获取地理位置，上传位置信息
         wx.getLocation({
           type: 'gcj02', //返回可以用于wx.openLocation的经纬度
           success: (res) => {
@@ -262,19 +265,17 @@ Page({
               'latitude': res.latitude,
               'longitude': res.longitude
             }, function (e) {
-
             })
           }
         });
-        if (app.globalData.onlysee && app.globalData.grade && app.globalData.grade != 0) {
-          //设置了只看且设置了年级的
+        if (app.globalData.onlysee && app.globalData.grade && app.globalData.grade != 0) {//设置了只看且设置了年级的
           searchParam = [util.gradearray[app.globalData.grade]]
           util.getlastedprob(that, searchParam)
           util.getnearbytenproblem(that, util.gradearray[app.globalData.grade])
         } else {
           util.getlastedprob(that)
           util.getnearbytenproblem(that)
-          if (app.globalData.school == '') {
+          if (app.globalData.school == '') {//如果该用户没有加入任何机构
             network.post('/user/gettennearbyschools', {
               'userid': app.globalData.selfuserid,
             }, function (res) {
@@ -310,23 +311,21 @@ Page({
           ranklist: [],
         })
       }
-
     })
-
   },
 
-
+  //查看提问者信息
   showmore: function (e) {
     var askerid = e.currentTarget.dataset.askerid
     var avatar = e.currentTarget.dataset.avatar
     var username = e.currentTarget.dataset.username
     var openid = e.currentTarget.dataset.openid
-    //如果是自己
-    if (openid == app.globalData.openid) {
+    if (openid == app.globalData.openid) {//如果是自己
       wx.switchTab({
         url: '/pages/settings/settings',
       })
     } else {
+      //到他的资料页
       wx.navigateTo({
         url: `/pages/settings/profile/profile?userid=${askerid}&avatar=${avatar}&username=${username}&openid=${openid}`,
       })
@@ -334,11 +333,11 @@ Page({
   },
 
   conceal: function (e) {
-    this.setData({ flag: true })
+    this.setData({ showmask: false })
   },
 
   conceal1: function (e) {
-    this.setData({ flag1: true })
+    this.setData({ showmask1: false })
   },
 
   rankshowmore: function (e) {
@@ -361,7 +360,11 @@ Page({
         index: 2,
       })
     }
-    util.checklasted(that)
+    if (that.data.show == 'jigou') {
+      util.checklasted(that)
+    } else {
+      util.checklasted(that, false)
+    }
   },
 
   onPullDownRefresh: function () {
@@ -369,6 +372,7 @@ Page({
     wx.showNavigationBarLoading() //在标题栏中显示加载
     if (choosejinxuan == '0') {
       that.formerid = 0
+      console.log('that.data.show: ', that.data.show)
       switch (that.data.show) {
         case 'jigou':
           if (that.data.ifinschool == 'true') {
@@ -376,10 +380,9 @@ Page({
           }
           break;
         case 'discovery':
-          util.getnearbytenproblem(that, util.filtergradearray[tmpgrade1])
+          util.getnearbytenproblem(that, util.filtergradearray[tmpgrade1], 0, 'pulldown')
           break;
       }
-
     } else if (choosejinxuan == '1') {
       // that.jinxuanformerid = 0
       util.getlastedjinxuanprob(that, searchParam)
@@ -391,7 +394,16 @@ Page({
   onReachBottom: function () {
     var that = this
     if (choosejinxuan == '0') {
-      util.get10prob(that, searchParam)
+      switch (that.data.show) {
+        case 'jigou':
+          if (that.data.ifinschool == 'true') {
+            util.get10prob(that, searchParam, that.formerid)
+          }
+          break;
+        case 'discovery':
+          util.getnearbytenproblem(that, util.filtergradearray[tmpgrade1], that.formerid1, 'reachbottom')
+          break;
+      }
     } else if (choosejinxuan == '1') {
       util.get10jinxuanprob(that, searchParam)
     }

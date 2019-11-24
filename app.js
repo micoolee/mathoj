@@ -14,15 +14,15 @@ App({
     reddot: false,
     searchlist: [],
     placeholder: '',
-    nickname: '路人甲',
-    avatar: 'stranger',
-    authorized: 'false',
-    fromgetuserinfo: false,
+    nickname: '路人甲', //用户的昵称
+    avatar: 'stranger',//用户头像
+    authorized: 'false', //用户是否授权了个人信息
+    fromgetuserinfo: false,//来自授权页
     selfuserid: null, //user表的userid，time生成
     grade: null,
     onlysee: true,
     homepagethat: null,
-    getopenidok: false,
+    getopenidok: false,//是否获取到了openid
     logged: true //今天是否登录了，用于upload头像
   },
   onLaunch: function () {
@@ -68,10 +68,11 @@ App({
       that.globalData.selfuserid = res.userid
       that.globalData.grade = res.grade || 0
       that.globalData.onlysee = res.onlysee || false
-      that.globalData.getopenidok = true
+
       that.globalData.logged = res.logged
       that.globalData.role = res.role
       that.globalData.school = res.schoolid || ''
+      that.globalData.getopenidok = true
       wx.getUserInfo({
         success: res => {
           util.loading(that)

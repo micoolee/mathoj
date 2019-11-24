@@ -3,25 +3,26 @@
     <open-data style='margin-top:264rpx;' class='userinfo-avatar' type="userAvatarUrl"></open-data>
     <open-data class='userinfo-nickname' type="userNickName">，你好</open-data>
   </view>
-  
-  <view wx:if="{{hidewarning}}">
+  <view wx:if="{{!showwarning}}">
     <view wx:if="{{canIUse}}">
-      <button style='margin-left:80rpx;margin-right:80rpx;margin-bottom:30rpx;margin-top:30rpx;' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
-      <view >
-      <text style='font-size:15px;display:flex;justify-content:center;'>*为方便展示你的头像和昵称，请点击授权登录</text>
-      <!-- <text style='font-size:25px;display:flex;justify-content:center;'>欢迎提问哦～</text> -->
+      <button style='margin-left:80rpx;margin-right:80rpx;margin-bottom:30rpx;margin-top:30rpx;' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+        授权登录
+      </button>
+      <view>
+        <text style='font-size:15px;display:flex;justify-content:center;'>
+          *为方便展示你的头像和昵称，请点击授权登录
+        </text>
+        <!-- <text style='font-size:25px;display:flex;justify-content:center;'>欢迎提问哦～</text> -->
       </view>
-      
     </view>
     <view wx:else>请升级微信版本</view>
   </view>
   <view wx:else style='text-align:center;font-size:15px'>
     <view>
-    <text >你的帐号可能存在违规操作</text>
+      <text>你的帐号可能存在违规操作</text>
     </view>
     <view>
-    <text >请联系管理员(微信号731854938)进行解封</text>
+      <text>请联系管理员(微信号731854938)进行解封</text>
     </view>
   </view>
-
 </view>

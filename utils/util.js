@@ -24,7 +24,8 @@ var tijis = ['题库', '精选']
 var filtergradearray = ['不限', '二年级', '三年级', '四年级', '五年级', '六年级']
 var rolemaps = { 'principal': '校长', 'pre-principal': '校长', 'teacher': '老师', 'student': '学生' }
 var applymaps = { 'join': '申请加入', 'exit': '申请退出', 'pass': 'mathojtongguo', 'reject': 'mathojjujue', 'toteacher': '申请成为老师' }
-var lastedid = ''
+var lastedjigouproblemid = ''//机构最新的problemid，用作检查是否有新提问
+var lasteddiscoveryproblemid = ''
 function get_or_create_avatar(userid, that = 'null') {
   var res = wx.getStorageInfoSync();
   if (res.keys.indexOf(userid) > -1) {
@@ -86,11 +87,11 @@ function getlastedprob(that, filter) {
       return
     }
     that.setData({
-      havenewbtn: false,
+      jigouhavenew: false,
       problemlist: problemlist,
 
     })
-    lastedid = problemlist[0].problemid
+    lastedjigouproblemid = problemlist[0].problemid
 
     that.formerid = problemlist[problemlist['length'] - 1].problemid
     //console.log(that.formerid, 'formerid: ')
@@ -104,11 +105,11 @@ function getlastedprob(that, filter) {
 }
 
 
-function getnearbytenproblem(that, filter) {
+function getnearbytenproblem(that, filter, formerid = 0, mode = 'pulldown') {
   //获取附近的问题
   network.post('/problem/getnearbytenproblem', {
     'openid': app.globalData.openid,
-    'formerid': 0,
+    'formerid': formerid,
     'scope': 'all',
     'grade': filter || ''
   }, function (res) {
@@ -116,11 +117,16 @@ function getnearbytenproblem(that, filter) {
     if (filterproblist == undefined) {
       that.setData({
         bottom: true,
-        problemlist1: []
       })
     } else {
+      var newlist = filterproblist
+      if (filterproblist && mode == 'reachbottom' && that.data.problemlist1.length > 0) {
+        newlist = that.data.problemlist1.concat(filterproblist)
+      }
+      lasteddiscoveryproblemid = newlist[0].problemid
       that.setData({
-        problemlist1: filterproblist,
+        discoveryhavenew: false,
+        problemlist1: newlist,
       })
       that.formerid1 = filterproblist[filterproblist.length - 1]['problemid']
     }
@@ -128,22 +134,45 @@ function getnearbytenproblem(that, filter) {
 }
 
 //检查是否有更新的问题
-function checklasted(that) {
-  if (lastedid != null && lastedid != '') {
-    var grade = 0
-    if (app.globalData.onlysee) {
-      grade = app.globalData.grade
+function checklasted(that, jigou = true) {
+  if (jigou) {
+    if (lastedjigouproblemid != null && lastedjigouproblemid != '') {
+      var grade = 0
+      // if (app.globalData.onlysee) {
+      //   grade = app.globalData.grade
+      // }
+      network.post('/problem/checklatest', {
+        'userid': app.globalData.selfuserid,
+        'formerid': lastedjigouproblemid,
+        'grade': grade,
+        'jigou': 'true'
+      }, function (res) {
+        if (res.count) {
+          that.setData({
+            jigouhavenew: true
+          })
+        }
+      })
     }
-    network.post('/problem/checklatest', {
-      'formerid': lastedid,
-      'grade': grade
-    }, function (res) {
-      if (res.count) {
-        that.setData({
-          havenewbtn: true
-        })
-      }
-    })
+  } else {
+    if (lasteddiscoveryproblemid != null && lasteddiscoveryproblemid != '') {
+      var grade = 0
+      // if (app.globalData.onlysee) {
+      //   grade = app.globalData.grade
+      // }
+      network.post('/problem/checklatest', {
+        'userid': app.globalData.selfuserid,
+        'formerid': lasteddiscoveryproblemid,
+        'grade': grade,
+        'jigou': 'false'
+      }, function (res) {
+        if (res.count) {
+          that.setData({
+            discoveryhavenew: true
+          })
+        }
+      })
+    }
   }
 }
 
@@ -213,10 +242,10 @@ function pulldownmessage(that = null) {
   })
 }
 
-function get10prob(that, searchparam = []) {
+function get10prob(that, searchparam = [], formerid = 0) {
   network.post('/problem/getten', {
     'openid': app.globalData.openid,
-    'formerid': that.formerid,
+    'formerid': formerid,
     'filter': searchparam,
     'jinxuan': '0'
   }, function (res) {
