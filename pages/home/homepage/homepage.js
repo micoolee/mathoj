@@ -372,23 +372,30 @@ Page({
     wx.showNavigationBarLoading() //在标题栏中显示加载
     if (choosejinxuan == '0') {
       that.formerid = 0
-      console.log('that.data.show: ', that.data.show)
       switch (that.data.show) {
         case 'jigou':
           if (that.data.ifinschool == 'true') {
-            util.getlastedprob(that, searchParam);
+            util.getlastedprob(that, searchParam, function () {
+              wx.hideNavigationBarLoading()
+            });
           }
           break;
         case 'discovery':
-          util.getnearbytenproblem(that, util.filtergradearray[tmpgrade1], 0, 'pulldown')
+          util.getnearbytenproblem(that, util.filtergradearray[tmpgrade1], 0, 'pulldown', function () {
+            wx.hideNavigationBarLoading()
+          })
+          break;
+        case 'rank':
+          wx.hideNavigationBarLoading()
           break;
       }
     } else if (choosejinxuan == '1') {
       // that.jinxuanformerid = 0
-      util.getlastedjinxuanprob(that, searchParam)
+      util.getlastedjinxuanprob(that, searchParam, function () {
+        wx.hideNavigationBarLoading()
+      })
     }
     wx.stopPullDownRefresh() //停止下拉刷新
-    wx.hideNavigationBarLoading()
   },
 
   onReachBottom: function () {

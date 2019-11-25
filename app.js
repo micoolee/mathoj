@@ -13,7 +13,7 @@ App({
     informlist: undefined,
     reddot: false,
     searchlist: [],
-    placeholder: '',
+    // placeholder: '',
     nickname: '路人甲', //用户的昵称
     avatar: 'stranger',//用户头像
     authorized: 'false', //用户是否授权了个人信息
@@ -68,7 +68,6 @@ App({
       that.globalData.selfuserid = res.userid
       that.globalData.grade = res.grade || 0
       that.globalData.onlysee = res.onlysee || false
-
       that.globalData.logged = res.logged
       that.globalData.role = res.role
       that.globalData.school = res.schoolid || ''

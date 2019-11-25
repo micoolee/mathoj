@@ -129,7 +129,7 @@
           <view wx:if="{{jigouhavenew}}">
             <wux-notice-bar mode="closable" content="有人提问啦~" />
           </view>
-          <view wx:if="{{problemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;'>
+          <view wx:if="{{problemlist.length==0}}" style='display:flex;flex-direction:column;align-items:center;'>
             <!-- 空集 -->
             <view class="spcenter">
               <view style="width:80%" class="spcenter">
@@ -189,7 +189,7 @@
       </view>
       <!-- 以下是机构中的精选 -->
       <view wx:else class="weui-tab__content" style='background-color:white;'>
-        <view wx:if="{{jinxuanproblemlist.length==0}}" style=';display:flex;flex-direction:column;align-items:center;'>
+        <view wx:if="{{jinxuanproblemlist.length==0}}" style='display:flex;flex-direction:column;align-items:center;'>
           <!-- 空集 -->
           <view class="spcenter">
             <view style="width:80%" class="spcenter">
@@ -304,7 +304,7 @@
             <view wx:if='{{discoveryhavenew}}'>
               <wux-notice-bar mode="closable" content="有人提问啦~" />
             </view>
-            <view wx:if="{{problemlist1.length==0}}" style=';display:flex;flex-direction:column;align-items:center;'>
+            <view wx:if="{{problemlist1.length==0}}" style='display:flex;flex-direction:column;align-items:center;'>
               <!-- 空集 -->
               <view class="spcenter">
                 <view style="width:80%" class="spcenter">
@@ -374,18 +374,27 @@
   </view>
   <!-- 第三页：排行榜 -->
   <view wx:else catchtap="drop" style="width:100%">
-    <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}">
-      <view style="display:flex">
-        <image class="bigavatar" src="{{item.avatar}}" bindtap='rankshowmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
-        <view class="bottomline" style='display:flex;flex-direction:column;flex:1;'>
-          <text class='textstyle test'>{{item.nickname}}</text>
-          <text class='centertext'>已答{{item.solutionum-1}}    被采纳{{item.cainanum-1}}</text>
+    <view wx:if="{{ranklist.length>0}}">
+      <scroll-view wx:for="{{ranklist}}" wx:key="{{item.solverid}}">
+        <view style="display:flex">
+          <image class="bigavatar" src="{{item.avatar}}" bindtap='rankshowmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
+          <view class="bottomline" style='display:flex;flex-direction:column;flex:1;'>
+            <text class='textstyle test'>{{item.nickname}}</text>
+            <text class='centertext'>已答{{item.solutionum-1}}    被采纳{{item.cainanum-1}}</text>
+          </view>
+          <view class="bottomline" style='font-size:30rpx;margin-right:50rpx;align-items:center;display: flex;'>
+            <iconfont name="mathojxunzhang" size="40" color="{{index==0?'gold':index==1?'silver':index==2?'orange':''}}" />
+            <text style=''>{{index+1}}</text>
+          </view>
         </view>
-        <view class="bottomline" style='font-size:30rpx;margin-right:50rpx;align-items:center;display: flex;'>
-          <iconfont name="mathojxunzhang" size="40" color="{{index==0?'gold':index==1?'silver':index==2?'orange':''}}" />
-          <text style=''>{{index+1}}</text>
+      </scroll-view>
+    </view>
+    <view wx:else>
+      <view class="spcenter">
+        <view style="width:80%" class="spcenter">
+          <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
         </view>
       </view>
-    </scroll-view>
+    </view>
   </view>
 </view>

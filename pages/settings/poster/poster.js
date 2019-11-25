@@ -30,7 +30,7 @@ Page({
       qrCode: "", //需要https图片路径
       Useravatar: "", //用户的头像
       Name: 'mike', //分享者的姓名
-      Slogan: "来这里提问吧", //标语
+      Slogan: "这里可以提问答疑哦", //标语
       TagText: ''//图片里的标语
     },
     fromgame: false
@@ -208,7 +208,7 @@ Page({
 
       //标语
       if (cardInfo.Slogan) {
-        let [contentLeng, contentArray, contentRows] = that.textByteLength(cardInfo.Slogan, 14)
+        let [contentLeng, contentArray, contentRows] = that.textByteLength(cardInfo.Slogan, 20)
         //console.log(contentLeng, contentArray, contentRows)
         ctx.setTextAlign('left');
         ctx.setFillStyle(that.data.cardInfo.colors[randint]);
@@ -221,7 +221,7 @@ Page({
 
       //  绘制二维码
       if (codeSrc) {
-        ctx.drawImage(codeSrc, left + 150, width + 40, width / 3, width / 3)
+        ctx.drawImage(codeSrc, left + 160, width + 40, width / 3, width / 3)
         ctx.setFontSize(10);
         ctx.setFillStyle('#000');
         // ctx.fillText("微信扫码或长按识别", left + 140, width + 140);

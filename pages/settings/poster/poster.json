@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationStyle": "default"
+  "navigationStyle": "default",
+  "enablePullDownRefresh": false
 }

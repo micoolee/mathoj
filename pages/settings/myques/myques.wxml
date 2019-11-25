@@ -1,5 +1,5 @@
 <view wx:if="{{problemlistnull==0}}" class="wux-prompt__bd">
-  <view style=';display:flex;flex-direction:column;align-items:center;'>
+  <view style='display:flex;flex-direction:column;align-items:center;'>
     <!-- 空集 -->
     <view class="spcenter">
       <view style="width:80%" class="spcenter">

@@ -10,8 +10,8 @@
     </view>
     <view class="weui-tab__panel">
       <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-        <view wx:if="{{problemlist==null}}" class="wux-prompt__bd" style='margin-top:400rpx;'>
-          <view style=';display:flex;flex-direction:column;align-items:center;'>
+        <view wx:if="{{problemlist==null}}" class="czlist" style='margin-top:300rpx;'>
+          <view style='display:flex;flex-direction:column;align-items:center;'>
             <!-- 空集 -->
             <view class="spcenter">
               <view style="width:80%" class="spcenter">
@@ -19,7 +19,7 @@
               </view>
             </view>
           </view>
-          <view>
+          <view class="spcenter">
             <form report-submit='true' bindsubmit='homepage'>
               <button class='wux-button--dark' form-type='submit'>随便逛逛</button>
             </form>
@@ -49,8 +49,8 @@
         </view>
       </view>
       <view class='list-box lattice-list' hidden="{{activeIndex != 1}}">
-        <view wx:if="{{subscriberlist==null}}" class="wux-prompt__bd" style='margin-top:400rpx;'>
-          <view style=';display:flex;flex-direction:column;align-items:center;'>
+        <view wx:if="{{subscriberlist==null}}" class="czlist" style='margin-top:300rpx;width: 100%;'>
+          <view style='display:flex;flex-direction:column;align-items:center;'>
             <!-- 空集 -->
             <view class="spcenter">
               <view style="width:80%" class="spcenter">
@@ -58,7 +58,7 @@
               </view>
             </view>
           </view>
-          <view>
+          <view class="spcenter">
             <form report-submit='true' bindsubmit='homepage'>
               <button class='wux-button--dark' form-type='submit'>随便逛逛</button>
             </form>

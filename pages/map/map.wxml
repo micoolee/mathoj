@@ -58,7 +58,7 @@
     </cover-view>
   </view>
   <view wx:if="{{mapheightratio!=1}}" style="height:{{1-mapheightratio}}">
-    <view class="bottomline pingjun">
+    <view class="bottomline pingjun" style="min-height: 150rpx;">
       <view style="font-size:30rpx;display: flex;align-items: center;margin: 20rpx 0 20rpx 30rpx;">
         <view wx:if="{{(profile.role!='school')}}">
           <image style="height: 80rpx;width: 80rpx;border-radius: 50%;" src="{{profile.avatar}}" />
@@ -85,9 +85,21 @@
     </view>
     <!-- 如果看的是机构的资料 -->
     <view class="czlist" style="padding: 40rpx;" wx:if="{{profile.role=='school'}}">
-      <text style="margin-left: 20rpx;">校长：{{principal.nickname}}</text>
-      <text style="margin-left: 20rpx;">机构地址：{{profile.schooladdress}}</text>
-      <text style="margin-left: 20rpx;">机构简介：{{profile.schooldesc}}</text>
+      <view style="margin: 8px 0 10px 8px;">
+        <view class="czcenter">
+          校长 {{principal.nickname}}
+          <image style="height: 80rpx;width: 80rpx;border-radius: 50%;" src="{{principal.avatar}}" />
+        </view>
+        <view style="color: gray;">{{principal.phone?'手机-'+principal.phone:''}}</view>
+      </view>
+      <view style="margin: 8px 0 10px 8px;">
+        <view>机构地址</view>
+        <view style="color: gray;">{{profile.schooladdress}}</view>
+      </view>
+      <view style="margin: 8px 0 10px 8px;">
+        <view>机构简介</view>
+        <view style="color: gray;">{{profile.schooldesc}}</view>
+      </view>
     </view>
     <!-- 如果看的是学生的资料 -->
     <view class="czlist" style="padding: 0 40rpx;">

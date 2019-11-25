@@ -49,10 +49,10 @@
         <text class="list-name">我的申请</text>
         <iconfont name="mathojxiala1-copy" class="rightarrow" size="15" />
       </view>
-      <view class="list-item" bindtap="showConfig">
+      <!-- <view class="list-item" bindtap="showConfig">
         <text class="list-name">设置</text>
         <iconfont name="mathojxiala1-copy" class="rightarrow" size="15" />
-      </view>
+      </view> -->
       <view class="list-item" bindtap="showCurrentSchool">
         <text class="list-name">当前机构</text>
         <iconfont name="mathojxiala1-copy" class="rightarrow" size="15" />

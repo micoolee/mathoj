@@ -62,7 +62,7 @@ function get_or_create_avatar(userid, that = 'null') {
   }
 }
 
-function getlastedprob(that, filter) {
+function getlastedprob(that, filter, final = null) {
   //console.log(that.formerid, 'formerid: ')
   network.post('/problem/getten', {
     'openid': app.globalData.openid,
@@ -99,13 +99,16 @@ function getlastedprob(that, filter) {
     //console.log('fail')
   },
     function (e) {
-      wx.hideLoading()
+      if (final != null) {
+        final()
+      }
+
     }
   )
 }
 
 
-function getnearbytenproblem(that, filter, formerid = 0, mode = 'pulldown') {
+function getnearbytenproblem(that, filter, formerid = 0, mode = 'pulldown', final = null) {
   //获取附近的问题
   network.post('/problem/getnearbytenproblem', {
     'openid': app.globalData.openid,
@@ -130,53 +133,54 @@ function getnearbytenproblem(that, filter, formerid = 0, mode = 'pulldown') {
       })
       that.formerid1 = filterproblist[filterproblist.length - 1]['problemid']
     }
+  }, function () {
+
+  }, function () {
+    if (final != null) {
+      final()
+    }
   })
 }
 
 //检查是否有更新的问题
 function checklasted(that, jigou = true) {
+  var grade = 0
   if (jigou) {
-    if (lastedjigouproblemid != null && lastedjigouproblemid != '') {
-      var grade = 0
-      // if (app.globalData.onlysee) {
-      //   grade = app.globalData.grade
-      // }
-      network.post('/problem/checklatest', {
-        'userid': app.globalData.selfuserid,
-        'formerid': lastedjigouproblemid,
-        'grade': grade,
-        'jigou': 'true'
-      }, function (res) {
-        if (res.count) {
-          that.setData({
-            jigouhavenew: true
-          })
-        }
-      })
-    }
+    // if (app.globalData.onlysee) {
+    //   grade = app.globalData.grade
+    // }
+    network.post('/problem/checklatest', {
+      'userid': app.globalData.selfuserid,
+      'formerid': lastedjigouproblemid != '' ? lastedjigouproblemid : 0,
+      'grade': grade,
+      'jigou': 'true'
+    }, function (res) {
+      if (res.count) {
+        that.setData({
+          jigouhavenew: true
+        })
+      }
+    })
   } else {
-    if (lasteddiscoveryproblemid != null && lasteddiscoveryproblemid != '') {
-      var grade = 0
-      // if (app.globalData.onlysee) {
-      //   grade = app.globalData.grade
-      // }
-      network.post('/problem/checklatest', {
-        'userid': app.globalData.selfuserid,
-        'formerid': lasteddiscoveryproblemid,
-        'grade': grade,
-        'jigou': 'false'
-      }, function (res) {
-        if (res.count) {
-          that.setData({
-            discoveryhavenew: true
-          })
-        }
-      })
-    }
+    // if (app.globalData.onlysee) {
+    //   grade = app.globalData.grade
+    // }
+    network.post('/problem/checklatest', {
+      'userid': app.globalData.selfuserid,
+      'formerid': lasteddiscoveryproblemid != '' ? lasteddiscoveryproblemid : 0,
+      'grade': grade,
+      'jigou': 'false'
+    }, function (res) {
+      if (res.count) {
+        that.setData({
+          discoveryhavenew: true
+        })
+      }
+    })
   }
 }
 
-function getlastedjinxuanprob(that, filter) {
+function getlastedjinxuanprob(that, filter, final = null) {
   wx.showLoading({
     title: '加载中',
   })
@@ -186,8 +190,6 @@ function getlastedjinxuanprob(that, filter) {
     'filter': filter || [],
     'jinxuan': '1'
   }, function (res) {
-    wx.hideNavigationBarLoading()
-
     if (res.problem) {
       var jinxuanproblemlist = res.problem
       //console.log(jinxuanproblemlist)
@@ -216,8 +218,9 @@ function getlastedjinxuanprob(that, filter) {
   }, function () {
 
   }, function () {
-    wx.hideNavigationBarLoading() //完成停止加载
-    wx.hideLoading()
+    if (final != null) {
+      final()
+    }
   })
 }
 

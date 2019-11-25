@@ -39,7 +39,7 @@ Page({
   },
 
   descinput: function (e) {
-    app.globalData.placeholder = e.detail.value
+    // app.globalData.placeholder = e.detail.value
     desc = e.detail.value
     this.setData({
       inputnum: e.detail.value.length,
@@ -165,7 +165,7 @@ Page({
             content: '提问成功',
             success: function (res) {
               if (res.confirm) {
-                app.globalData.placeholder = ''
+                // app.globalData.placeholder = ''
                 wx.navigateBack()
               }
             }
@@ -190,12 +190,13 @@ Page({
       'formid': e.detail.formId,
       'openid': app.globalData.openid
     })
-    app.globalData.placeholder = ''
+    // app.globalData.placeholder = ''
     wx.navigateBack({})
   },
-  onShow: function () {
+
+  onLoad: function () {
     this.setData({
-      placeholder: app.globalData.placeholder,
+      // placeholder: app.globalData.placeholder,
       categorys: util.categorys,
       gradearray: util.gradearray
     })
