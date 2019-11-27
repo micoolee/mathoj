@@ -22,16 +22,13 @@
             <text>{{item.createtime}}</text>
           </view>
           <view catchtap='deleteproblem' data-pid='{{item.problemid}}'>
-            <text>删除</text>
+            <iconfont name="mathojlajixiang" size="20" />
           </view>
         </view>
         <view class="feed-content">
           <view class="question line-reback">
             <a class="question-link">
               <text>{{item.content}}</text>
-              <!-- <view wx:if="{{item.problempic != undefined}}">
-                <image src='{{item.problempic}}'></image>
-              </view> -->
             </a>
           </view>
           <view class="answer-body">
@@ -39,11 +36,11 @@
               <text class="answer-txt" aid="{{answer_id}}">{{item.fields.solver}}</text>
             </view>
             <view class="answer-actions">
-              <view class="comments dot">
-                <a>{{item.commenternum}}评论</a>
+              <view class="comments">
+                <a>{{item.commenternum||0}}评论</a>
               </view>
-              <view class="follow-it dot">
-                <a>{{item.subscribernum}}关注</a>
+              <view class="follow-it">
+                <a>{{item.subscribernum||0}}关注</a>
               </view>
             </view>
           </view>

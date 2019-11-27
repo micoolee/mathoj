@@ -250,26 +250,33 @@
     <view wx:elif="{{ifinschool=='false'}}" class="page" style="width: 750rpx;margin-top:10px">
       <!-- 游客看到10个机构介绍 -->
       <text style="font-size:30rpx;padding: 10px">部分机构</text>
-      <view wx:for="{{schools}}" wx:for-item="item" wx:for-index="index" style="padding: 10px;display:flex">
-        <view>
-          <image class="circleavatar" src="{{item.avatar}}"></image>
-        </view>
-        <view class="czlist">
-          <view style="display:flex">
-            <view style="margin-left: 10px;">{{item.nickname}}</view>
-            <view style="margin-left: 10px;" wx:if="{{item.distance!=undefined}}">
-              距你{{item.distance-1}}公里
+      <view wx:if="{{schools.length>0}}">
+        <view wx:for="{{schools}}" wx:for-item="item" wx:for-index="index" style="padding: 10px;display:flex">
+          <view>
+            <image class="circleavatar" src="{{item.avatar}}"></image>
+          </view>
+          <view class="czlist">
+            <view style="display:flex">
+              <view style="margin-left: 10px;">{{item.nickname}}</view>
+              <view style="margin-left: 10px;" wx:if="{{item.distance!=undefined}}">
+                距你{{item.distance-1}}公里
+              </view>
+            </view>
+            <view style="font-size:12px;color:gray;margin-left: 10px;" wx:if="{{item.schooldesc!=undefined}}">
+              简介：{{item.schooldesc}}
+            </view>
+            <view style="font-size:12px;color:gray;margin-left: 10px;" wx:if="{{item.schooladdress!=undefined}}">
+              地址：{{item.schooladdress}}
+            </view>
+            <view style="font-size:12px;color:gray;margin-left: 10px;" wx:if="{{item.phone!=undefined}}">
+              联系电话：{{item.phone}}
             </view>
           </view>
-          <view style="font-size:12px;color:gray;margin-left: 10px;" wx:if="{{item.schooldesc!=undefined}}">
-            简介：{{item.schooldesc}}
-          </view>
-          <view style="font-size:12px;color:gray;margin-left: 10px;" wx:if="{{item.schooladdress!=undefined}}">
-            地址：{{item.schooladdress}}
-          </view>
-          <view style="font-size:12px;color:gray;margin-left: 10px;" wx:if="{{item.phone!=undefined}}">
-            联系电话：{{item.phone}}
-          </view>
+        </view>
+      </view>
+      <view wx:else class="spcenter">
+        <view style="width:80%" class="spcenter">
+          <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
         </view>
       </view>
     </view>

@@ -25,6 +25,7 @@ App({
     getopenidok: false,//是否获取到了openid
     logged: true //今天是否登录了，用于upload头像
   },
+  //最开始启动的地方
   onLaunch: function () {
     var that = this
     wx.showLoading({
@@ -72,13 +73,16 @@ App({
       that.globalData.role = res.role
       that.globalData.school = res.schoolid || ''
       that.globalData.getopenidok = true
+      that.globalData.avatar = res.avatar
+
       wx.getUserInfo({
         success: res => {
-          util.loading(that)
+
           that.globalData.hasUserInfo = true
           that.globalData.userInfo = res.userInfo
           that.globalData.nickname = res.userInfo.nickName
-          that.globalData.avatar = res.userInfo.avatarUrl
+          util.loading(that)
+          // that.globalData.avatar = res.userInfo.avatarUrl
         },
         fail: res => {
           wx.navigateTo({

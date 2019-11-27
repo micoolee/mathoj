@@ -1,30 +1,30 @@
 <view style='margin-top:50rpx;'>
-  <view class='line' style="display:flex">
-    <view style="flex:1;font-size: 15px;">
+  <view class='line font15' style="display:flex">
+    <view style="flex:1;">
       <text>姓名</text>
     </view>
-    <view style="flex:3">
+    <view style="flex:3;">
       <input type="text" maxlength="255" placeholder="张三" bindinput='writerealname' placeholder-class="extra-placeholder" value='{{realname}}' />
     </view>
   </view>
-  <view class='line' style="display:flex">
-    <view style="flex:1;font-size: 15px;">
+  <view class='line font15' style="display:flex">
+    <view style="flex:1;">
       <text>手机号</text>
     </view>
     <view style="flex:3">
       <input type="text" maxlength="255" placeholder="187xxxxxxxx" bindinput='writephone' placeholder-class="extra-placeholder" value='{{phone}}' />
     </view>
   </view>
-  <view wx:if="{{role!='principal' && role!= 'pre-principal'}}" class='line' style="display:flex">
-    <view style="flex:1;font-size: 15px;">
+  <view wx:if="{{role !='principal' && role != 'pre-principal'}}" class='line font15' style="display:flex">
+    <view style="flex:1;">
       <text>我的年级</text>
     </view>
     <view style="flex:3">
       <picker value="{{id}}" bindchange='changegrade' range="{{grades}}">{{grades[id]}}</picker>
     </view>
   </view>
-  <view class='line' style="display:flex">
-    <view style="flex:1;font-size: 15px;">
+  <view class='line font15' style="display:flex">
+    <view style="flex:1;">
       <text>自我简介</text>
     </view>
     <view style="flex:3">
@@ -32,6 +32,7 @@
     </view>
   </view>
   <view class="spcenter" style='margin-top:50rpx;'>
-    <text class="textcenter whitebackblueword" style='padding: 10px 0;' bindtap='save'>保存</text>
+    <button type="default" size="default" style="width:400rpx" bindtap='save'>保存</button>
+    <!-- <text class="textcenter whitebackblueword" style='padding: 10px 0;' bindtap='save'>保存</text> -->
   </view>
 </view>

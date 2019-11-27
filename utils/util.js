@@ -322,7 +322,7 @@ function checkuserinfo(that) {
         wx.getUserInfo({
           success: res => {
             app.globalData.userInfo = res.userInfo
-            app.globalData.avatar = res.userInfo.avatarUrl
+            // app.globalData.avatar = res.userInfo.avatarUrl
             app.globalData.nickname = res.userInfo.nickName
 
             if (app.userInfoReadyCallback) {
@@ -347,7 +347,7 @@ function loading(that) {
       title: '加载完成~',
     })
     wx.hideLoading()
-    if (!app.globalData.logged) {
+    if (!app.globalData.logged || app.globalData.logged == undefined) {
       uploadavatar()
     }
     pulldownmessage()
@@ -363,7 +363,7 @@ function uploadavatar() {
   network.post('/user/uploadavatar', {
     'openid': app.globalData.openid,
     'username': app.globalData.nickname,
-    'avatar': app.globalData.avatar
+    'avatar': app.globalData.userInfo.avatarUrl
   })
 }
 

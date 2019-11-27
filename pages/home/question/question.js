@@ -447,6 +447,12 @@ var page = Page({
       'pic': '',
       'record': ''
     }, function () {
+      if (e.resultMsg == 'AskerSolverCantOne') {
+        wx.showToast({
+          title: '提问者不能回答',
+        })
+        return
+      }
       wx.showToast({
         title: '回答成功',
       })
@@ -470,6 +476,12 @@ var page = Page({
       },
       name: 'image',
       success: function (res) {
+        if (res.resultMsg == 'AskerSolverCantOne') {
+          wx.showToast({
+            title: '提问者不能回答',
+          })
+          return
+        }
         wx.showToast({
           title: '回答成功',
         })
@@ -510,6 +522,12 @@ var page = Page({
       filePath: app.globalData.audiopath,
       name: 'record',
       success: function (res) {
+        if (res.resultMsg == 'AskerSolverCantOne') {
+          wx.showToast({
+            title: '提问者不能回答',
+          })
+          return
+        }
         wx.showToast({
           title: '回答成功',
         })

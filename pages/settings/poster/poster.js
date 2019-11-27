@@ -215,7 +215,7 @@ Page({
         ctx.setFontSize(12);
         let contentHh = 22 * 1;
         for (let m = 0; m < contentArray.length; m++) {
-          ctx.fillText(contentArray[m], left, width + 100 + contentHh * m);
+          ctx.fillText(contentArray[m], left, width + 110 + contentHh * m);
         }
       }
 

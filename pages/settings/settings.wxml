@@ -1,7 +1,7 @@
 <view>
   <view bindtap="bindViewTap" class="splist" style='padding-top:50rpx;padding-left:50rpx;background-color:#0066FF;height:300rpx;'>
     <view>
-      <image class="userinfo-avatar" src="{{userInfo.avatar}}" background-size="cover"></image>
+      <image class="userinfo-avatar" src="{{useravatar}}" background-size="cover"></image>
       <view style="margin-top: 10px;">
         <form report-submit='true' bindsubmit='pushformid'>
           <button class="czspcenter" form-type='submit' plain='true' style='padding:0;border:none;'>
@@ -82,7 +82,7 @@
       <view bindtap="clearcache" class="weui-footer__link">清除缓存</view>
       <view bindtap="showHelp" class="weui-footer__link">软件说明</view>
       <view bindtap="showFeedback" class="weui-footer__link">用户反馈</view>
-      <view bindtap="toface" class="weui-footer__link">小游戏</view>
+      <!-- <view bindtap="toface" class="weui-footer__link">小游戏</view> -->
     </view>
   </view>
 </view>

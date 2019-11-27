@@ -11,12 +11,15 @@ Page({
     if (e.detail.userInfo) {
       app.globalData.authorized = 'true'
       app.globalData.nickname = e.detail.userInfo.nickName
-      app.globalData.avatar = e.detail.userInfo.avatarUrl
+      // app.globalData.avatar = e.detail.userInfo.avatarUrl
       network.post('/user/uploadavatar', {
         'openid': app.globalData.openid,
         'username': app.globalData.nickname,
-        'avatar': app.globalData.avatar
-      }, function (e) {
+        'avatar': e.detail.userInfo.avatarUrl
+      }, function (res) {
+        if (!res.resultCode) {
+          app.globalData.avatar = res.avatar
+        }
         // console.log('uploadavatar from getuserinfo')
       })
       app.globalData.fromgetuserinfo = true;
@@ -29,9 +32,6 @@ Page({
       this.setData({
         showwarning: true
       })
-
     }
   },
-
-
 })

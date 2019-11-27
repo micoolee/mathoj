@@ -59,18 +59,18 @@
                 <text style='margin-left:10rpx;'>{{item.Createtime}}</text>
               </view>
               <view style='flex:2'></view>
-              <view class="comments-zan" style='display:flex;align-items:flex-end;font-size: 15px;padding-bottom: 20rpx;'>
+              <view class="comments-zan" style='display:flex;align-items:center;font-size: 15px;'>
                 <text>{{item.Zanernum}}</text>
                 <iconfont wx:if="{{item.Zanstatus=='赞'}}" name="mathojdianzan" size="25" catchtap='zansolution' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}' />
                 <iconfont wx:else name="mathojdianzan_inactive" size="25" color="black" />
               </view>
               <view style='display:flex;margin-left:20rpx;' wx:if='{{!hidecaina}}'>
-                <view bindtap='caina' class='textstyle' style='font-size:35rpx;' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>
-                  <view wx:if="{{item.Cainastatus=='采纳'}}">
-                    <iconfont name="mathojcaina" size="20" />
+                <view class='textstyle' style='font-size:35rpx;'>
+                  <view wx:if="{{item.Cainastatus=='采纳'}}" bindtap='caina' data-solutionid='{{item.SolutionID}}' data-index='{{index}}' data-teacherid='{{item.teacherid}}' data-problemid='{{problemid}}'>
+                    <iconfont name="mathojcaina" size="30" />
                   </view>
                   <view wx:else>
-                    <iconfont name="mathojyicaina" size="20" color="gray" />
+                    <iconfont name="mathojyicaina" size="30" />
                   </view>
                 </view>
               </view>

@@ -11,7 +11,8 @@ Page({
     hide: false,
     remainformidnumorstr: '',
     modalHidden: true,
-    role: ''
+    role: '',
+    useravatar: ''
   },
 
   onShareAppMessage: function (res) {
@@ -38,7 +39,8 @@ Page({
       title: '加载中',
     })
     that.setData({
-      role: util.rolemaps[app.globalData.role]
+      role: util.rolemaps[app.globalData.role],
+      useravatar: app.globalData.avatar
     })
     //获取瓶子数
     network.post('/user/getformidnum', {

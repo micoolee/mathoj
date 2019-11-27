@@ -228,6 +228,9 @@
   font-size: 35rpx;
 }
 
+.font15 {
+  font-size: 15px;
+}
 
 /* 平均  */
 .spacearound {
