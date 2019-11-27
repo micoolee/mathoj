@@ -61,7 +61,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "杭佳",
+    "navigationBarTitleText": "悟空问问",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
@@ -72,7 +72,7 @@
   ],
   "permission": {
     "scope.userLocation": {
-      "desc": "根据你的位置展示附近机构等"
+      "desc": "根据你的位置展示附近教育机构等"
     }
   },
   "sitemapLocation": "sitemap.json",

@@ -54,6 +54,8 @@ App({
           informlist: informlist
         })
       }
+    }, function () { }, function () {
+      wx.hideNavigationBarLoading() //完成停止加载
     })
   },
 

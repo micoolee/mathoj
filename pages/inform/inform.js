@@ -36,6 +36,7 @@ Page({
   onLoad: function () {
     var that = this
     app.globalData.informthat = that
+    wx.showNavigationBarLoading()
     app.getlastedinform()
   },
 
@@ -130,6 +131,7 @@ Page({
               'messageid': informid,
               'openid': app.globalData.openid
             }, function () {
+              wx.showNavigationBarLoading()
               app.getlastedinform(that)
               wx.showToast({
                 title: '删除成功',

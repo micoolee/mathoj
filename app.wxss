@@ -1,7 +1,9 @@
 @import 'style/wxui.wxss';
 
+/*------------------- 布局css -------------------*/
+
 /* @import "colorui.wxss"; */
-/**app.wxss**/
+
 /* 水平排列 */
 .splist {
   display: flex;
@@ -14,16 +16,60 @@
   flex-direction: column;
 }
 
-/* 灰字 */
-.text1 {
-  font-size: 10px;
-  color: gray;
+/* 水平居中 */
+.spcenter {
+  display: flex;
+  justify-content: center;
+}
+
+/* 水平靠左 */
+.spleft {
+  display: flex;
+  margin-right: auto;
+  padding: 10px;
+  font-size: 15px;
+  justify-content: space-around;
+  width: 50%;
 }
 
 /* 水平居中 */
 .spcenter {
   display: flex;
+  width: 100%;
   justify-content: center;
+}
+
+/* 垂直居中 */
+.czcenter {
+  display: flex;
+  align-items: center;
+}
+
+/* 水平垂直居中 */
+.czspcenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 靠右垂直居中 */
+.czcenterright {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* 平均分布 */
+.pingjun {
+  justify-content: space-between;
+  display: flex;
+}
+
+/*------------------- 字体css -------------------*/
+/* 灰字 */
+.text1 {
+  font-size: 10px;
+  color: gray;
 }
 
 /* 居中的文字 */
@@ -53,30 +99,16 @@
   border-radius: 50%;
 }
 
-/* 水平靠左 */
-.spleft {
-  display: flex;
-  margin-right: auto;
-  padding: 10px;
-  font-size: 15px;
-  justify-content: space-around;
-  width: 50%;
+/* 文字超出折叠 */
+.test {
+  width: 200rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-/* 圆形边框 */
-.circleborder {
-  border: solid 1px gray;
-  border-radius: 20rpx;
-  padding: 1px 5px;
-}
-
-/* 水平居中 */
-.spcenter {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-
+/*------------------- 元素css -------------------*/
+/*                  已存在的东西                  */
 /* 排行榜头像 */
 .bigavatar {
   width: 100rpx;
@@ -93,20 +125,8 @@
   vertical-align: middle;
 }
 
-
-/* 文字超出折叠 */
-.test {
-  width: 200rpx;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-/* 下划线  */
-.bottomline {
-  border-bottom: 0.1px solid gray;
-}
-
+/*------------------- 组件css -------------------*/
+/*                  新产生的东西                  */
 /* 筛选页遮罩 */
 .zhezao {
   position: fixed;
@@ -116,6 +136,18 @@
   background: rgba(0, 0, 0, 0.4);
   overflow: hidden;
   z-index: 100;
+}
+
+/* 圆形边框 */
+.circleborder {
+  border: solid 1px gray;
+  border-radius: 20rpx;
+  padding: 1px 5px;
+}
+
+/* 下划线  */
+.bottomline {
+  border-bottom: 0.1px solid gray;
 }
 
 .t_w {
@@ -157,25 +189,7 @@
 
 }
 
-/* 垂直居中 */
-.czcenter {
-  display: flex;
-  align-items: center;
-}
 
-/* 水平垂直居中 */
-.czspcenter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 靠右垂直居中 */
-.czcenterright {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
 
 
 /* 周围边框 */
@@ -183,11 +197,7 @@
   border: solid 1px;
 }
 
-/* 平均分布 */
-.pingjun {
-  justify-content: space-between;
-  display: flex;
-}
+
 
 .centerbutton {
   font-size: 30rpx;

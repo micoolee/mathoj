@@ -1,5 +1,4 @@
 {
-  "usingComponents": {},
-  "navigationStyle": "default",
+  "navigationBarTitleText": "海报",
   "enablePullDownRefresh": false
 }

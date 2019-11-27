@@ -35,7 +35,15 @@ Page({
     problemlist: undefined,
     jinxuanproblemlist: [],
     show: 'jigou',
-    ranklist: [],
+    teacherranklist: [],
+    // schoolranklist: [{
+    //   'schoolname': '怀文',
+    //   'schoolid': 1,
+    //   'rank': 1,
+    //   'studentnum': 10,
+    //   'teachernum': 20
+    // }],
+    schoolranklist: [],
     showmask: false,//筛选页,false为无开屏
     schools: [],
     activeIndex: 0,
@@ -302,15 +310,10 @@ Page({
     this.load()
     //获取排行榜
     network.post('/problem/getrank', {}, function (res) {
-      if (res.rankdetail) {
-        that.setData({
-          ranklist: res.rankdetail,
-        })
-      } else {
-        that.setData({
-          ranklist: [],
-        })
-      }
+      that.setData({
+        teacherranklist: res.rankdetail || [],
+        schoolranklist: res.schoolrank || []
+      })
     })
   },
 
