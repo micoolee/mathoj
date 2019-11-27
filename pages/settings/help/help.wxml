@@ -1,5 +1,5 @@
 <view class="container">
-  <image class="logo" src="/images/appavatar.jpg"></image>
+  <image class="logo" src="/images/appavatar.png"></image>
   <text class="name">悟空问问 v2.0</text>
   <text class="name">开发者信息</text>
   <image class="user-avatar" src="/images/face.png"></image>

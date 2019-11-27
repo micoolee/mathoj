@@ -37,8 +37,8 @@
                   </view>
                   <view class="answer-body">
                     <view class="answer-actions" bindtap="bindItemTap">
-                      <view class="comments dot">
-                        <a>{{item.commentnum}} 评论</a>
+                      <view class="comments">
+                        <a>{{item.commentnum||0}} 评论</a>
                       </view>
                     </view>
                   </view>

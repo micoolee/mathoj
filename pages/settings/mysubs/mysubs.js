@@ -10,8 +10,7 @@ Page({
     tabs: ["题目", "用户"],
     activeIndex: 0,
     sliderOffset: 0,
-    sliderLeft: 0,
-    icon: '/images/empty.png',
+    sliderLeft: 0
   },
 
 
@@ -47,11 +46,17 @@ Page({
           network.post('/desubscribe', {
             'problemid': e.currentTarget.dataset.id,
             'userid': app.globalData.openid
-          }, function () {
-            wx.showToast({
-              title: 'delete success',
-            })
-            that.onLoad()
+          }, function (e) {
+            if (!e.resultCode) {
+              wx.showToast({
+                title: '删除成功',
+              })
+              that.onLoad()
+            } else {
+              wx.showToast({
+                title: '删除失败',
+              })
+            }
           })
 
         }

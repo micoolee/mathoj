@@ -44,11 +44,17 @@ Page({
           network.post('/deletehist', {
             'problemid': e.currentTarget.dataset.id,
             'userid': app.globalData.openid
-          }, function () {
-            wx.showToast({
-              title: 'delete success',
-            })
-            that.onLoad()
+          }, function (e) {
+            if (!e.resultCode) {
+              wx.showToast({
+                title: '删除成功',
+              })
+              that.onLoad()
+            } else {
+              wx.showToast({
+                title: '删除失败',
+              })
+            }
           })
         }
       }

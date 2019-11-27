@@ -32,7 +32,7 @@
     </view>
     <view class="czlist" bindtap="showMyComm" style="justify-content: center;">
       <iconfont name="mathojjieda" size="20" />
-      <text class="text1">解答</text>
+      <text class="text1">评论</text>
     </view>
     <view class="czlist" bindtap="showMyBrow" style="justify-content: center;">
       <iconfont name="mathojliulan" size="20" />
