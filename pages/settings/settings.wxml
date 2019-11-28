@@ -1,5 +1,5 @@
-<view>
-  <view bindtap="bindViewTap" class="splist" style='padding-top:50rpx;padding-left:50rpx;background-color:#0066FF;height:300rpx;'>
+<view class="czspcenter" style="width:100%;flex-direction:column">
+  <view bindtap="bindViewTap" class="splist" style='padding-top:50rpx;padding-left:50rpx;background-color:#0066FF;height:300rpx;width:100%'>
     <view>
       <image class="userinfo-avatar" src="{{useravatar}}" background-size="cover"></image>
       <view style="margin-top: 10px;">
@@ -25,7 +25,7 @@
       <iconfont name="mathojtuiguangma" size="30" bindtap="showposter" />
     </view>
   </view>
-  <view style="height:100rpx;margin-top:-50rpx;background-color:white;padding:10px;margin-left:12%;justify-content: space-around;display:flex;width:70%;border:solid 1px gray;border-radius:10px;">
+  <view style="height:100rpx;margin-top:-60rpx;background-color:white;padding:10px;justify-content: space-around;display:flex;width:70%;border:solid 1px gray;border-radius:10px;">
     <view class="czlist" bindtap="showMyQues" style="justify-content: center;">
       <iconfont name="mathojtiwen" size="20" />
       <text class="text1">提问</text>
@@ -85,6 +85,6 @@
       <!-- <view bindtap="toface" class="weui-footer__link">小游戏</view> -->
     </view>
   </view>
-  <iconfont name="mathojkefu" style="position: fixed;right: 10px;" size="30" />
-  <button open-type="contact" style="position: fixed;right: 0px;opacity: 0;">客服</button>
+  <iconfont name="mathojkefu" style="position: fixed;right: 10px;bottom:50px" size="30" />
+  <button open-type="contact" style="position: fixed;right: 0px;opacity: 0;bottom:50px">客服</button>
 </view>
