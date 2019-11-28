@@ -85,4 +85,6 @@
       <!-- <view bindtap="toface" class="weui-footer__link">小游戏</view> -->
     </view>
   </view>
+  <iconfont name="mathojkefu" style="position: fixed;right: 10px;" size="30" />
+  <button open-type="contact" style="position: fixed;right: 0px;opacity: 0;">客服</button>
 </view>

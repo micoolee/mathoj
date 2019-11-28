@@ -11,8 +11,6 @@ Page({
    */
   data: {
     invitedsign: [false],
-    // noone: false,
-    // icon: '/images/empty.png',
     subscriberlist: undefined,
   },
 
