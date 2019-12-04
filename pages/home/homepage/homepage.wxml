@@ -123,7 +123,7 @@
           <text style="font-size:25rpx">匿名留言</text>
         </view>
       </view>
-      <view class="weui-tab ">
+      <view class="weui-tab">
         <view style="display: flex;margin: 20px 0 10rpx 0;">
           <view style="margin: 0px 20px;" class="czcenter">
             <iconfont name="mathojshaixuan" size="20" />
@@ -155,7 +155,7 @@
               <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
                 <view class="feed-source" style='display:flex'>
                   <view class="avatar" catchtap='showmore' data-avatar='{{item.avatar}}' data-askerid='{{item.askerid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'>
-                    <image src="{{item.avatar}}"></image>
+                    <image style="border: solid 1px;" src="{{item.avatar}}"></image>
                   </view>
                   <text>{{item.nickname}}</text>
                   <text style='margin-right:auto'>{{item.grade}}</text>
@@ -174,10 +174,10 @@
                   </view>
                   <view class="answer-body">
                     <view class="answer-actions">
-                      <view class="comments ">
+                      <view class="comments">
                         <view>{{item.solutionnum != null?item.solutionnum:0}} 回答</view>
                       </view>
-                      <view class="comments ">
+                      <view class="comments">
                         <view>{{item.commentnum != null?item.commentnum:0}} 评论</view>
                       </view>
                       <view class="follow-it">
@@ -216,14 +216,14 @@
               <view class="feed-source">
                 <a style='display:flex;align-items:center;'>
                   <view class="avatar">
-                    <image src="{{item.avatar}}" catchtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
+                    <image style="border: solid 1px;" src="{{item.avatar}}" catchtap='showmore' data-avatar='{{item.avatar}}' data-userid='{{item.askid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
                   </view>
                   <text>{{item.nickname}}</text>
                   <text>{{item.grade}}</text>
                   <view style='display:flex;flex:2'></view>
                   <view style='display:flex;align-items:center;'>
                     <text>推荐人</text>
-                    <image style='height:60rpx;width:60rpx;border-radius:50%;' catchtap='showmore' src='{{item.recommenderavatar}}' data-avatar='{{item.recommenderavatar}}' data-username='{{item.recommendername}}' data-userid='{{item.recommenderid}}'></image>
+                    <image style='border: solid 1px;height:60rpx;width:60rpx;border-radius:50%;' catchtap='showmore' src='{{item.recommenderavatar}}' data-avatar='{{item.recommenderavatar}}' data-username='{{item.recommendername}}' data-userid='{{item.recommenderid}}'></image>
                   </view>
                 </a>
               </view>
@@ -337,7 +337,7 @@
                 <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
                   <view class="feed-source" style='display:flex'>
                     <view class="avatar" catchtap='showmore' data-avatar='{{item.avatar}}' data-askerid='{{item.askerid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'>
-                      <image src="{{item.avatar}}"></image>
+                      <image style="border: solid 1px;" src="{{item.avatar}}"></image>
                     </view>
                     <text>{{item.nickname}}</text>
                     <text style='margin-right:auto'>{{item.grade}}</text>

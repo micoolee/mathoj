@@ -135,7 +135,9 @@
           <view style="width:100%;" class="spcenter">
             <textarea name="desc" placeholder="请回答" value='{{placeholder}}' maxlength="500" style="font-size: 15px;border: solid 1px lightgray;width:90%" bindinput="textsolu" />
           </view>
-          <view style="font-size: 10px;text-align: right;">{{inputnum}}/500</view>
+          <view style="font-size: 10px;text-align: right;margin-right: 20rpx;">
+            {{inputnum}}/500
+          </view>
         </view>
         <view style='display:flex;justify-content:center'>
           <view class="weui-uploader__files" id="uploaderFiles">
@@ -149,12 +151,6 @@
             <view class="weui-uploader__input" bindtap="takephoto"></view>
           </view>
         </view>
-        <!-- 音频条，暂时不显示 -->
-        <!-- <view wx:if="{{showyuansheng}}">
-          <view class="progresswrap">
-            <slider class="drag" step="10" value="{{curTimeVal}}" max="{{duration}}" backgroundColor="#373636" activeColor="#FF1744" bindchange="slideBar" />
-          </view>
-        </view> -->
         <view class="spcenter" style='margin-top:20rpx;margin-bottom:20rpx;'>
           <view style="flex:1;display: flex;">
             <view class="spcenter">

@@ -1,6 +1,6 @@
 <view style="height:100%" catchtap="conceal" wx:if="{{school.schoolid}}">
-  <view class=" solid-bottom flex doc-box" style='width:90%;border:1px solid blue;margin:10px;border-radius:20rpx;margin-left:5%'>
-    <view class='flex2 czfenbu textspcenter flex-treble doc-box-sub p-sm m-xs text-truncate' style='margin-left:30rpx;flex:4'>
+  <view class=" solid-bottom flex doc-box" style='width:90%;border:1px solid gray;margin:10px;border-radius:20rpx;margin-left:5%'>
+    <view class='flex2 czfenbu textspcenter ' style='margin-left:30rpx;flex:4;padding: 10px;'>
       <view style="display:flex;justify-content: space-between;">
         <view>{{school.schoolname}}</view>
         <view style="font-size:13px;color:red">还可以加入{{school.schoolremain-1}}次</view>

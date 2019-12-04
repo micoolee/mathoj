@@ -10,7 +10,7 @@
       </view>
     </picker>
   </view>
-  <view wx:if="{{notes.length>0}}" class="czspcenter" style="flex-direction: column;width: 100%;">
+  <view wx:if="{{notes.length>0}}" class="czspcenter" style="flex-direction: column;width: 100%;padding-bottom: 50px;">
     <view class="czcenter" style="flex-direction: column;background-color: lightgray;padding:10px;width: 80%;margin: 10rpx;" wx:for="{{notes}}" wx:for-item="item" wx:for-index="index">
       <view>{{item.desc}}</view>
     </view>
