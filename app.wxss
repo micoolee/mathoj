@@ -73,6 +73,12 @@
 
 }
 
+.spright {
+  justify-content: flex-end;
+  display: flex;
+
+}
+
 /*------------------- 字体css -------------------*/
 /* 灰字 */
 .text1 {

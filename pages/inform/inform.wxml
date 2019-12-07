@@ -1,5 +1,11 @@
 <view class='container'>
   <view wx:if="{{informlist.length>0}}" style="width: 100%;">
+    <view class="spcenter">
+      <iconfont wx:if="{{multichose}}" bindtap="hidemultichose" name="mathojcancel" size="30" />
+      <iconfont wx:if="{{multichose}}" name="mathojduoxuanshanchu" color="red" size="30" bindtap="deletechosed" />
+      <iconfont wx:else name="mathojduoxuanshanchu" size="30" bindtap="showmultichose" />
+      <iconfont wx:if="{{multichose}}" bindtap="choseall" name="mathojquanxuan" size="30" />
+    </view>
     <scroll-view style="margin: 20rpx 0;" wx:for="{{informlist}}" wx:key="{{item.messageid}}" wx:for-index="index" wx:for-item="item" data-idx="{{index}}">
       <view class="splist">
         <view>
@@ -11,7 +17,7 @@
               <text style='font-size: 30rpx;'>{{item.sendtime}}</text>
               <iconfont wx:if="{{item.readed=='0'}}" name="mathojweidu" size="30" />
             </view>
-            <view>
+            <view style="margin-right: 10rpx;">
               <iconfont name="{{icons[item.messagetype]}}" size="25" />
             </view>
           </view>
@@ -19,6 +25,9 @@
             <text class='line-3'>{{item.sendernickname}}{{item.content}}</text>
           </view>
         </view>
+        <checkbox-group class="czcenter" wx:if="{{multichose}}" bindchange="checkboxChange" data-index="{{index}}">
+          <checkbox value="{{item.name}}" checked="{{allchecked }}" value="{{item.messageid}}" />
+        </checkbox-group>
       </view>
     </scroll-view>
   </view>

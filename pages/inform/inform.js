@@ -2,6 +2,7 @@
 const app = getApp()
 //var console = require('../../utils/console.js')
 var network = require('../../utils/network.js')
+var choseres = []
 Page({
 
   data: {
@@ -23,7 +24,61 @@ Page({
       '25': 'mathojtongguo',
       '27': 'mathojtichu',
       '28': 'mathojtichu'
+    },
+    multichose: false,
+    allchecked: false
+  },
+  deletechosed: function (e) {
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '确认删除？',
+      success: function (res) {
+        if (res.confirm) {
+          network.post('/message/multidelete', {
+            'messageids': choseres,
+            'openid': app.globalData.openid
+          }, function () {
+            wx.showNavigationBarLoading()
+            app.getlastedinform(that)
+            wx.showToast({
+              title: '删除成功',
+            })
+          })
+        }
+      }
+    })
+  },
+  checkboxChange: function (e) {
+    if (e.detail.value.length == 0) {//取消勾选
+      var tobedeleted = this.data.informlist[e.currentTarget.dataset.index].messageid
+      var tobedeletedindex = choseres.indexOf(JSON.stringify(tobedeleted))
+      choseres.splice(tobedeletedindex, 1);
+    } else {
+      choseres = choseres.concat(e.detail.value)
     }
+  },
+  showmultichose: function (e) {
+    this.setData({
+      multichose: true
+    })
+  },
+  choseall: function (e) {
+    choseres = []
+    for (var i = 0; i < this.data.informlist.length; i++) {
+      choseres = choseres.concat(JSON.stringify(this.data.informlist[i].messageid))
+    }
+
+    this.setData({
+      allchecked: true
+    })
+  },
+  hidemultichose: function (e) {
+    choseres = []
+    this.setData({
+      multichose: false,
+      allchecked: false
+    })
   },
 
   bindTouchStart: function (e) {
@@ -164,7 +219,7 @@ Page({
     app.globalData.reddot = false
     //console.log('app.globalData.informlist: ', app.globalData.informlist)
     this.setData({
-      informlist: app.globalData.informlist,
+      informlist: app.globalData.informlist || [],
     })
 
     wx.hideTabBarRedDot({

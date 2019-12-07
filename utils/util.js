@@ -89,7 +89,6 @@ function getlastedprob(that, filter, final = null) {
     that.setData({
       jigouhavenew: false,
       problemlist: problemlist,
-
     })
     lastedjigouproblemid = problemlist[0].problemid
 
@@ -192,7 +191,6 @@ function getlastedjinxuanprob(that, filter, final = null) {
   }, function (res) {
     if (res.problem) {
       var jinxuanproblemlist = res.problem
-      //console.log(jinxuanproblemlist)
       //加载缓存中的照片
       for (var i in jinxuanproblemlist) {
         if (storedid.get(jinxuanproblemlist[i].openid) == 'downloaded') {
@@ -262,7 +260,6 @@ function get10prob(that, searchparam = [], formerid = 0) {
       })
     } else {
       problemlist = that.data.problemlist.concat(problemlist)
-      //console.log(problemlist)
       //加载缓存中的照片
       for (var i in problemlist) {
         if (storedid.get(problemlist[i].openid) == 'downloaded') {
@@ -295,8 +292,6 @@ function get10jinxuanprob(that, searchparam = []) {
     } else {
       var problemlist = JSON.parse(res.json_data)
       problemlist = that.data.problemlist.concat(problemlist)
-      //console.log(problemlist)
-
       //加载缓存中的照片
       for (var i in problemlist) {
         if (storedid.get(problemlist[i].openid) == 'downloaded') {
