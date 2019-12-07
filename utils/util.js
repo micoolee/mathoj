@@ -19,9 +19,9 @@ var categorys = {
 }
 
 var backgroundcolors = { 0: 'orange', 1: 'lightblue', 2: 'red', 3: 'green', 4: 'yellow' }
-var gradearray = ['二年级', '三年级', '四年级', '五年级', '六年级']
+var gradearray = ['二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三']
 var tijis = ['题库', '精选']
-var filtergradearray = ['不限', '二年级', '三年级', '四年级', '五年级', '六年级']
+var filtergradearray = ['不限', '二年级', '三年级', '四年级', '五年级', '六年级', '初一', '初二', '初三', '高一', '高二', '高三']
 var rolemaps = { 'principal': '校长', 'pre-principal': '校长', 'teacher': '老师', 'student': '学生' }
 var applymaps = { 'join': '申请加入', 'exit': '申请退出', 'pass': 'mathojtongguo', 'reject': 'mathojjujue', 'toteacher': '申请成为老师' }
 var lastedjigouproblemid = ''//机构最新的problemid，用作检查是否有新提问

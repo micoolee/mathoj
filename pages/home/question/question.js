@@ -128,7 +128,6 @@ var page = Page({
     if (that.data.problempic3 != '') {
       images = images.concat([that.data.problempic3])
     }
-    //console.log(e.currentTarget.dataset)
     if (e.currentTarget.dataset.key) {
       images = images.concat([image])
     }
@@ -144,10 +143,6 @@ var page = Page({
       'openid': app.globalData.openid,
       'commentid': e.target.dataset.id
     }, function (res) {
-      // that.setData({
-      //   comments: res.comment
-      // })
-
       all[e.currentTarget.dataset.index].Zanstatus = '已赞'
       that.setData({
         comments: all
@@ -446,7 +441,7 @@ var page = Page({
       'openid': app.globalData.openid,
       'pic': '',
       'record': ''
-    }, function () {
+    }, function (e) {
       if (e.resultMsg == 'AskerSolverCantOne') {
         wx.showToast({
           title: '提问者不能回答',
@@ -461,14 +456,12 @@ var page = Page({
 
 
   uploadimg: function (that) {
-    var stringArray = new Array();
     wx.uploadFile({
       url: config.host + '/problem/createsolution',
       filePath: answerpicsrc,
       formData: {
         'desc': that.data.textsolu,
         'haoti': haoti,
-        'topicids': stringArray,
         'problemid': JSON.parse(that.data.problemid),
         'openid': app.globalData.openid,
         'noimage': 'false',
@@ -476,7 +469,8 @@ var page = Page({
       },
       name: 'image',
       success: function (res) {
-        if (res.resultMsg == 'AskerSolverCantOne') {
+        var data = JSON.parse(res.data)
+        if (data.resultMsg == 'AskerSolverCantOne') {
           wx.showToast({
             title: '提问者不能回答',
           })
@@ -522,7 +516,8 @@ var page = Page({
       filePath: app.globalData.audiopath,
       name: 'record',
       success: function (res) {
-        if (res.resultMsg == 'AskerSolverCantOne') {
+        var data = JSON.parse(res.data)
+        if (data.resultMsg == 'AskerSolverCantOne') {
           wx.showToast({
             title: '提问者不能回答',
           })

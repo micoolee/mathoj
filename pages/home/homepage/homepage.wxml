@@ -39,6 +39,24 @@
             <view bindtap="switchgrade" data-id="5" class="circleborder margin510 {{filtergrade==5?'bluewhite':''}}">
               六年级
             </view>
+            <view bindtap="switchgrade" data-id="6" class="circleborder margin510 {{filtergrade==6?'bluewhite':''}}">
+              初一
+            </view>
+            <view bindtap="switchgrade" data-id="7" class="circleborder margin510 {{filtergrade==7?'bluewhite':''}}">
+              初二
+            </view>
+            <view bindtap="switchgrade" data-id="8" class="circleborder margin510 {{filtergrade==8?'bluewhite':''}}">
+              初三
+            </view>
+            <view bindtap="switchgrade" data-id="9" class="circleborder margin510 {{filtergrade==9?'bluewhite':''}}">
+              高一
+            </view>
+            <view bindtap="switchgrade" data-id="10" class="circleborder margin510 {{filtergrade==10?'bluewhite':''}}">
+              高二
+            </view>
+            <view bindtap="switchgrade" data-id="11" class="circleborder margin510 {{filtergrade==11?'bluewhite':''}}">
+              高三
+            </view>
           </view>
         </view>
         <view style="display: flex;padding: 10px;height: 60rpx">
@@ -74,6 +92,24 @@
             </view>
             <view bindtap="switchgrade1" data-id="5" class="circleborder margin510 {{filtergrade1==5?'bluewhite':''}}">
               六年级
+            </view>
+            <view bindtap="switchgrade1" data-id="6" class="circleborder margin510 {{filtergrade1==6?'bluewhite':''}}">
+              初一
+            </view>
+            <view bindtap="switchgrade1" data-id="7" class="circleborder margin510 {{filtergrade1==7?'bluewhite':''}}">
+              初二
+            </view>
+            <view bindtap="switchgrade1" data-id="8" class="circleborder margin510 {{filtergrade1==8?'bluewhite':''}}">
+              初三
+            </view>
+            <view bindtap="switchgrade1" data-id="9" class="circleborder margin510 {{filtergrade1==9?'bluewhite':''}}">
+              高一
+            </view>
+            <view bindtap="switchgrade1" data-id="10" class="circleborder margin510 {{filtergrade1==10?'bluewhite':''}}">
+              高二
+            </view>
+            <view bindtap="switchgrade1" data-id="11" class="circleborder margin510 {{filtergrade1==11?'bluewhite':''}}">
+              高三
             </view>
           </view>
         </view>
@@ -183,9 +219,9 @@
                       <view class="follow-it">
                         <view>{{item.subscribernum != null?item.subscribernum:0}} 关注</view>
                       </view>
-                      <view class="comments">
+                      <!-- <view class="comments">
                         <view>{{item.browsernum != null?item.browsernum:0}} 浏览</view>
-                      </view>
+                      </view> -->
                       <view>
                         <text>{{item.asktime}}提问</text>
                       </view>
@@ -240,9 +276,9 @@
                     <text class="answer-txt" aid="{{answer_id}}">{{item.solver}}</text>
                   </view>
                   <view class="answer-actions">
-                    <view class="comments dot">
+                    <!-- <view class="comments">
                       <view>{{item.browsernum != null?item.browsernum:0}} 浏览</view>
-                    </view>
+                    </view> -->
                     <view class="follow-it">
                       <view>{{item.solutionnum != null?item.solutionnum:0}} 答案</view>
                     </view>
@@ -361,9 +397,9 @@
                         <view class="follow-it">
                           <view>{{item.subscribernum != null?item.subscribernum:0}} 关注</view>
                         </view>
-                        <view class="comments">
+                        <!-- <view class="comments">
                           <view>{{item.browsernum != null?item.browsernum:0}} 浏览</view>
-                        </view>
+                        </view> -->
                         <view>
                           <text>{{item.asktime}}提问</text>
                         </view>
@@ -396,7 +432,10 @@
   <view wx:else catchtap="drop" style="width:100%">
     <view wx:if="{{teacherranklist.length>0 || schoolranklist.length>0}}">
       <view wx:if="{{teacherranklist.length>0 }}">
-        <view style="display:flex;font-size:15px;padding:0 10px">教师榜</view>
+        <view style="display:flex;font-size:15px;padding:0 10px">
+          <iconfont name="mathojjiangbei" size="20" />
+          教师榜
+        </view>
         <scroll-view wx:for="{{teacherranklist}}" wx:key="{{item.solverid}}">
           <view style="display:flex">
             <image class="bigavatar" src="{{item.avatar}}" bindtap='rankshowmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image>
@@ -407,16 +446,18 @@
               </text>
             </view>
             <view class="bottomline" style='font-size:30rpx;margin-right:50rpx;align-items:center;display: flex;'>
-              <iconfont name="mathojxunzhang" size="40" color="{{index==0?'gold':index==1?'silver':index==2?'orange':''}}" />
-              <text style=''>{{index+1}}</text>
+              <iconfont name="{{index==0?'mathojjinpai':index==1?'mathojyinpai':index==2?'mathojtongpai':'mathojjiangpai'}}" size="40" />
             </view>
           </view>
         </scroll-view>
       </view>
       <view wx:if="{{schoolranklist.length>0}}" style="padding-top: 100rpx;">
-        <view style="display:flex;font-size:15px;padding:0 10px">机构榜</view>
+        <view style="display:flex;font-size:15px;padding:10px 10px;">
+          <iconfont name="mathojjigoujiangbei" size="20" />
+          机构榜
+        </view>
         <scroll-view wx:for="{{schoolranklist}}" wx:key="{{item.schoolid}}" style="margin-bottom: 20px;">
-          <view style="display:flex">
+          <view style="display:flex;min-height: 40px;">
             <view style="flex:1"></view>
             <!-- <image class="bigavatar" src="{{item.avatar}}" bindtap='rankshowmore' data-avatar='{{item.avatar}}' data-userid='{{item.solverid}}' data-username='{{item.nickname}}' data-openid='{{item.openid}}'></image> -->
             <view class="bottomline spacearound" style='flex:8;font-size: 15px;align-items: center;'>
@@ -426,8 +467,7 @@
               </view>
             </view>
             <view class="bottomline" style='font-size:30rpx;margin-right:50rpx;align-items:center;display: flex;'>
-              <iconfont name="mathojxunzhang" size="40" color="{{index==0?'gold':index==1?'silver':index==2?'orange':''}}" />
-              <text style=''>{{index+1}}</text>
+              <iconfont name="{{index==0?'mathojjinpai':index==1?'mathojyinpai':index==2?'mathojtongpai':'mathojjiangpai'}}" size="30" />
             </view>
           </view>
         </scroll-view>

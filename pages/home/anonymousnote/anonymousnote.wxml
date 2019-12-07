@@ -24,6 +24,6 @@
     <view class="extra-share czcenterright" style="width:20%;height:100%">
       <text class="centerbutton" style="color:white" bindtap='comment'>发表</text>
     </view>
-    <input class="extra-input" style='width:80%;' type="text" maxlength="255" placeholder="写匿名留言" bindinput='writecomment' placeholder-class="extra-placeholder" value='{{commentcontent}}' />
+    <input class="extra-input" style='width:85%;' type="text" maxlength="255" placeholder="写匿名留言" bindinput='writecomment' placeholder-class="extra-placeholder" value='{{commentcontent}}' />
   </view>
 </view>
