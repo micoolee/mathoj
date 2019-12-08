@@ -51,7 +51,9 @@ App({
       that.globalData.informlist = informlist
       if (that.globalData.informthat) {
         that.globalData.informthat.setData({
-          informlist: informlist || []
+          informlist: informlist || [],
+          multichose: false,
+          allchecked: false
         })
       }
     }, function () { }, function () {

@@ -300,11 +300,11 @@
       <!-- 游客看到10个机构介绍 -->
       <text style="font-size:30rpx;padding: 10px">部分机构</text>
       <view wx:if="{{schools.length>0}}" style="margin-bottom: 150rpx;">
-        <view wx:for="{{schools}}" wx:for-item="item" wx:for-index="index" style="padding: 10px;display:flex">
-          <view>
+        <view wx:for="{{schools}}" wx:for-item="item" wx:for-index="index" style="padding: 10px;display:flex;margin-bottom: 10px;">
+          <view style="display:flex;flex:1">
             <image class="circleavatar" src="{{item.avatar}}"></image>
           </view>
-          <view class="czlist">
+          <view class="czlist" style="flex:6;">
             <view style="display:flex">
               <view style="margin-left: 10px;">{{item.nickname}}</view>
               <view style="margin-left: 10px;" wx:if="{{item.distance!=undefined}}">
@@ -321,12 +321,13 @@
               联系电话：{{item.phone}}
             </view>
           </view>
-          <view wx:if="{{applyingschool==0}}" style="margin-left:20rpx">
+          <view wx:if="{{applyingschool==0}}" style="flex:1">
             <iconfont name="mathojjiaru" bindtap="applytojoinshool" data-schoolid="{{item.schoolid}}" size="30" />
           </view>
-          <view wx:elif="{{item.schoolid==applyingschool}}" style="margin-left:20rpx">
+          <view wx:elif="{{item.schoolid==applyingschool}}" style="flex:1">
             <iconfont name="mathojshenqingzhong" size="30" />
           </view>
+          <view wx:else style="flex:1"></view>
         </view>
       </view>
       <view wx:else class="spcenter czlist czcenter">

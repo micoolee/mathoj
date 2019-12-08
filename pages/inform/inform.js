@@ -30,24 +30,31 @@ Page({
   },
   deletechosed: function (e) {
     var that = this
-    wx.showModal({
-      title: '提示',
-      content: '确认删除？',
-      success: function (res) {
-        if (res.confirm) {
-          network.post('/message/multidelete', {
-            'messageids': choseres,
-            'openid': app.globalData.openid
-          }, function () {
-            wx.showNavigationBarLoading()
-            app.getlastedinform(that)
-            wx.showToast({
-              title: '删除成功',
+    if (choseres.length > 0) {
+      wx.showModal({
+        title: '提示',
+        content: '确认删除？',
+        success: function (res) {
+          if (res.confirm) {
+            network.post('/message/multidelete', {
+              'messageids': choseres,
+              'openid': app.globalData.openid
+            }, function () {
+              wx.showNavigationBarLoading()
+              app.getlastedinform(that)
+              wx.showToast({
+                title: '删除成功',
+              })
             })
-          })
+          }
         }
-      }
-    })
+      })
+    } else {
+      wx.showToast({
+        title: '不能为空'
+      })
+    }
+
   },
   checkboxChange: function (e) {
     if (e.detail.value.length == 0) {//取消勾选
