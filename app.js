@@ -51,7 +51,7 @@ App({
       that.globalData.informlist = informlist
       if (that.globalData.informthat) {
         that.globalData.informthat.setData({
-          informlist: informlist
+          informlist: informlist || []
         })
       }
     }, function () { }, function () {

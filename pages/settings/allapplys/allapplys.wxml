@@ -27,9 +27,10 @@
 </view>
 <view wx:elif="{{applys.length==0}}" style='display:flex;flex-direction:column;align-items:center;'>
   <!-- 空集 -->
-  <view class="spcenter">
+  <view class="spcenter czlist czcenter">
     <view style="width:80%" class="spcenter">
       <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
     </view>
+    <view style="font-size: 30rpx;">暂无申请</view>
   </view>
 </view>

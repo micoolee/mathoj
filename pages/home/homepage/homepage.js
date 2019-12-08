@@ -36,20 +36,54 @@ Page({
     jinxuanproblemlist: [],
     show: 'jigou',
     teacherranklist: [],
-    // schoolranklist: [{
-    //   'schoolname': '怀文',
-    //   'schoolid': 1,
-    //   'rank': 1,
-    //   'studentnum': 10,
-    //   'teachernum': 20
-    // }],
     schoolranklist: [],
     showmask: false,//筛选页,false为无开屏
     schools: [],
     activeIndex: 0,
-    ifinschool: 'loading'//该用户是否已经加入了一个机构
+    ifinschool: 'loading',//该用户是否已经加入了一个机构
+    applyingschool: 0
   },
+  applytojoinshool: function (e) {
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '确认申请？',
+      success: function (res) {
+        if (res.confirm) {
+          that.setData({
+            applyingschool: e.currentTarget.dataset.schoolid * 1
+          })
+          //发送网络申请
+          network.post('/user/applytojoinschool', {
+            'userid': app.globalData.selfuserid,
+            'schoolid': e.currentTarget.dataset.schoolid * 1,
+            // 'remark': remark,
+          }, function (res) {
+            // that.setData({
+            //   // showjoinremark: false,
+            //   inputInfo: ''
+            // })
+            // remark = ''
+            if (!res.resultCode) {
+              app.globalData.school = 'schoolid'
+              wx.showToast({
+                title: '已申请',
+              })
+            } else if (res.resultMsg == "HaveApplyHandling") {
+              wx.showToast({
+                title: '勿重复申请',
+              })
+            } else {
+              wx.showToast({
+                title: '申请失败',
+              })
+            }
+          })
+        }
+      }
+    })
 
+  },
   // 转换为机构模式
   showjigou: function (e) {
     this.setData({
@@ -290,6 +324,7 @@ Page({
               that.setData({
                 ifinschool: 'false',
                 schools: res.schools || [],
+                applyingschool: res.applyingschool || 0,
               })
             })
           } else {
