@@ -98,6 +98,13 @@ Page({
       function (res) {
         //console.log(res)
         var data = JSON.parse(res.data)
+        if (data.ResultMsg == 'risk') {
+          wx.showToast({
+            icon: 'none',
+            title: '内容敏感'
+          })
+          return
+        }
         i++
         formdata['problemid'] = data.problemid * 1
         formdata['imgindex'] = i
@@ -160,6 +167,13 @@ Page({
           that.setData({
             disabledbut: false
           })
+          if (res.ResultMsg == 'risk') {
+            wx.showToast({
+              icon: 'none',
+              title: '内容敏感'
+            })
+            return
+          }
           wx.showModal({
             title: '提示',
             content: '提问成功',

@@ -247,6 +247,13 @@ var page = Page({
         'desc': this.data.solutioncommentcontent,
         'solutionid': sid
       }, function (res) {
+        if (res.ResultMsg == 'risk') {
+          wx.showToast({
+            icon: 'none',
+            title: '内容敏感'
+          })
+          return
+        }
         wx.showToast({
           title: '评论成功',
         })
@@ -276,6 +283,13 @@ var page = Page({
         'desc': this.data.commentcontent,
         'problemid': JSON.parse(this.data.problemid)
       }, function (res) {
+        if (res.ResultMsg == 'risk') {
+          wx.showToast({
+            icon: 'none',
+            title: '内容敏感'
+          })
+          return
+        }
         wx.showToast({
           title: '评论成功',
         })
@@ -442,6 +456,13 @@ var page = Page({
       'pic': '',
       'record': ''
     }, function (e) {
+      if (e.ResultMsg == 'risk') {
+        wx.showToast({
+          icon: 'none',
+          title: '内容敏感'
+        })
+        return
+      }
       if (e.resultMsg == 'AskerSolverCantOne') {
         wx.showToast({
           title: '提问者不能回答',
@@ -470,6 +491,13 @@ var page = Page({
       name: 'image',
       success: function (res) {
         var data = JSON.parse(res.data)
+        if (data.ResultMsg == 'risk') {
+          wx.showToast({
+            icon: 'none',
+            title: '内容敏感'
+          })
+          return
+        }
         if (data.resultMsg == 'AskerSolverCantOne') {
           wx.showToast({
             title: '提问者不能回答',
@@ -517,6 +545,13 @@ var page = Page({
       name: 'record',
       success: function (res) {
         var data = JSON.parse(res.data)
+        if (data.ResultMsg == 'risk') {
+          wx.showToast({
+            icon: 'none',
+            title: '内容敏感'
+          })
+          return
+        }
         if (data.resultMsg == 'AskerSolverCantOne') {
           wx.showToast({
             title: '提问者不能回答',
