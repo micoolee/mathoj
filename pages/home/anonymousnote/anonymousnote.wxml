@@ -17,9 +17,8 @@
   </view>
   <view wx:else class="spcenter czlist czcenter">
     <view style="width:80%">
-      <image src="/images/no_result.png" style="width: 100%;" />
+      <image src="/images/no_result.png" />
     </view>
-    <view style="font-size: 30rpx;">暂无留言</view>
   </view>
   <view class="extra">
     <view class="extra-share czcenterright" style="width:20%;height:100%">

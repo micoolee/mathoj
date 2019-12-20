@@ -15,7 +15,7 @@
             <!-- 空集 -->
             <view class="spcenter">
               <view style="width:80%" class="spcenter">
-                <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+                <image src="/images/no_result.png" />
               </view>
             </view>
           </view>
@@ -54,7 +54,7 @@
             <!-- 空集 -->
             <view class="spcenter">
               <view style="width:80%" class="spcenter">
-                <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+                <image src="/images/no_result.png" />
               </view>
             </view>
           </view>

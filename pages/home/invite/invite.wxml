@@ -1,7 +1,7 @@
 <view style="height: 100%;">
   <view wx:if="{{subscriberlist.length==0}}" class="czspcenter" style="flex-direction: column;min-height: 80%;">
     <view style="width:80%">
-      <image src="/images/no_result.png" style="width: 100%;" />
+      <image src="/images/no_result.png" />
     </view>
     <view>
       <text>暂无可以邀请的答主，关注后再来</text>

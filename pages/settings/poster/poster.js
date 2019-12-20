@@ -61,7 +61,7 @@ Page({
   getAvaterInfo: function () {
     var that = this;
     wx.showLoading({
-      title: '生成中...',
+      title: '稍等，生成中...',
       mask: true,
     });
     randint = Math.floor((Math.random() * 7) + 1) - 1
@@ -93,7 +93,7 @@ Page({
   getQrCode: function (headSrc) {
     var that = this;
     wx.showLoading({
-      title: '生成中...',
+      title: '稍等，生成中...',
       mask: true,
     });
     wx.downloadFile({
@@ -123,7 +123,7 @@ Page({
   getUseravatar: function (headSrc, codeSrc) {
     var that = this;
     wx.showLoading({
-      title: '生成中...',
+      title: '稍等，生成中...',
       mask: true,
     });
 
@@ -157,7 +157,7 @@ Page({
    */
   sharePosteCanvas: function (headSrc, codeSrc, Useravatar) {
     wx.showLoading({
-      title: '生成中...',
+      title: '稍等，生成中...',
       mask: true,
     })
     var that = this;

@@ -33,8 +33,7 @@
   </view>
   <view wx:elif="{{informlist.length==0}}" class="spcenter czlist czcenter">
     <view style="width:80%">
-      <image src="/images/no_result.png" style="width: 100%;" />
+      <image src="/images/no_result.png" />
     </view>
-    <view style="font-size: 30rpx;">暂无消息</view>
   </view>
 </view>

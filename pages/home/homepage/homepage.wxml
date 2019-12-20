@@ -182,7 +182,7 @@
             <!-- 空集 -->
             <view class="spcenter czlist czcenter">
               <view style="width:80%" class="spcenter">
-                <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+                <image src="/images/no_result.png" />
               </view>
             </view>
           </view>
@@ -242,7 +242,7 @@
           <!-- 空集 -->
           <view class="spcenter czlist czcenter">
             <view style="width:80%" class="spcenter">
-              <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+              <image src="/images/no_result.png" />
             </view>
           </view>
         </view>
@@ -332,7 +332,7 @@
       </view>
       <view wx:else class="spcenter czlist czcenter">
         <view style="width:80%" class="spcenter">
-          <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+          <image src="/images/no_result.png" />
         </view>
         <view style="font-size: 30rpx;">暂无结果</view>
       </view>
@@ -372,7 +372,7 @@
               <!-- 空集 -->
               <view class="spcenter czlist czcenter">
                 <view style="width:80%" class="spcenter">
-                  <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+                  <image src="/images/no_result.png" />
                 </view>
               </view>
             </view>
@@ -484,7 +484,7 @@
     <view wx:else>
       <view class="spcenter czlist czcenter">
         <view style="width:80%" class="spcenter">
-          <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+          <image src="/images/no_result.png" />
         </view>
       </view>
     </view>

@@ -47,7 +47,7 @@ Page({
         'desc': this.data.commentcontent,
       }, function (res) {
         wx.showToast({
-          title: '发布成功',
+          title: '发布成功请刷新',
         })
         that.setData({
           comments: res.comment,

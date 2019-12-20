@@ -13,7 +13,7 @@
   <!-- 空集 -->
   <view class="spcenter czlist czcenter">
     <view style="width:80%" class="spcenter">
-      <image src="/images/no_result.png" style="width: 400rpx;height:400rpx" />
+      <image src="/images/no_result.png" />
     </view>
   </view>
 </view>

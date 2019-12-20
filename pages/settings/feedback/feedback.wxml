@@ -2,7 +2,7 @@
   <text class="feedback-label">问题描述</text>
   <textarea class="feedback-text solidborder" placeholder="请详细你所遇到的问题" bindinput="getContent" />
   <text class="connect-label">联系方式</text>
-  <textarea class="connect-text solidborder" placeholder="请留下您的联系方式（QQ/微信/电话/等）" bindinput="getConnection" />
+  <textarea class="connect-text solidborder" placeholder="请留下您的联系方式（QQ/微信/电话/等，方便感谢）" bindinput="getConnection" />
   <view style='display:flex;margin-top:30rpx'>
     <view class="weui-uploader__files" id="uploaderFiles">
       <block wx:for="{{files}}" wx:key="*this">
