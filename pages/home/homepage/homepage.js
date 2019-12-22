@@ -166,7 +166,7 @@ Page({
       activeIndexStr: util.tijis[choosejinxuan],
       gradeStr: util.filtergradearray[tmpgrade]
     })
-
+    app.globalData.grade = tmpgrade
     var that = this;
     formerid = 0
     if (tmpgrade == 0) {
@@ -223,7 +223,7 @@ Page({
       grade1: tmpgrade1,
       gradeStr1: util.filtergradearray[tmpgrade1]
     })
-
+    app.globalData.grade = tmpgrade
     var that = this;
     formerid1 = 0
     network.post('/problem/getnearbytenproblem', {

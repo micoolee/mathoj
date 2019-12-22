@@ -459,7 +459,7 @@
           </view>
         </scroll-view>
       </view>
-      <view wx:if="{{schoolranklist.length>0}}" style="padding-top: 100rpx;">
+      <view wx:if="{{schoolranklist.length>0}}" style="padding-top: 50rpx;">
         <view style="display:flex;font-size:15px;padding:10px 10px;">
           <iconfont name="mathojjigoujiangbei" size="20" />
           机构榜

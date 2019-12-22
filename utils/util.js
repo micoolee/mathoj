@@ -167,7 +167,7 @@ function checklasted(that, jigou = true) {
     network.post('/problem/checklatest', {
       'userid': app.globalData.selfuserid,
       'formerid': lasteddiscoveryproblemid != '' ? lasteddiscoveryproblemid : 0,
-      'grade': grade,
+      'grade': grade || app.globalData.grade,
       'jigou': 'false'
     }, function (res) {
       if (res.count) {
