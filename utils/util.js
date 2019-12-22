@@ -143,7 +143,6 @@ function getnearbytenproblem(that, filter, formerid = 0, mode = 'pulldown', fina
 
 //检查是否有更新的问题
 function checklasted(that, jigou = true) {
-  var grade = 0
   if (jigou) {
     // if (app.globalData.onlysee) {
     //   grade = app.globalData.grade
@@ -151,7 +150,7 @@ function checklasted(that, jigou = true) {
     network.post('/problem/checklatest', {
       'userid': app.globalData.selfuserid,
       'formerid': lastedjigouproblemid != '' ? lastedjigouproblemid : 0,
-      'grade': grade,
+      'grade': app.globalData.grade,
       'jigou': 'true'
     }, function (res) {
       if (res.count) {
@@ -167,7 +166,7 @@ function checklasted(that, jigou = true) {
     network.post('/problem/checklatest', {
       'userid': app.globalData.selfuserid,
       'formerid': lasteddiscoveryproblemid != '' ? lasteddiscoveryproblemid : 0,
-      'grade': grade || app.globalData.grade,
+      'grade': app.globalData.grade,
       'jigou': 'false'
     }, function (res) {
       if (res.count) {

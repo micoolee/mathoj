@@ -17,8 +17,6 @@ Page({
     jigouhavenew: false,
     discoveryhavenew: false,
     inputvalue: null,
-    //点击确认筛选后传给后端的值
-    grade: 0,
     //点击确认筛选后展示的结果
     activeIndexStr: '题库',
     gradeStr: '不限',
@@ -161,7 +159,6 @@ Page({
   confirmfilter: function (e) {
     this.setData({
       showmask: false,
-      grade: tmpgrade,
       activeIndex: choosejinxuan,
       activeIndexStr: util.tijis[choosejinxuan],
       gradeStr: util.filtergradearray[tmpgrade]
@@ -225,7 +222,7 @@ Page({
     })
     app.globalData.grade = tmpgrade
     var that = this;
-    formerid1 = 0
+    that.formerid1 = 0
     network.post('/problem/getnearbytenproblem', {
       'openid': app.globalData.openid,
       'formerid': 0,
@@ -241,7 +238,7 @@ Page({
         that.setData({
           problemlist1: res.problems,
         })
-        formerid1 = res.problems[res.problems.length - 1]['problemid']
+        that.formerid1 = res.problems[res.problems.length - 1]['problemid']
       }
     })
   },
