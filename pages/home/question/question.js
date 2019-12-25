@@ -150,8 +150,6 @@ var page = Page({
       wx.showToast({
         title: '已赞',
       })
-
-
     })
   },
 
@@ -424,7 +422,6 @@ var page = Page({
       curTimeVal: 0,
       tingstate: true
     })
-
     innerAudioContext.stop()
   },
 
@@ -670,8 +667,9 @@ var page = Page({
     var that = this
     var problemdesc = that.data.desc
     var problemid = that.data.problemid
+    app.globalData.problemdesc = problemdesc
     wx.navigateTo({
-      url: `../../settings/poster/poster?problemdesc=${problemdesc}&problemid=${problemid}`,
+      url: `../../settings/poster/poster?problemid=${problemid}`,
     })
   },
 

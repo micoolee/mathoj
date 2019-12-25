@@ -48,16 +48,15 @@ Page({
   },
 
   onLoad: function (options) {
-    //console.log(app.globalData.userInfo)
     var that = this
     that.setData({
       ['cardInfo.Useravatar']: app.globalData.userInfo.avatarUrl || '',
       ['cardInfo.Name']: app.globalData.userInfo.nickName || ''
     })
     that.qrCode = that.data.qrcodepath || ''
-    if (options.problemdesc != '' && options.problemdesc != undefined) {
+    if (options.problemid != '' && options.problemid != undefined) {
       that.isproblem = true
-      that.problemdesc = options.problemdesc
+      that.problemdesc = app.globalData.problemdesc
       network.post('/problem/getqrcode', {
         'path': 'pages/home/question/question?problemid=' + options.problemid,
         'problemid': options.problemid,
@@ -70,7 +69,6 @@ Page({
     } else {
       that.getAvaterInfo();
     }
-
   },
 
 

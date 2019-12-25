@@ -44,7 +44,7 @@ Page({
   applytojoinshool: function (e) {
     var that = this
     wx.showModal({
-      title: '提示',
+      title: '只能加入一家机构',
       content: '确认申请？',
       success: function (res) {
         if (res.confirm) {
