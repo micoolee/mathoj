@@ -31,20 +31,25 @@
             </view>
           </view>
         </view>
-        <view class="que-follow">
-          <view class="left" style="display: flex;">
-            <view style="display: flex;" class="watch">
+        <view class="que-follow" style="align-self:center;display: flex;">
+          <view class="left" style="display: flex;flex:4">
+            <view style="display: flex;align-self: center;" class="watch">
               <iconfont name="mathojyuedushu" size="17" style="align-self: center;" />
               <text style="margin-left: 5px;">{{lookedtime}}</text>
             </view>
-            <view class="comment" style='margin-left:10px;display: flex;'>
+            <view class="comment" style='margin-left:10px;display: flex;align-self: center;'>
               <iconfont name="mathojliuyan" size="17" style="align-self: center;" />
               <text style="margin-left: 5px;">{{comments.length}}</text>
             </view>
+            <view catchtap="showposter" style="align-self: center;margin-left: 50rpx;">
+              <iconfont name="mathojtuiguangma" color="black" size="27" style="align-self: center;" />
+            </view>
           </view>
-          <view class="right" bindtap='subscribe' data-id='{{subscribe_door}}'>
-            <view wx:if="{{subscribe_door}}" data-id='{{subscribe_door}}'>关注</view>
-            <view wx:else data-id='{{subscribe_door}}'>取消关注</view>
+          <view wx:if="{{subscribe_door}}" data-id='{{subscribe_door}}' class="right" style="display:flex;flex:1;align-self: center;" bindtap='subscribe'>
+            关注
+          </view>
+          <view wx:else data-id='{{subscribe_door}}' class="right" style="display:flex;flex:1;align-self: center;" bindtap='subscribe'>
+            取消关注
           </view>
         </view>
       </view>

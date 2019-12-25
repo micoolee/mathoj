@@ -1,4 +1,3 @@
-// pages/settings/config/config.js
 var network = require('../../../utils/network.js')
 var util = require('../../../utils/util.js')
 //var console = require('../../../utils/console.js')

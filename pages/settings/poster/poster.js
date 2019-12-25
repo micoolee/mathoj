@@ -3,8 +3,10 @@
 const app = getApp()
 const config = require("../../../config.js")
 let network = require("../../../utils/network.js")
-let console = require("../../../utils/console.js")
 var randint
+var isproblem = false
+var problemdesc = ''
+var qrCode = ''
 Page({
   data: {
     qrcodepath: config.host + "/swagger/qrcode.png",
@@ -16,7 +18,8 @@ Page({
         config.host + "/swagger/qrcodeavatar4.jpg",
         config.host + "/swagger/qrcodeavatar5.jpg",
         config.host + "/swagger/qrcodeavatar6.jpg",
-        config.host + "/swagger/qrcodeavatar7.jpg"
+        config.host + "/swagger/qrcodeavatar7.jpg",
+        config.host + "/swagger/qrcode-b1.jpg"
       ], //需要https图片路径
       colors: [
         "#fff",
@@ -26,8 +29,9 @@ Page({
         "#fff",
         "#000",
         "#fff",
+        "#fff",
       ],
-      qrCode: "", //需要https图片路径
+      // qrCode: "", //需要https图片路径
       Useravatar: "", //用户的头像
       Name: 'mike', //分享者的姓名
       Slogan: "这里可以提问答疑哦", //标语
@@ -47,11 +51,26 @@ Page({
     //console.log(app.globalData.userInfo)
     var that = this
     that.setData({
-      ['cardInfo.qrCode']: that.data.qrcodepath || '',
       ['cardInfo.Useravatar']: app.globalData.userInfo.avatarUrl || '',
       ['cardInfo.Name']: app.globalData.userInfo.nickName || ''
     })
-    that.getAvaterInfo();
+    that.qrCode = that.data.qrcodepath || ''
+    if (options.problemdesc != '' && options.problemdesc != undefined) {
+      that.isproblem = true
+      that.problemdesc = options.problemdesc
+      network.post('/problem/getqrcode', {
+        'path': 'pages/home/question/question?problemid=' + options.problemid,
+        'problemid': options.problemid,
+      }, function (e) {
+        if (e.Qrcodeurl != "") {
+          that.qrCode = e.Qrcodeurl || ''
+          that.getAvaterInfo();
+        }
+      })
+    } else {
+      that.getAvaterInfo();
+    }
+
   },
 
 
@@ -65,6 +84,12 @@ Page({
       mask: true,
     });
     randint = Math.floor((Math.random() * 7) + 1) - 1
+    if (that.isproblem) {
+      randint = 7
+      that.setData({
+        ['cardInfo.TagText']: that.problemdesc,
+      })
+    }
     wx.downloadFile({
       url: that.data.cardInfo.avaters[randint], //头像图片路径
       success: function (res) {
@@ -97,7 +122,7 @@ Page({
       mask: true,
     });
     wx.downloadFile({
-      url: that.data.cardInfo.qrCode, //二维码路径
+      url: that.qrCode, //二维码路径
       success: function (res) {
         wx.hideLoading();
         if (res.statusCode === 200) {
@@ -182,12 +207,13 @@ Page({
 
       //标签
       if (cardInfo.TagText) {
-        ctx.fillText(cardInfo.TagText, left + 20, width - 4);
-        const metrics = ctx.measureText(cardInfo.TagText); //测量文本信息
-        ctx.stroke();
-        ctx.rect(left + 10, width - 20, metrics.width + 20, 25);
-        ctx.setFillStyle('rgba(255,255,255,0.4)');
-        ctx.fill();
+        let [contentLeng, contentArray, contentRows] = that.textByteLength(cardInfo.TagText, 40)
+        ctx.setTextAlign('left');
+        ctx.setFontSize(12);
+        let contentHh = 22 * 1;
+        for (let m = 0; m < contentArray.length; m++) {
+          ctx.fillText(contentArray[m], left, 100 + 30 * m);
+        }
       }
 
       //头像

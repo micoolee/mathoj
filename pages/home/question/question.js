@@ -613,14 +613,12 @@ var page = Page({
   },
 
   onLoad: function (option) {
-
+    var that = this
     this.setData({
       problemid: option.problemid,
       selfrole: app.globalData.role,
       selfschool: app.globalData.school
     })
-    var that = this
-
 
     if (!app.globalData.openid || app.globalData.openid == undefined) {
       wx.login({
@@ -628,15 +626,14 @@ var page = Page({
           network.post('/user/getopenid', {
             js_code: res.code
           }, function (res) {
-            that.globalData.openid = res.openid
-            that.globalData.selfuserid = res.userid
-            that.globalData.grade = res.grade || 0
-            that.globalData.onlysee = res.onlysee || false
-            that.globalData.getopenidok = true
-            that.globalData.logged = res.logged
-            that.globalData.role = res.role
-            that.globalData.school = res.schoolid || ''
-
+            app.globalData.openid = res.openid
+            app.globalData.selfuserid = res.userid
+            app.globalData.grade = res.grade || 0
+            app.globalData.onlysee = res.onlysee || false
+            app.globalData.getopenidok = true
+            app.globalData.logged = res.logged
+            app.globalData.role = res.role
+            app.globalData.school = res.schoolid || ''
             getproblem(that)
           })
         }
@@ -654,20 +651,30 @@ var page = Page({
           network.post('/user/getopenid', {
             js_code: res.code
           }, function (res) {
-            that.globalData.openid = res.openid
-            that.globalData.selfuserid = res.userid
-            that.globalData.grade = res.grade || 0
-            that.globalData.onlysee = res.onlysee || false
-            that.globalData.getopenidok = true
-            that.globalData.logged = res.logged
-            that.globalData.role = res.role
-            that.globalData.school = res.schoolid || ''
-            app.connect()
+            app.globalData.openid = res.openid
+            app.globalData.selfuserid = res.userid
+            app.globalData.grade = res.grade || 0
+            app.globalData.onlysee = res.onlysee || false
+            app.globalData.getopenidok = true
+            app.globalData.logged = res.logged
+            app.globalData.role = res.role
+            app.globalData.school = res.schoolid || ''
+            // app.connect()
           })
         }
       })
     }
   },
+
+  showposter: function () {
+    var that = this
+    var problemdesc = that.data.desc
+    var problemid = that.data.problemid
+    wx.navigateTo({
+      url: `../../settings/poster/poster?problemdesc=${problemdesc}&problemid=${problemid}`,
+    })
+  },
+
   onShow: function () {
     wx.hideKeyboard()
   },

@@ -14,19 +14,7 @@ Page({
     sessionid: 0
   },
 
-  // sendsixin: function (e) {
-  //   network.post('/user/pushformid', {
-  //     'formid': e.detail.formId,
-  //     'openid': app.globalData.openid
-  //   })
-  //   app.globalData.receiverid = e.currentTarget.dataset.askerid
-  //   wx.navigateTo({
-  //     url: `../../inform/message/chat/chat?receiverid=${e.currentTarget.dataset.askerid}&newsession=true&sessionid=${e.currentTarget.dataset.sessionid}`,
-  //   })
-  // },
-
   onLoad: function (options) {
-
     this.setData({
       userInfo: {
         'avatar': options.avatar,

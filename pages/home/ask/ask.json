@@ -1,3 +1,4 @@
 {
-    "navigationBarTitleText": "提问"
+  "navigationBarTitleText": "提问",
+  "enablePullDownRefresh": false
 }

@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "软件说明"
+  "navigationBarTitleText": "软件说明",
+  "enablePullDownRefresh": false
 }
