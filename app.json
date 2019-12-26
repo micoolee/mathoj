@@ -19,6 +19,7 @@
     "pages/settings/help/help",
     "pages/settings/myprof/myprof",
     "pages/settings/myques/myques",
+    "pages/settings/mysolu/mysolu",
     "pages/settings/mysubs/mysubs",
     "pages/settings/myhist/myhist",
     "pages/settings/mycomm/mycomm",

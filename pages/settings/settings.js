@@ -83,7 +83,11 @@ Page({
       url: './mysubs/mysubs',
     })
   },
-
+  showMySolu: function () {
+    wx.navigateTo({
+      url: './mysolu/mysolu',
+    })
+  },
   showMyComm: function () {
     wx.navigateTo({
       url: './mycomm/mycomm',
@@ -109,6 +113,8 @@ Page({
       url: './myteachers/myteachers',
     })
   },
+
+
   showposter: function () {
     wx.navigateTo({
       url: './poster/poster',

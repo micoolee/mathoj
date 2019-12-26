@@ -1,0 +1,38 @@
+<view wx:if="{{problemlistnull==0}}" class="wux-prompt__bd">
+  <view style='display:flex;flex-direction:column;align-items:center;'>
+    <!-- 空集 -->
+    <view class="spcenter czlist czcenter">
+      <view style="width:80%" class="spcenter">
+        <image src="/images/no_result.png" />
+      </view>
+    </view>
+  </view>
+  <view>
+    <form report-submit='true' bindsubmit='homepage'>
+      <button class='wux-button--dark' form-type='submit'>随便逛逛</button>
+    </form>
+  </view>
+</view>
+<view wx:else>
+  <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+    <block wx:for="{{problemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+      <view class="feed-item" data-id='{{item.ProblemID}}' bindtap="bindQueTap">
+        <view class="feed-source" style='display:flex;justify-content:space-between;'>
+          <view>
+            <text>{{item.Createtime}}</text>
+          </view>
+          <!-- <view catchtap='deleteproblem' data-pid='{{item.problemid}}'>
+            <iconfont name="mathojlajixiang" size="20" />
+          </view> -->
+        </view>
+        <view class="feed-content">
+          <view class="question line-reback">
+            <a class="question-link">
+              <text>{{item.Description}}</text>
+            </a>
+          </view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+</view>

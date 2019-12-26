@@ -24,14 +24,18 @@
       <iconfont name="mathojtuiguangma" size="30" bindtap="showposter" />
     </view>
   </view>
-  <view style="height:100rpx;margin-top:-60rpx;background-color:white;padding:10px;justify-content: space-around;display:flex;width:70%;border:solid 1px gray;border-radius:10px;">
+  <view style="height:100rpx;margin-top:-60rpx;background-color:white;padding:10px;justify-content: space-around;display:flex;width:80%;border:solid 1px gray;border-radius:10px;">
     <view class="czlist" bindtap="showMyQues" style="justify-content: center;">
       <iconfont name="mathojtiwen" size="20" />
       <text class="text1">提问</text>
     </view>
     <view class="czlist" bindtap="showMyComm" style="justify-content: center;">
-      <iconfont name="mathojjieda" size="20" />
+      <iconfont name="mathojliuyan" size="20" />
       <text class="text1">评论</text>
+    </view>
+    <view class="czlist" bindtap="showMySolu" style="justify-content: center;">
+      <iconfont name="mathojjieda" size="20" />
+      <text class="text1">回答</text>
     </view>
     <view class="czlist" bindtap="showMyBrow" style="justify-content: center;">
       <iconfont name="mathojliulan" size="20" />

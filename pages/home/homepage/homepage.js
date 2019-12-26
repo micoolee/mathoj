@@ -215,6 +215,7 @@ Page({
 
   // 筛选附近十题
   confirmfilter1: function (e) {
+    wx.showNavigationBarLoading()
     this.setData({
       showmask1: false,
       grade1: tmpgrade1,
@@ -240,6 +241,8 @@ Page({
         })
         that.formerid1 = res.problems[res.problems.length - 1]['problemid']
       }
+    }, function () { }, function () {
+      wx.hideNavigationBarLoading()
     })
   },
 
@@ -303,7 +306,7 @@ Page({
               'openid': app.globalData.openid,
               'latitude': res.latitude,
               'longitude': res.longitude
-            }, function (e) {
+            }, function () {
             })
           }
         });
