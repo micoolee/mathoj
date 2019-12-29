@@ -56,6 +56,9 @@ Page({
     that.qrCode = that.data.qrcodepath || ''
     if (options.problemid != '' && options.problemid != undefined) {
       that.isproblem = true
+      that.setData({
+        ['cardInfo.Slogan']: '这道题你会做吗？'
+      })
       that.problemdesc = app.globalData.problemdesc
       network.post('/problem/getqrcode', {
         'path': 'pages/home/question/question?problemid=' + options.problemid,
@@ -208,9 +211,16 @@ Page({
         let [contentLeng, contentArray, contentRows] = that.textByteLength(cardInfo.TagText, 40)
         ctx.setTextAlign('left');
         ctx.setFontSize(12);
-        let contentHh = 22 * 1;
-        for (let m = 0; m < contentArray.length; m++) {
+        var m = 0
+        for (; m < contentArray.length; m++) {
+          if (m > 4) {
+            ctx.fillText('...', left, 100 + 30 * m);
+            break
+          }
           ctx.fillText(contentArray[m], left, 100 + 30 * m);
+        }
+        if (that.havepic || true) {
+          ctx.fillText('(图片见小程序内)', left, 130 + 30 * m);
         }
       }
 
