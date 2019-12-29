@@ -222,7 +222,11 @@ Page({
           ctx.fillText(contentArray[m], left, 100 + 30 * m);
         }
         if (that.havepic != 'noimages') {
-          ctx.fillText('(图片见小程序内)', left, 130 + 30 * m);
+          if (m > 4) {
+            ctx.fillText('(图片见小程序内)', left, 130 + 30 * m);
+          } else {
+            ctx.fillText('(图片见小程序内)', left, 100 + 30 * m);
+          }
         }
       }
 
