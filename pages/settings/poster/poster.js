@@ -7,6 +7,7 @@ var randint
 var isproblem = false
 var problemdesc = ''
 var qrCode = ''
+var havepic = ''
 Page({
   data: {
     qrcodepath: config.host + "/swagger/qrcode.png",
@@ -60,6 +61,7 @@ Page({
         ['cardInfo.Slogan']: '这道题你会做吗？'
       })
       that.problemdesc = app.globalData.problemdesc
+      that.havepic = options.havepic
       network.post('/problem/getqrcode', {
         'path': 'pages/home/question/question?problemid=' + options.problemid,
         'problemid': options.problemid,
@@ -219,7 +221,7 @@ Page({
           }
           ctx.fillText(contentArray[m], left, 100 + 30 * m);
         }
-        if (that.havepic || true) {
+        if (that.havepic != 'noimages') {
           ctx.fillText('(图片见小程序内)', left, 130 + 30 * m);
         }
       }

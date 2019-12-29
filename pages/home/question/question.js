@@ -669,7 +669,7 @@ var page = Page({
     var problemid = that.data.problemid
     app.globalData.problemdesc = problemdesc
     wx.navigateTo({
-      url: `../../settings/poster/poster?problemid=${problemid}`,
+      url: `../../settings/poster/poster?problemid=${problemid}&havepic=${that.data.problempic}`,
     })
   },
 
