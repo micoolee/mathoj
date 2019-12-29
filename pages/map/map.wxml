@@ -105,7 +105,10 @@
     <view wx:else class="czlist" style="padding: 0 40rpx;">
       <view style="margin: 8px 0 10px 8px;">
         <view>个人简介</view>
-        <view style="color: gray;">{{profile.selfdesc}}</view>
+        <view wx:if="{{profile.selfdesc!='' && profile.selfdesc!=undefined}}" style="color: gray;">
+          {{profile.selfdesc}}
+        </view>
+        <view wx:else style="color: gray;text-align: center;">暂无简介</view>
       </view>
       <view wx:for="{{problems}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" style="background-color: lightgray;padding: 10px;margin: 5px 0;">
         <view class="feed-item" data-id='{{item.problemid}}' bindtap="bindQueTap">
