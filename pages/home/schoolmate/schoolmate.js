@@ -18,7 +18,7 @@ Page({
     network.post('/user/getteachersandstudents', {
       'userid': app.globalData.selfuserid,
     }, function (res) {
-      //console.log('res:', res)
+      ////console.log('res:', res)
       that.setData({
         schoolmates: res.users
       })

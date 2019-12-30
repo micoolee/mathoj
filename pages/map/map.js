@@ -277,7 +277,7 @@ Page({
     })
   },
   drop: function (e) {
-    //console.log('drop')
+    ////console.log('drop')
   },
   onReady: function (e) {
     // 使用 wx.createMapContext 获取 map 上下文
@@ -335,7 +335,7 @@ Page({
     }
   },
   regionchange(e) {
-    //console.log(e)
+    ////console.log(e)
   },
   bindQueTap: function (e) {
     wx.navigateTo({
@@ -479,7 +479,7 @@ Page({
     this.mapCtx.moveToLocation()
   },
   enterLocation: function () {
-    //console.log('this.mapctx:', this.mapCtx)
+    ////console.log('this.mapctx:', this.mapCtx)
 
     this.mapCtx.moveToLocation()
     this.setData({

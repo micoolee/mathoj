@@ -36,7 +36,7 @@ Page({
             'applyid': e.currentTarget.dataset.applyid,
             'action': 'pass',
           }, function (res) {
-            //console.log('res:', res)
+            ////console.log('res:', res)
 
             if (!res.resultCode) {
               wx.showToast({
@@ -73,7 +73,7 @@ Page({
             'applyid': e.currentTarget.dataset.applyid,
             'action': 'reject',
           }, function (res) {
-            //console.log('res:', res)
+            ////console.log('res:', res)
             if (!res.resultCode) {
               wx.showToast({
                 title: '已拒绝'

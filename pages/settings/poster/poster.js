@@ -50,7 +50,6 @@ Page({
 
   onLoad: function (options) {
     var that = this
-    console.log('app.globalData.userInfo: ', app.globalData.userInfo)
     that.setData({
       ['cardInfo.Useravatar']: app.globalData.userInfo.avatarUrl || '',
       ['cardInfo.Name']: app.globalData.userInfo.nickName || ''
@@ -250,7 +249,7 @@ Page({
       //标语
       if (cardInfo.Slogan) {
         let [contentLeng, contentArray, contentRows] = that.textByteLength(cardInfo.Slogan, 20)
-        //console.log(contentLeng, contentArray, contentRows)
+        ////console.log(contentLeng, contentArray, contentRows)
         ctx.setTextAlign('left');
         ctx.setFillStyle(that.data.cardInfo.colors[randint]);
         ctx.setFontSize(12);

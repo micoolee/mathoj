@@ -118,7 +118,7 @@ Page({
 
   // 机构里面设置题集或者精选
   switchactiveIndex: function (e) {
-    //console.log('switchactiveIndex: ', e)
+    ////console.log('switchactiveIndex: ', e)
     choosejinxuan = e.currentTarget.dataset.id
     this.setData({
       filterjinxuan: e.currentTarget.dataset.id
@@ -263,7 +263,7 @@ Page({
   },
   //放弃冒泡
   drop: function (e) {
-    //console.log('drop tap')
+    ////console.log('drop tap')
   },
   //发问
   toask: function () {

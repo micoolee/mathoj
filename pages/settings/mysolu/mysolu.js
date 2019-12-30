@@ -18,7 +18,7 @@ Page({
   //           'problemid': e.currentTarget.dataset.pid
   //         })
   //       } else if (sm.cancel) {
-  //         //console.log('用户点击取消')
+  //         ////console.log('用户点击取消')
   //       }
   //     }
   //   })

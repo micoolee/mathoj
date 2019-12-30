@@ -67,7 +67,7 @@ Page({
     network.post('/user/getmyprofile', {
       'userid': app.globalData.selfuserid,
     }, function (e) {
-      //console.log(app.globalData.grade, 'app.globalData.grade:')
+      ////console.log(app.globalData.grade, 'app.globalData.grade:')
       that.setData({
         grades: util.gradearray,
         realname: e.profile.realname || '',
@@ -78,7 +78,7 @@ Page({
 
 
       })
-      //console.log(that.data.grades[that.data.id])
+      ////console.log(that.data.grades[that.data.id])
     }, function (e) {
       that.setData({
         role: app.globalData.role || '',

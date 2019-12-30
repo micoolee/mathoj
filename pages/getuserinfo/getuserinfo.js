@@ -19,7 +19,7 @@ Page({
         if (!res.resultCode) {
           app.globalData.avatar = res.avatar
         }
-        // console.log('uploadavatar from getuserinfo')
+        // //console.log('uploadavatar from getuserinfo')
       })
       app.globalData.fromgetuserinfo = true;
       wx.navigateBack({})

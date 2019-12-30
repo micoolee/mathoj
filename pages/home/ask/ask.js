@@ -96,7 +96,7 @@ Page({
     }
     util.uploadfile('/problem/create', tmpimgs[i], 'problempic', formdata,
       function (res) {
-        //console.log(res)
+        ////console.log(res)
         var data = JSON.parse(res.data)
         if (data.ResultMsg == 'risk') {
           wx.showToast({
@@ -111,7 +111,7 @@ Page({
         that.uploadimgs(formdata, imgs, i)
       },
       function (e) {
-        //console.log('error', e)
+        ////console.log('error', e)
       })
   },
 

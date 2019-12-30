@@ -10,10 +10,10 @@ var categorys = {
   2: ["统筹优化问题", "植树问题", "巧算", "数阵图", "加法原理与乘法原理", "定义新运算", "数字谜", "添运算符号和括号", "图形问题", "等差数列", "行船问题", "页码问题", "年龄问题", "枚举法", "对策问题", "稍复杂的倍数问题", "鸡兔同笼问题", "还原问题", "其它"],
   3: ["列方程解应用题", "数的整除问题", "行程问题", "长方体与正方体", "组合图形的面积", "找次品问题", "余数问题", "巧算", "格点与面积", "牛吃草问题", "较复杂的周期问题", "钟面问题", "其它"],
   4: ["百分数应用题", "比例应用题", "圆的面积和周长", "圆柱和圆锥问题", "鸡兔同笼问题", "抽屉原理", "分数巧算", "最不利原则", "工程问题", "数学方法的渗透", "逻辑问题", "变与不变", "进制问题", "有序思考", "整体思考", "添辅助线", "画图", "列表", "极端思想", "不定方程和方程组", "其它"],
-  5: ["有理数", "整式的加减", "一元一次方程", "图形认识初步", "相交线与平行线", "平面直角坐标系", "三角形", "二元一次方程组", "不等式与不等式组", "数据统计"],
-  6: ["全等三角形", "轴对称", "实数", "一次函数", "整式乘除", "因式分解", "分式", "反比例函数", "勾股定理", "四边形", "数据分析"],
-  7: ["二次根式", "一元二次方程", "旋转", "圆", "概率初步", "二次函数", "相似", "锐角三角形", "投影与视图"],
-  8: ["集合与函数", "基本初等函数", "空间几何", "点线面位置关系", "直线与方程", "圆与方程", "算法初步", "统计", "概率"],
+  5: ["有理数", "整式的加减", "一元一次方程", "图形认识初步", "相交线与平行线", "平面直角坐标系", "三角形", "二元一次方程组", "不等式与不等式组", "数据统计", "其它"],
+  6: ["全等三角形", "轴对称", "实数", "一次函数", "整式乘除", "因式分解", "分式", "反比例函数", "勾股定理", "四边形", "数据分析", "其它"],
+  7: ["二次根式", "一元二次方程", "旋转", "圆", "概率初步", "二次函数", "相似", "锐角三角形", "投影与视图", "其它"],
+  8: ["集合与函数", "基本初等函数", "空间几何", "点线面位置关系", "直线与方程", "圆与方程", "算法初步", "统计", "概率", "其它"],
   9: ["集合", "基本初等函数", "平面解析几何", "算法初步", "统计", "概率", "平面向量", "三角恒等变换", "解三角形", "数列", "不等式", "圆锥曲线与方程", "空间向量与立体几何", "导数", "推理与证明", "复数", "坐标系与参数方程", "其它"],
   10: ["集合", "基本初等函数", "平面解析几何", "算法初步", "统计", "概率", "平面向量", "三角恒等变换", "解三角形", "数列", "不等式", "圆锥曲线与方程", "空间向量与立体几何", "导数", "推理与证明", "复数", "坐标系与参数方程", "其它"],
 }
@@ -44,7 +44,7 @@ function get_or_create_avatar(userid, that = 'null') {
     wx.downloadFile({
       url: config.host + '/swagger/avatar-' + userid + '.jpg',
       success: function (res) {
-        //console.log('aaa')
+        ////console.log('aaa')
         wx.setStorageSync(userid, res.tempFilePath)
         storedid.set(userid, 'downloaded')
         var avatarimgcache = wx.getStorageSync(userid)
@@ -63,7 +63,7 @@ function get_or_create_avatar(userid, that = 'null') {
 }
 
 function getlastedprob(that, filter, final = null) {
-  //console.log(that.formerid, 'formerid: ')
+  ////console.log(that.formerid, 'formerid: ')
   network.post('/problem/getten', {
     'openid': app.globalData.openid,
     'formerid': that.formerid,
@@ -93,9 +93,9 @@ function getlastedprob(that, filter, final = null) {
     lastedjigouproblemid = problemlist[0].problemid
 
     that.formerid = problemlist[problemlist['length'] - 1].problemid
-    //console.log(that.formerid, 'formerid: ')
+    ////console.log(that.formerid, 'formerid: ')
   }, function (e) {
-    //console.log('fail')
+    ////console.log('fail')
   },
     function (e) {
       if (final != null) {
@@ -222,7 +222,7 @@ function getlastedjinxuanprob(that, filter, final = null) {
 }
 
 function pulldownmessage(that = null) {
-  //console.log('pulldownmessage')
+  ////console.log('pulldownmessage')
   network.post('/message/getten', {
     'openid': app.globalData.openid,
     'statuscode': '1'
@@ -315,7 +315,7 @@ function checkuserinfo(that) {
       if (res.authSetting['scope.userInfo']) {
         wx.getUserInfo({
           success: res => {
-            console.log('in checkuserinfo: ', res.userInfo)
+            //console.log('in checkuserinfo: ', res.userInfo)
             app.globalData.userInfo = res.userInfo
 
             if (app.userInfoReadyCallback) {

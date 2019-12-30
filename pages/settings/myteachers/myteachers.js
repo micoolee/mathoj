@@ -11,7 +11,7 @@ Page({
     network.post('/user/getmyteachers', {
       'userid': app.globalData.selfuserid,
     }, function (res) {
-      //console.log('res:', res)
+      ////console.log('res:', res)
       that.setData({
         teachers: res.teachers
       })
@@ -19,7 +19,7 @@ Page({
   },
 
   deleteteacher: function (e) {
-    //console.log(e, "e: ")
+    ////console.log(e, "e: ")
     var that = this
     wx.showModal({
       title: '提示',
@@ -30,7 +30,7 @@ Page({
             'userid': app.globalData.selfuserid,
             'teacherid': e.currentTarget.dataset.teacherid,
           }, function (res) {
-            //console.log('res:', res)
+            ////console.log('res:', res)
             if (!res.resultCode) {
               wx.showToast({
                 title: '删除成功'

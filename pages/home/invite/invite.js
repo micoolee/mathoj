@@ -33,7 +33,7 @@ Page({
       'problemid': JSON.parse(problemid)
     }, function (res) {
       var tmp = that.data.invitedsign
-      //console.log('tmp:', tmp)
+      ////console.log('tmp:', tmp)
       tmp[e.currentTarget.dataset.index] = true
       that.setData({
         invitedsign: tmp

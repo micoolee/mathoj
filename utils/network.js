@@ -10,12 +10,12 @@ let network = {
       data: params,
       success: res => {
         if (success) {
-          //console.log(res)
+          ////console.log(res)
           success(res.data)
         }
       },
       fail: (error) => {
-        //console.log(error)
+        ////console.log(error)
         if (fail) {
           fail()
         } else {
@@ -44,11 +44,11 @@ let network = {
       name: filename,
       formData: params,
       success: function (e) {
-        //console.log(e)
+        ////console.log(e)
         success(e)
       },
       fail: function (e) {
-        //console.log(e)
+        ////console.log(e)
         fail(e)
       }
     })
