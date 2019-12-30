@@ -10,11 +10,10 @@ Page({
   bindGetUserInfo: function (e) {
     if (e.detail.userInfo) {
       app.globalData.authorized = 'true'
-      app.globalData.nickname = e.detail.userInfo.nickName
-      // app.globalData.avatar = e.detail.userInfo.avatarUrl
+      app.globalData.userInfo = e.detail.userInfo
       network.post('/user/uploadavatar', {
         'openid': app.globalData.openid,
-        'username': app.globalData.nickname,
+        'username': app.globalData.userInfo.nickName || '路人甲',
         'avatar': e.detail.userInfo.avatarUrl
       }, function (res) {
         if (!res.resultCode) {

@@ -81,12 +81,9 @@ App({
 
       wx.getUserInfo({
         success: res => {
-
           that.globalData.hasUserInfo = true
           that.globalData.userInfo = res.userInfo
-          that.globalData.nickname = res.userInfo.nickName
           util.loading(that)
-          // that.globalData.avatar = res.userInfo.avatarUrl
         },
         fail: res => {
           wx.navigateTo({

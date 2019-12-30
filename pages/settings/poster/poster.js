@@ -50,6 +50,7 @@ Page({
 
   onLoad: function (options) {
     var that = this
+    console.log('app.globalData.userInfo: ', app.globalData.userInfo)
     that.setData({
       ['cardInfo.Useravatar']: app.globalData.userInfo.avatarUrl || '',
       ['cardInfo.Name']: app.globalData.userInfo.nickName || ''
@@ -83,7 +84,7 @@ Page({
   getAvaterInfo: function () {
     var that = this;
     wx.showLoading({
-      title: '稍等，生成中...',
+      title: '下载背景图...',
       mask: true,
     });
     randint = Math.floor((Math.random() * 7) + 1) - 1
@@ -102,7 +103,7 @@ Page({
           that.getQrCode(headSrc); //继续下载二维码图片
         } else {
           wx.showToast({
-            title: '头像下载失败！',
+            title: '背景图下载失败！',
             icon: 'none',
             duration: 2000,
             success: function () {
@@ -121,7 +122,7 @@ Page({
   getQrCode: function (headSrc) {
     var that = this;
     wx.showLoading({
-      title: '稍等，生成中...',
+      title: '下载二维码...',
       mask: true,
     });
     wx.downloadFile({
@@ -151,7 +152,7 @@ Page({
   getUseravatar: function (headSrc, codeSrc) {
     var that = this;
     wx.showLoading({
-      title: '稍等，生成中...',
+      title: '下载头像...',
       mask: true,
     });
 
@@ -164,7 +165,7 @@ Page({
           that.sharePosteCanvas(headSrc, codeSrc, Useravatar);
         } else {
           wx.showToast({
-            title: '二维码下载失败！',
+            title: '头像下载失败！',
             icon: 'none',
             duration: 2000,
             success: function () {

@@ -34,7 +34,7 @@ function get_or_create_avatar(userid, that = 'null') {
       that.setData({
         userInfo: {
           'avatar': avatarimgcache,
-          'nickname': app.globalData.nickname
+          'nickname': app.globalData.userInfo.nickName || '路人甲'
         }
       })
     }
@@ -52,7 +52,7 @@ function get_or_create_avatar(userid, that = 'null') {
           that.setData({
             userInfo: {
               'avatar': avatarimgcache,
-              'nickname': app.globalData.nickname
+              'nickname': app.globalData.userInfo.nickName || '路人甲'
             }
           })
         }
@@ -315,9 +315,8 @@ function checkuserinfo(that) {
       if (res.authSetting['scope.userInfo']) {
         wx.getUserInfo({
           success: res => {
+            console.log('in checkuserinfo: ', res.userInfo)
             app.globalData.userInfo = res.userInfo
-            // app.globalData.avatar = res.userInfo.avatarUrl
-            app.globalData.nickname = res.userInfo.nickName
 
             if (app.userInfoReadyCallback) {
               app.userInfoReadyCallback(res)
@@ -356,7 +355,7 @@ function loading(that) {
 function uploadavatar() {
   network.post('/user/uploadavatar', {
     'openid': app.globalData.openid,
-    'username': app.globalData.nickname,
+    'username': app.globalData.userInfo.nickName || '路人甲',
     'avatar': app.globalData.userInfo.avatarUrl
   })
 }
