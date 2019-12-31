@@ -51,7 +51,7 @@ Page({
   onLoad: function (options) {
     var that = this
     that.setData({
-      ['cardInfo.Useravatar']: app.globalData.userInfo.avatarUrl || '',
+      ['cardInfo.Useravatar']: app.globalData.avatar || '',
       ['cardInfo.Name']: app.globalData.userInfo.nickName || ''
     })
     that.qrCode = that.data.qrcodepath || ''

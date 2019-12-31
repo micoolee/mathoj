@@ -78,7 +78,7 @@ App({
       that.globalData.school = res.schoolid || ''
       that.globalData.getopenidok = true
       that.globalData.avatar = res.avatar
-
+      console.log('that.globalData.avatar: ', that.globalData.avatar)
       wx.getUserInfo({
         success: res => {
           that.globalData.hasUserInfo = true
