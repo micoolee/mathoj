@@ -18,7 +18,7 @@
           </view>
           <view class="spcenter" wx:if="{{problempic1==''}}">
             <!-- 只有一张图片 -->
-            <image wx:if="{{problempic}}" src='{{problempic}}' mode='widthFix' hidden='{{!showpic}}' catchtap='viewimage' data-image='{{problempic}}'></image>
+            <image wx:if="{{problempic}}" src='{{problempic}}' mode='aspectFill' hidden='{{!showpic}}' catchtap='viewimage' data-image='{{problempic}}'></image>
           </view>
           <view class="spcenter" style="flex-direction: column;" wx:else>
             <view style='display:flex;width: 100%;'>
@@ -98,7 +98,7 @@
               </view>
             </view>
             <view wx:if="{{item.Image != undefined}}" class='page__teacheranswerimage'>
-              <image src='{{item.Image}}' data-key='pimg' bindtap='viewimage' data-image='{{item.Image}}' data-recordsrc='{{item.Record}}' mode='widthFix'></image>
+              <image src='{{item.Image}}' data-key='pimg' bindtap='viewimage' data-image='{{item.Image}}' data-recordsrc='{{item.Record}}' mode='aspectFill'></image>
             </view>
             <!-- 对答案的评论 -->
             <view wx:if="{{item.solutioncomments.length>0}}" style="margin-left: 27px;background-color: lightgray;padding: 10px;flex-direction: column;" class="czcenter">

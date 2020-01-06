@@ -113,6 +113,9 @@ Page({
   showinformdetail: function (e) {
     var that = this
     var informid = e.currentTarget.dataset.informid
+    if (that.data.multichose) {
+      return
+    }
     if (this.endTime - this.startTime < 350) {//点击
       var readed = e.currentTarget.dataset.readed
       var index = e.currentTarget.dataset.index

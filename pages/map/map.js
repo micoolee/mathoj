@@ -135,6 +135,16 @@ Page({
         height: 40
       },
       clickable: true
+    }, {
+      id: 6,
+      iconPath: '/images/student.png',
+      position: {
+        left: 150,
+        top: 10,
+        width: 40,
+        height: 40
+      },
+      clickable: true
     }],
     mapCtx: null,
     profile: '',
@@ -297,6 +307,7 @@ Page({
   },
   onLoad: function () {
     var that = this
+    console.log(app.globalData.authorized == 'true' || app.globalData.avatar != 'stranger')
     if (app.globalData.authorized == 'true' || app.globalData.avatar != 'stranger') {
       wx.getLocation({
         type: 'gcj02', //返回可以用于wx.openLocation的经纬度
@@ -327,6 +338,14 @@ Page({
           this.adduserlocation()
           this.formsubmitschool()
           this.enterLocation()
+        },
+        fail: (res) => {
+          wx.getSetting({
+            success: (res) => {
+              if (!res.authSetting['scope.userLocation'])
+                that.openConfirm()
+            }
+          })
         }
       });
       this.mapCtx = wx.createMapContext('myMap')
@@ -334,6 +353,25 @@ Page({
       util.checkuserinfo(that)
     }
   },
+  openConfirm: function () {
+    wx.showModal({
+      content: '检测到您没打开悟空问问的定位权限，是否去设置打开？',
+      confirmText: "确认",
+      cancelText: "取消",
+      success: function (res) {
+        console.log(res);
+        //点击“确认”时打开设置页面
+        if (res.confirm) {
+          wx.openSetting({
+            success: (res) => { }
+          })
+        } else {
+          console.log('用户点击取消')
+        }
+      }
+    });
+  },
+
   regionchange(e) {
     ////console.log(e)
   },
