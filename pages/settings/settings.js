@@ -1,7 +1,6 @@
 var app = getApp()
 var util = require('../../utils/util.js')
 var network = require('../../utils/network.js')
-//var console = require('../../utils/console.js')
 var config = require('../../config.js')
 var remainformidnum = 0
 Page({
@@ -28,7 +27,6 @@ Page({
   },
 
   onLoad: function (options) {
-    ////console.log(app.globalData.selfuserid)
     var that = this
     if (app.globalData.grade == 0) {
       that.setData({

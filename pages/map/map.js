@@ -414,7 +414,7 @@ Page({
   openConfirm: function () {
     var that = this
     wx.showModal({
-      content: '检测到您授权定位权限，是否去设置打开？',
+      content: '检测到您未授权定位权限，是否去设置打开？',
       confirmText: "确定",
       cancelText: "取消",
       success: function (res) {

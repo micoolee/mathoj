@@ -13,7 +13,6 @@ App({
     informlist: undefined,
     reddot: false,
     searchlist: [],
-    // placeholder: '',
     nickname: '路人甲', //用户的昵称
     avatar: 'stranger',//用户头像
     authorized: 'false', //用户是否授权了个人信息
@@ -31,10 +30,13 @@ App({
     wx.showLoading({
       title: '加载中',
     })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 2000)
     wx.login({
       success: res => {
         that.login_getopenid(res)
-      }
+      },
     })
     var a = wx.getSystemInfoSync()
     that.globalData.screenwidth = a.windowWidth
@@ -102,7 +104,7 @@ App({
         that.login_getopenid(res)
       }, 1000)
     }, function (e) {
-      wx.hideLoading()
+
     })
   },
 })
