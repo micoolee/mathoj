@@ -237,6 +237,19 @@ Page({
   },
   confirmfilter: function (e) {
     var that = this
+    if (oldcircle == undefined || oldcircle == '') {
+      wx.showModal({
+        content: '未授权您的位置，授权后才可筛选周围的人',
+        confirmText: "去授权",
+        cancelText: "取消",
+        success: function (res) {
+          if (res.confirm) {
+            that.secondAuthorize(that)
+          }
+        }
+      })
+      return
+    }
     if (this.data.filtermargin * 1 == 3) {
       oldcircle[0].radius = 3000
       this.setData({
@@ -288,6 +301,51 @@ Page({
   },
   drop: function (e) {
     ////console.log('drop')
+  },
+  secondAuthorize: function (that) {
+    wx.openSetting({
+      success: (res) => {
+        wx.getLocation({
+          type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+          success: (res) => {
+            var tmpcircle = [{
+              latitude: res.latitude,
+              longitude: res.longitude,
+              radius: 3000,
+              color: "#FF0000",
+              fillColor: "#FF000020",
+              strokeWidth: 1
+            }]
+            that.createMarker(res);
+            that.setData({
+              //画一个三公里的圈
+              role: app.globalData.role,
+              circles: tmpcircle,
+              latitude: res.latitude,
+              longitude: res.longitude,
+              scale: 1,
+              joinedschoolid: app.globalData.school || 0
+            })
+
+            oldcircle = tmpcircle
+            userlatitude = res.latitude
+            userlongitude = res.longitude
+            //上传用户地理位置
+            that.adduserlocation()
+            that.formsubmitschool()
+            that.enterLocation()
+          },
+          fail: (res) => {
+            wx.getSetting({
+              success: (res) => {
+                if (!res.authSetting['scope.userLocation'])
+                  that.openConfirm()
+              }
+            })
+          }
+        });
+      }
+    })
   },
   onReady: function (e) {
     // 使用 wx.createMapContext 获取 map 上下文
@@ -354,17 +412,14 @@ Page({
     }
   },
   openConfirm: function () {
+    var that = this
     wx.showModal({
-      content: '检测到您没打开悟空问问的定位权限，是否去设置打开？',
-      confirmText: "确认",
+      content: '检测到您授权定位权限，是否去设置打开？',
+      confirmText: "确定",
       cancelText: "取消",
       success: function (res) {
-        console.log(res);
-        //点击“确认”时打开设置页面
         if (res.confirm) {
-          wx.openSetting({
-            success: (res) => { }
-          })
+          that.secondAuthorize(that)
         } else {
           console.log('用户点击取消')
         }
