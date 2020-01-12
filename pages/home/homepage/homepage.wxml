@@ -352,6 +352,20 @@
   <!-- 第二页：发现页 -->
   <view class="page" catchtap="drop" wx:elif="{{show=='discovery'}}">
     <view class="weui-tab ">
+      <view style="justify-content: space-around;display:flex;padding: 30rpx 0 0;">
+        <view catchtap="tovideos" class="czlist">
+          <view class="spcenter">
+            <iconfont name="mathojshipin" size="40" style='text-align:center;' />
+          </view>
+          <text style="font-size:25rpx">视频讲解</text>
+        </view>
+        <view catchtap="totopics" class="czlist">
+          <view class="spcenter">
+            <iconfont name="mathojzhishi" size="40" style='text-align:center;' />
+          </view>
+          <text style="font-size:25rpx">知识体系</text>
+        </view>
+      </view>
       <view style="display: flex;margin: 20px 0 10rpx 0;">
         <view style="margin: 0px 20px;" class="czcenter">
           <iconfont name="mathojshaixuan" size="20" />

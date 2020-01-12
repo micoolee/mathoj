@@ -1,6 +1,6 @@
 <view catchtap="conceal">
   <view>
-    <map bindtap="mapclick" id="myMap" circles="{{circles}}" scale="{{scale}}" controls="{{role=='student'?stucontrols:controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:{{mapheightratio*height}}px;"></map>
+    <map bindtap="mapclick" show-scale show-location id="myMap" circles="{{circles}}" scale="{{scale}}" controls="{{role=='student'?stucontrols:controls}}" bindcontroltap="controltap" markers="{{markers}}" longitude='{{longitude}}' latitude='{{latitude}}' bindmarkertap="markertap" bindregionchange="regionchange" style="width: 100%; height:{{mapheightratio*height}}px;"></map>
     <cover-view wx:if="{{showchangecircle}}" class="t_w" style="position: fixed;top: 0px;width: 100%;">
       <cover-view class="tanchu_view">
         <cover-view class="filterbutton" style="display: flex;">

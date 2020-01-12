@@ -41,6 +41,17 @@ Page({
     ifinschool: 'loading',//该用户是否已经加入了一个机构
     applyingschool: 0
   },
+  totopics: function (e) {
+    wx.showModal({
+      title: '提示',
+      content: '暂未开放，敬请期待'
+    })
+  },
+  tovideos: function (e) {
+    wx.navigateTo({
+      url: '/pages/home/video/video',
+    })
+  },
   applytojoinshool: function (e) {
     var that = this
     wx.showModal({

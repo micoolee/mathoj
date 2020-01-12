@@ -6,6 +6,7 @@
     "pages/home/invite/invite",
     "pages/home/schoolmate/schoolmate",
     "pages/home/anonymousnote/anonymousnote",
+    "pages/home/video/video",
 
     "pages/getuserinfo/getuserinfo",
 
@@ -67,7 +68,12 @@
     "enablePullDownRefresh": true
   },
   "debug": false,
-  "plugins": {},
+  "plugins": {
+    "tencentvideo": {
+      "version": "1.2.4",
+      "provider": "wxa75efa648b60994b"
+    }
+  },
   "navigateToMiniProgramAppIdList": [
     "wxaf249daf125d652c"
   ],
