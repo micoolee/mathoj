@@ -1,11 +1,11 @@
 <view>
-  <!-- 视频 -->
-  <!-- <video enable-progress-gesture="false" src="{{url}}" class='video' id="video"></video> -->
-  <txv-video vid="{{vid}}" playerid="txv1" autoplay="{{autoplay}}"></txv-video>
-  <view style="padding: 10px;">小学系列专题</view>
+  <view style="border: solid 1px;position: fixed;top: 0;width: 100%;">
+    <txv-video vid="{{vid}}" playerid="txv1" autoplay="{{autoplay}}"></txv-video>
+  </view>
+  <view style="padding: 10px;margin-top: 225px;">小学系列专题</view>
   <view style="display: flex;flex-wrap: wrap;">
-    <view wx:for='{{videos}}' wx:key='' style="display:flex;padding: 10px;" bindtap="videoPlay" id="{{index}}">
-      <text class='text' style="border: solid 1px lightgray;padding: 10px;">{{item.title}}</text>
+    <view wx:for='{{videos}}' wx:key='' style="display:flex;padding: 10rpx;" bindtap="videoPlay" id="{{index}}">
+      <text class='text' style="border: solid 1px lightgray;padding: 10rpx;">{{item.title}}</text>
     </view>
   </view>
 </view>

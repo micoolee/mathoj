@@ -14,7 +14,7 @@ Page({
    */
   data: {
     autoplay: false,
-    vid: 'r0688au78li',
+    vid: 'k3050sy65mq',
     videos: []
   },
   onLoad: function (e) {

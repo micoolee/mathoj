@@ -20,7 +20,7 @@ let network = {
           fail()
         } else {
           wx.showToast({
-            title: '服务器开小差了！',
+            title: '网速不给力～',
           })
         }
       },
@@ -44,11 +44,9 @@ let network = {
       name: filename,
       formData: params,
       success: function (e) {
-        ////console.log(e)
         success(e)
       },
       fail: function (e) {
-        ////console.log(e)
         fail(e)
       }
     })
