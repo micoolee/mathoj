@@ -52,6 +52,13 @@ Page({
       url: '/pages/home/video/video',
     })
   },
+
+  totodayquestion: function (e) {
+    wx.navigateTo({
+      url: '/pages/home/todayquestion/todayquestion',
+    })
+  },
+
   applytojoinshool: function (e) {
     var that = this
     wx.showModal({

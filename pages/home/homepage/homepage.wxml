@@ -359,6 +359,12 @@
           </view>
           <text style="font-size:25rpx">视频讲解</text>
         </view>
+        <view catchtap="totodayquestion" class="czlist">
+          <view class="spcenter">
+            <iconfont name="mathojmeiriyiti" size="40" style='text-align:center;' />
+          </view>
+          <text style="font-size:25rpx">每日必看</text>
+        </view>
         <view catchtap="totopics" class="czlist">
           <view class="spcenter">
             <iconfont name="mathojzhishi" size="40" style='text-align:center;' />

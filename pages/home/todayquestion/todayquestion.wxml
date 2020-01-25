@@ -1,0 +1,32 @@
+<view>
+  <view class="section" style="padding: 10px 0;display: flex;">
+    <picker mode="date" class="czspcenter" style="flex-direction: column;width: 100%;" value="{{date}}" start="2019-09-01" bindchange="bindDateChange">
+      <view class="picker" style="display: flex;">
+        <iconfont catchtap="preday" name="mathojqianyitian" size="30" style="align-self: center;" />
+        <view class="spcenter" style="border: solid 1px lightgray;padding: 10px;border-radius: 10px;">
+          <iconfont name="mathojrili" size="20" style="align-self: center;margin-right:10px" />
+          {{date}}
+        </view>
+        <iconfont catchtap="totoday" name="mathojjintian" size="30" style="align-self: center;" />
+      </view>
+    </picker>
+  </view>
+  <view class="czspcenter" style="flex-direction: column;width: 100%;padding-bottom: 50px;" wx:for="{{questions}}" wx:key="{{item.questionid}}" wx:for-item="item" wx:for-index="index">
+    <view>{{item.grade}}</view>
+    <view style="flex-direction: column;background-color: lightgray;padding:10px;margin: 10rpx;">
+      <view>题目：{{item.desc}}</view>
+      <view wx:if="{{item.problempic}}" bindtap="viewimage" data-image='{{item.problempic}}'>
+        <image src="{{item.problempic}}" />
+      </view>
+      <view>答案：{{item.answer}}</view>
+      <view wx:if="{{item.answerpic}}" bindtap="viewimage" data-image='{{item.answerpic}}'>
+        <image src="{{item.answerpic}}" />
+      </view>
+    </view>
+  </view>
+  <!-- <view class="extra">
+    <view class="extra-share czcenterright" style="width:20%;height:100%">
+      <text class="centerbutton" style="color:white" bindtap='comment'>打卡</text>
+    </view>
+  </view> -->
+</view>
