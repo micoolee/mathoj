@@ -52,7 +52,11 @@ Page({
       url: '/pages/home/video/video',
     })
   },
-
+  toschoolvideos: function (e) {
+    wx.navigateTo({
+      url: '/pages/home/schoolvideo/schoolvideo',
+    })
+  },
   totodayquestion: function (e) {
     wx.navigateTo({
       url: '/pages/home/todayquestion/todayquestion',

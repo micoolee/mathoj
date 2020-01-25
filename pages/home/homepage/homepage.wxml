@@ -152,6 +152,12 @@
           </view>
           <text style="font-size:25rpx">机构成员</text>
         </view>
+        <view catchtap="toschoolvideos" class="czlist">
+          <view class="spcenter">
+            <iconfont name="mathojshipin" size="40" style='text-align:center;' />
+          </view>
+          <text style="font-size:25rpx">视频讲解</text>
+        </view>
         <view catchtap="topostnote" class="czlist">
           <view class="spcenter">
             <iconfont name="mathojicon-anonymous" size="40" style='text-align:center;' />
