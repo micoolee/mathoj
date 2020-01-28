@@ -11,16 +11,26 @@
       </view>
     </picker>
   </view>
-  <view class="czspcenter" style="flex-direction: column;width: 100%;padding-bottom: 50px;" wx:for="{{questions}}" wx:key="{{item.questionid}}" wx:for-item="item" wx:for-index="index">
-    <view>{{item.grade}}</view>
-    <view style="flex-direction: column;background-color: lightgray;padding:10px;margin: 10rpx;">
-      <view>题目：{{item.desc}}</view>
-      <view wx:if="{{item.problempic}}" bindtap="viewimage" data-image='{{item.problempic}}'>
-        <image src="{{item.problempic}}" />
+  <view wx:if="{{questions.length==0}}" style='display:flex;flex-direction:column;align-items:center;'>
+    <!-- 空集 -->
+    <view class="spcenter czlist czcenter">
+      <view style="width:80%" class="spcenter">
+        <image src="/images/no_result.png" />
       </view>
-      <view>答案：{{item.answer}}</view>
-      <view wx:if="{{item.answerpic}}" bindtap="viewimage" data-image='{{item.answerpic}}'>
-        <image src="{{item.answerpic}}" />
+    </view>
+  </view>
+  <view wx:else>
+    <view class="czspcenter" style="flex-direction: column;width: 100%;padding-bottom: 50px;" wx:for="{{questions}}" wx:key="{{item.questionid}}" wx:for-item="item" wx:for-index="index">
+      <view>{{item.grade}}</view>
+      <view style="flex-direction: column;background-color: aliceblue;padding:10px;margin: 10rpx;">
+        <view>题目：{{item.desc}}</view>
+        <view wx:if="{{item.problempic}}" bindtap="viewimage" data-image='{{item.problempic}}'>
+          <image src="{{item.problempic}}" />
+        </view>
+        <view>答案：{{item.answer}}</view>
+        <view wx:if="{{item.answerpic}}" bindtap="viewimage" data-image='{{item.answerpic}}'>
+          <image src="{{item.answerpic}}" />
+        </view>
       </view>
     </view>
   </view>
