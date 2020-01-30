@@ -3,9 +3,9 @@
     <txv-video vid="{{vid}}" playerid="txv1" autoplay="{{autoplay}}"></txv-video>
   </view>
   <view style="padding: 10px;margin-top: 225px;">{{desc}}</view>
-  <view style="display: flex;flex-wrap: wrap;">
+  <view style="flex-wrap: wrap;" class="pingjun">
     <view wx:for="{{videos}}" wx:for-item="item" wx:key="{{item.id}}" style="display:flex;padding: 10rpx;" bindtap="videoPlay" id="{{index}}">
-      <text class='text' style="border: solid 1px lightgray;padding: 10rpx;">{{item.title}}</text>
+      <text class="text title {{index==nowplay?'clicked':''}}">{{item.title}}</text>
     </view>
   </view>
 </view>

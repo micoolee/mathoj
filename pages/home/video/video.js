@@ -17,17 +17,16 @@ Page({
     autoplay: false,
     vid: 'k3050sy65mq',
     videos: [],
-    desc: ''
+    desc: '',
+    nowplay: 0
   },
   onLoad: function (e) {
-    console.log('e:', e.albumid)
     txvContext = TxvContext.getTxvContext('txv1') // txv1即播放器组件的playerid值
     var that = this
     that.albumid = e.albumid
     network.post('/problem/getvideos', {
       'albumid': e.albumid * 1,
     }, function (res) {
-      console.log('res:', res)
       if (res.videos != undefined) {
         that.setData({
           videos: res.videos,
@@ -41,7 +40,8 @@ Page({
   videoPlay: function (e) {
     this.setData({
       autoplay: true,
-      vid: this.data.videos[e.currentTarget.id].url
+      vid: this.data.videos[e.currentTarget.id].url,
+      nowplay: e.currentTarget.id
     })
     setTimeout(function () {
       //将点击视频进行播放

@@ -25,7 +25,6 @@ Page({
   },
 
   deleteteacher: function (e) {
-    ////console.log(e, "e: ")
     var that = this
     wx.showModal({
       title: '提示',

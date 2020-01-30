@@ -6,3 +6,13 @@
   color: #585858;
   margin-left: 10rpx;
 }
+
+.clicked {
+  background-color: #1296db;
+  color: white;
+}
+
+.title {
+  border: solid 1px lightgray;
+  padding: 10rpx;
+}

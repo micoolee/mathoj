@@ -306,7 +306,7 @@
       <!-- 游客看到10个机构介绍 -->
       <text style="font-size:30rpx;padding: 10px">部分机构</text>
       <view wx:if="{{schools.length>0}}" style="margin-bottom: 150rpx;">
-        <view wx:for="{{schools}}" wx:for-item="item" wx:for-index="index" style="padding: 10px;display:flex;margin-bottom: 10px;">
+        <view wx:for="{{schools}}" wx:key="{{item.schoolid}}" wx:for-item="item" wx:for-index="index" style="padding: 10px;display:flex;margin-bottom: 10px;">
           <view style="display:flex;flex:1">
             <image class="circleavatar" src="{{item.avatar}}"></image>
           </view>
