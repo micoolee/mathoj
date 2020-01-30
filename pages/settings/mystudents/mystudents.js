@@ -1,6 +1,5 @@
 // pages/settings/myques/myques.js
 const app = getApp()
-//var console = require('../../../utils/console.js')
 var network = require('../../../utils/network.js')
 Page({
 
@@ -12,14 +11,18 @@ Page({
     network.post('/user/getmystudents', {
       'userid': app.globalData.selfuserid,
     }, function (res) {
-      ////console.log('res:', res)
-      that.setData({
-        students: res.students
-      })
+      if (res.students) {
+        that.setData({
+          students: res.students
+        })
+      } else {
+        that.setData({
+          students: []
+        })
+      }
     })
   },
   deletestudent: function (e) {
-    ////console.log(e, "e: ")
     var that = this
     wx.showModal({
       title: '提示',
@@ -30,7 +33,6 @@ Page({
             'userid': app.globalData.selfuserid,
             'studentid': e.currentTarget.dataset.studentid,
           }, function (res) {
-            ////console.log('res:', res)
             if (!res.resultCode) {
               wx.showToast({
                 title: '删除成功'

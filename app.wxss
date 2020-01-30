@@ -16,12 +16,6 @@
   flex-direction: column;
 }
 
-/* 水平居中 */
-.spcenter {
-  display: flex;
-  justify-content: center;
-}
-
 /* 水平靠左 */
 .spleft {
   display: flex;
@@ -70,7 +64,6 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
-
 }
 
 .spright {
@@ -96,6 +89,14 @@
 .whitebackblueword {
   color: #0066FF;
   background-color: #F8F8F8;
+}
+
+.backbtn {
+  background-color: #1296db;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 50%;
 }
 
 /* 首页提问 */
@@ -205,7 +206,7 @@
 
 /* 蓝底白字 */
 .bluewhite {
-  background-color: lightblue;
+  background-color: #1296db;
   color: white;
 
 }
@@ -563,6 +564,14 @@
 .line-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+.line-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   word-break: break-all;
   overflow: hidden;

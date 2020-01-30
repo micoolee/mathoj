@@ -2,9 +2,9 @@
   <view style="border: solid 1px;position: fixed;top: 0;width: 100%;">
     <txv-video vid="{{vid}}" playerid="txv1" autoplay="{{autoplay}}"></txv-video>
   </view>
-  <view style="padding: 10px;margin-top: 225px;">小学系列专题</view>
+  <view style="padding: 10px;margin-top: 225px;">{{desc}}</view>
   <view style="display: flex;flex-wrap: wrap;">
-    <view wx:for='{{videos}}' wx:key='' style="display:flex;padding: 10rpx;" bindtap="videoPlay" id="{{index}}">
+    <view wx:for="{{videos}}" wx:for-item="item" wx:key="{{item.id}}" style="display:flex;padding: 10rpx;" bindtap="videoPlay" id="{{index}}">
       <text class='text' style="border: solid 1px lightgray;padding: 10rpx;">{{item.title}}</text>
     </view>
   </view>

@@ -1,5 +1,5 @@
 <view wx:if="{{students.length>0}}">
-  <view class="czcenter" wx:for="{{students}}" wx:for-item="item">
+  <view class="czcenter" wx:for="{{students}}" wx:key="{{item.studentid}}" wx:for-item="item">
     <view class="czcenter" style="flex:4">
       <image class="bigavatar" src="{{item.avatar}}" />
       <text>{{item.realname}}  {{item.role}}</text>

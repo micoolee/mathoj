@@ -1,5 +1,5 @@
 <view wx:if="{{applys.length>0}}">
-  <view class="czcenter" wx:for="{{applys}}" wx:for-item="item">
+  <view class="czcenter" wx:for="{{applys}}" wx:key="{{item.applyid}}" wx:for-item="item">
     <view class="czcenter" style="flex:5">
       <view>
         <image class="bigavatar" src="{{item.applyeravatar}}" />

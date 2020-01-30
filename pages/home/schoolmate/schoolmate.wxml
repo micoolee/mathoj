@@ -1,12 +1,15 @@
 <view wx:if="{{schoolmates.length>0}}">
-  <view class="czcenter" wx:for="{{schoolmates}}" wx:for-item="item" wx:key="{{item.userid}}">
-    <view style="flex:4;display: flex;">
-      <image class="bigavatar" src="{{item.avatar}}" />
-      <view style="align-self: center;">{{item.realname}}</view>
+  <view wx:for="{{schoolmates}}" wx:for-item="item" wx:key="{{item.userid}}">
+    <view class="czcenter">
+      <view style="flex:4;display: flex;">
+        <image class="bigavatar" src="{{item.avatar}}" />
+        <view style="align-self: center;">{{item.realname}}</view>
+      </view>
+      <view style="flex:1">
+        <iconfont name="{{item.role=='teacher'?'mathojteacher':(item.role=='student'?'mathojstudent':'mathojprincipal')}}" size="30" />
+      </view>
     </view>
-    <view style="flex:1">
-      <iconfont name="{{item.role=='teacher'?'mathojteacher':(item.role=='student'?'mathojstudent':'mathojprincipal')}}" size="30" />
-    </view>
+    <view style="background-color: lightgray;padding: 2rpx;"></view>
   </view>
 </view>
 <view wx:else style='display:flex;flex-direction:column;align-items:center;'>

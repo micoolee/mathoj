@@ -27,7 +27,7 @@
         </view>
         <view wx:else>
           <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-            <block wx:for="{{problemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+            <block wx:for="{{problemlist}}" wx:key="{{item.problemid}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
               <view class="feed-item" style='width:100%' data-id='{{item.problemid}}' bindtap="bindQueTap" bindtouchstart='bindTouchStart' bindtouchend='bindTouchEnd' bindlongtap='bindLongTap'>
                 <view class="feed-content">
                   <view class="question line-reback">
@@ -65,7 +65,7 @@
           </view>
         </view>
         <view wx:else style='flex-direction:row;display:flex;flex-wrap:wrap;'>
-          <view wx:for="{{subscriberlist}}" class='lattice-li'>
+          <view wx:for="{{subscriberlist}}" wx:key="{{item.userid}}" class='lattice-li'>
             <view style='height: 100%;display:flex;flex-direction:column;align-items:center;' data-username='{{item.nickname}}' data-userid='{{item.userid}}' data-avatar='{{item.avatar}}' bindtap="showmore">
               <view style='margin-top:30rpx'>
                 <image src='{{item.avatar}}' style='width:80rpx;height:80rpx;' class='img-radius'></image>

@@ -24,7 +24,7 @@
       <iconfont name="mathojtuiguangma" size="30" bindtap="showposter" />
     </view>
   </view>
-  <view style="height:100rpx;margin-top:-60rpx;background-color:white;padding:10px;justify-content: space-around;display:flex;width:80%;border:solid 1px gray;border-radius:10px;">
+  <view class="spacearound" style="height:100rpx;margin-top:-60rpx;background-color:white;padding:10px;width:80%;border:solid 1px gray;border-radius:10px;">
     <view class="czlist" bindtap="showMyQues" style="justify-content: center;">
       <iconfont name="mathojtiwen" size="20" />
       <text class="text1">提问</text>

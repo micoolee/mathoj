@@ -11,10 +11,16 @@ Page({
     network.post('/user/getmyteachers', {
       'userid': app.globalData.selfuserid,
     }, function (res) {
-      ////console.log('res:', res)
-      that.setData({
-        teachers: res.teachers
-      })
+      if (res.teachers) {
+        that.setData({
+          teachers: res.teachers
+        })
+      } else {
+        that.setData({
+          teachers: []
+        })
+      }
+
     })
   },
 

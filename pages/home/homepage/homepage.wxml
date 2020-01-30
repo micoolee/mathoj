@@ -121,17 +121,17 @@
     </view>
   </view>
   <view class="spleft">
-    <view class="circleborder" style="align-items: center;display: flex;padding: 5px;{{show=='jigou'?'background-color:#1296db;color:white':''}}" catchtap="showjigou">
-      <view>
-        <iconfont name="mathojjigou" color="{{show=='jigou'?'white':'black'}}" size="20" />
-      </view>
-      <view>机构</view>
-    </view>
     <view class="circleborder" style="align-items: center;display: flex;padding: 5px;{{show=='discovery'?'background-color:#1296db;color:white':''}}" catchtap="showdiscovery">
       <view>
         <iconfont name="mathojdiscover" color="{{show=='discovery'?'white':'black'}}" size="20" />
       </view>
       <view>发现</view>
+    </view>
+    <view class="circleborder" style="align-items: center;display: flex;padding: 5px;{{show=='jigou'?'background-color:#1296db;color:white':''}}" catchtap="showjigou">
+      <view>
+        <iconfont name="mathojjigou" color="{{show=='jigou'?'white':'black'}}" size="20" />
+      </view>
+      <view>机构</view>
     </view>
     <view class="circleborder" style="align-items: center;display: flex;padding: 5px;{{show=='rank'?'background-color:#1296db;color:white':''}}" catchtap="showrank">
       <view>
@@ -145,7 +145,7 @@
     <view wx:if="{{ifinschool=='loading'}}"></view>
     <view wx:elif="{{ifinschool=='true'}}" class="page" style="width: 750rpx;">
       <!-- 机构中的题 -->
-      <view style="justify-content: space-around;display:flex;padding: 30rpx 0 0;">
+      <view class="spacearound" style="padding: 30rpx 0 0;">
         <view catchtap="toschoolmate" class="czlist">
           <view class="spcenter">
             <iconfont name="mathojchengyuan" size="40" style='text-align:center;' />
@@ -156,13 +156,13 @@
           <view class="spcenter">
             <iconfont name="mathojshipin" size="40" style='text-align:center;' />
           </view>
-          <text style="font-size:25rpx">视频讲解</text>
+          <text style="font-size:25rpx">机构视频</text>
         </view>
         <view catchtap="topostnote" class="czlist">
           <view class="spcenter">
             <iconfont name="mathojicon-anonymous" size="40" style='text-align:center;' />
           </view>
-          <text style="font-size:25rpx">匿名留言</text>
+          <text style="font-size:25rpx">机构留言</text>
         </view>
       </view>
       <view class="weui-tab">
@@ -353,18 +353,20 @@
       </view>
     </view>
     <!-- 回到顶部按钮 -->
-    <iconfont name="mathojfanhuidingbu" bindtap='totop' size="40" style='position:fixed;bottom:20px;right:20px;' />
+    <view class="backbtn">
+      <iconfont name="mathojfanhuidingbu" color='white' bindtap='totop' size="40" style='' />
+    </view>
   </view>
   <!-- 第二页：发现页 -->
   <view class="page" catchtap="drop" wx:elif="{{show=='discovery'}}">
     <view class="weui-tab ">
-      <view style="justify-content: space-around;display:flex;padding: 30rpx 0 0;">
-        <view catchtap="tovideos" class="czlist">
+      <view class="spacearound" style="padding: 30rpx 0 0;">
+        <!-- <view catchtap="tovideos" class="czlist">
           <view class="spcenter">
             <iconfont name="mathojshipin" size="40" style='text-align:center;' />
           </view>
           <text style="font-size:25rpx">视频讲解</text>
-        </view>
+        </view> -->
         <view catchtap="totodayquestion" class="czlist">
           <view class="spcenter">
             <iconfont name="mathojmeiriyiti" size="40" style='text-align:center;' />
@@ -378,13 +380,47 @@
           <text style="font-size:25rpx">知识体系</text>
         </view>
       </view>
-      <view style="display: flex;margin: 20px 0 10rpx 0;">
+      <view style="background-color: lightgray;padding: 2rpx;margin-top: 10px;"></view>
+      <view class="czlist" style="margin: 40rpx 0 10rpx 0;">
+        <view style="margin: 0px 20px;" class="czcenter">
+          <text>精选课程</text>
+        </view>
+        <view style="display: flex;padding: 10px;height:300rpx" wx:for="{{albums}}" wx:key="{{item.id}}" wx:for-item="item">
+          <view style="display: flex;width:200rpx;padding: 10px;">
+            <!-- <image style="height:auto" mode="aspectFit" src="/images/1.png" /> -->
+            <image style="height:auto" mode="aspectFit" src="{{item.cover}}" />
+          </view>
+          <view style="display: flex;padding: 10px;width: 100%;justify-content: space-between;" class="czlist">
+            <view style="font-weight: bold;font-size: 40rpx;" class="line-1">{{item.title}}</view>
+            <view style="color: gray;display: flex;">
+              <view style="display: flex;background-color: lightgray;padding: 2px 4px;">
+                {{item.owner}}
+              </view>
+            </view>
+            <view style="color: gray;">{{item.totalnum}}讲</view>
+            <view class="czcenter" style="justify-content: space-between;">
+              <!-- <view >进入</view> -->
+              <view style="display: flex;">
+                原价
+                <view style="text-decoration: line-through;">¥{{item.price}}</view>
+                <view style="margin-left: 10rpx;">现免费</view>
+              </view>
+              <iconfont name="mathojdianjijinru" size="30" style='text-align:center;' bindtap="tovideos" data-id="{{item.id}}" />
+            </view>
+          </view>
+        </view>
+      </view>
+      <view style="background-color: lightgray;padding: 2rpx;"></view>
+      <view class="pingjun" style="margin: 40rpx 0 10rpx 0;">
+        <view style="margin: 0px 20px;" class="czcenter">
+          <text>答疑解惑</text>
+        </view>
         <view style="margin: 0px 20px;" class="czcenter">
           <iconfont name="mathojshaixuan" size="20" />
-          <text>筛选</text>
-        </view>
-        <view class="circleborder czcenter" bindtap="showfilter1">
-          <text style="margin:5rpx 10rpx;">{{gradeStr1}}</text>
+          <!-- <text>筛选</text> -->
+          <view class="circleborder czcenter" bindtap="showfilter1">
+            <text style="margin:5rpx 10rpx;">{{gradeStr1}}</text>
+          </view>
         </view>
       </view>
       <view>
@@ -460,7 +496,9 @@
       </view>
     </view>
     <!-- 回到顶部按钮 -->
-    <iconfont name="mathojfanhuidingbu" bindtap='totop' size="40" style='position:fixed;bottom:20px;right:20px;' />
+    <view class="backbtn">
+      <iconfont name="mathojfanhuidingbu" color='white' bindtap='totop' size="40" style='' />
+    </view>
   </view>
   <!-- 第三页：排行榜 -->
   <view wx:else catchtap="drop" style="width:100%">

@@ -1,6 +1,6 @@
 <view class='container'>
   <view wx:if="{{informlist.length>0}}" style="width: 100%;">
-    <view class="spcenter" style="justify-content: space-around;">
+    <view class="spcenter spacearound">
       <iconfont wx:if="{{multichose}}" bindtap="hidemultichose" name="mathojcancel" size="30" />
       <iconfont wx:if="{{multichose}}" name="mathojduoxuanshanchu" color="red" size="30" bindtap="deletechosed" />
       <iconfont wx:else name="mathojduoxuanshanchu" size="30" bindtap="showmultichose" />

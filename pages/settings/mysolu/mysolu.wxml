@@ -15,7 +15,7 @@
 </view>
 <view wx:else>
   <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-    <block wx:for="{{problemlist}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+    <block wx:for="{{problemlist}}" wx:key="{{item.SolutionID}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
       <view class="feed-item" data-id='{{item.ProblemID}}' bindtap="bindQueTap">
         <view class="feed-source" style='display:flex;justify-content:space-between;'>
           <view>

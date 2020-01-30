@@ -11,6 +11,7 @@ var tmpgrade = 0 //0是不限
 
 var formerid1 = 0
 var tmpgrade1 = 0
+var onloaded = false
 Page({
   data: {
     bottom: false,
@@ -32,7 +33,7 @@ Page({
     sliderLeft: 0,
     problemlist: undefined,
     jinxuanproblemlist: [],
-    show: 'jigou',
+    show: 'discovery',
     teacherranklist: [],
     schoolranklist: [],
     showmask: false,//筛选页,false为无开屏
@@ -49,7 +50,7 @@ Page({
   },
   tovideos: function (e) {
     wx.navigateTo({
-      url: '/pages/home/video/video',
+      url: '/pages/home/video/video?albumid=' + e.currentTarget.dataset.id,
     })
   },
   toschoolvideos: function (e) {
@@ -328,10 +329,18 @@ Page({
               'openid': app.globalData.openid,
               'latitude': res.latitude,
               'longitude': res.longitude
-            }, function () {
             })
           }
         });
+
+        network.post('/problem/getalbums', {
+
+        }, function (res) {
+          that.setData({
+            albums: res.albums,
+          })
+        })
+
         if (app.globalData.onlysee && app.globalData.grade && app.globalData.grade != 0) {//设置了只看且设置了年级的
           searchParam = [util.gradearray[app.globalData.grade]]
           util.getlastedprob(that, searchParam)
@@ -363,6 +372,7 @@ Page({
 
   onLoad: function () {
     var that = this
+    that.onloaded = false
     app.globalData.homepagethat = this
     this.load()
     //获取排行榜
@@ -420,11 +430,19 @@ Page({
         index: 2,
       })
     }
+    //onload的时候不检查
+    if (!that.onloaded) {
+      that.onloaded = true
+      return
+    }
+
     if (that.data.show == 'jigou') {
       util.checklasted(that)
     } else {
       util.checklasted(that, false)
     }
+
+
   },
 
   onPullDownRefresh: function () {
