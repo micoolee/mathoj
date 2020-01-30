@@ -3,9 +3,17 @@
     <txv-video vid="{{vid}}" playerid="txv1" autoplay="{{autoplay}}"></txv-video>
   </view>
   <view style="padding: 10px;margin-top: 225px;">本机构所有视频</view>
-  <view style="display: flex;flex-wrap: wrap;">
+  <view style="display: flex;flex-wrap: wrap;" wx:if="{{videos.length>0}}">
     <view wx:for='{{videos}}' wx:key='' style="display:flex;padding: 10rpx;" bindtap="videoPlay" id="{{index}}">
       <text class='text' style="border: solid 1px lightgray;padding: 10rpx;">{{item.title}}</text>
+    </view>
+  </view>
+  <view wx:else style='display:flex;flex-direction:column;align-items:center;'>
+    <!-- 空集 -->
+    <view class="spcenter czlist czcenter">
+      <view style="width:80%" class="spcenter">
+        <image src="/images/no_result.png" />
+      </view>
     </view>
   </view>
 </view>
